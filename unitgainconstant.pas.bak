@@ -1,0 +1,61 @@
+unit UnitGainConstant;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Buttons,
+  ComCtrls, StdCtrls, UnitMP3Gain;
+
+type
+
+  { TfrmMP3GainConstant }
+
+  TfrmMP3GainConstant = class(TForm)
+    btnOK: TButton;
+    btnCancel: TButton;
+    lblGain: TLabel;
+    tbGain: TTrackBar;
+    procedure FormShow(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnOKClick(Sender: TObject);
+    procedure tbGainChange(Sender: TObject);
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end; 
+
+var
+  frmMP3GainConstant: TfrmMP3GainConstant;
+
+implementation
+
+{ TfrmMP3GainConstant }
+
+procedure TfrmMP3GainConstant.btnCancelClick(Sender: TObject);
+begin
+  Self.ModalResult := -1;
+end;
+
+procedure TfrmMP3GainConstant.btnOKClick(Sender: TObject);
+begin
+  Self.ModalResult := Round(tbGain.Position/15)*15;
+end;
+
+procedure TfrmMP3GainConstant.FormShow(Sender: TObject);
+begin
+  tbGainChange(Self);
+end;
+
+procedure TfrmMP3GainConstant.tbGainChange(Sender: TObject);
+begin
+  lblGain.Caption := 'Gain: ' + FormatFloat('0.0',RoundGainValue(tbGain.Position/10)) + ' dB';
+end;
+
+initialization
+  {$I unitgainconstant.lrs}
+
+end.
+
