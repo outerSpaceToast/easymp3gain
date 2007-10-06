@@ -23,7 +23,7 @@ unit UnitMP3Gain;
 
 {$mode objfpc}{$H+}
 
-{_$DEFINE DEBUG_VERSION}
+{$DEFINE DEBUG_VERSION}
 
 interface
 
@@ -38,8 +38,15 @@ type
   TMP3GainAction = (mgaTrackAnalyze, mgaAlbumAnalyze, mgaCheckTagInfo,
     mgaDeleteTagInfo, mgaAlbumGain, mgaTrackGain, mgaConstantGain,
     mgaUndoChanges);
+    
+  //PSongItem = ^TSongItem;
+  //PMP3GainTask = ^TMP3GainTask;
+  TMP3GainTask = class;
 
-  TSongItemInfo = record
+  TSongItem = class
+  public
+    FileName: String;
+    ExtractedFileName: String;
     ListViewItem: TListItem;
     MaxAmplitude_Track: Double;
     MaxAmplitude_Album: Double;
@@ -53,30 +60,44 @@ type
     HasAlbumData: Boolean;
     HasData: Boolean;
   end;
-
-  PSongItemInfo = ^TSongItemInfo;
-
-  TMP3GainTask = record
-    FileName: String[255]; //TFileName;  // Is a String being created with GetMem(PMP3GainTask)?
-    MP3GainAction: TMP3GainAction;
-    SongItem: PSongItemInfo;
-    Volume: Real;
-  end;
-
-  PMP3GainTask = ^TMP3GainTask;
-
+  
   TMP3GainTaskList = class(TList)
   private
-    function GetItem(AIndex:integer): PMP3GainTask;
-    procedure SetItem(AIndex:integer; AItem: PMP3GainTask);
+    function GetItem(AIndex:integer): TMP3GainTask;
+    procedure SetItem(AIndex:integer; AItem: TMP3GainTask);
   protected
   public
-    function Add(Item: PMP3GainTask): Integer;
-    procedure AddTask(ASongItem: PSongItemInfo; AMP3GainAction: TMP3GainAction; AVolume: Real);
+    function Add(Item: TMP3GainTask): Integer;
+    function AddTask(ASongItem: TSongItem; AMP3GainAction: TMP3GainAction; AVolume: Real): Integer; overload;
+    function AddTask(ASongItem: Pointer; AMP3GainAction: TMP3GainAction; AVolume: Real): Integer; overload;
     procedure DeleteTask(AIndex: Integer);
-    property Items[AIndex:integer]: PMP3GainTask read GetItem write SetItem;default;
+    property Items[AIndex:integer]: TMP3GainTask read GetItem write SetItem;default;
   end;
 
+  TSongItemList = class(TList)
+  private
+    function GetItem(AIndex:integer): TSongItem;
+    procedure SetItem(AIndex:integer; AItem: TSongItem);
+  protected
+  public
+    function Add(Item: TSongItem): Integer; overload;
+    function Add(Item: Pointer): Integer; overload;
+    property Items[AIndex:integer]: TSongItem read GetItem write SetItem;default;
+  end;
+
+  TMP3GainTask = class
+  private
+    FSongItemList: TSongItemList;
+  public
+    //FileName: String;
+    MP3GainAction: TMP3GainAction;
+    //SongItem: TSongItem;
+    Volume: Real;
+    constructor Create;
+    destructor Destroy;
+  published
+    property SongItems: TSongItemList read FSongItemList;
+  end;
   
   TSynEvt = TThreadMethod;
 
@@ -89,6 +110,8 @@ type
     FFinishedEvent: TSynEvt;
     FStatusCodeEvent: TSynEvt;
     FExitStatus: Integer;
+    FCurrentSongItem: Integer;
+    function ReadProcessOutput(P: TProcess; Buffer: PChar): LongInt;
   protected
     procedure Execute; override;
   public
@@ -114,12 +137,14 @@ type
     FProgress: Byte;
     FStatusText: String;
     FExitCodeProcess: Integer;
-    FFileName: String;
+    //FFileName: String;
     FMP3GainAction: TMP3GainAction;
     FTargetVolume: Real;
     FVolumeGain: Real;
     FResult: Real;
     FBoolResult: Boolean;
+    FSongItemList: TSongItemList;
+    function ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
     function GetIsReady: Boolean;
     procedure MP3GainSync(value: TSyncEventType);
     procedure ProcessProgress;
@@ -130,14 +155,14 @@ type
     procedure CreateProcess;
     procedure FreeProcess;
   public
-    SongItem: PSongItemInfo;
+    SongItem: TSongItem;
     procedure Run;
     constructor Create;
     destructor Destroy;
   published
     property Progress: Byte read FProgress;
     property StatusText: String read FStatusText;
-    property FileName: String read FFileName write FFileName;
+    //property FileName: String read FFileName write FFileName;
     property MP3GainAction: TMP3GainAction read FMP3GainAction write FMP3GainAction;
     property TargetVolume: Real read FTargetVolume write FTargetVolume;
     property VolumeGain: Real read FVolumeGain write FVolumeGain;
@@ -145,6 +170,7 @@ type
     property IsReady: Boolean read GetIsReady;
     property ExitCodeProcess: Integer read FExitCodeProcess write FExitCodeProcess;
     property OnRunFinished: TNotifyEvent read FOnRunFinished write FOnRunFinished;
+    property SongItems: TSongItemList read FSongItemList;
 end;
 
 function RoundGainValue(Value: Double): Double;
@@ -196,40 +222,81 @@ end;
 
 // ----------------------------------- TMP3GainTaskList -----------------------
 
-function TMP3GainTaskList.Add(Item: PMP3GainTask): Integer;
+function TMP3GainTaskList.Add(Item: TMP3GainTask): Integer;
 begin
   Result := inherited Add(Item);
 end;
 
-procedure TMP3GainTaskList.AddTask(ASongItem: PSongItemInfo; AMP3GainAction: TMP3GainAction; AVolume: Double);
+function TMP3GainTaskList.AddTask(ASongItem: TSongItem; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer;
 var
-  Item: PMP3GainTask;
+  Item: TMP3GainTask;
 begin
-  GetMem(Item, SizeOf(TMP3GainTask));
-  Item^.FileName := ASongItem^.ListViewItem.Caption;
-  Item^.MP3GainAction := AMP3GainAction;
-  Item^.SongItem := ASongItem;
-  Item^.Volume := AVolume;
-  inherited Add(Item);
+  Item := TMP3GainTask.Create;
+  Item.MP3GainAction := AMP3GainAction;
+  if not (ASongItem=nil) then Item.SongItems.Add(ASongItem);
+  Item.Volume := AVolume;
+  Result := inherited Add(Item);
+end;
+
+function TMP3GainTaskList.AddTask(ASongItem: Pointer; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer;
+begin
+  AddTask(TSongItem(ASongItem), AMP3GainAction, AVolume);
 end;
 
 procedure TMP3GainTaskList.DeleteTask(AIndex: Integer);
 begin
-  FreeMem(Items[AIndex]);
+  TMP3GainTask(Items[AIndex]).Free;
   inherited Delete(AIndex);
 end;
 
-function TMP3GainTaskList.GetItem(AIndex:integer): PMP3GainTask;
+function TMP3GainTaskList.GetItem(AIndex:integer): TMP3GainTask;
 begin
-  Result := inherited Items[AIndex];
+  Result := TMP3GainTask(inherited Items[AIndex]);
 end;
 
-procedure TMP3GainTaskList.SetItem(AIndex:integer;AItem:PMP3GainTask);
+procedure TMP3GainTaskList.SetItem(AIndex:integer;AItem:TMP3GainTask);
 begin
   inherited Items[AIndex] := AItem;
 end;
 
-// ----------------------------------- TMP3GAIN -------------------------------
+// ----------------------------------- TSongItemList --------------------------
+
+function TSongItemList.Add(Item: TSongItem): Integer;
+begin
+  Result := inherited Add(Item);
+end;
+
+function TSongItemList.Add(Item: Pointer): Integer;
+begin
+  Result := inherited Add(Item);
+end;
+
+function TSongItemList.GetItem(AIndex:integer): TSongItem;
+begin
+  Result := TSongItem(inherited Items[AIndex]);
+end;
+
+procedure TSongItemList.SetItem(AIndex:integer; AItem:TSongItem);
+begin
+  inherited Items[AIndex] := AItem;
+end;
+
+// ----------------------------------- TMP3GainTask ---------------------------
+
+constructor TMP3GainTask.Create;
+begin
+  inherited;
+  FSongItemList := TSongItemList.Create;
+  FSongItemList.Clear;
+end;
+
+destructor TMP3GainTask.Destroy;
+begin
+  FSongItemList.Free;
+  inherited;
+end;
+
+// ----------------------------------- TMP3Gain -------------------------------
 
 function TMP3Gain.GetIsReady: Boolean;
 begin
@@ -270,72 +337,46 @@ begin
       header.Delimiter := chr(9);
       data.Delimiter := chr(9);
       header.DelimitedText := '"'+StringReplace(SL[0],#9,'"'#9'"',[rfReplaceAll]) + '"';
-      data.DelimitedText := '"'+StringReplace(SL[1],#9,'"'#9'"',[rfReplaceAll]) + '"';
-
-      p := header.IndexOf(strResult_TrackGain);
-      if (p>-1) then
+      for i:=1 to SL.Count-1 do
       begin
-        Val(data[p],r,e);
-        if not (e>0) then
+        data.DelimitedText := '"'+StringReplace(SL[i],#9,'"'#9'"',[rfReplaceAll]) + '"';
+        if (SongItems.Count<i) then continue;
+        SongItem := SongItems[i-1];
+
+        p := header.IndexOf(strResult_TrackGain);
+        if (p>-1) then
         begin
-          FResult := r;
-          MP3GainSync(setTrackGain);
+          Val(data[p],r,e);
+          if not (e>0) then
+          begin
+            FResult := r;
+            MP3GainSync(setTrackGain);
+          end;
+        end;
+
+        p := header.IndexOf(strResult_AlbumGain);
+        if (p>-1) then
+        begin
+          Val(data[p],r,e);
+          if not (e>0) then
+          begin
+            FResult := r;
+            MP3GainSync(setAlbumGain);
+          end;
+        end;
+
+        p := header.IndexOf(strResult_MaxAmplitudeTrack);
+        if (p>-1) then
+        begin
+          Val(data[p],r,e);
+          if not (e>0) then
+          begin
+            FResult := r;
+            FBoolResult := FResult > 32768;
+            MP3GainSync(setMaxAmplitude_Track);
+          end;
         end;
       end;
-
-      p := header.IndexOf(strResult_AlbumGain);
-      if (p>-1) then
-      begin
-        Val(data[p],r,e);
-        if not (e>0) then
-        begin
-          FResult := r;
-          MP3GainSync(setAlbumGain);
-        end;
-      end;
-
-      p := header.IndexOf(strResult_MaxAmplitudeTrack);
-      if (p>-1) then
-      begin
-        Val(data[p],r,e);
-        if not (e>0) then
-        begin
-          FResult := r;
-          FBoolResult := FResult > 32768;
-          MP3GainSync(setMaxAmplitude_Track);
-        end;
-      end;
-
-      (*if SL.Count=0 then exit;
-      for i:= SL.Count-1 downto 0 do
-      begin
-
-        p := Pos(strResult_TrackGain, SL[i]);
-        if (p<>0) then
-        begin
-          a := Length(strResult_TrackGain);
-          FResult := StrToFloat(Copy(SL[i],p+a,Length(SL[i])-(p+a)));
-          MP3GainSync(setTrackGain);
-        end;
-
-        p := Pos(strResult_AlbumGain, SL[i]);
-        if (p<>0) then
-        begin
-          a := Length(strResult_AlbumGain);
-          FResult := StrToFloat(Copy(SL[i],p+a,Length(SL[i])-(p+a)));
-          MP3GainSync(setAlbumGain);
-        end;
-
-        p := Pos(strResultMaxPCMsample ,SL[i]);
-        if (p<>0) then
-        begin
-          a := Length(strResultMaxPCMsample);
-          FResult := StrToFloat(Copy(SL[i],p+a,Length(SL[i])-(p+a)));
-          FBoolResult := FResult > 32768;
-          MP3GainSync(setClipping);
-        end;
-
-      end; *)
     finally
       SL.Free;
       header.free;
@@ -354,13 +395,36 @@ begin
   end;
 end;
 
+function TMP3Gain.ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
+var
+  a, b: SmallInt;
+begin
+  if Pos('bytes analyzed',S)<>0 then
+  begin
+    a := Pos('%',S);
+    if a<1 then
+    begin
+      Result := -1;
+      exit;
+    end;
+    Result := StrToInt(Trim(Copy(S,a-2,2)));
+    a := Pos('[', S);
+    b := Pos('/', S);
+    if (a>0) and (b>0) then
+    begin
+      CurrentSongItem := StrToInt(Trim(Copy(S,a+1,b-a-1))) -1;  // starts with 0 not 1
+      //FMP3GainProcess.FCurrentSongItem := ;
+    end;
+  end;
+end;
 
 procedure TMP3Gain.ProcessProgress;
 var
   SL: TStringList;
-  i: Integer;
+  i, CurrentSongItem: Integer;
   b: SmallInt;
 begin
+  CurrentSongItem := 0;
   SL := TStringList.Create;
   try
     SL.Text := FMP3GainProcess.ProcessOutput;
@@ -369,12 +433,20 @@ begin
       if (SL[i]='') then SL.Delete(i);
     end;
     if SL.Count=0 then exit;
+    {$IFDEF DEBUG_VERSION}
+      SL.SaveToFile('/home/thomas/prog.txt');
+    {$ENDIF}
     for i:= SL.Count-1 downto 0 do
     begin
-      if Pos('bytes analyzed',SL[i])<>0 then
+      b := ExtractProgressValue(SL[i], CurrentSongItem);
+      if CurrentSongItem > FMP3GainProcess.FCurrentSongItem then
       begin
-        b := StrToInt(Copy(SL[i],2,2));
-        if b>FProgress then FProgress := b;
+        FMP3GainProcess.FCurrentSongItem := CurrentSongItem;
+        FProgress := 0;
+      end;
+      if b>FProgress then
+      begin
+        FProgress := b;
       end;
     end;
   finally
@@ -420,33 +492,24 @@ begin
         ;//frmMP3GainGUIMain.StatusBar.Panels[1].Text := IntToStr(FExitCodeProcess);
       setTrackGain:
       begin
-        //SongItem^.ListViewItem.SubItems[SI_TRACKGAIN] := Format('%.2f',[RoundGainValue(FResult+FTargetVolume-REF_VOLUME)]);
-        //SongItem^.ListViewItem.SubItems[SI_VOLUME] := Format('%.1f',[REF_VOLUME-FResult]);
-        SongItem^.HasData := true; // TagInfo existing
-        SongItem^.Gain_Track := FResult+FTargetVolume-REF_VOLUME;
-        SongItem^.Volume_Track := REF_VOLUME-FResult;
+        SongItem.HasData := true; // TagInfo existing
+        SongItem.Gain_Track := FResult+FTargetVolume-REF_VOLUME;
+        SongItem.Volume_Track := REF_VOLUME-FResult;
       end;
       setAlbumGain:
       begin
-        //SongItem^.ListViewItem.SubItems[SI_ALBUMGAIN] := Format('%3.2f',[FResult+FTargetVolume-REF_VOLUME]);
-        //SongItem^.ListViewItem.SubItems[SI_ALBUMVOLUME] := Format('%3.1f',[REF_VOLUME-FResult]);
-        SongItem^.HasAlbumData := true;
-        SongItem^.Gain_Album := FResult+FTargetVolume-REF_VOLUME;
-        SongItem^.Volume_Album := REF_VOLUME-FResult;
+        SongItem.HasAlbumData := true;
+        SongItem.Gain_Album := FResult+FTargetVolume-REF_VOLUME;
+        SongItem.Volume_Album := REF_VOLUME-FResult;
       end;
       setMaxAmplitude_Track:
       begin
-        //SongItem^.ListViewItem.SubItems[SI_CLIPPING] := boolStr[FBoolResult];
-        //SongItem^.MaxAmplitude_Track := Trunc(FResult);      //Fehler?????
-        SongItem^.Clipping := FBoolResult;
-        SongItem^.MaxAmplitude_Track := FResult;
+        SongItem.Clipping := FBoolResult;
+        SongItem.MaxAmplitude_Track := FResult;
       end;
       setMaxAmplitude_Album:
       begin
-        //SongItem^.ListViewItem.SubItems[SI_CLIPPING] := boolStr[FBoolResult];
-        //SongItem^.MaxAmplitude_Album := FResult;
-        SongItem^.MaxAmplitude_Album := FResult;
-        
+        SongItem.MaxAmplitude_Album := FResult;
       end;
     end;
   end;
@@ -468,10 +531,12 @@ end;
 
 procedure TMP3Gain.Run;
 var
-  cmd: String;
+  cmd, Filenames: String;
+  i: Integer;
 begin
   FReady := false;
   FProgress := 0;
+  Filenames := '';
   MP3GainSync(setProgress);
   CreateProcess;
   cmd := MP3_GAIN_CMD + ' ';
@@ -516,8 +581,9 @@ begin
     end;
   end;
   MP3GainSync(setStatusText);
-  
-  FMP3GainProcess.ProcessCommand := cmd + ' -o "' + FFileName + '"';    // -o Tab delimited output
+  for i:=0 to SongItems.Count-1 do
+    Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
+  FMP3GainProcess.ProcessCommand := cmd + ' -o' + Filenames;    // -o Tab delimited output
   FMP3GainProcess.Resume;
 end;
 
@@ -526,11 +592,13 @@ begin
   inherited Create;
   FReady := true;
   SongItem := nil;
+  FSongItemList := TSongItemList.Create;
 end;
 
 destructor TMP3Gain.Destroy;
 begin
   FMP3GainProcess.Free;
+  FSongItemList.Free;
   inherited Destroy;
 end;
 
@@ -547,6 +615,20 @@ begin
   inherited Destroy;
 end;
 
+function TMP3GainProcess.ReadProcessOutput(P: TProcess; Buffer: PChar): LongInt;
+const
+  READ_BYTES = 2048;
+var
+  n: LongInt;
+  S: String;
+begin
+  //n := P.Output.Read(Buffer[0],P.Output. READ_BYTES);
+  //Buffer[n] := Char(0);
+  n := P.Output.NumBytesAvailable;
+  P.Output.ReadBuffer(Buffer[0], n) ;
+  StrCopy(Buffer,PChar(S));
+end;
+
 
 procedure TMP3GainProcess.Execute;
 const
@@ -557,13 +639,12 @@ var
 {$IFDEF DEBUG_VERSION}
   X: TStringList;
 {$ENDIF}
-  pc: PChar;
-  a:array[0..2047] of char;
+  Buffer: array[0..READ_BYTES-1] of char;
   str_echo: String;
-  e: Integer;
+  e, a: Integer;
 begin
   str_echo := '';
-  pc := @(A);
+  FCurrentSongItem := 0;
   P := TProcess.Create(nil);
   try
     P.CommandLine := FProcessCommand;
@@ -571,21 +652,24 @@ begin
     P.Execute;
     while P.Running do
     begin
-      n := P.Stderr.Read(pc[0], READ_BYTES);
+      FillChar(Buffer,READ_BYTES,#0);
+      n := P.Stderr.Read(Buffer, READ_BYTES);
       if n>0 then
       begin
-        FProcessOutput := pc;
+        FProcessOutput := Buffer;
         Synchronize(OnProgressEvent);
       end;
       Sleep(100);
     end;
+    FillChar(Buffer,READ_BYTES,#0);
     repeat
-      n := P.Output.Read(pc[0],READ_BYTES);
-      pc[n] := Char(0);
-    if n>0 then
-    begin
-      str_echo := str_echo + pc;
-    end;
+      //n := P.Output.Read(pc[0],READ_BYTES);
+      //pc[n] := Char(0);
+      n := ReadProcessOutput(P, @Buffer);
+      if n>0 then
+      begin
+        str_echo := str_echo + Buffer;
+      end;
     until n <= 0;
   finally
     e := P.ExitStatus;

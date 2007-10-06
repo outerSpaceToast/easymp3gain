@@ -1,2 +1,4 @@
  Filename: längerer String-Typ
 Album Gain
+SongItem von PRecord nach Class
+Filename einfügen bei SongItem

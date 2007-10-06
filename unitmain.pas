@@ -135,7 +135,7 @@ type
     procedure AddSongItem(AName: String);
     procedure DelSongItem(AItemIndex: Integer);
     procedure LockControls(lock: Boolean);
-    procedure UpdateView(AItem: PSongItemInfo);
+    procedure UpdateView(AItem: TSongItem);
     procedure LoadLanguageFile(AFile: String);
     { private declarations }
   public
@@ -285,15 +285,28 @@ end;
 procedure TfrmMp3GainGUIMain.QueueFiles(AAction: TMP3GainAction; AVolume: Double);
 var
   i: SmallInt;
+  a: Integer;
 begin
   LockControls(true);
-  for i:=lvFiles.Items.Count-1 downto 0 do
+  if AAction=mgaAlbumAnalyze then
   begin
-    //if AAction=mgaConstantGain then AVolume := PSongItemInfo(lvFiles.Items[i].Data)^.Volume_Track + AVolume;
-    //if (AAction=mgaConstantGain) and not PSongItemInfo(lvFiles.Items[i].Data)^.HasData then continue;
-    TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
-    PSongItemInfo(lvFiles.Items[i].Data)^.HasData := false;
-    PSongItemInfo(lvFiles.Items[i].Data)^.HasAlbumData := false;
+    a := TaskList.AddTask(nil, AAction, AVolume);
+    for i:=0 to lvFiles.Items.Count-1 do
+    begin
+      TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
+    end;
+  end
+  else // no AlbumAnalyze-Task
+  begin
+    for i:=0 to lvFiles.Items.Count-1 do
+    begin
+      TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
+    end;
+  end;
+  for i:=0 to lvFiles.Items.Count-1 do
+  begin
+    TSongItem(lvFiles.Items[i].Data).HasData := false;
+    TSongItem(lvFiles.Items[i].Data).HasAlbumData := false;
   end;
   if MP3Gain.IsReady then
     OnMP3GainReady(Self);
@@ -305,18 +318,18 @@ begin                             // Synchronize notwendig?
  Sleep(100);
 end;
 
-procedure TfrmMp3GainGUIMain.UpdateView(AItem: PSongItemInfo);
+procedure TfrmMp3GainGUIMain.UpdateView(AItem: TSongItem);
 begin
-  if not AItem^.HasData then exit;
-  with AItem^.ListViewItem do
+  if not AItem.HasData then exit;
+  with AItem.ListViewItem do
   begin
-    SubItems[SI_TRACKGAIN] := Format('%.1f',[RoundGainValue(AItem^.Gain_Track)]);
-    SubItems[SI_VOLUME] := Format('%.1f',[AItem^.Volume_Track]);
-    SubItems[SI_CLIPPING] := boolStr[AItem^.Clipping];
-    if AItem^.HasAlbumData then
+    SubItems[SI_TRACKGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Track)]);
+    SubItems[SI_VOLUME] := Format('%.1f',[AItem.Volume_Track]);
+    SubItems[SI_CLIPPING] := boolStr[AItem.Clipping];
+    if AItem.HasAlbumData then
     begin
-      SubItems[SI_ALBUMGAIN] := Format('%.1f',[RoundGainValue(AItem^.Gain_Album)]);
-      SubItems[SI_ALBUMVOLUME] := Format('%.1f',[AItem^.Volume_Album]);
+      SubItems[SI_ALBUMGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Album)]);
+      SubItems[SI_ALBUMVOLUME] := Format('%.1f',[AItem.Volume_Album]);
     end;
   end;
   MP3Gain.SongItem := nil;
@@ -325,24 +338,27 @@ end;
 procedure TfrmMp3GainGUIMain.OnMP3GainReady(Sender: TObject);
 var
   i: SmallInt;
-  n: Integer;
+  n,k: Integer;
 begin
   if (not (MP3Gain.SongItem=nil)) then UpdateView(MP3Gain.SongItem);
   if TaskList.Count >0 then
   begin
-    n := 0; //TaskList.Count-1;
-    with TaskList[n]^.SongItem^.ListViewItem do
+    n := 0;
+    for k:=0 to TaskList[n].SongItems.Count-1 do
     begin
-      for i:=0 to SubItems.Count-1 do
-        SubItems[i] := '';
+      with TaskList[n].SongItems[k].ListViewItem do
+      begin
+        for i:=0 to SubItems.Count-1 do
+          SubItems[i] := '';
+      end;
     end;
-    MP3Gain.SongItem := TaskList[n]^.SongItem;
-    MP3Gain.FileName := TaskList[n]^.FileName;
-    MP3Gain.MP3GainAction := TaskList[n]^.MP3GainAction;
+    MP3Gain.SongItems.Assign(TaskList[n].SongItems);
+    //MP3Gain.FileName := TaskList[n].SongItem.FileName;
+    MP3Gain.MP3GainAction := TaskList[n].MP3GainAction;
     if MP3Gain.MP3GainAction=mgaConstantGain then
-      MP3Gain.VolumeGain := TaskList[n]^.Volume
+      MP3Gain.VolumeGain := TaskList[n].Volume
     else
-      MP3Gain.TargetVolume := TaskList[n]^.Volume;
+      MP3Gain.TargetVolume := TaskList[n].Volume;
     MP3Gain.Run;
     TaskList.DeleteTask(n);
   end
@@ -424,7 +440,7 @@ end;
 
 procedure TfrmMp3GainGUIMain.AddSongItem(AName: String);
 var
-  SongItemInfo: PSongItemInfo;
+  SongItem: TSongItem;
   ListViewItem: TListItem;
   k: SmallInt;
 begin
@@ -432,24 +448,26 @@ begin
   with ListViewItem do
   begin
     Caption := AName;
-    GetMem(SongItemInfo, SizeOf(TSongItemInfo));
-    Data := SongItemInfo;
-    SongItemInfo^.ListViewItem := ListViewItem;
-    SongItemInfo^.HasAlbumData := false;
-    SongItemInfo^.HasData := false;
+    SongItem := TSongItem.Create; //GetMem(SongItem, SizeOf(TSongItem));
+    Data := SongItem;
+    SongItem.ListViewItem := ListViewItem;
+    SongItem.HasAlbumData := false;
+    SongItem.HasData := false;
+    SongItem.FileName := AName;
+    SongItem.ExtractedFileName := ExtractFileName(AName);
     for k := 0 to SI_COUNT do
     begin
-      SongItemInfo^.ListViewItem.SubItems.Add('');
+      SongItem.ListViewItem.SubItems.Add('');
     end;
   end;
 end;
 
 procedure TfrmMp3GainGUIMain.DelSongItem(AItemIndex: Integer);
 var
-  SongItemInfo: PSongItemInfo;
+  SongItem: TSongItem;
   ListViewItem: TListItem;
 begin
-  FreeMem(PSongItemInfo(lvFiles.Items[AItemIndex].Data));
+  TSongItem(lvFiles.Items[AItemIndex].Data).Free;
   lvFiles.Items.Delete(AItemIndex);
 end;
 
@@ -487,36 +505,36 @@ end;
 
 procedure TfrmMp3GainGUIMain.Button1Click(Sender: TObject);
 begin
-  MP3Gain.FileName := Edit1.Text;
+  (*MP3Gain.FileName := Edit1.Text;
   MP3Gain.MP3GainAction := mgaDeleteTagInfo;
   MP3Gain.SongItem := nil;
-  MP3Gain.Run;
+  MP3Gain.Run;*)
 end;
 
 
 procedure TfrmMp3GainGUIMain.Button2Click(Sender: TObject);
 begin
-  MP3Gain.FileName := Edit1.Text;
+  (*MP3Gain.FileName := Edit1.Text;
   MP3Gain.MP3GainAction := mgaTrackAnalyze;
   MP3Gain.SongItem := nil;
-  MP3Gain.Run;
+  MP3Gain.Run;*)
 end;
 
 procedure TfrmMp3GainGUIMain.Button3Click(Sender: TObject);
 begin
-  MP3Gain.FileName := Edit1.Text;
+  (*MP3Gain.FileName := Edit1.Text;
   MP3Gain.MP3GainAction := mgaTrackGain;
   MP3Gain.TargetVolume := StrToFloat(edtVolume.Text);
   MP3Gain.SongItem := nil;
-  MP3Gain.Run;
+  MP3Gain.Run;*)
 end;
 
 procedure TfrmMp3GainGUIMain.Button4Click(Sender: TObject);
 begin
-  MP3Gain.FileName := Edit1.Text;
+  (*MP3Gain.FileName := Edit1.Text;
   MP3Gain.MP3GainAction := mgaCheckTagInfo;
   MP3Gain.SongItem := nil;
-  MP3Gain.Run;
+  MP3Gain.Run;*)
 end;
 
 procedure TfrmMp3GainGUIMain.CheckBox1Change(Sender: TObject);
@@ -596,19 +614,20 @@ begin
   begin
     with lvFiles.Items[i] do
     begin
-      if PSongItemInfo(Data)^.HasData then
+      if TSongItem(Data).HasData then
       begin
-        r := value-PSongItemInfo(Data)^.Volume_Track;
-        PSongItemInfo(Data)^.Gain_Track := RoundGainValue(r);
+        r := value-TSongItem(Data).Volume_Track;
+        TSongItem(Data).Gain_Track := RoundGainValue(r);
         SubItems[SI_TRACKGAIN] := Format('%.1f',[RoundGainValue(r)]);
-        if (PSongItemInfo(Data)^.MaxAmplitude_Track*Power(2,(PSongItemInfo(Data)^.Gain_Track)/6)>32768) then //(r+d)/4)
+        // 3dB more means multiply MaxAmpitude with sqrt(2)
+        if (TSongItem(Data).MaxAmplitude_Track*Power(2,(TSongItem(Data).Gain_Track)/6)>32768) then
           SubItems[SI_CLIPTRACK] := boolStr[true]
         else
           SubItems[SI_CLIPTRACK] := boolStr[false];
-        if PSongItemInfo(Data)^.HasAlbumData then
+        if TSongItem(Data).HasAlbumData then
         begin
-          r := value-PSongItemInfo(Data)^.Volume_Album;
-          PSongItemInfo(Data)^.Gain_Album := RoundGainValue(r);
+          r := value-TSongItem(Data).Volume_Album;
+          TSongItem(Data).Gain_Album := RoundGainValue(r);
           SubItems[SI_ALBUMGAIN] := Format('%.1f',[RoundGainValue(r)]);
         end;
       end;
@@ -650,8 +669,8 @@ begin
   begin
     with lvFiles.Items[i] do
     begin
-      //PSongItemInfo(Data)^.HasData := false;
-      //PSongItemInfo(Data)^.HasAlbumData := false;
+      //TSongItem(Data)^.HasData := false;
+      //TSongItem(Data)^.HasAlbumData := false;
       for k:=0 to SubItems.Count-1 do
         SubItems[k] := '';
     end;

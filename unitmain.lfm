@@ -318,7 +318,6 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
       end
       object mnuAnalysisAlbum: TMenuItem
         Caption = 'Album analysis'
-        Enabled = False
         OnClick = mnuAnalysisAlbumClick
       end
       object MenuItem5: TMenuItem
@@ -2184,7 +2183,6 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     object pmnAnalysisAlbumAnalysis: TMenuItem
       AutoCheck = True
       Caption = 'Album Analysis'
-      Enabled = False
       GroupIndex = 1
       RadioItem = True
     end
