@@ -1,0 +1,5 @@
+ 
+0.1.0 alpha:
+First preview of easyMP3Gain. 
+Track gain, analysis, constant gain, Tag-info-reading and -deleting should work.
+No album gain support yet.
