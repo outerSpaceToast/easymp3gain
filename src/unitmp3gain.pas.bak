@@ -624,7 +624,7 @@ var
 begin
   //n := P.Output.Read(Buffer[0],P.Output. READ_BYTES);
   //Buffer[n] := Char(0);
-  n := P.Output.Size;
+  n := P.Output.NumBytesAvailable;
   P.Output.ReadBuffer(Buffer[0], n) ;
   StrCopy(Buffer,PChar(S));
 end;

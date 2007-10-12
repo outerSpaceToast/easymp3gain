@@ -295,7 +295,6 @@ begin
     begin
       TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
     end;
-    TaskList[a].
   end
   else // no AlbumAnalyze-Task
   begin

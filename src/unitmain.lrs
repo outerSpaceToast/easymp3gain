@@ -1,5 +1,3 @@
-{ Das ist eine automatisch erzeugte Lazarus-Ressourcendatei }
-
 LazarusResources.Add('TfrmMp3GainGUIMain','FORMDATA',[
   'TPF0'#18'TfrmMp3GainGUIMain'#17'frmMp3GainGUIMain'#4'Left'#3' '#1#6'Height'#3
   +#179#1#3'Top'#3#168#0#5'Width'#3'&'#3#18'HorzScrollBar.Page'#3'%'#3#18'VertS'

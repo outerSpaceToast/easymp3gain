@@ -68,8 +68,8 @@ type
   protected
   public
     function Add(Item: TMP3GainTask): Integer;
-    function AddTask(ASongItem: TSongItem; AMP3GainAction: TMP3GainAction; AVolume: Real): Integer; overload;
-    function AddTask(ASongItem: Pointer; AMP3GainAction: TMP3GainAction; AVolume: Real): Integer; overload;
+    function AddTask(ASongItem: TSongItem; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer; overload;
+    function AddTask(ASongItem: Pointer; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer; overload;
     procedure DeleteTask(AIndex: Integer);
     property Items[AIndex:integer]: TMP3GainTask read GetItem write SetItem;default;
   end;

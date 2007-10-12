@@ -130,7 +130,7 @@ type
   private
     MP3Gain: TMP3Gain;
     procedure WaitForMP3GainReady;
-    procedure QueueFiles(AAction: TMP3GainAction; AVolume: Real);
+    procedure QueueFiles(AAction: TMP3GainAction; AVolume: Double);
     procedure OnMP3GainReady(Sender: TObject);
     procedure AddSongItem(AName: String);
     procedure DelSongItem(AItemIndex: Integer);
