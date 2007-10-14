@@ -2,3 +2,5 @@
 Album Gain
 SongItem von PRecord nach Class
 Filename einfügen bei SongItem
+
+Hinzufügen von Unterordnern
