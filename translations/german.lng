@@ -1,4 +1,4 @@
-version=0.1.0 a
+version=0.1.1 a
 language=german
 Status_Analyzing=Analysiere...
 Status_Gaining=Passe Lautstärke an...
@@ -25,6 +25,7 @@ mnuModifyGainUndo=Dateiänderungen komplett rückgängig machen
 mnuOptions=Optionen
 mnuOptionsReadTagInfo=Datei-Tag-Info lesen
 mnuOptionsDeleteTagInfos=Datei-Tag-Info löschen
+mnuOptionsOnlySelectedItems=Nur markierte Elemente verarbeiten
 mnuHelp=Hilfe
 mnuHelpInfo=Info...
 FileBoxColumn0=Datei
