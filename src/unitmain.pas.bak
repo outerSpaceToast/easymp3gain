@@ -49,10 +49,12 @@ type
     Memo1: TMemo;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    mnuOptionsOnlySelectedItems: TMenuItem;
     pmnGainAlbum: TMenuItem;
     pmnGainTrack: TMenuItem;
     pmnAnalysisTrack: TMenuItem;
-    pmnAnalysisAlbumAnalysis: TMenuItem;
+    pmnAnalysisAlbum: TMenuItem;
     mnuOptionsReadTagInfo: TMenuItem;
     mnuOptionsDeleteTagInfos: TMenuItem;
     mnuFileClearAllFiles: TMenuItem;
@@ -86,10 +88,12 @@ type
     btnAddFolder: TToolButton;
     btnAnalysis: TToolButton;
     btnGain: TToolButton;
+    ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     btnClearFiles: TToolButton;
     btnClearAll: TToolButton;
+    btnOnlySelectedItems: TToolButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -106,6 +110,7 @@ type
     procedure btnClearAllClick(Sender: TObject);
     procedure btnClearFilesClick(Sender: TObject);
     procedure btnGainClick(Sender: TObject);
+    procedure btnOnlySelectedItemsClick(Sender: TObject);
     procedure edtVolumeChange(Sender: TObject);
     procedure lvFilesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
@@ -126,11 +131,12 @@ type
     procedure mnuModifyGainApplyTrackClick(Sender: TObject);
     procedure mnuModifyGainUndoClick(Sender: TObject);
     procedure mnuOptionsDeleteTagInfosClick(Sender: TObject);
+    procedure mnuOptionsOnlySelectedItemsClick(Sender: TObject);
     procedure mnuOptionsReadTagInfoClick(Sender: TObject);
   private
     MP3Gain: TMP3Gain;
     procedure WaitForMP3GainReady;
-    procedure QueueFiles(AAction: TMP3GainAction; AVolume: Real);
+    procedure QueueFiles(AAction: TMP3GainAction; AVolume: Double);
     procedure OnMP3GainReady(Sender: TObject);
     procedure AddSongItem(AName: String);
     procedure DelSongItem(AItemIndex: Integer);
@@ -211,6 +217,8 @@ begin
   SL := TStringList.Create;
   try
     SL.LoadFromFile(AFile);
+    if not (Copy(SL.Values['version'],1,5)='0.1.1') then
+      MessageDlg('Wrong language-pack version.',mtError,[mbOK],0);
     strStatus_Analyzing := SL.Values['Status_Analyzing'];
     strStatus_Gaining := SL.Values['Status_Gaining'];
     strStatus_Finished := SL.Values['Status_Finished'];
@@ -237,8 +245,20 @@ begin
     mnuOptions.Caption := SL.Values['mnuOptions'];
     mnuOptionsReadTagInfo.Caption := SL.Values['mnuOptionsReadTagInfo'];
     mnuOptionsDeleteTagInfos.Caption := SL.Values['mnuOptionsDeleteTagInfos'];
+    mnuOptionsOnlySelectedItems.Caption := SL.Values['mnuOptionsOnlySelectedItems'];
     mnuHelp.Caption := SL.Values['mnuHelp'];
     mnuHelpInfo.Caption := SL.Values['mnuHelpInfo'];
+    
+    btnAddFiles.Hint := mnuFileAddFiles.Caption;
+    btnAddFolder.Hint := mnuFileAddFolder.Caption;
+    btnAnalysis.Hint := mnuAnalysis.Caption;
+    btnGain.Hint := mnuModifyGain.Caption;
+    btnClearFiles.Hint := mnuFileClearSelected.Caption;
+    btnClearAll.Hint := mnuFileClearAllFiles.Caption;
+    pmnAnalysisTrack.Caption := mnuAnalysisTrack.Caption;
+    pmnAnalysisAlbum.Caption := mnuAnalysisAlbum.Caption;
+    pmnGainTrack.Caption := mnuModifyGainApplyTrack.Caption;
+    pmnGainAlbum.Caption := mnuModifyGainApplyAlbum.Caption;
 
     for i:= 0 to lvFiles.Columns.Count-1 do
       lvFiles.Columns[i].Caption := SL.Values['FileBoxColumn'+IntToStr(i)];
@@ -293,18 +313,21 @@ begin
     a := TaskList.AddTask(nil, AAction, AVolume);
     for i:=0 to lvFiles.Items.Count-1 do
     begin
-      TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
+      if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
+        TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
     end;
   end
   else // no AlbumAnalyze-Task
   begin
     for i:=0 to lvFiles.Items.Count-1 do
     begin
-      TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
+      if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
+        TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
     end;
   end;
   for i:=0 to lvFiles.Items.Count-1 do
   begin
+    if (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then continue;
     TSongItem(lvFiles.Items[i].Data).HasData := false;
     TSongItem(lvFiles.Items[i].Data).HasAlbumData := false;
   end;
@@ -430,6 +453,11 @@ end;
 procedure TfrmMp3GainGUIMain.mnuOptionsDeleteTagInfosClick(Sender: TObject);
 begin
   QueueFiles(mgaDeleteTagInfo, MP3Gain.TargetVolume);
+end;
+
+procedure TfrmMp3GainGUIMain.mnuOptionsOnlySelectedItemsClick(Sender: TObject);
+begin
+  btnOnlySelectedItems.Down := mnuOptionsOnlySelectedItems.Checked;
 end;
 
 procedure TfrmMp3GainGUIMain.mnuOptionsReadTagInfoClick(Sender: TObject);
@@ -598,6 +626,11 @@ begin
     mnuModifyGainApplyTrackClick(Sender)
   else
     mnuModifyGainApplyAlbumClick(Sender);
+end;
+
+procedure TfrmMp3GainGUIMain.btnOnlySelectedItemsClick(Sender: TObject);
+begin
+  mnuOptionsOnlySelectedItems.Checked := btnOnlySelectedItems.Down;
 end;
 
 procedure TfrmMp3GainGUIMain.edtVolumeChange(Sender: TObject);

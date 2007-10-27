@@ -1,10 +1,10 @@
 object frmMp3GainGUIMain: TfrmMp3GainGUIMain
-  Left = 288
+  Left = 300
   Height = 435
-  Top = 168
+  Top = 139
   Width = 806
   HorzScrollBar.Page = 805
-  VertScrollBar.Page = 407
+  VertScrollBar.Page = 406
   ActiveControl = lvFiles
   Caption = 'MP3Gain GUI'
   Menu = MainMenu1
@@ -14,7 +14,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   ShowHint = True
   object lvFiles: TListView
     Left = 8
-    Height = 262
+    Height = 260
     Top = 96
     Width = 790
     Align = alClient
@@ -177,10 +177,26 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
       ImageIndex = 5
       OnClick = btnClearAllClick
     end
+    object ToolButton1: TToolButton
+      Left = 347
+      Top = 2
+      Width = 23
+      Caption = 'ToolButton1'
+      Style = tbsSeparator
+    end
+    object btnOnlySelectedItems: TToolButton
+      Left = 370
+      Hint = 'Process only selected items'
+      Top = 2
+      AllowAllUp = True
+      Caption = 'btnOnlySelectedItems'
+      Style = tbsCheck
+      OnClick = btnOnlySelectedItemsClick
+    end
   end
   object StatusBar: TStatusBar
-    Height = 23
-    Top = 385
+    Height = 24
+    Top = 383
     Width = 806
     Panels = <    
       item
@@ -194,7 +210,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   object ProgressBar: TProgressBar
     Left = 8
     Height = 15
-    Top = 362
+    Top = 360
     Width = 790
     Align = alBottom
     BorderSpacing.Left = 8
@@ -261,9 +277,9 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   end
   object CheckBox1: TCheckBox
     Left = 696
-    Height = 23
+    Height = 24
     Top = 58
-    Width = 91
+    Width = 107
     Caption = 'CheckBox1'
     OnChange = CheckBox1Change
     TabOrder = 8
@@ -359,6 +375,15 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
       object mnuOptionsDeleteTagInfos: TMenuItem
         Caption = 'Delete Tags'
         OnClick = mnuOptionsDeleteTagInfosClick
+      end
+      object MenuItem3: TMenuItem
+        Caption = '-'
+      end
+      object mnuOptionsOnlySelectedItems: TMenuItem
+        AutoCheck = True
+        Caption = 'Only Selected Items'
+        GroupIndex = 1
+        OnClick = mnuOptionsOnlySelectedItemsClick
       end
     end
     object mnuHelp: TMenuItem
@@ -2180,7 +2205,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
       GroupIndex = 1
       RadioItem = True
     end
-    object pmnAnalysisAlbumAnalysis: TMenuItem
+    object pmnAnalysisAlbum: TMenuItem
       AutoCheck = True
       Caption = 'Album Analysis'
       GroupIndex = 1

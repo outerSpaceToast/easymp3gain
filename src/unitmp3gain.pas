@@ -144,6 +144,7 @@ type
     FResult: Real;
     FBoolResult: Boolean;
     FSongItemList: TSongItemList;
+    FErrorHasOccured: Boolean;
     function ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
     function GetIsReady: Boolean;
     procedure MP3GainSync(value: TSyncEventType);
@@ -171,6 +172,7 @@ type
     property ExitCodeProcess: Integer read FExitCodeProcess write FExitCodeProcess;
     property OnRunFinished: TNotifyEvent read FOnRunFinished write FOnRunFinished;
     property SongItems: TSongItemList read FSongItemList;
+    property ErrorHasOccured: Boolean read FErrorHasOccured default false;
 end;
 
 function RoundGainValue(Value: Double): Double;
@@ -392,6 +394,7 @@ begin
     MP3GainSync(setStatusText);
     FProgress := 100;
     MP3GainSync(setProgress);
+    FErrorHasOccured := True;
   end;
 end;
 
@@ -537,6 +540,7 @@ begin
   FReady := false;
   FProgress := 0;
   Filenames := '';
+  FErrorHasOccured := false;
   MP3GainSync(setProgress);
   CreateProcess;
   cmd := MP3_GAIN_CMD + ' ';
@@ -625,8 +629,10 @@ begin
   //n := P.Output.Read(Buffer[0],P.Output. READ_BYTES);
   //Buffer[n] := Char(0);
   n := P.Output.NumBytesAvailable;
+  frmMp3GainGUIMain.StatusBar.Panels[1].Text := IntToStr(n);
   P.Output.ReadBuffer(Buffer[0], n) ;
-  StrCopy(Buffer,PChar(S));
+  Result := n;
+  //StrCopy(Buffer,PChar(S));
 end;
 
 
@@ -679,6 +685,7 @@ begin
   X := TStringList.Create;
   try
     X.Text := str_echo;
+    X.Add(IntToStr(n));
     X.SaveToFile('/home/thomas/op.txt');
   finally
     X.Free;
