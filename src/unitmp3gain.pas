@@ -39,8 +39,6 @@ type
     mgaDeleteTagInfo, mgaAlbumGain, mgaTrackGain, mgaConstantGain,
     mgaUndoChanges);
     
-  //PSongItem = ^TSongItem;
-  //PMP3GainTask = ^TMP3GainTask;
   TMP3GainTask = class;
 
   TSongItem = class
@@ -98,6 +96,9 @@ type
   published
     property SongItems: TSongItemList read FSongItemList;
   end;
+  
+a// Song Item rausnehmen, da SongItemListe!
+ // CurrentSongItem beim Synchronisieren benutzen!
   
   TSynEvt = TThreadMethod;
 
@@ -318,6 +319,7 @@ var
 begin
   if FMP3GainProcess.ExitStatus=0 then
   begin
+
     FStatusText := strStatus_Finished;
     MP3GainSync(setStatusText);
     FProgress := 100;
@@ -629,7 +631,6 @@ begin
   //n := P.Output.Read(Buffer[0],P.Output. READ_BYTES);
   //Buffer[n] := Char(0);
   n := P.Output.NumBytesAvailable;
-  frmMp3GainGUIMain.StatusBar.Panels[1].Text := IntToStr(n);
   P.Output.ReadBuffer(Buffer[0], n) ;
   Result := n;
   //StrCopy(Buffer,PChar(S));
@@ -666,17 +667,18 @@ begin
         Synchronize(OnProgressEvent);
       end;
       Sleep(100);
+      repeat
+        FillChar(Buffer,READ_BYTES,#0);
+        n := ReadProcessOutput(P, @Buffer);
+        if n>0 then
+        begin
+          str_echo := str_echo + Buffer;
+        end;
+      until n <= 0;
+      FProcessOutput := str_echo;
+      Synchronize(OnResultEvent);
+      Self.
     end;
-    FillChar(Buffer,READ_BYTES,#0);
-    repeat
-      //n := P.Output.Read(pc[0],READ_BYTES);
-      //pc[n] := Char(0);
-      n := ReadProcessOutput(P, @Buffer);
-      if n>0 then
-      begin
-        str_echo := str_echo + Buffer;
-      end;
-    until n <= 0;
   finally
     e := P.ExitStatus;
     P.Free;

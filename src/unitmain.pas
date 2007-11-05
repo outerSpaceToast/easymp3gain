@@ -153,7 +153,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.1 alpha';
+   APPLICATION_VERSION = '0.1.2 alpha SVN';
 
  var
    S: TStringList;
@@ -191,7 +191,7 @@ procedure TfrmMP3GainGUIMain.Init;
 var
   SL:TStringList;
 begin
-  Self.Caption := APPLICATION_NAME;
+  Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
   MP3Gain := TMP3Gain.Create;
   MP3Gain.OnRunFinished := @OnMP3GainReady;
   MP3Gain.TargetVolume := REF_VOLUME;
