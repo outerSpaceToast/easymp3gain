@@ -97,14 +97,11 @@ type
     property SongItems: TSongItemList read FSongItemList;
   end;
   
-a// Song Item rausnehmen, da SongItemListe!
- // CurrentSongItem beim Synchronisieren benutzen!
-  
+
   TSynEvt = TThreadMethod;
 
   TMP3GainProcess = class(TThread)
   private
-    FProcessOutput: String;
     FProcessCommand: String;
     FProgressEvent: TSynEvt;
     FResultEvent: TSynEvt;
@@ -117,6 +114,7 @@ a// Song Item rausnehmen, da SongItemListe!
     procedure Execute; override;
   public
     Cancel: Boolean;
+//    ProcessOutput: String;
     Constructor Create(CreateSuspended : boolean);
     destructor Destroy;
   published
@@ -124,7 +122,7 @@ a// Song Item rausnehmen, da SongItemListe!
     property OnResultEvent: TSynEvt read FResultEvent write FResultEvent;
     property OnFinished: TSynEvt read FFinishedEvent write FFinishedEvent;
     property OnStatusCodeEvent: TSynEvt read FStatusCodeEvent write FStatusCodeEvent;
-    property ProcessOutput: String read FProcessOutput;
+    //property ProcessOutput: String read FProcessOutput;
     property ProcessCommand: String read FProcessCommand write FProcessCommand;
     property ExitStatus: Integer read FExitStatus;
   end;
@@ -146,6 +144,7 @@ a// Song Item rausnehmen, da SongItemListe!
     FBoolResult: Boolean;
     FSongItemList: TSongItemList;
     FErrorHasOccured: Boolean;
+    SongItem: TSongItem;
     function ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
     function GetIsReady: Boolean;
     procedure MP3GainSync(value: TSyncEventType);
@@ -157,7 +156,6 @@ a// Song Item rausnehmen, da SongItemListe!
     procedure CreateProcess;
     procedure FreeProcess;
   public
-    SongItem: TSongItem;
     procedure Run;
     constructor Create;
     destructor Destroy;
@@ -210,6 +208,8 @@ var
   strStatus_ExitCode127: String = 'Could not start mp3gain. Is it installed?';
 
   boolStr: array[Boolean] of String = ('no','yes');
+  
+  ProcessOutput: String;
 
 implementation
 
@@ -306,7 +306,6 @@ begin
   Result := FReady;
 end;
 
-
 procedure TMP3Gain.ProcessResult;
 const
   strResult_TrackGain = 'dB gain'; //'"Track" dB change: ';
@@ -319,18 +318,15 @@ var
 begin
   if FMP3GainProcess.ExitStatus=0 then
   begin
-
-    FStatusText := strStatus_Finished;
-    MP3GainSync(setStatusText);
-    FProgress := 100;
-    MP3GainSync(setProgress);
-
     SL := TStringList.Create;
     header := TStringList.Create;
     data := TStringList.Create;
     try
-      SL.Text := FMP3GainProcess.ProcessOutput;
+      SL.Text := (*FMP3GainProcess.*)ProcessOutput;
     {$IFDEF DEBUG_VERSION}
+      if (*FMP3GainProcess.*)ProcessOutput='' then
+        SL.Add('|nix|');
+      SL.Add('## @:'+IntToStr(DWORD(@FMP3GainProcess))+'##');
       SL.SaveToFile('/home/thomas/out.txt');
     {$ENDIF}
       for i:= SL.Count-1 downto 0 do
@@ -432,7 +428,7 @@ begin
   CurrentSongItem := 0;
   SL := TStringList.Create;
   try
-    SL.Text := FMP3GainProcess.ProcessOutput;
+    SL.Text := (*FMP3GainProcess.*)ProcessOutput;
     for i:= SL.Count-1 downto 0 do
     begin
       if (SL[i]='') then SL.Delete(i);
@@ -469,6 +465,10 @@ end;
 procedure TMP3Gain.RunFinished;
 begin
   FReady := true;
+  FStatusText := strStatus_Finished;
+  MP3GainSync(setStatusText);
+  FProgress:=100;
+  MP3GainSync(setProgress);
   OnRunFinished(Self);
 end;
 
@@ -517,6 +517,7 @@ begin
         SongItem.MaxAmplitude_Album := FResult;
       end;
     end;
+    frmMp3GainGUIMain.UpdateView(SongItem);
   end;
 end;
 
@@ -539,9 +540,11 @@ var
   cmd, Filenames: String;
   i: Integer;
 begin
+  if SongItems.Count<1 then exit;
   FReady := false;
   FProgress := 0;
   Filenames := '';
+  SongItem := SongItems[0];
   FErrorHasOccured := false;
   MP3GainSync(setProgress);
   CreateProcess;
@@ -622,18 +625,12 @@ begin
 end;
 
 function TMP3GainProcess.ReadProcessOutput(P: TProcess; Buffer: PChar): LongInt;
-const
-  READ_BYTES = 2048;
 var
   n: LongInt;
-  S: String;
 begin
-  //n := P.Output.Read(Buffer[0],P.Output. READ_BYTES);
-  //Buffer[n] := Char(0);
   n := P.Output.NumBytesAvailable;
   P.Output.ReadBuffer(Buffer[0], n) ;
   Result := n;
-  //StrCopy(Buffer,PChar(S));
 end;
 
 
@@ -648,10 +645,13 @@ var
 {$ENDIF}
   Buffer: array[0..READ_BYTES-1] of char;
   str_echo: String;
-  e, a: Integer;
+  e: Integer;
 begin
   str_echo := '';
   FCurrentSongItem := 0;
+{$IFDEF DEBUG_VERSION}
+  X := TStringList.Create;
+{$ENDIF}
   P := TProcess.Create(nil);
   try
     P.CommandLine := FProcessCommand;
@@ -663,39 +663,38 @@ begin
       n := P.Stderr.Read(Buffer, READ_BYTES);
       if n>0 then
       begin
-        FProcessOutput := Buffer;
+        ProcessOutput := Buffer;
         Synchronize(OnProgressEvent);
       end;
       Sleep(100);
-      repeat
-        FillChar(Buffer,READ_BYTES,#0);
-        n := ReadProcessOutput(P, @Buffer);
-        if n>0 then
-        begin
-          str_echo := str_echo + Buffer;
-        end;
-      until n <= 0;
-      FProcessOutput := str_echo;
+      //repeat
+      //end;
+      FillChar(Buffer,READ_BYTES,#0);
+      n := ReadProcessOutput(P, @Buffer);
+      if n>0 then
+      begin
+        str_echo := str_echo + Buffer;
+        ProcessOutput := str_echo;     // Memory doesn't stay in ProcessOutput!
+{$IFDEF DEBUG_VERSION}
+    X.Add(ProcessOutput);
+    X.Add('## Count:'+IntToStr(n)+'##');
+    X.Add('## @:'+IntToStr(DWORD(@Self))+'##');
+    X.SaveToFile('/home/thomas/op.txt');
+{$ENDIF}
+      end;
+      //until n <= 0;
       Synchronize(OnResultEvent);
-      Self.
     end;
   finally
     e := P.ExitStatus;
     P.Free;
   end;
 {$IFDEF DEBUG_VERSION}
-  X := TStringList.Create;
-  try
-    X.Text := str_echo;
-    X.Add(IntToStr(n));
-    X.SaveToFile('/home/thomas/op.txt');
-  finally
-    X.Free;
-  end;
+  X.Free;
 {$ENDIF}
   FExitStatus := e;
   Synchronize(OnStatusCodeEvent);
-  FProcessOutput := str_echo;
+  ProcessOutput := str_echo;
   Synchronize(OnResultEvent);
   Self.FreeOnTerminate := true;
   Synchronize(OnFinished);

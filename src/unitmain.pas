@@ -141,11 +141,11 @@ type
     procedure AddSongItem(AName: String);
     procedure DelSongItem(AItemIndex: Integer);
     procedure LockControls(lock: Boolean);
-    procedure UpdateView(AItem: TSongItem);
     procedure LoadLanguageFile(AFile: String);
     { private declarations }
   public
     procedure Init;
+    procedure UpdateView(AItem: TSongItem);
     { public declarations }
   end; 
   
@@ -195,7 +195,7 @@ begin
   MP3Gain := TMP3Gain.Create;
   MP3Gain.OnRunFinished := @OnMP3GainReady;
   MP3Gain.TargetVolume := REF_VOLUME;
-  MP3Gain.SongItem := nil;
+  //MP3Gain.SongItem := nil;
   TaskList := TMP3GainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMP3GainGUIMain.ImageList1.GetBitmap(3,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
@@ -323,7 +323,11 @@ begin
     for i:=0 to lvFiles.Items.Count-1 do
     begin
       if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
+      begin
+        //a := TaskList.AddTask(nil, AAction, AVolume);
+        //TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
         TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
+      end;
     end;
   end;
   for i:=0 to lvFiles.Items.Count-1 do
@@ -356,7 +360,7 @@ begin
       SubItems[SI_ALBUMVOLUME] := Format('%.1f',[AItem.Volume_Album]);
     end;
   end;
-  MP3Gain.SongItem := nil;
+  //MP3Gain.SongItem := nil;
 end;
 
 procedure TfrmMp3GainGUIMain.OnMP3GainReady(Sender: TObject);
@@ -364,7 +368,7 @@ var
   i: SmallInt;
   n,k: Integer;
 begin
-  if (not (MP3Gain.SongItem=nil)) then UpdateView(MP3Gain.SongItem);
+  //if (not (MP3Gain.SongItem=nil)) then UpdateView(MP3Gain.SongItem);
   if TaskList.Count >0 then
   begin
     n := 0;
@@ -466,6 +470,15 @@ begin
   QueueFiles(mgaCheckTagInfo, MP3Gain.TargetVolume);
 end;
 
+procedure TfrmMp3GainGUIMain.mnuAnalysisTrackClick(Sender: TObject);
+begin
+  QueueFiles(mgaTrackAnalyze, MP3Gain.TargetVolume);
+end;
+
+procedure TfrmMp3GainGUIMain.mnuAnalysisAlbumClick(Sender: TObject);
+begin
+  QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume);
+end;
 
 procedure TfrmMp3GainGUIMain.AddSongItem(AName: String);
 var
@@ -690,11 +703,6 @@ begin
   lvFiles.Hint := Item.Caption;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuAnalysisAlbumClick(Sender: TObject);
-begin
-  QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume);
-end;
-
 procedure TfrmMp3GainGUIMain.mnuAnalysisClearClick(Sender: TObject);
 var
   i,k: SmallInt;
@@ -709,11 +717,6 @@ begin
         SubItems[k] := '';
     end;
   end;
-end;
-
-procedure TfrmMp3GainGUIMain.mnuAnalysisTrackClick(Sender: TObject);
-begin
-  QueueFiles(mgaTrackAnalyze, MP3Gain.TargetVolume);
 end;
 
 initialization
