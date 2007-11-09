@@ -242,7 +242,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
         OnClick = mnuFileAddFolderClick
       end
       object mnuFileAddFolderRecursive: TMenuItem
-        Caption = 'Add folder recursive'
+        Caption = 'Add folder recursively'
         OnClick = mnuFileAddFolderClick
       end
       object mnuFileAddFiles: TMenuItem

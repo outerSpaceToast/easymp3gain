@@ -7,14 +7,12 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
   VertScrollBar.Page = 299
   ActiveControl = btnClose
   Caption = 'About MP3Gain-GUI'
-  OnCloseQuery = FormCloseQuery
-  OnCreate = FormCreate
   Position = poScreenCenter
   object lblProgramName: TLabel
     Left = 59
-    Height = 14
+    Height = 17
     Top = 20
-    Width = 93
+    Width = 102
     Caption = 'MP3Gain-GUI'
     Color = clNone
     Font.Height = -14
@@ -65,7 +63,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
       Caption = 'Authors'
       object Memo1: TMemo
         Left = 5
-        Height = 157
+        Height = 156
         Top = 5
         Width = 442
         Align = alClient
@@ -85,7 +83,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
       Caption = 'Translation'
       object Memo3: TMemo
         Left = 5
-        Height = 157
+        Height = 156
         Top = 5
         Width = 442
         Align = alClient
@@ -102,7 +100,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
       Caption = 'Licence'
       object Memo2: TMemo
         Left = 5
-        Height = 157
+        Height = 156
         Top = 5
         Width = 442
         Align = alClient

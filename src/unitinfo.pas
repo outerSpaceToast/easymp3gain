@@ -46,8 +46,6 @@ type
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
-    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
-    procedure FormCreate(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
   private
@@ -61,24 +59,14 @@ var
 
 implementation
 
-uses Unitmain;
-
 { TfrmMP3GainGUIInfo }
 
-procedure TfrmMP3GainGUIInfo.FormCreate(Sender: TObject);
-begin
-
-end;
 
 procedure TfrmMP3GainGUIInfo.Label1Click(Sender: TObject);
 begin
   // open browser
 end;
 
-procedure TfrmMP3GainGUIInfo.FormCloseQuery(Sender: TObject;
-  var CanClose: boolean);
-begin
-end;
 
 procedure TfrmMP3GainGUIInfo.btnCloseClick(Sender: TObject);
 begin

@@ -61,7 +61,7 @@ end;
 
 procedure TfrmMP3GainConstant.btnOKClick(Sender: TObject);
 begin
-  Self.ModalResult := Round(tbGain.Position/15)*15;
+  Self.ModalResult := Integer(Round(Double(tbGain.Position)/15)*15);
 end;
 
 procedure TfrmMP3GainConstant.FormShow(Sender: TObject);
@@ -71,7 +71,7 @@ end;
 
 procedure TfrmMP3GainConstant.tbGainChange(Sender: TObject);
 begin
-  lblGain.Caption := 'Gain: ' + FormatFloat('0.0',RoundGainValue(tbGain.Position/10)) + ' dB';
+  lblGain.Caption := 'Gain: ' + FormatFloat('0.0',RoundGainValue(Double(tbGain.Position)/10)) + ' dB';
 end;
 
 initialization

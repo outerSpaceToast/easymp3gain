@@ -13,9 +13,9 @@ object frmMP3GainConstant: TfrmMP3GainConstant
   Position = poScreenCenter
   object lblGain: TLabel
     Left = 16
-    Height = 14
+    Height = 17
     Top = 56
-    Width = 41
+    Width = 50
     Caption = 'lblGain'
     Color = clNone
     ParentColor = False

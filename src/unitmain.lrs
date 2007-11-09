@@ -61,9 +61,9 @@ LazarusResources.Add('TfrmMp3GainGUIMain','FORMDATA',[
   +'sMouseMove'#0#0#9'TMainMenu'#9'MainMenu1'#4'left'#2' '#3'top'#3#160#2#0#9'T'
   +'MenuItem'#7'mnuFile'#7'Caption'#6#4'File'#0#9'TMenuItem'#16'mnuFileAddFolde'
   +'r'#7'Caption'#6#10'Add folder'#7'OnClick'#7#21'mnuFileAddFolderClick'#0#0#9
-  +'TMenuItem'#25'mnuFileAddFolderRecursive'#7'Caption'#6#20'Add folder recursi'
-  +'ve'#7'OnClick'#7#21'mnuFileAddFolderClick'#0#0#9'TMenuItem'#15'mnuFileAddFi'
-  +'les'#7'Caption'#6#9'Add files'#7'OnClick'#7#20'mnuFileAddFilesClick'#0#0#9
+  +'TMenuItem'#25'mnuFileAddFolderRecursive'#7'Caption'#6#22'Add folder recursi'
+  +'vely'#7'OnClick'#7#21'mnuFileAddFolderClick'#0#0#9'TMenuItem'#15'mnuFileAdd'
+  +'Files'#7'Caption'#6#9'Add files'#7'OnClick'#7#20'mnuFileAddFilesClick'#0#0#9
   +'TMenuItem'#9'MenuItem2'#7'Caption'#6#1'-'#0#0#9'TMenuItem'#20'mnuFileClearS'
   ,'elected'#7'Caption'#6#22'Clear selected file(s)'#7'OnClick'#7#25'mnuFileCle'
   +'arSelectedClick'#0#0#9'TMenuItem'#20'mnuFileClearAllFiles'#7'Caption'#6#15

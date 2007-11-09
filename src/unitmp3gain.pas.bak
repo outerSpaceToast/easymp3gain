@@ -87,9 +87,7 @@ type
   private
     FSongItemList: TSongItemList;
   public
-    //FileName: String;
     MP3GainAction: TMP3GainAction;
-    //SongItem: TSongItem;
     Volume: Real;
     constructor Create;
     destructor Destroy;
@@ -117,7 +115,7 @@ type
     Cancel: Boolean;
     ProcessOutput: String;
     Constructor Create(CreateSuspended : boolean);
-    destructor Destroy;
+    destructor Destroy; override;
   published
     property OnProgressEvent: TSynEvt read FProgressEvent write FProgressEvent;
     property OnResultEvent: TSynEvt read FResultEvent write FResultEvent;
@@ -159,7 +157,7 @@ type
   public
     procedure Run;
     constructor Create;
-    destructor Destroy;
+    destructor Destroy; override;
   published
     property Progress: Byte read FProgress;
     property StatusText: String read FStatusText;
@@ -218,7 +216,7 @@ var
   t: Double;
 begin
   t := Round(Value/1.5);
-  Result := t*1.5;
+  Result := Double(t*1.5);
 end;
 
 // ----------------------------------- TMP3GainTaskList -----------------------
@@ -241,7 +239,7 @@ end;
 
 function TMP3GainTaskList.AddTask(ASongItem: Pointer; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer;
 begin
-  AddTask(TSongItem(ASongItem), AMP3GainAction, AVolume);
+  Result := AddTask(TSongItem(ASongItem), AMP3GainAction, AVolume);
 end;
 
 procedure TMP3GainTaskList.DeleteTask(AIndex: Integer);
@@ -397,7 +395,7 @@ end;
 
 function TMP3Gain.ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
 var
-  a, b: SmallInt;
+  a, b: Integer;
 begin
   if Pos('bytes analyzed',S)<>0 then
   begin
@@ -447,7 +445,7 @@ begin
       end;
       if b>FProgress then
       begin
-        FProgress := b;
+        FProgress := Byte(b);
       end;
     end;
   finally
