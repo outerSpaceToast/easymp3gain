@@ -1,3 +1,5 @@
+2007-?-? | easyMP3Gain 0.2.0 alpha:
+album-analyzing added
 
 2007-10-03 | easyMP3Gain 0.1.0 alpha:
 First preview of easyMP3Gain. 

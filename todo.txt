@@ -2,5 +2,6 @@
 Album Gain
 SongItem von PRecord nach Class
 Filename einfügen bei SongItem
+Stopp Button
 
 Hinzufügen von Unterordnern
