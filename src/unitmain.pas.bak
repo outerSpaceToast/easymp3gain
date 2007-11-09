@@ -44,6 +44,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    mnuFileAddFolderRecursive: TMenuItem;
     mnuOptionsOnlySelectedItems: TMenuItem;
     pnlVolume: TPanel;
     pmnGainAlbum: TMenuItem;
@@ -110,7 +111,6 @@ type
     procedure edtVolumeChange(Sender: TObject);
     procedure lvFilesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
-    procedure lvFilesKeyPress(Sender: TObject; var Key: char);
     procedure lvFilesMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure mnuAnalysisAlbumClick(Sender: TObject);
@@ -118,6 +118,7 @@ type
     procedure mnuAnalysisTrackClick(Sender: TObject);
     procedure mnuFileAddFilesClick(Sender: TObject);
     procedure mnuFileAddFolderClick(Sender: TObject);
+    procedure mnuFileAddFolderRecursiveClick(Sender: TObject);
     procedure mnuFileExitClick(Sender: TObject);
     procedure mnuFileClearAllFilesClick(Sender: TObject);
     procedure mnuFileClearSelectedClick(Sender: TObject);
@@ -138,6 +139,7 @@ type
     procedure DelSongItem(AItemIndex: Integer);
     procedure LockControls(lock: Boolean);
     procedure LoadLanguageFile(AFile: String);
+    procedure AddFiles(SL: TStringList);
     { private declarations }
   public
     procedure Init;
@@ -167,19 +169,26 @@ uses unitinfo;
 
 { TfrmMp3GainGUIMain }
 
-Procedure ListFiles(const FilePath: String;ListBox:TStringList);
+Procedure ListFiles(const FilePath: String; const Extension: String;
+                    ListBox:TStringList; SubLevelMax: Byte);
 var
   SR: TSearchRec;
+  level: Byte;
 begin
-  ListBox.Clear;
-  if FindFirst(FilePath,faAnyFile,SR)=0 then
-  begin
-    if not (faDirectory and SR.Attr>0) then ListBox.Add(SR.Name);
-    while FindNext(SR)=0 do
+  if FindFirst(FilePath+'*.'+Extension,faAnyFile,SR)=0 then    // Files
+  repeat
+    if not ((faDirectory and SR.Attr)=faDirectory) then
+      ListBox.Add(FilePath + SR.Name);
+  until FindNext(SR)<>0;
+  
+  if (SubLevelMax>0) and (FindFirst(FilePath+'*',faDirectory,SR)=0) then     // SubFolders
+  repeat
+    if (faDirectory and SR.Attr)=faDirectory then
     begin
-      if not (faDirectory and SR.Attr>0) then ListBox.Add(SR.Name);    // FindData.cFileName
+      if not ((SR.Name='.') or (SR.Name='..')) then
+        ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
     end;
-  end;
+  until FindNext(SR)<>0;
   FindClose(SR);
 end;
 
@@ -197,7 +206,7 @@ begin
   frmMP3GainGUIMain.ImageList1.GetBitmap(3,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   SL := TStringList.Create;
   try
-    ListFiles(Application.Location+'*.lng',SL);
+    ListFiles(Application.Location,'lng',SL,0);
     if SL.Count>0 then
       LoadLanguageFile(Application.Location+SL[0]);
   finally
@@ -391,6 +400,49 @@ begin
   end;
 end;
 
+procedure TfrmMp3GainGUIMain.AddFiles(SL: TStringList);
+var
+  i: Integer;
+begin
+  for i:=0 to SL.Count-1 do
+  begin
+    AddSongItem(SL[i]);
+  end;
+end;
+
+procedure TfrmMp3GainGUIMain.mnuFileAddFilesClick(Sender: TObject);
+var
+  i: SmallInt;
+begin
+  if not OpenDialog.Execute then exit;
+  for i:=0 to OpenDialog.Files.Count-1 do
+    AddSongItem(OpenDialog.Files[i]);
+  //mnuOptionsReadTagInfoClick(Sender);
+end;
+
+procedure TfrmMp3GainGUIMain.mnuFileAddFolderClick(Sender: TObject);
+var
+  SL: TStringList;
+  i: SmallInt;
+  sublevels: Byte;
+begin
+  if not SelectDirectoryDialog.Execute then exit;
+  if Sender=mnuFileAddFolderRecursive then sublevels := 10 else sublevels := 0;
+  SL := TStringList.Create;
+  try
+    ListFiles(IncludeTrailingPathDelimiter(SelectDirectoryDialog.FileName),'mp3', SL, sublevels);
+    AddFiles(SL);
+  finally
+    SL.Free;
+  end;
+  //mnuOptionsReadTagInfoClick(Sender);
+end;
+
+procedure TfrmMp3GainGUIMain.mnuFileAddFolderRecursiveClick(Sender: TObject);
+begin
+
+end;
+
 procedure TfrmMp3GainGUIMain.mnuFileExitClick(Sender: TObject);
 begin
   Application.Terminate;
@@ -496,6 +548,10 @@ begin
       SongItem.ListViewItem.SubItems.Add('');
     end;
   end;
+  LockControls(true);
+  TaskList.AddTask(SongItem, mgaCheckTagInfo, MP3Gain.TargetVolume);
+  if MP3Gain.IsReady then
+    OnMP3GainReady(Self);
 end;
 
 procedure TfrmMp3GainGUIMain.DelSongItem(AItemIndex: Integer);
@@ -505,33 +561,6 @@ var
 begin
   TSongItem(lvFiles.Items[AItemIndex].Data).Free;
   lvFiles.Items.Delete(AItemIndex);
-end;
-
-procedure TfrmMp3GainGUIMain.mnuFileAddFilesClick(Sender: TObject);
-var
-  i: SmallInt;
-begin
-  if not OpenDialog.Execute then exit;
-  for i:=0 to OpenDialog.Files.Count-1 do
-    AddSongItem(OpenDialog.Files[i]);
-  mnuOptionsReadTagInfoClick(Sender);
-end;
-
-procedure TfrmMp3GainGUIMain.mnuFileAddFolderClick(Sender: TObject);
-var
-  SL: TStringList;
-  i: SmallInt;
-begin
-  if not SelectDirectoryDialog.Execute then exit;
-  SL := TStringList.Create;
-  try
-    ListFiles(IncludeTrailingPathDelimiter(SelectDirectoryDialog.FileName)+'*.mp3', SL);
-    for i:=0 to SL.Count-1 do
-      AddSongItem(SL[i]);
-  finally
-    SL.Free;
-  end;
-  mnuOptionsReadTagInfoClick(Sender);
 end;
 
 procedure TfrmMp3GainGUIMain.btnAddFilesClick(Sender: TObject);
@@ -602,7 +631,7 @@ end;
 
 procedure TfrmMp3GainGUIMain.btnAddFolderClick(Sender: TObject);
 begin
-  mnuFileAddFolderClick(Sender);
+  mnuFileAddFolderClick(mnuFileAddFolderRecursive);
 end;
 
 procedure TfrmMp3GainGUIMain.btnAnalysisClick(Sender: TObject);
@@ -675,11 +704,6 @@ procedure TfrmMp3GainGUIMain.lvFilesKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key=46) then mnuFileClearSelectedClick(Sender);
-end;
-
-procedure TfrmMp3GainGUIMain.lvFilesKeyPress(Sender: TObject; var Key: char);
-begin
-
 end;
 
 procedure TfrmMp3GainGUIMain.lvFilesMouseMove(Sender: TObject;

@@ -1,69 +1,16 @@
 object frmMp3GainGUIMain: TfrmMp3GainGUIMain
-  Left = 300
+  Left = 418
   Height = 435
-  Top = 139
+  Top = 129
   Width = 806
   HorzScrollBar.Page = 805
   VertScrollBar.Page = 406
-  ActiveControl = lvFiles
   Caption = 'MP3Gain GUI'
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poScreenCenter
   ShowHint = True
-  object lvFiles: TListView
-    Left = 8
-    Height = 304
-    Top = 51
-    Width = 790
-    BorderSpacing.Left = 8
-    BorderSpacing.Top = 46
-    BorderSpacing.Right = 8
-    BorderSpacing.Bottom = 4
-    Columns = <    
-      item
-        Caption = 'File + Path'
-        Width = 320
-      end    
-      item
-        Caption = 'Volume'
-        Width = 60
-      end    
-      item
-        Caption = 'clipping'
-        Width = 60
-      end    
-      item
-        Caption = 'Track Gain'
-        Width = 80
-      end    
-      item
-        Caption = 'clip'
-      end    
-      item
-        Caption = 'Album Vol.'
-        Width = 80
-      end    
-      item
-        Caption = 'Album Gain'
-        Width = 80
-      end    
-      item
-        Caption = 'clip (Album)'
-        Visible = False
-        Width = 80
-      end>
-    ColumnClick = False
-    MultiSelect = True
-    ReadOnly = True
-    RowSelect = True
-    TabOrder = 0
-    ViewStyle = vsReport
-    OnKeyDown = lvFilesKeyDown
-    OnKeyPress = lvFilesKeyPress
-    OnMouseMove = lvFilesMouseMove
-  end
   object ToolBar1: TToolBar
     Height = 50
     Width = 806
@@ -72,7 +19,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     Caption = 'ToolBar1'
     Flat = True
     Images = ImageList1
-    TabOrder = 1
+    TabOrder = 0
     OnClick = ToolBar1Click
     object btnAddFiles: TToolButton
       Left = 1
@@ -225,17 +172,65 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     SimplePanel = False
   end
   object ProgressBar: TProgressBar
-    Left = 8
+    Left = 5
     Height = 15
-    Top = 360
-    Width = 790
+    Top = 363
+    Width = 796
     Align = alBottom
-    BorderSpacing.Left = 8
-    BorderSpacing.Right = 8
-    BorderSpacing.Bottom = 8
+    BorderSpacing.Left = 5
+    BorderSpacing.Right = 5
+    BorderSpacing.Bottom = 5
     Max = 100
     Smooth = True
     Step = 1
+  end
+  object lvFiles: TListView
+    Left = 5
+    Height = 308
+    Top = 50
+    Width = 796
+    Align = alClient
+    BorderSpacing.Left = 5
+    BorderSpacing.Right = 5
+    BorderSpacing.Bottom = 5
+    Columns = <    
+      item
+        Caption = 'File'
+        Width = 320
+      end    
+      item
+        Caption = 'Volume'
+        Width = 60
+      end    
+      item
+        Caption = 'clipping'
+        Width = 60
+      end    
+      item
+        Caption = 'Track Gain'
+        Width = 80
+      end    
+      item
+        Caption = 'clip'
+      end    
+      item
+        Caption = 'Album Vol.'
+        Width = 80
+      end    
+      item
+        Caption = 'Album Gain'
+      end    
+      item
+        Caption = 'clip (Album)'
+        Visible = False
+      end>
+    MultiSelect = True
+    ReadOnly = True
+    RowSelect = True
+    TabOrder = 1
+    ViewStyle = vsReport
+    OnKeyDown = lvFilesKeyDown
+    OnMouseMove = lvFilesMouseMove
   end
   object MainMenu1: TMainMenu
     left = 32
@@ -244,6 +239,10 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
       Caption = 'File'
       object mnuFileAddFolder: TMenuItem
         Caption = 'Add folder'
+        OnClick = mnuFileAddFolderClick
+      end
+      object mnuFileAddFolderRecursive: TMenuItem
+        Caption = 'Add folder recursive'
         OnClick = mnuFileAddFolderClick
       end
       object mnuFileAddFiles: TMenuItem
