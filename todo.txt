@@ -1,7 +1,11 @@
- Filename: längerer String-Typ
-Album Gain
-SongItem von PRecord nach Class
-Filename einfügen bei SongItem
 Stopp Button
+Album Gain
 
+
+
+done:
 Hinzufügen von Unterordnern
+SongItem von PRecord nach Class
+nur neu hinzugefügte Dateien auslesen
+Filename: längerer String-Typ
+Filename einfügen bei SongItem
