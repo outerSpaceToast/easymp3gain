@@ -26,31 +26,26 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
-  ComCtrls, StdCtrls, Buttons, Process, UnitMP3Gain, UnitGainConstant, Math;
+  ComCtrls, StdCtrls, Buttons, Process, UnitMP3Gain, UnitGainConstant, Math,
+  ExtCtrls;
 
 type
 
   { TfrmMp3GainGUIMain }
 
   TfrmMp3GainGUIMain = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
-    Button4: TButton;
-    CheckBox1: TCheckBox;
-    Edit1: TEdit;
+    Bevel2: TBevel;
     edtVolume: TEdit;
-    grbVolume: TGroupBox;
     ImageList1: TImageList;
     lblTargetVolume: TLabel;
     lblTargetVolumeUnit: TLabel;
     lvFiles: TListView;
     MainMenu1: TMainMenu;
-    Memo1: TMemo;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     mnuOptionsOnlySelectedItems: TMenuItem;
+    pnlVolume: TPanel;
     pmnGainAlbum: TMenuItem;
     pmnGainTrack: TMenuItem;
     pmnAnalysisTrack: TMenuItem;
@@ -94,6 +89,7 @@ type
     btnClearFiles: TToolButton;
     btnClearAll: TToolButton;
     btnOnlySelectedItems: TToolButton;
+    ToolButton4: TToolButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -270,7 +266,7 @@ begin
     lblTargetVolumeUnit.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolumeUnit.Caption);
     edtVolume.Left := lblTargetVolume.Width + 10;
     lblTargetVolumeUnit.Left := edtVolume.Left + 50;
-    grbVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
+    pnlVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
 
     frmMP3GainGUIInfo.btnClose.Caption := SL.Values['Close'];
     frmMP3GainGUIInfo.TabSheet1.Caption := SL.Values['InfoAbout'];
@@ -324,8 +320,6 @@ begin
     begin
       if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
       begin
-        //a := TaskList.AddTask(nil, AAction, AVolume);
-        //TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
         TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
       end;
     end;
@@ -581,12 +575,7 @@ end;
 
 procedure TfrmMp3GainGUIMain.CheckBox1Change(Sender: TObject);
 begin
-  Button1.Visible := CheckBox1.Checked;
-  Button2.Visible := CheckBox1.Checked;
-  Button3.Visible := CheckBox1.Checked;
-  Button4.Visible := CheckBox1.Checked;
-  Memo1.Visible := CheckBox1.Checked;
-  Edit1.Visible := CheckBox1.Checked;
+
 end;
 
 procedure TfrmMp3GainGUIMain.FormClose(Sender: TObject;

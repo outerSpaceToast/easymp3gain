@@ -14,10 +14,9 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   ShowHint = True
   object lvFiles: TListView
     Left = 8
-    Height = 260
-    Top = 96
+    Height = 304
+    Top = 51
     Width = 790
-    Align = alClient
     BorderSpacing.Left = 8
     BorderSpacing.Top = 46
     BorderSpacing.Right = 8
@@ -65,41 +64,6 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     OnKeyPress = lvFilesKeyPress
     OnMouseMove = lvFilesMouseMove
   end
-  object grbVolume: TGroupBox
-    Left = 8
-    Height = 46
-    Top = 44
-    Width = 271
-    TabOrder = 1
-    object lblTargetVolume: TLabel
-      Left = 5
-      Height = 14
-      Top = 5
-      Width = 144
-      AutoSize = False
-      Caption = 'Target "Normal" Volume:'
-      Color = clNone
-      ParentColor = False
-    end
-    object lblTargetVolumeUnit: TLabel
-      Left = 210
-      Height = 14
-      Top = 5
-      Width = 17
-      AutoSize = False
-      Caption = 'dB'
-      Color = clNone
-      ParentColor = False
-    end
-    object edtVolume: TEdit
-      Left = 162
-      Height = 23
-      Width = 44
-      OnChange = edtVolumeChange
-      TabOrder = 0
-      Text = '89'
-    end
-  end
   object ToolBar1: TToolBar
     Height = 50
     Width = 806
@@ -108,7 +72,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     Caption = 'ToolBar1'
     Flat = True
     Images = ImageList1
-    TabOrder = 2
+    TabOrder = 1
     OnClick = ToolBar1Click
     object btnAddFiles: TToolButton
       Left = 1
@@ -193,6 +157,59 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
       Style = tbsCheck
       OnClick = btnOnlySelectedItemsClick
     end
+    object ToolButton4: TToolButton
+      Left = 420
+      Top = 2
+      Width = 23
+      Caption = 'ToolButton4'
+      Style = tbsSeparator
+    end
+    object pnlVolume: TPanel
+      Left = 443
+      Height = 40
+      Top = 2
+      Width = 256
+      BevelOuter = bvNone
+      TabOrder = 0
+      object Bevel2: TBevel
+        Height = 36
+        Top = 2
+        Width = 256
+        Align = alClient
+        BorderSpacing.Top = 2
+        BorderSpacing.Bottom = 2
+        Shape = bsFrame
+      end
+      object lblTargetVolume: TLabel
+        Left = 5
+        Height = 16
+        Top = 11
+        Width = 144
+        AutoSize = False
+        Caption = 'Target Volume:'
+        Color = clNone
+        ParentColor = False
+      end
+      object lblTargetVolumeUnit: TLabel
+        Left = 210
+        Height = 14
+        Top = 11
+        Width = 17
+        AutoSize = False
+        Caption = 'dB'
+        Color = clNone
+        ParentColor = False
+      end
+      object edtVolume: TEdit
+        Left = 162
+        Height = 23
+        Top = 7
+        Width = 44
+        OnChange = edtVolumeChange
+        TabOrder = 0
+        Text = '89'
+      end
+    end
   end
   object StatusBar: TStatusBar
     Height = 24
@@ -219,80 +236,6 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     Max = 100
     Smooth = True
     Step = 1
-  end
-  object Memo1: TMemo
-    Left = 352
-    Height = 242
-    Top = 88
-    Width = 343
-    Lines.Strings = (
-      'Memo1'
-    )
-    TabOrder = 3
-    Visible = False
-  end
-  object Button2: TButton
-    Left = 440
-    Height = 25
-    Top = 58
-    Width = 75
-    BorderSpacing.InnerBorder = 4
-    Caption = 'Analyze'
-    OnClick = Button2Click
-    TabOrder = 4
-    Visible = False
-  end
-  object Button1: TButton
-    Left = 520
-    Height = 25
-    Top = 58
-    Width = 75
-    BorderSpacing.InnerBorder = 4
-    Caption = 'TagClear'
-    OnClick = Button1Click
-    TabOrder = 5
-    Visible = False
-  end
-  object Button3: TButton
-    Left = 600
-    Height = 25
-    Top = 58
-    Width = 75
-    BorderSpacing.InnerBorder = 4
-    Caption = 'Gain'
-    OnClick = Button3Click
-    TabOrder = 6
-    Visible = False
-  end
-  object Button4: TButton
-    Left = 358
-    Height = 25
-    Top = 58
-    Width = 75
-    BorderSpacing.InnerBorder = 4
-    Caption = 'CheckTags'
-    OnClick = Button4Click
-    TabOrder = 7
-    Visible = False
-  end
-  object CheckBox1: TCheckBox
-    Left = 696
-    Height = 24
-    Top = 58
-    Width = 107
-    Caption = 'CheckBox1'
-    OnChange = CheckBox1Change
-    TabOrder = 8
-    Visible = False
-  end
-  object Edit1: TEdit
-    Left = 696
-    Height = 23
-    Top = 81
-    Width = 80
-    TabOrder = 9
-    Text = '/home/thomas/Luttenberger-Klug_-_Vergiss_Mich.mp3'
-    Visible = False
   end
   object MainMenu1: TMainMenu
     left = 32

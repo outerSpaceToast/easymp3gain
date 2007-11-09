@@ -28,7 +28,7 @@ unit UnitMP3Gain;
 interface
 
 uses
-  Classes, SysUtils,ComCtrls,Forms, process;
+  Classes, SysUtils,ComCtrls,Forms, process, pipes;
 
 type
 
@@ -109,12 +109,13 @@ type
     FStatusCodeEvent: TSynEvt;
     FExitStatus: Integer;
     FCurrentSongItem: Integer;
-    function ReadProcessOutput(P: TProcess; Buffer: PChar): LongInt;
+    FASongItemHasFinished: Boolean;
+    function ReadProcessOutput(Pipe: TInputPipeStream; Buffer: PChar): LongInt;
   protected
     procedure Execute; override;
   public
     Cancel: Boolean;
-//    ProcessOutput: String;
+    ProcessOutput: String;
     Constructor Create(CreateSuspended : boolean);
     destructor Destroy;
   published
@@ -125,6 +126,7 @@ type
     //property ProcessOutput: String read FProcessOutput;
     property ProcessCommand: String read FProcessCommand write FProcessCommand;
     property ExitStatus: Integer read FExitStatus;
+    property ASongItemHasFinished: Boolean read FASongItemHasFinished write FASongItemHasFinished;
   end;
 
   { TMP3Gain }
@@ -136,7 +138,6 @@ type
     FProgress: Byte;
     FStatusText: String;
     FExitCodeProcess: Integer;
-    //FFileName: String;
     FMP3GainAction: TMP3GainAction;
     FTargetVolume: Real;
     FVolumeGain: Real;
@@ -162,7 +163,6 @@ type
   published
     property Progress: Byte read FProgress;
     property StatusText: String read FStatusText;
-    //property FileName: String read FFileName write FFileName;
     property MP3GainAction: TMP3GainAction read FMP3GainAction write FMP3GainAction;
     property TargetVolume: Real read FTargetVolume write FTargetVolume;
     property VolumeGain: Real read FVolumeGain write FVolumeGain;
@@ -208,8 +208,6 @@ var
   strStatus_ExitCode127: String = 'Could not start mp3gain. Is it installed?';
 
   boolStr: array[Boolean] of String = ('no','yes');
-  
-  ProcessOutput: String;
 
 implementation
 
@@ -322,11 +320,8 @@ begin
     header := TStringList.Create;
     data := TStringList.Create;
     try
-      SL.Text := (*FMP3GainProcess.*)ProcessOutput;
+      SL.Text := FMP3GainProcess.ProcessOutput;
     {$IFDEF DEBUG_VERSION}
-      if (*FMP3GainProcess.*)ProcessOutput='' then
-        SL.Add('|nix|');
-      SL.Add('## @:'+IntToStr(DWORD(@FMP3GainProcess))+'##');
       SL.SaveToFile('/home/thomas/out.txt');
     {$ENDIF}
       for i:= SL.Count-1 downto 0 do
@@ -343,38 +338,42 @@ begin
         if (SongItems.Count<i) then continue;
         SongItem := SongItems[i-1];
 
-        p := header.IndexOf(strResult_TrackGain);
-        if (p>-1) then
-        begin
-          Val(data[p],r,e);
-          if not (e>0) then
+        try
+          p := header.IndexOf(strResult_TrackGain);
+          if (p>-1) then
           begin
-            FResult := r;
-            MP3GainSync(setTrackGain);
+            Val(data[p],r,e);
+            if not (e>0) then
+            begin
+              FResult := r;
+              MP3GainSync(setTrackGain);
+            end;
           end;
-        end;
 
-        p := header.IndexOf(strResult_AlbumGain);
-        if (p>-1) then
-        begin
-          Val(data[p],r,e);
-          if not (e>0) then
+          p := header.IndexOf(strResult_AlbumGain);
+          if (p>-1) then
           begin
-            FResult := r;
-            MP3GainSync(setAlbumGain);
+            Val(data[p],r,e);
+            if not (e>0) then
+            begin
+              FResult := r;
+              MP3GainSync(setAlbumGain);
+            end;
           end;
-        end;
 
-        p := header.IndexOf(strResult_MaxAmplitudeTrack);
-        if (p>-1) then
-        begin
-          Val(data[p],r,e);
-          if not (e>0) then
+          p := header.IndexOf(strResult_MaxAmplitudeTrack);
+          if (p>-1) then
           begin
-            FResult := r;
-            FBoolResult := FResult > 32768;
-            MP3GainSync(setMaxAmplitude_Track);
+            Val(data[p],r,e);
+            if not (e>0) then
+            begin
+              FResult := r;
+              FBoolResult := FResult > 32768;
+              MP3GainSync(setMaxAmplitude_Track);
+            end;
           end;
+        except
+          //on E:Error do ;// An error occured
         end;
       end;
     finally
@@ -428,7 +427,7 @@ begin
   CurrentSongItem := 0;
   SL := TStringList.Create;
   try
-    SL.Text := (*FMP3GainProcess.*)ProcessOutput;
+    SL.Text := FMP3GainProcess.ProcessOutput;
     for i:= SL.Count-1 downto 0 do
     begin
       if (SL[i]='') then SL.Delete(i);
@@ -444,6 +443,7 @@ begin
       begin
         FMP3GainProcess.FCurrentSongItem := CurrentSongItem;
         FProgress := 0;
+        FMP3GainProcess.ASongItemHasFinished := true;
       end;
       if b>FProgress then
       begin
@@ -474,19 +474,7 @@ end;
 
 procedure TMP3Gain.MP3GainSync(value: TSyncEventType);
 begin
-  if SongItem= nil then
-  begin
-    case value of
-      setProgress:
-        frmMP3GainGUIMain.ProgressBar.Position := FProgress;
-      setStatusText:
-        frmMP3GainGUIMain.StatusBar.Panels[0].Text := FStatusText;
-      setTrackGain:
-        frmMP3GainGUIMain.Memo1.Lines.Add('Track Gain: ' + FloatToStr(FResult));
-      setAlbumGain:
-        frmMP3GainGUIMain.Memo1.Lines.Add('Album Gain: ' + FloatToStr(FResult));
-    end;
-  end else
+  if not (SongItem=nil) then
   begin
     case value of
       setProgress:
@@ -494,7 +482,7 @@ begin
       setStatusText:
         frmMP3GainGUIMain.StatusBar.Panels[0].Text := FStatusText;
       setStatusCode:
-        ;//frmMP3GainGUIMain.StatusBar.Panels[1].Text := IntToStr(FExitCodeProcess);
+        frmMP3GainGUIMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
       setTrackGain:
       begin
         SongItem.HasData := true; // TagInfo existing
@@ -593,6 +581,7 @@ begin
   for i:=0 to SongItems.Count-1 do
     Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
   FMP3GainProcess.ProcessCommand := cmd + ' -o' + Filenames;    // -o Tab delimited output
+  FMP3GainProcess.ASongItemHasFinished := false;
   FMP3GainProcess.Resume;
 end;
 
@@ -624,12 +613,14 @@ begin
   inherited Destroy;
 end;
 
-function TMP3GainProcess.ReadProcessOutput(P: TProcess; Buffer: PChar): LongInt;
+function TMP3GainProcess.ReadProcessOutput(Pipe: TInputPipeStream; Buffer: PChar): LongInt;
 var
   n: LongInt;
 begin
-  n := P.Output.NumBytesAvailable;
-  P.Output.ReadBuffer(Buffer[0], n) ;
+  n := Pipe.NumBytesAvailable;
+  if n>0 then
+    n := Pipe.Read(Buffer[0], n);
+  Buffer[n] := #0; // add terminating 0
   Result := n;
 end;
 
@@ -659,31 +650,35 @@ begin
     P.Execute;
     while P.Running do
     begin
-      FillChar(Buffer,READ_BYTES,#0);
-      n := P.Stderr.Read(Buffer, READ_BYTES);
+      n := ReadProcessOutput(P.Stderr, @Buffer);
       if n>0 then
       begin
         ProcessOutput := Buffer;
         Synchronize(OnProgressEvent);
       end;
       Sleep(100);
-      //repeat
-      //end;
-      FillChar(Buffer,READ_BYTES,#0);
-      n := ReadProcessOutput(P, @Buffer);
-      if n>0 then
+      if FASongItemHasFinished then   // A SongItem Finished, read the output
       begin
-        str_echo := str_echo + Buffer;
-        ProcessOutput := str_echo;
-{$IFDEF DEBUG_VERSION}
-    X.Add(ProcessOutput);
-    X.Add('## Count:'+IntToStr(n)+'##');
-    X.Add('## @:'+IntToStr(DWORD(@Self))+'##');
-    X.SaveToFile('/home/thomas/op.txt');
-{$ENDIF}
+        FASongItemHasFinished := false;
+        n := ReadProcessOutput(P.Output, @Buffer); //P.Output.Read(Buffer, READ_BYTES);
+        if n>0 then
+        begin
+          str_echo := str_echo + Buffer;
+          ProcessOutput := str_echo;
+  {$IFDEF DEBUG_VERSION}
+      X.Add(ProcessOutput);
+      X.Add('## Count:'+IntToStr(n)+'##');
+      X.SaveToFile('/home/thomas/op.txt');
+  {$ENDIF}
+        end;
       end;
-      //until n <= 0;
       Synchronize(OnResultEvent);
+    end;
+    n := ReadProcessOutput(P.Output, @Buffer);  // read the final output
+    if n>0 then
+    begin
+      str_echo := str_echo + Buffer;
+      ProcessOutput := str_echo;
     end;
   finally
     e := P.ExitStatus;
