@@ -5,6 +5,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   Width = 806
   HorzScrollBar.Page = 805
   VertScrollBar.Page = 406
+  ActiveControl = edtVolume
   Caption = 'MP3Gain GUI'
   Menu = MainMenu1
   OnClose = FormClose

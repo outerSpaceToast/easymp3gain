@@ -23,7 +23,7 @@ unit UnitMP3Gain;
 
 {$mode objfpc}{$H+}
 
-{$DEFINE DEBUG_VERSION}
+{_$DEFINE DEBUG_VERSION}
 
 interface
 
@@ -157,7 +157,7 @@ type
   public
     procedure Run;
     constructor Create;
-    destructor Destroy; override;
+    destructor Destroy; override; // reintroduce
   published
     property Progress: Byte read FProgress;
     property StatusText: String read FStatusText;
@@ -480,7 +480,8 @@ begin
       setStatusText:
         frmMP3GainGUIMain.StatusBar.Panels[0].Text := FStatusText;
       setStatusCode:
-        frmMP3GainGUIMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
+        if (FExitCodeProcess<>0) then
+          frmMP3GainGUIMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
       setTrackGain:
       begin
         SongItem.HasData := true; // TagInfo existing
@@ -593,7 +594,7 @@ end;
 
 destructor TMP3Gain.Destroy;
 begin
-  FMP3GainProcess.Free;
+  //FMP3GainProcess.Free;
   FSongItemList.Free;
   inherited Destroy;
 end;
@@ -692,7 +693,7 @@ begin
   Self.FreeOnTerminate := true;
   Synchronize(OnFinished);
   //OnFinished();
-  Self.Terminate;
+  //Self.Terminate;
 end;
 
 

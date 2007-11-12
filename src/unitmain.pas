@@ -146,7 +146,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0021';
 
  var
    S: TStringList;
@@ -517,6 +517,7 @@ end;
 procedure TfrmMp3GainGUIMain.mnuAnalysisAlbumClick(Sender: TObject);
 begin
   QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume);
+  mnuOptionsReadTagInfoClick(Sender); // remove this line
 end;
 
 procedure TfrmMp3GainGUIMain.AddSongItem(AName: String);
@@ -567,6 +568,7 @@ procedure TfrmMp3GainGUIMain.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   mnuFileClearAllFilesClick(Sender);
+  //MP3Gain.FMP3GainProcess.Free;
   MP3Gain.Free;
 end;
 
