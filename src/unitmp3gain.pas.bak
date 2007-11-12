@@ -23,7 +23,7 @@ unit UnitMP3Gain;
 
 {$mode objfpc}{$H+}
 
-{$DEFINE DEBUG_VERSION}
+{_$DEFINE DEBUG_VERSION}
 
 interface
 

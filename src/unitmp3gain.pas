@@ -204,6 +204,7 @@ var
   strStatus_DeletingTagInfo: String = 'Deleting Tag Info...';
   strStatus_UndoingChanges: String = 'Undoing Changes...';
   strStatus_ExitCode127: String = 'Could not start mp3gain. Is it installed?';
+  strAbout: String = 'About';
 
   boolStr: array[Boolean] of String = ('no','yes');
 

@@ -8,7 +8,7 @@
       <IconPath Value="./"/>
       <TargetFileExt Value=""/>
       <Title Value="easymp3gain"/>
-      <ActiveEditorIndexAtStart Value="1"/>
+      <ActiveEditorIndexAtStart Value="2"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -49,8 +49,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="41" Y="501"/>
-        <TopLine Value="132"/>
+        <CursorPos X="79" Y="201"/>
+        <TopLine Value="178"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -80,8 +80,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitinfo.lrs"/>
         <UnitName Value="UnitInfo"/>
-        <CursorPos X="28" Y="68"/>
-        <TopLine Value="36"/>
+        <CursorPos X="37" Y="69"/>
+        <TopLine Value="38"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -90,12 +90,12 @@
         <Filename Value="unitmp3gain.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMP3Gain"/>
-        <CursorPos X="3" Y="26"/>
-        <TopLine Value="1"/>
+        <CursorPos X="30" Y="207"/>
+        <TopLine Value="180"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="1">
-          <Item0 X="6" Y="322" ID="0"/>
+          <Item0 X="6" Y="323" ID="0"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit6>
@@ -210,7 +210,7 @@
         <CursorPos X="72" Y="74"/>
         <TopLine Value="37"/>
         <EditorIndex Value="3"/>
-        <UsageCount Value="121"/>
+        <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
@@ -289,12 +289,7 @@
         <UsageCount Value="10"/>
       </Unit35>
     </Units>
-    <JumpHistory Count="1" HistoryIndex="0">
-      <Position1>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="147" Column="55" TopLine="118"/>
-      </Position1>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="5"/>

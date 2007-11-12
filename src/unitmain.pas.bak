@@ -26,7 +26,8 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
-  ComCtrls, StdCtrls, Process, UnitMP3Gain, UnitGainConstant, Math, ExtCtrls;
+  ComCtrls, StdCtrls, Process, UnitMP3Gain, UnitGainConstant, Math, ExtCtrls,
+  Buttons;
 
 type
 
@@ -90,6 +91,7 @@ type
     btnClearAll: TToolButton;
     btnOnlySelectedItems: TToolButton;
     ToolButton4: TToolButton;
+    btnCancel: TToolButton;
     procedure CheckBox1Change(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -99,6 +101,7 @@ type
     procedure btnAddFilesClick(Sender: TObject);
     procedure btnAddFolderClick(Sender: TObject);
     procedure btnAnalysisClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
     procedure btnClearAllClick(Sender: TObject);
     procedure btnClearFilesClick(Sender: TObject);
     procedure btnGainClick(Sender: TObject);
@@ -146,7 +149,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0021';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0023';
 
  var
    S: TStringList;
@@ -191,6 +194,7 @@ var
   SL:TStringList;
 begin
   Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
+  frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
   MP3Gain := TMP3Gain.Create;
   MP3Gain.OnRunFinished := @OnMP3GainReady;
   MP3Gain.TargetVolume := REF_VOLUME;
@@ -295,11 +299,15 @@ var
   i: Integer;
 begin
   edtVolume.Enabled := not lock;
-  ToolBar1.Enabled := not lock;
+  for i:=0 to ToolBar1.ButtonCount-1 do
+  begin
+    ToolBar1.Buttons[i].Enabled := not lock;
+  end;
   for i:=0 to MainMenu1.Items.Count-1 do
   begin
     MainMenu1.Items[i].Enabled := not lock;
   end;
+  btnCancel.Enabled := lock;
 end;
 
 procedure TfrmMp3GainGUIMain.QueueFiles(AAction: TMP3GainAction; AVolume: Double);
@@ -420,6 +428,7 @@ var
   sublevels: Byte;
 begin
   if not SelectDirectoryDialog.Execute then exit;
+  Application.ProcessMessages;
   if Sender=mnuFileAddFolderRecursive then sublevels := 10 else sublevels := 0;
   SL := TStringList.Create;
   try
@@ -517,7 +526,7 @@ end;
 procedure TfrmMp3GainGUIMain.mnuAnalysisAlbumClick(Sender: TObject);
 begin
   QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume);
-  mnuOptionsReadTagInfoClick(Sender);
+  mnuOptionsReadTagInfoClick(Sender); // remove this line
 end;
 
 procedure TfrmMp3GainGUIMain.AddSongItem(AName: String);
@@ -598,6 +607,15 @@ begin
     mnuAnalysisTrackClick(Sender)
   else
     mnuAnalysisAlbumClick(Sender);
+end;
+
+procedure TfrmMp3GainGUIMain.btnCancelClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i:=TaskList.Count-1 downto 0 do
+    TaskList.DeleteTask(i);
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmMp3GainGUIMain.btnClearAllClick(Sender: TObject);
