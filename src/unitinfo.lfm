@@ -2,8 +2,8 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
   Left = 302
   Height = 300
   Top = 175
-  Width = 475
-  HorzScrollBar.Page = 474
+  Width = 471
+  HorzScrollBar.Page = 470
   VertScrollBar.Page = 299
   ActiveControl = btnClose
   Caption = 'About MP3Gain-GUI'
@@ -29,7 +29,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     Left = 8
     Height = 200
     Top = 56
-    Width = 456
+    Width = 452
     ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabIndex = 0
@@ -65,7 +65,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Left = 5
         Height = 156
         Top = 5
-        Width = 442
+        Width = 438
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
@@ -73,19 +73,38 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
           'giantics@gmx.de'
           ''
           'Thomas Dieffenbach'
-          '    developer of this project'
+          '   Developer and Project founder'
         )
         ReadOnly = True
         TabOrder = 0
       end
     end
     object TabSheet3: TTabSheet
+      Caption = 'Thanks to'
+      object Memo4: TMemo
+        Left = 5
+        Height = 156
+        Top = 5
+        Width = 438
+        Align = alClient
+        BorderSpacing.Around = 5
+        Lines.Strings = (
+          'Thorsten Reinbold'
+          '    IconSet "Tango" and Testing'
+          ''
+          'The FreePascal- and Lazarus-Team'
+        )
+        ReadOnly = True
+        TabOrder = 0
+      end
+    end
+    object TabSheet4: TTabSheet
       Caption = 'Translation'
       object Memo3: TMemo
         Left = 5
         Height = 156
         Top = 5
-        Width = 442
+        Width = 438
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
@@ -96,13 +115,13 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         TabOrder = 0
       end
     end
-    object TabSheet4: TTabSheet
-      Caption = 'Licence'
+    object TabSheet5: TTabSheet
+      Caption = 'License'
       object Memo2: TMemo
         Left = 5
         Height = 156
         Top = 5
-        Width = 442
+        Width = 438
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
@@ -460,7 +479,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     end
   end
   object btnClose: TButton
-    Left = 389
+    Left = 385
     Height = 25
     Top = 264
     Width = 75

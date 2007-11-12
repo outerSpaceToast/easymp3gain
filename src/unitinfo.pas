@@ -41,11 +41,13 @@ type
     Memo1: TMemo;
     Memo2: TMemo;
     Memo3: TMemo;
+    Memo4: TMemo;
     PageControl: TPageControl;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
-    TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    TabSheet3: TTabSheet;
     procedure Label1Click(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
   private
