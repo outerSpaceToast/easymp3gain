@@ -1,7 +1,9 @@
 Stopp Button
-Album Gain
-
-
+Album Gain (alte Output-Items löschen!)
+Meldung wenn Gain aber noch kein Analyse
+Bei Album-Analyse: zum Schluss ausgeben!
+Sortieren bei Column-Click
+Anzeige: Datei x von y
 
 done:
 Hinzufügen von Unterordnern
@@ -9,3 +11,5 @@ SongItem von PRecord nach Class
 nur neu hinzugefügte Dateien auslesen
 Filename: längerer String-Typ
 Filename einfügen bei SongItem
+Fehler beim Beenden (x) !!!!! (override?)
+Fehleranzeige in Statusbar entfernen (Fehler 0)
