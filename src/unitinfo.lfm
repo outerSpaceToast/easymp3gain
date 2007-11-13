@@ -93,6 +93,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
           '    IconSet "Tango" and Testing'
           ''
           'The FreePascal- and Lazarus-Team'
+          'The MP3Gain-Team'
         )
         ReadOnly = True
         TabOrder = 0

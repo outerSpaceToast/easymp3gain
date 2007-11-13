@@ -176,6 +176,12 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
         Width = 300
       end    
       item
+        Width = 100
+      end    
+      item
+        Width = 300
+      end    
+      item
         Width = 50
       end>
     SimplePanel = False
@@ -183,19 +189,19 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   object ProgressBar: TProgressBar
     Left = 5
     Height = 15
-    Top = 363
+    Top = 349
     Width = 796
     Align = alBottom
     BorderSpacing.Left = 5
     BorderSpacing.Right = 5
-    BorderSpacing.Bottom = 5
+    BorderSpacing.Bottom = 2
     Max = 100
     Smooth = True
     Step = 1
   end
   object lvFiles: TListView
     Left = 5
-    Height = 308
+    Height = 294
     Top = 50
     Width = 796
     Align = alClient
@@ -240,6 +246,19 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     ViewStyle = vsReport
     OnKeyDown = lvFilesKeyDown
     OnMouseMove = lvFilesMouseMove
+  end
+  object ProgressBarGeneral: TProgressBar
+    Left = 5
+    Height = 15
+    Top = 366
+    Width = 796
+    Align = alBottom
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 5
+    BorderSpacing.Right = 5
+    BorderSpacing.Bottom = 2
+    Max = 100
+    Smooth = True
   end
   object MainMenu1: TMainMenu
     left = 32

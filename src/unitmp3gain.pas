@@ -33,7 +33,8 @@ uses
 type
 
   TSyncEventType = (setProgress, setStatusText, setStatusCode, setTrackGain,
-    setAlbumGain, setMaxAmplitude_Track, setMaxAmplitude_Album);
+    setAlbumGain, setMaxAmplitude_Track, setMaxAmplitude_Album,
+    setSongItemHasFinished);
 
   TMP3GainAction = (mgaTrackAnalyze, mgaAlbumAnalyze, mgaCheckTagInfo,
     mgaDeleteTagInfo, mgaAlbumGain, mgaTrackGain, mgaConstantGain,
@@ -193,6 +194,9 @@ const
   
   SI_COUNT = 7;
   
+  SB_STATUS = 0;
+  SB_FILECOUNT = 1;
+  
   REF_VOLUME = 89;
   
 var
@@ -205,6 +209,7 @@ var
   strStatus_UndoingChanges: String = 'Undoing Changes...';
   strStatus_ExitCode127: String = 'Could not start mp3gain. Is it installed?';
   strAbout: String = 'About';
+  strFiles: String = 'File(s)';
 
   boolStr: array[Boolean] of String = ('no','yes');
 
@@ -443,6 +448,7 @@ begin
         FMP3GainProcess.FCurrentSongItem := CurrentSongItem;
         FProgress := 0;
         FMP3GainProcess.ASongItemHasFinished := true;
+        MP3GainSync(setSongItemHasFinished);
       end;
       if b>FProgress then
       begin
@@ -468,6 +474,7 @@ begin
   MP3GainSync(setStatusText);
   FProgress:=100;
   MP3GainSync(setProgress);
+  MP3GainSync(setSongItemHasFinished);
   OnRunFinished(Self);
 end;
 
@@ -503,6 +510,12 @@ begin
       setMaxAmplitude_Album:
       begin
         SongItem.MaxAmplitude_Album := FResult;
+      end;
+      setSongItemHasFinished:
+      begin
+        Inc(FilesProcessedCount);
+        frmMP3GainGUIMain.ProgressBarGeneral.Max := FilesToProcessCount;
+        frmMP3GainGUIMain.ProgressBarGeneral.Position := FilesProcessedCount;
       end;
     end;
     frmMp3GainGUIMain.UpdateView(SongItem);

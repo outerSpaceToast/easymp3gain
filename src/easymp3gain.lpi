@@ -49,8 +49,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="79" Y="201"/>
-        <TopLine Value="178"/>
+        <CursorPos X="10" Y="449"/>
+        <TopLine Value="538"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -59,20 +59,20 @@
         <Filename Value="/usr/share/lazarus/lcl/include/customlistview.inc"/>
         <CursorPos X="21" Y="260"/>
         <TopLine Value="240"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit2>
       <Unit3>
         <Filename Value="../Mp3GainGUI/unitmain.lfm"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
         <SyntaxHighlighter Value="LFM"/>
       </Unit3>
       <Unit4>
         <Filename Value="/usr/share/lazarus/lcl/include/listitem.inc"/>
         <CursorPos X="1" Y="194"/>
         <TopLine Value="171"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit4>
       <Unit5>
         <Filename Value="unitinfo.pas"/>
@@ -80,8 +80,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitinfo.lrs"/>
         <UnitName Value="UnitInfo"/>
-        <CursorPos X="37" Y="69"/>
-        <TopLine Value="38"/>
+        <CursorPos X="44" Y="61"/>
+        <TopLine Value="42"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -90,12 +90,12 @@
         <Filename Value="unitmp3gain.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMP3Gain"/>
-        <CursorPos X="30" Y="207"/>
-        <TopLine Value="180"/>
+        <CursorPos X="1" Y="516"/>
+        <TopLine Value="496"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="1">
-          <Item0 X="6" Y="323" ID="0"/>
+          <Item0 X="6" Y="328" ID="0"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit6>
@@ -104,102 +104,102 @@
         <UnitName Value="UnitThread"/>
         <CursorPos X="1" Y="17"/>
         <TopLine Value="1"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="41"/>
       </Unit7>
       <Unit8>
         <Filename Value="/usr/share/fpcsrc/fcl/inc/process.pp"/>
         <UnitName Value="process"/>
         <CursorPos X="7" Y="20"/>
         <TopLine Value="1"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit8>
       <Unit9>
         <Filename Value="/usr/share/fpcsrc/rtl/objpas/classes/classesh.inc"/>
         <CursorPos X="23" Y="1230"/>
         <TopLine Value="1214"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit9>
       <Unit10>
         <Filename Value="/usr/share/lazarus/lcl/lclproc.pas"/>
         <UnitName Value="LCLProc"/>
         <CursorPos X="34" Y="808"/>
         <TopLine Value="784"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit10>
       <Unit11>
         <Filename Value="/usr/share/lazarus/lcl/interfaces/gtk/gtkobject.inc"/>
         <CursorPos X="1" Y="590"/>
         <TopLine Value="565"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="0"/>
       </Unit11>
       <Unit12>
         <Filename Value="/usr/share/lazarus/lcl/include/statuspanels.inc"/>
         <CursorPos X="24" Y="24"/>
         <TopLine Value="5"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit12>
       <Unit13>
         <Filename Value="/usr/share/lazarus/lcl/include/control.inc"/>
         <CursorPos X="1" Y="2377"/>
         <TopLine Value="2354"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit13>
       <Unit14>
         <Filename Value="/usr/share/lazarus/lcl/include/application.inc"/>
         <CursorPos X="1" Y="1591"/>
         <TopLine Value="1568"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="0"/>
       </Unit14>
       <Unit15>
         <Filename Value="/usr/share/lazarus/lcl/include/menuitem.inc"/>
         <CursorPos X="1" Y="263"/>
         <TopLine Value="240"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit15>
       <Unit16>
         <Filename Value="/usr/share/lazarus/lcl/interfaces/gtk/gtkproc.inc"/>
         <CursorPos X="36" Y="3531"/>
         <TopLine Value="3501"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit16>
       <Unit17>
         <Filename Value="/usr/share/lazarus/lcl/include/listitems.inc"/>
         <CursorPos X="1" Y="55"/>
         <TopLine Value="32"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit17>
       <Unit18>
         <Filename Value="/usr/share/lazarus/lcl/forms.pp"/>
         <UnitName Value="Forms"/>
         <CursorPos X="29" Y="531"/>
         <TopLine Value="513"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit18>
       <Unit19>
         <Filename Value="/usr/share/lazarus/lcl/lclrescache.pas"/>
         <UnitName Value="LCLResCache"/>
         <CursorPos X="47" Y="159"/>
         <TopLine Value="143"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit19>
       <Unit20>
         <Filename Value="/usr/share/lazarus/lcl/interfaces/gtk/gtkwinapi.inc"/>
         <CursorPos X="1" Y="10009"/>
         <TopLine Value="9986"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit20>
       <Unit21>
         <Filename Value="/usr/share/lazarus/lcl/comctrls.pp"/>
         <UnitName Value="ComCtrls"/>
         <CursorPos X="29" Y="16"/>
         <TopLine Value="1"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit21>
       <Unit22>
         <Filename Value="/usr/share/lazarus/lcl/include/canvas.inc"/>
         <CursorPos X="42" Y="1363"/>
         <TopLine Value="1333"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit22>
       <Unit23>
         <Filename Value="unitgainconstant.pas"/>
@@ -210,7 +210,7 @@
         <CursorPos X="72" Y="74"/>
         <TopLine Value="37"/>
         <EditorIndex Value="3"/>
-        <UsageCount Value="122"/>
+        <UsageCount Value="127"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
@@ -218,78 +218,175 @@
         <UnitName Value="Controls"/>
         <CursorPos X="14" Y="1083"/>
         <TopLine Value="1048"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit24>
       <Unit25>
         <Filename Value="/usr/share/lazarus/lcl/include/customform.inc"/>
         <CursorPos X="1" Y="1053"/>
         <TopLine Value="1028"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit25>
       <Unit26>
         <Filename Value="/usr/share/fpcsrc/rtl/inc/systemh.inc"/>
         <CursorPos X="11" Y="373"/>
         <TopLine Value="350"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit26>
       <Unit27>
         <Filename Value="/usr/share/fpcsrc/fcl/inc/pipes.pp"/>
         <UnitName Value="Pipes"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="1"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit27>
       <Unit28>
         <Filename Value="/usr/lib/lazarus/lcl/interfaces/gtk/gtkobject.inc"/>
         <CursorPos X="1" Y="590"/>
         <TopLine Value="572"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit28>
       <Unit29>
         <Filename Value="/usr/lib/lazarus/lcl/include/control.inc"/>
         <CursorPos X="1" Y="1527"/>
         <TopLine Value="1510"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit29>
       <Unit30>
         <Filename Value="/usr/lib/lazarus/lcl/include/toolbutton.inc"/>
         <CursorPos X="1" Y="122"/>
         <TopLine Value="105"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit30>
       <Unit31>
         <Filename Value="/usr/lib/lazarus/lcl/include/wincontrol.inc"/>
         <CursorPos X="1" Y="3479"/>
         <TopLine Value="3461"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit31>
       <Unit32>
         <Filename Value="/usr/lib/lazarus/lcl/interfaces/gtk/gtkproc.inc"/>
         <CursorPos X="1" Y="3533"/>
         <TopLine Value="3516"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit32>
       <Unit33>
         <Filename Value="/usr/lib/lazarus/lcl/interfaces/gtk/gtkcallback.inc"/>
         <CursorPos X="1" Y="1523"/>
         <TopLine Value="1506"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit33>
       <Unit34>
         <Filename Value="/usr/lib/lazarus/lcl/include/listitem.inc"/>
         <CursorPos X="35" Y="507"/>
         <TopLine Value="484"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit34>
       <Unit35>
         <Filename Value="/usr/share/fpcsrc/rtl/unix/classes.pp"/>
         <UnitName Value="Classes"/>
         <CursorPos X="1" Y="1"/>
         <TopLine Value="10"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit35>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="24" HistoryIndex="23">
+      <Position1>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="370" Column="44" TopLine="366"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="601" Column="3" TopLine="584"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="436" Column="10" TopLine="425"/>
+      </Position3>
+      <Position4>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="422" Column="38" TopLine="400"/>
+      </Position4>
+      <Position5>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="459" Column="14" TopLine="446"/>
+      </Position5>
+      <Position6>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="194" Column="82" TopLine="160"/>
+      </Position6>
+      <Position7>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="141" Column="15" TopLine="112"/>
+      </Position7>
+      <Position8>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="80" Column="32" TopLine="79"/>
+      </Position8>
+      <Position9>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="215" Column="1" TopLine="195"/>
+      </Position9>
+      <Position10>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="79" Column="31" TopLine="79"/>
+      </Position10>
+      <Position11>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="227" Column="40" TopLine="122"/>
+      </Position11>
+      <Position12>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="80" Column="32" TopLine="79"/>
+      </Position12>
+      <Position13>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="206" Column="42" TopLine="180"/>
+      </Position13>
+      <Position14>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="332" Column="32" TopLine="313"/>
+      </Position14>
+      <Position15>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="347" Column="34" TopLine="336"/>
+      </Position15>
+      <Position16>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="218" Column="41" TopLine="195"/>
+      </Position16>
+      <Position17>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="415" Column="25" TopLine="380"/>
+      </Position17>
+      <Position18>
+        <Filename Value="unitmp3gain.pas"/>
+        <Caret Line="706" Column="39" TopLine="670"/>
+      </Position18>
+      <Position19>
+        <Filename Value="unitmp3gain.pas"/>
+        <Caret Line="517" Column="1" TopLine="486"/>
+      </Position19>
+      <Position20>
+        <Filename Value="unitmp3gain.pas"/>
+        <Caret Line="516" Column="1" TopLine="496"/>
+      </Position20>
+      <Position21>
+        <Filename Value="unitmp3gain.pas"/>
+        <Caret Line="521" Column="91" TopLine="497"/>
+      </Position21>
+      <Position22>
+        <Filename Value="unitmp3gain.pas"/>
+        <Caret Line="518" Column="1" TopLine="498"/>
+      </Position22>
+      <Position23>
+        <Filename Value="unitmp3gain.pas"/>
+        <Caret Line="521" Column="60" TopLine="501"/>
+      </Position23>
+      <Position24>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="416" Column="87" TopLine="320"/>
+      </Position24>
+    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="5"/>

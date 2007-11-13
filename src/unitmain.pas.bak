@@ -77,6 +77,7 @@ type
     pmnAnalysis: TPopupMenu;
     pmnGain: TPopupMenu;
     ProgressBar: TProgressBar;
+    ProgressBarGeneral: TProgressBar;
     SelectDirectoryDialog: TSelectDirectoryDialog;
     StatusBar: TStatusBar;
     ToolBar1: TToolBar;
@@ -138,6 +139,7 @@ type
     procedure LockControls(lock: Boolean);
     procedure LoadLanguageFile(AFile: String);
     procedure AddFiles(SL: TStringList);
+    procedure UpdateFileCount;
     { private declarations }
   public
     procedure Init;
@@ -149,7 +151,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0023';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0026';
 
  var
    S: TStringList;
@@ -157,6 +159,8 @@ type
    P: TProcess;
    n: LongInt;
    BytesRead: LongInt;
+   FilesToProcessCount: Integer=0;
+   FilesProcessedCount: Integer=0;
 
 var
   frmMp3GainGUIMain: TfrmMp3GainGUIMain;
@@ -187,6 +191,11 @@ begin
     end;
   until FindNext(SR)<>0;
   FindClose(SR);
+end;
+
+procedure TfrmMP3GainGUIMain.UpdateFileCount;
+begin
+  StatusBar.Panels[SB_FILECOUNT].Text := IntToStr(lvFiles.Items.Count) + ' '+ strFiles;
 end;
 
 procedure TfrmMP3GainGUIMain.Init;
@@ -322,7 +331,10 @@ begin
     for i:=0 to lvFiles.Items.Count-1 do
     begin
       if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
+      begin
+        Inc(FilesToProcessCount);
         TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
+      end;
     end;
   end
   else // no AlbumAnalyze-Task
@@ -331,6 +343,7 @@ begin
     begin
       if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
       begin
+        Inc(FilesToProcessCount);
         TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
       end;
     end;
@@ -397,8 +410,9 @@ begin
   end
   else
   begin
-    //edtVolumeChange(Sender);
     LockControls(false);
+    FilesToProcessCount := 0;
+    FilesProcessed := 0;
   end;
 end;
 
@@ -419,7 +433,6 @@ begin
   if not OpenDialog.Execute then exit;
   for i:=0 to OpenDialog.Files.Count-1 do
     AddSongItem(OpenDialog.Files[i]);
-  //mnuOptionsReadTagInfoClick(Sender);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuFileAddFolderClick(Sender: TObject);
@@ -555,12 +568,14 @@ begin
   TaskList.AddTask(SongItem, mgaCheckTagInfo, MP3Gain.TargetVolume);
   if MP3Gain.IsReady then
     OnMP3GainReady(Self);
+  UpdateFileCount;
 end;
 
 procedure TfrmMp3GainGUIMain.DelSongItem(AItemIndex: Integer);
 begin
   TSongItem(lvFiles.Items[AItemIndex].Data).Free;
   lvFiles.Items.Delete(AItemIndex);
+  UpdateFileCount;
 end;
 
 procedure TfrmMp3GainGUIMain.btnAddFilesClick(Sender: TObject);
