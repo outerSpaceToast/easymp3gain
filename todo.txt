@@ -6,6 +6,10 @@ Sortieren bei Column-Click
 Anzeige: Datei x von y
 Anzeige der aktuellen Items (Anzahl) in der Statusleiste
 Übersetzung anpassen (0.2)
+"Tag neu schreiben" Ja/Nein Option
+Automatisches Auslesen: Ja/Nein
+aktueller Dateiname anzeigen
+Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
 
 done:
 Hinzufügen von Unterordnern
