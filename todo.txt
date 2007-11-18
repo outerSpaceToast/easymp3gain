@@ -4,12 +4,11 @@ Meldung wenn Gain aber noch kein Analyse
 Bei Album-Analyse: zum Schluss ausgeben!
 Sortieren bei Column-Click
 Anzeige: Datei x von y
-Anzeige der aktuellen Items (Anzahl) in der Statusleiste
 Übersetzung anpassen (0.2)
-"Tag neu schreiben" Ja/Nein Option
-Automatisches Auslesen: Ja/Nein
-aktueller Dateiname anzeigen
+Option: "Tag neu schreiben" Ja/Nein
+Option: Automatisches Auslesen: Ja/Nein
 Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
+Fehler in der Konsole
 
 done:
 Hinzufügen von Unterordnern
@@ -20,3 +19,6 @@ Filename einfügen bei SongItem
 Fehler beim Beenden (x) !!!!! (override?)
 Fehleranzeige in Statusbar entfernen (Fehler 0)
 Ordner Dialog bleibt zu lange offen
+Anzeige der aktuellen Items (Anzahl) in der Statusleiste
+Hint des Dateinamen in der ListView
+aktueller Dateiname anzeigen
