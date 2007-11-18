@@ -7,14 +7,15 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
   VertScrollBar.Page = 299
   ActiveControl = btnClose
   Caption = 'About MP3Gain-GUI'
+  ClientHeight = 300
+  ClientWidth = 471
   Position = poScreenCenter
   object lblProgramName: TLabel
     Left = 59
-    Height = 17
+    Height = 20
     Top = 20
-    Width = 102
+    Width = 116
     Caption = 'MP3Gain-GUI'
-    Color = clNone
     Font.Height = -14
     Font.Style = [fsBold]
     ParentColor = False
@@ -24,6 +25,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     Height = 32
     Top = 15
     Width = 32
+    Transparent = False
   end
   object PageControl: TPageControl
     Left = 8
@@ -36,6 +38,8 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'About'
+      ClientHeight = 167
+      ClientWidth = 446
       object lblDescription: TLabel
         Left = 85
         Height = 97
@@ -44,7 +48,6 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoSize = False
         Caption = 'MP3Gain-GUI, graphical user interface for the'#10'mp3 gaining tool mp3gain'#10#10'(c) 2007, Thomas Dieffenbach'
-        Color = clNone
         ParentColor = False
         WordWrap = True
       end
@@ -55,17 +58,18 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Width = 328
         AutoSize = False
         Caption = 'http://easymp3gain.sourceforge.net'
-        Color = clNone
         ParentColor = False
       end
     end
     object TabSheet2: TTabSheet
       Caption = 'Authors'
+      ClientHeight = 167
+      ClientWidth = 446
       object Memo1: TMemo
         Left = 5
-        Height = 156
+        Height = 157
         Top = 5
-        Width = 438
+        Width = 436
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
@@ -81,11 +85,13 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     end
     object TabSheet3: TTabSheet
       Caption = 'Thanks to'
+      ClientHeight = 167
+      ClientWidth = 446
       object Memo4: TMemo
         Left = 5
-        Height = 156
+        Height = 157
         Top = 5
-        Width = 438
+        Width = 436
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
@@ -101,11 +107,13 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     end
     object TabSheet4: TTabSheet
       Caption = 'Translation'
+      ClientHeight = 167
+      ClientWidth = 446
       object Memo3: TMemo
         Left = 5
-        Height = 156
+        Height = 157
         Top = 5
-        Width = 438
+        Width = 436
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
@@ -118,11 +126,13 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     end
     object TabSheet5: TTabSheet
       Caption = 'License'
+      ClientHeight = 167
+      ClientWidth = 446
       object Memo2: TMemo
         Left = 5
-        Height = 156
+        Height = 157
         Top = 5
-        Width = 438
+        Width = 436
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (

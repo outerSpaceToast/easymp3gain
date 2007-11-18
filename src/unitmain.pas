@@ -22,6 +22,8 @@ unit UnitMain;
 
 {$mode objfpc}{$H+}
 
+{_$DEFINE DEBUG_VERSION}
+
 interface
 
 uses
@@ -93,12 +95,14 @@ type
     btnOnlySelectedItems: TToolButton;
     ToolButton4: TToolButton;
     btnCancel: TToolButton;
+    ToolButton5: TToolButton;
     procedure CheckBox1Change(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure ListView1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure ToolBar1Click(Sender: TObject);
+    procedure ToolButton5Click(Sender: TObject);
     procedure btnAddFilesClick(Sender: TObject);
     procedure btnAddFolderClick(Sender: TObject);
     procedure btnAnalysisClick(Sender: TObject);
@@ -151,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0026';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0028';
 
  var
    S: TStringList;
@@ -167,26 +171,49 @@ var
 
 implementation
 
-uses unitinfo;
+uses unitinfo, BaseUnix;
 
 { TfrmMp3GainGUIMain }
 
 Procedure ListFiles(const FilePath: String; const Extension: String;
                     ListBox:TStringList; SubLevelMax: Byte);
+
+  function IsRealDirectory(FilePath, Value: String): Boolean;
+  var
+    info: stat;
+  begin
+    Result := false;
+    if not ((Value='.') or (Value='..') or (Value='')) then
+    begin
+      fplstat(FilePath+Value,@info);
+      if info.nlink<>1 then Result := true;
+    end;
+  end;
+
 var
   SR: TSearchRec;
+  {$IFDEF DEBUG_VERSION}
+  X: TStringList;
+  {$ENDIF}
 begin
   if FindFirst(FilePath+'*.'+Extension,faAnyFile,SR)=0 then    // Files
   repeat
     if not ((faDirectory and SR.Attr)=faDirectory) then
       ListBox.Add(FilePath + SR.Name);
   until FindNext(SR)<>0;
-  
+  FindClose(SR);
   if (SubLevelMax>0) and (FindFirst(FilePath+'*',faDirectory,SR)=0) then     // SubFolders
   repeat
-    if (faDirectory and SR.Attr)=faDirectory then
+    if ((faDirectory or faSymLink) and SR.Attr)=faDirectory then
     begin
-      if not ((SR.Name='.') or (SR.Name='..')) then
+      {$IFDEF DEBUG_VERSION}
+        X := TStringList.Create();
+        X.LoadFromFile('/home/thomas/a_files.txt');
+        X.Add(FilePath + SR.Name + ' ' + IntToStr(SR.Attr) +' ' );
+        X.SaveToFile('/home/thomas/a_files.txt');
+        X.Free;
+      {$ENDIF}
+      if IsRealDirectory(FilePath, SR.Name) then
         ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
     end;
   until FindNext(SR)<>0;
@@ -442,7 +469,7 @@ var
 begin
   if not SelectDirectoryDialog.Execute then exit;
   Application.ProcessMessages;
-  if Sender=mnuFileAddFolderRecursive then sublevels := 10 else sublevels := 0;
+  if Sender=mnuFileAddFolderRecursive then sublevels := 6 else sublevels := 0;
   SL := TStringList.Create;
   try
     ListFiles(IncludeTrailingPathDelimiter(SelectDirectoryDialog.FileName),'mp3', SL, sublevels);
@@ -611,6 +638,18 @@ begin
 
 end;
 
+procedure TfrmMp3GainGUIMain.ToolButton5Click(Sender: TObject);
+var
+  X: TStringList;
+begin
+  X := TStringList.Create;
+  try
+    ListFiles('/home/thomas/.wine/','*',X,10);
+  finally
+    X.Free;
+  end;
+end;
+
 procedure TfrmMp3GainGUIMain.btnAddFolderClick(Sender: TObject);
 begin
   mnuFileAddFolderClick(mnuFileAddFolderRecursive);
@@ -699,9 +738,21 @@ procedure TfrmMp3GainGUIMain.lvFilesMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
   Item: TListItem;
+  a: Integer;
 begin
   Item := lvFiles.GetItemAt(X,Y);
-  if Item=nil then exit;
+  if (Item=nil) then
+  begin
+    lvFiles.Hint := '';
+    exit;
+  end;
+  a := Item.Index-1;
+  if (a<0) or (a>lvFiles.Items.Count-1) then
+  begin
+    lvFiles.Hint := '';
+    exit;
+  end;
+  Item := lvFiles.Items[a];
   lvFiles.Hint := Item.Caption;
 end;
 

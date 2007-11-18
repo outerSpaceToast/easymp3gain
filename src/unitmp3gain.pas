@@ -23,8 +23,6 @@ unit UnitMP3Gain;
 
 {$mode objfpc}{$H+}
 
-{_$DEFINE DEBUG_VERSION}
-
 interface
 
 uses
@@ -34,7 +32,7 @@ type
 
   TSyncEventType = (setProgress, setStatusText, setStatusCode, setTrackGain,
     setAlbumGain, setMaxAmplitude_Track, setMaxAmplitude_Album,
-    setSongItemHasFinished);
+    setSongItemHasFinished, setSongItemHasStarted);
 
   TMP3GainAction = (mgaTrackAnalyze, mgaAlbumAnalyze, mgaCheckTagInfo,
     mgaDeleteTagInfo, mgaAlbumGain, mgaTrackGain, mgaConstantGain,
@@ -196,6 +194,7 @@ const
   
   SB_STATUS = 0;
   SB_FILECOUNT = 1;
+  SB_FILENAME = 2;
   
   REF_VOLUME = 89;
   
@@ -449,6 +448,7 @@ begin
         FProgress := 0;
         FMP3GainProcess.ASongItemHasFinished := true;
         MP3GainSync(setSongItemHasFinished);
+        MP3GainSync(setSongItemHasStarted);
       end;
       if b>FProgress then
       begin
@@ -516,6 +516,11 @@ begin
         Inc(FilesProcessedCount);
         frmMP3GainGUIMain.ProgressBarGeneral.Max := FilesToProcessCount;
         frmMP3GainGUIMain.ProgressBarGeneral.Position := FilesProcessedCount;
+        frmMP3GainGUIMain.StatusBar.Panels[SB_FILENAME].Text := '';
+      end;
+      setSongItemHasStarted:
+      begin
+        frmMP3GainGUIMain.StatusBar.Panels[SB_FILENAME].Text := SongItem.FileName;
       end;
     end;
     frmMp3GainGUIMain.UpdateView(SongItem);
@@ -595,6 +600,7 @@ begin
     Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
   FMP3GainProcess.ProcessCommand := cmd + ' -o' + Filenames;    // -o Tab delimited output
   FMP3GainProcess.ASongItemHasFinished := false;
+  MP3GainSync(setSongItemHasStarted);
   FMP3GainProcess.Resume;
 end;
 
@@ -707,7 +713,7 @@ begin
   Self.FreeOnTerminate := true;
   Synchronize(OnFinished);
   //OnFinished();
-  //Self.Terminate;
+  Self.Terminate;
 end;
 
 
