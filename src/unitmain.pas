@@ -155,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0030';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0031';
 
  var
    S: TStringList;
@@ -519,7 +519,7 @@ end;
 procedure TfrmMp3GainGUIMain.mnuModifyGainApplyAlbumClick(Sender: TObject);
 begin
   QueueFiles(mgaAlbumGain, MP3Gain.TargetVolume);
-  mnuOptionsReadTagInfoClick(Sender);
+  //mnuOptionsReadTagInfoClick(Sender);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuModifyGainApplyConstantClick(Sender: TObject);
@@ -535,7 +535,7 @@ end;
 procedure TfrmMp3GainGUIMain.mnuModifyGainApplyTrackClick(Sender: TObject);
 begin
   QueueFiles(mgaTrackGain, MP3Gain.TargetVolume);
-  mnuOptionsReadTagInfoClick(Sender);
+  //mnuOptionsReadTagInfoClick(Sender);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuModifyGainUndoClick(Sender: TObject);

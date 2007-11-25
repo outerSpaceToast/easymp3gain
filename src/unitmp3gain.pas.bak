@@ -371,7 +371,6 @@ begin
             if not (e>0) then
             begin
               FResult := r;
-              FBoolResult := FResult > 32768;
               MP3GainSync(setMaxAmplitude_Track);
             end;
           end;
@@ -492,9 +491,11 @@ begin
           frmMP3GainGUIMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
       setTrackGain:
       begin
+        if FMP3GainAction = mgaTrackGain then FResult := REF_VOLUME - (SongItem.Volume_Track + FResult);
+        if FMP3GainAction = mgaAlbumGain then FResult := REF_VOLUME - (SongItem.Volume_Track - FResult);
         SongItem.HasData := true; // TagInfo existing
-        SongItem.Gain_Track := FResult+FTargetVolume-REF_VOLUME;
-        SongItem.Volume_Track := REF_VOLUME-FResult;
+        SongItem.Volume_Track := REF_VOLUME-FResult;  //FResult + SongItem.Gain_Track;
+        SongItem.Gain_Track := FResult+FTargetVolume-REF_VOLUME; //FTargetVolume - SongItem.Volume_Track
       end;
       setAlbumGain:
       begin
@@ -504,6 +505,8 @@ begin
       end;
       setMaxAmplitude_Track:
       begin
+        if FMP3GainAction = mgaTrackGain then FResult := SongItem.MaxAmplitude_Track + FResult;
+        FBoolResult := FResult > 32768;
         SongItem.Clipping := FBoolResult;
         SongItem.MaxAmplitude_Track := FResult;
       end;
@@ -714,8 +717,6 @@ begin
   Synchronize(OnResultEvent);
   //Self.FreeOnTerminate := true;   // Thread-Bug in FPC2.2 True
   Synchronize(OnFinished);
-  //Self.Suspend;  // Thread-Bug in FPC2.2 True
-  //OnFinished();
   //Self.Terminate;   // Thread-Bug in FPC2.2 True
 end;
 
