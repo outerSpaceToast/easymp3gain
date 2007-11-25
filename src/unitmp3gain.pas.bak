@@ -89,7 +89,7 @@ type
     MP3GainAction: TMP3GainAction;
     Volume: Real;
     constructor Create;
-    destructr Destroy; override;
+    destructor Destroy; override;
   published
     property SongItems: TSongItemList read FSongItemList;
   end;
@@ -547,13 +547,14 @@ var
   i: Integer;
 begin
   if SongItems.Count<1 then exit;
+  //while (not FMP3GainProcess.Suspended) do ;//FMP3GainProcess.WaitFor;  // Thread-Bug in FPC2.2 True     1
   FReady := false;
   FProgress := 0;
   Filenames := '';
   SongItem := SongItems[0];
   FErrorHasOccured := false;
   MP3GainSync(setProgress);
-  CreateProcess;
+  CreateProcess;    // Thread-Bug in FPC2.2 True     1
   cmd := MP3_GAIN_CMD + ' ';
   case FMP3GainAction of
     mgaTrackAnalyze:
@@ -610,6 +611,7 @@ begin
   FReady := true;
   SongItem := nil;
   FSongItemList := TSongItemList.Create;
+  //CreateProcess;  // Thread-Bug in FPC2.2 True    1
 end;
 
 destructor TMP3Gain.Destroy;
@@ -624,7 +626,7 @@ end;
 constructor TMP3GainProcess.Create(CreateSuspended : boolean);
 begin
   inherited Create(CreateSuspended);
-  FreeOnTerminate := True;
+  FreeOnTerminate := True;   // Thread-Bug in FPC2.2 True    1
 end;
 
 destructor TMP3GainProcess.Destroy;
@@ -710,10 +712,11 @@ begin
   Synchronize(OnStatusCodeEvent);
   ProcessOutput := str_echo;
   Synchronize(OnResultEvent);
-  Self.FreeOnTerminate := true;
+  //Self.FreeOnTerminate := true;   // Thread-Bug in FPC2.2 True
   Synchronize(OnFinished);
+  //Self.Suspend;  // Thread-Bug in FPC2.2 True
   //OnFinished();
-  Self.Terminate;
+  //Self.Terminate;   // Thread-Bug in FPC2.2 True
 end;
 
 

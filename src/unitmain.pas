@@ -155,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0028';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0030';
 
  var
    S: TStringList;

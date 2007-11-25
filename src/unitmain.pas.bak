@@ -155,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0028';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0030';
 
  var
    S: TStringList;
@@ -183,9 +183,9 @@ Procedure ListFiles(const FilePath: String; const Extension: String;
     info: stat;
   begin
     Result := false;
+      fplstat(FilePath+Value,@info);
     if not ((Value='.') or (Value='..') or (Value='')) then
     begin
-      fplstat(FilePath+Value,@info);
       if info.nlink<>1 then Result := true;
     end;
   end;
@@ -740,7 +740,13 @@ var
   Item: TListItem;
   a: Integer;
 begin
-  a := lvFiles.GetItemAt(X,Y).Index-1;
+  Item := lvFiles.GetItemAt(X,Y);
+  if (Item=nil) then
+  begin
+    lvFiles.Hint := '';
+    exit;
+  end;
+  a := Item.Index-1;
   if (a<0) or (a>lvFiles.Items.Count-1) then
   begin
     lvFiles.Hint := '';
