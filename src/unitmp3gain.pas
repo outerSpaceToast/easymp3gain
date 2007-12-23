@@ -23,6 +23,8 @@ unit UnitMP3Gain;
 
 {$mode objfpc}{$H+}
 
+{$DEFINE DEBUG_VERSION}
+
 interface
 
 uses
@@ -32,7 +34,7 @@ type
 
   TSyncEventType = (setProgress, setStatusText, setStatusCode, setTrackGain,
     setAlbumGain, setMaxAmplitude_Track, setMaxAmplitude_Album,
-    setSongItemHasFinished, setSongItemHasStarted);
+    setSongItemHasFinished, setSongItemHasStarted, setWholeAlbumGain);
 
   TMP3GainAction = (mgaTrackAnalyze, mgaAlbumAnalyze, mgaCheckTagInfo,
     mgaDeleteTagInfo, mgaAlbumGain, mgaTrackGain, mgaConstantGain,
@@ -308,7 +310,23 @@ begin
 end;
 
 procedure TMP3Gain.ProcessResult;
+
+  function GetSongItem(const AFileName: String): TSongItem;
+  var
+    i: Integer;
+  begin
+    Result := nil;
+    for i:=SongItems.Count-1 downto 0 do
+    begin
+      if (SongItems[i].FileName = AFileName) then
+        Result := SongItems[i];
+    end;
+  end;
+
 const
+  strResult_Album = '"Album"';
+  strResult_Album_Unquoted = 'Album';
+  strResult_File = 'File';
   strResult_TrackGain = 'dB gain'; //'"Track" dB change: ';
   strResult_AlbumGain = 'Album dB gain'; //'"Album" dB change: ';
   strResult_MaxAmplitudeTrack = 'Max Amplitude'; //'Max PCM sample at current gain: ';
@@ -316,9 +334,12 @@ var
   SL,header,data: TStringList;
   i,p,e: Integer;
   r: Double;
+  s: String;
+  Album_Result_Event: Boolean;
 begin
   if FMP3GainProcess.ExitStatus=0 then
   begin
+    Album_Result_Event := false;
     SL := TStringList.Create;
     header := TStringList.Create;
     data := TStringList.Create;
@@ -337,41 +358,74 @@ begin
       header.DelimitedText := '"'+StringReplace(SL[0],#9,'"'#9'"',[rfReplaceAll]) + '"';
       for i:=1 to SL.Count-1 do
       begin
-        data.DelimitedText := '"'+StringReplace(SL[i],#9,'"'#9'"',[rfReplaceAll]) + '"';
-        if (SongItems.Count<i) then continue;
-        SongItem := SongItems[i-1];
+        S := StringReplace(SL[i], strResult_Album, strResult_Album_Unquoted, [rfReplaceAll]);
+        data.DelimitedText := '"'+StringReplace(S,#9,'"'#9'"',[rfReplaceAll]) + '"';
+
+        p := header.IndexOf(strResult_File);
+        if (p>-1) then
+        begin
+            {$IFDEF DEBUG_VERSION}
+              data.SaveToFile('/home/thomas/out_data.txt');
+            {$ENDIF}
+          if (data[p] = strResult_Album_Unquoted) then
+          begin
+            Album_Result_Event := true;
+          end else
+          begin
+            Album_Result_Event := false;
+            SongItem := GetSongItem(data[p]);
+            if SongItem=nil then continue;
+          end;
+        end;
+
+        //if (SongItems.Count<i) then continue;
+        //SongItem := SongItems[i-1];
 
         try
           p := header.IndexOf(strResult_TrackGain);
           if (p>-1) then
           begin
+            writeln('trackgain: ',p);
+            writeln('count: ', data.Count);
             Val(data[p],r,e);
             if not (e>0) then
             begin
               FResult := r;
-              MP3GainSync(setTrackGain);
+              if Album_Result_Event then
+                MP3GainSync(setWholeAlbumGain)
+              else
+                MP3GainSync(setTrackGain);
             end;
           end;
 
           p := header.IndexOf(strResult_AlbumGain);
           if (p>-1) then
           begin
+            writeln('albumgain: ',p);
+            writeln('count: ', data.Count);
             Val(data[p],r,e);
             if not (e>0) then
             begin
               FResult := r;
-              MP3GainSync(setAlbumGain);
+              //if Album_Result_Event then
+              //  MP3GainSync(setWholeAlbumGain);
+              //else
+              if not Album_Result_Event then
+                MP3GainSync(setAlbumGain)
             end;
           end;
 
           p := header.IndexOf(strResult_MaxAmplitudeTrack);
           if (p>-1) then
           begin
+            writeln('maxamp: ',p);
+            writeln('count: ', data.Count);
             Val(data[p],r,e);
             if not (e>0) then
             begin
               FResult := r;
-              MP3GainSync(setMaxAmplitude_Track);
+              if not Album_Result_Event then
+                MP3GainSync(setMaxAmplitude_Track);
             end;
           end;
         except
@@ -478,6 +532,8 @@ begin
 end;
 
 procedure TMP3Gain.MP3GainSync(value: TSyncEventType);
+var
+  i: Integer;
 begin
   if not (SongItem=nil) then
   begin
@@ -502,6 +558,16 @@ begin
         SongItem.HasAlbumData := true;
         SongItem.Gain_Album := FResult+FTargetVolume-REF_VOLUME;
         SongItem.Volume_Album := REF_VOLUME-FResult;
+      end;
+      setWholeAlbumGain:  // For the whole SongItem-List
+      begin
+        if FMP3GainAction = mgaAlbumGain then FResult := REF_VOLUME - (SongItem.Volume_Album + FResult);
+        for i:=SongItems.Count-1 downto 0 do
+        begin
+          SongItems[i].HasAlbumData := true;
+          SongItems[i].Gain_Album := FResult+FTargetVolume-REF_VOLUME;
+          SongItems[i].Volume_Album := REF_VOLUME-FResult;
+        end;
       end;
       setMaxAmplitude_Track:
       begin
@@ -652,6 +718,32 @@ end;
 procedure TMP3GainProcess.Execute;
 const
   READ_BYTES = 2048;
+
+  function ReadFromPipeStream(AStream: TInputPipeStream; var AString: String): Integer;
+  var
+    M: TMemoryStream;
+    BytesRead: Integer;
+    n: Integer;
+  begin
+    M := TMemoryStream.Create;
+    BytesRead := 0;
+    try
+      repeat
+        M.SetSize(BytesRead + AStream.NumBytesAvailable);
+        n := AStream.Read((M.Memory + BytesRead)^, AStream.NumBytesAvailable);
+        Inc(BytesRead, n);
+      until (n=0);
+      if BytesRead>0 then
+      begin
+        SetLength(AString,BytesRead);
+        M.Read(AString[1],BytesRead);
+      end;
+    finally
+      M.Free;
+      Result := BytesRead;
+    end;
+  end;
+  
 var
   P: TProcess;
   n: LongInt;
@@ -672,38 +764,55 @@ begin
     P.CommandLine := FProcessCommand;
     P.Options := [poUsePipes,poNoConsole];
     P.Execute;
+    Writeln('mp3gain started.');
     while P.Running do
     begin
-      n := ReadProcessOutput(P.Stderr, @Buffer);
-      if n>0 then
+      Writeln('Trying to read progress-output...');
+      BytesRead := ReadFromPipeStream(P.Stderr, ProcessOutput);
+      Writeln('Read ', BytesRead, ' Bytes');
+      if BytesRead>0 then
       begin
-        ProcessOutput := Buffer;
+        Writeln('Trying to synchronize progress...');
         Synchronize(OnProgressEvent);
+        Writeln('Synchronized.');
       end;
       Sleep(100);
       if FASongItemHasFinished then   // A SongItem Finished, read the output
       begin
+        Writeln('SongItem has finished.');
         FASongItemHasFinished := false;
-        n := ReadProcessOutput(P.Output, @Buffer); //P.Output.Read(Buffer, READ_BYTES);
+        BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
+        if (BytesRead>0) then
+        begin
+          Writeln('Processing output from mp3gain.');
+          Synchronize(OnResultEvent);
+        end;
+       (* n := ReadProcessOutput(P.Output, @Buffer); //P.Output.Read(Buffer, READ_BYTES);
         if n>0 then
         begin
           str_echo := str_echo + Buffer;
-          ProcessOutput := str_echo;
+          ProcessOutput := str_echo; //pchar
   {$IFDEF DEBUG_VERSION}
       X.Add(ProcessOutput);
       X.Add('## Count:'+IntToStr(n)+'##');
       X.SaveToFile('/home/thomas/op.txt');
   {$ENDIF}
-        end;
+        Writeln('Processing output from mp3gain.');
+        Synchronize(OnResultEvent);
+        end; *)
       end;
-      Synchronize(OnResultEvent);
     end;
+    Writeln('Trying to read output...');
+    BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
+    Writeln('Read ', BytesRead, ' Bytes.');
+    Writeln(ProcessOutput);
+    (*
     n := ReadProcessOutput(P.Output, @Buffer);  // read the final output
     if n>0 then
     begin
       str_echo := str_echo + Buffer;
-      ProcessOutput := str_echo;
-    end;
+      ProcessOutput := str_echo; //pchar
+    end;*)
   finally
     e := P.ExitStatus;
     P.Free;
@@ -711,13 +820,14 @@ begin
 {$IFDEF DEBUG_VERSION}
   X.Free;
 {$ENDIF}
+  M.Free;
   FExitStatus := e;
   Synchronize(OnStatusCodeEvent);
-  ProcessOutput := str_echo;
+  //ProcessOutput := str_echo; //pchar
   Synchronize(OnResultEvent);
   //Self.FreeOnTerminate := true;   // Thread-Bug in FPC2.2 True
   Synchronize(OnFinished);
-  //Self.Terminate;   // Thread-Bug in FPC2.2 True
+  Self.Terminate;   // Thread-Bug in FPC2.2 True
 end;
 
 

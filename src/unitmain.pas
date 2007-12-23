@@ -22,7 +22,7 @@ unit UnitMain;
 
 {$mode objfpc}{$H+}
 
-{_$DEFINE DEBUG_VERSION}
+{$DEFINE DEBUG_VERSION}
 
 interface
 
@@ -155,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0031';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0032';
 
  var
    S: TStringList;
@@ -460,6 +460,7 @@ begin
   if not OpenDialog.Execute then exit;
   for i:=0 to OpenDialog.Files.Count-1 do
     AddSongItem(OpenDialog.Files[i]);
+  //AddFiles(OpenDialog.Files);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuFileAddFolderClick(Sender: TObject);
@@ -586,7 +587,7 @@ begin
     SongItem.HasData := false;
     SongItem.FileName := AName;
     SongItem.ExtractedFileName := ExtractFileName(AName);
-    for k := 0 to SI_COUNT do
+    for k := 0 to SI_COUNT-1 do
     begin
       SongItem.ListViewItem.SubItems.Add('');
     end;

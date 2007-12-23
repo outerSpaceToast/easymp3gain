@@ -22,3 +22,14 @@ Ordner Dialog bleibt zu lange offen
 Anzeige der aktuellen Items (Anzahl) in der Statusleiste
 Hint des Dateinamen in der ListView
 aktueller Dateiname anzeigen
+
+
+zurück:
+GlobalProgressbar bei MP3GainSync->"setSongItemHasFinished:"
+
+Probleme:
+Lesen von Output/Synchronize
+Index größer als count bei data-Liste????
+Nach Album Analyze wird auch gleich nochmal Tags gecheckt! ?!?
+
+eb: Clipping wenn Track Gain, kein Clipping wenn Read Tags
