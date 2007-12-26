@@ -1,5 +1,10 @@
 2007-?-? | easyMP3Gain 0.2.0 alpha:
-album-analyzing added
+Album-analyzing added
+Statusbar showing things like current operation, file, file count etc.
+New icon-theme (Tango)
+Second progressbar showing general progress
+Button added which allows to perform changes only on selected items.
+Several small improvements
 
 2007-10-03 | easyMP3Gain 0.1.0 alpha:
 First preview of easyMP3Gain. 
