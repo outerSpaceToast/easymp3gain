@@ -22,7 +22,7 @@ unit UnitMain;
 
 {$mode objfpc}{$H+}
 
-{$DEFINE DEBUG_VERSION}
+{_$DEFINE DEBUG_VERSION}
 
 interface
 
@@ -136,7 +136,7 @@ type
   private
     MP3Gain: TMP3Gain;
     procedure WaitForMP3GainReady;
-    procedure QueueFiles(AAction: TMP3GainAction; AVolume: Double);
+    procedure QueueFiles(AAction: TMP3GainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
     procedure OnMP3GainReady(Sender: TObject);
     procedure AddSongItem(AName: String);
     procedure DelSongItem(AItemIndex: Integer);
@@ -155,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0032';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0033';
 
  var
    S: TStringList;
@@ -165,6 +165,7 @@ type
    BytesRead: LongInt;
    FilesToProcessCount: Integer=0;
    FilesProcessedCount: Integer=0;
+   Print_Debug_Info: Boolean = false;
 
 var
   frmMp3GainGUIMain: TfrmMp3GainGUIMain;
@@ -206,13 +207,6 @@ begin
   repeat
     if ((faDirectory or faSymLink) and SR.Attr)=faDirectory then
     begin
-      {$IFDEF DEBUG_VERSION}
-        X := TStringList.Create();
-        X.LoadFromFile('/home/thomas/a_files.txt');
-        X.Add(FilePath + SR.Name + ' ' + IntToStr(SR.Attr) +' ' );
-        X.SaveToFile('/home/thomas/a_files.txt');
-        X.Free;
-      {$ENDIF}
       if IsRealDirectory(FilePath, SR.Name) then
         ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
     end;
@@ -346,7 +340,7 @@ begin
   btnCancel.Enabled := lock;
 end;
 
-procedure TfrmMp3GainGUIMain.QueueFiles(AAction: TMP3GainAction; AVolume: Double);
+procedure TfrmMp3GainGUIMain.QueueFiles(AAction: TMP3GainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
 var
   i: Integer;
   a: Integer;
@@ -372,6 +366,11 @@ begin
       begin
         Inc(FilesToProcessCount);
         TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
+        if CheckTagInfoAfterwards then
+        begin
+          Inc(FilesToProcessCount);
+          TaskList.AddTask(lvFiles.Items[i].Data, mgaCheckTagInfo, AVolume);
+        end;
       end;
     end;
   end;
@@ -379,10 +378,14 @@ begin
   begin
     if (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then continue;
     TSongItem(lvFiles.Items[i].Data).HasData := false;
-    TSongItem(lvFiles.Items[i].Data).HasAlbumData := false;
+    //TSongItem(lvFiles.Items[i].Data).HasAlbumData := false;
   end;
   if MP3Gain.IsReady then
+  begin
+    ProgressBarGeneral.Position := 0;
+    ProgressBar.Position := 0;
     OnMP3GainReady(Self);
+  end;
 end;
 
 procedure TfrmMp3GainGUIMain.WaitForMP3GainReady;
@@ -519,8 +522,7 @@ end;
 
 procedure TfrmMp3GainGUIMain.mnuModifyGainApplyAlbumClick(Sender: TObject);
 begin
-  QueueFiles(mgaAlbumGain, MP3Gain.TargetVolume);
-  //mnuOptionsReadTagInfoClick(Sender);
+  QueueFiles(mgaAlbumGain, MP3Gain.TargetVolume, true);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuModifyGainApplyConstantClick(Sender: TObject);
@@ -529,24 +531,22 @@ var
 begin
   r := frmMP3GainConstant.ShowModal;
   if r=-1 then exit;
-  QueueFiles(mgaConstantGain, Double(r)/10);
-  mnuOptionsReadTagInfoClick(Sender);
+  QueueFiles(mgaConstantGain, Double(r)/10, true);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuModifyGainApplyTrackClick(Sender: TObject);
 begin
-  QueueFiles(mgaTrackGain, MP3Gain.TargetVolume);
-  //mnuOptionsReadTagInfoClick(Sender);
+  QueueFiles(mgaTrackGain, MP3Gain.TargetVolume, true);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuModifyGainUndoClick(Sender: TObject);
 begin
-  QueueFiles(mgaUndoChanges, MP3Gain.TargetVolume);
+  QueueFiles(mgaUndoChanges, MP3Gain.TargetVolume, true);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuOptionsDeleteTagInfosClick(Sender: TObject);
 begin
-  QueueFiles(mgaDeleteTagInfo, MP3Gain.TargetVolume);
+  QueueFiles(mgaDeleteTagInfo, MP3Gain.TargetVolume, false);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuOptionsOnlySelectedItemsClick(Sender: TObject);
@@ -556,18 +556,17 @@ end;
 
 procedure TfrmMp3GainGUIMain.mnuOptionsReadTagInfoClick(Sender: TObject);
 begin
-  QueueFiles(mgaCheckTagInfo, MP3Gain.TargetVolume);
+  QueueFiles(mgaCheckTagInfo, MP3Gain.TargetVolume, false);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuAnalysisTrackClick(Sender: TObject);
 begin
-  QueueFiles(mgaTrackAnalyze, MP3Gain.TargetVolume);
+  QueueFiles(mgaTrackAnalyze, MP3Gain.TargetVolume, false);
 end;
 
 procedure TfrmMp3GainGUIMain.mnuAnalysisAlbumClick(Sender: TObject);
 begin
-  QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume);
-  mnuOptionsReadTagInfoClick(Sender); // remove this line
+  QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume, false);
 end;
 
 procedure TfrmMp3GainGUIMain.AddSongItem(AName: String);
@@ -626,7 +625,7 @@ end;
 
 procedure TfrmMp3GainGUIMain.FormCreate(Sender: TObject);
 begin
-
+  Print_Debug_Info := Paramstr(1)='-debug';
 end;
 
 procedure TfrmMp3GainGUIMain.ListView1MouseMove(Sender: TObject;
