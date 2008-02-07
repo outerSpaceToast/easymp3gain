@@ -4,10 +4,10 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   Top = 307
   Width = 806
   HorzScrollBar.Page = 805
-  VertScrollBar.Page = 409
+  VertScrollBar.Page = 413
   ActiveControl = edtVolume
   Caption = 'MP3Gain GUI'
-  ClientHeight = 410
+  ClientHeight = 414
   ClientWidth = 806
   Menu = MainMenu1
   OnClose = FormClose
@@ -177,8 +177,8 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
     end
   end
   object StatusBar: TStatusBar
-    Height = 19
-    Top = 391
+    Height = 17
+    Top = 397
     Width = 806
     Panels = <    
       item
@@ -195,7 +195,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   object ProgressBar: TProgressBar
     Left = 5
     Height = 15
-    Top = 357
+    Top = 363
     Width = 796
     Align = alBottom
     BorderSpacing.Left = 5
@@ -207,7 +207,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   end
   object lvFiles: TListView
     Left = 5
-    Height = 302
+    Height = 308
     Top = 50
     Width = 796
     Align = alClient
@@ -258,7 +258,7 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
   object ProgressBarGeneral: TProgressBar
     Left = 5
     Height = 15
-    Top = 374
+    Top = 380
     Width = 796
     Align = alBottom
     Anchors = [akLeft, akBottom]

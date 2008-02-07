@@ -23,7 +23,7 @@ unit UnitMP3Gain;
 
 {$mode objfpc}{$H+}
 
-{$DEFINE DEBUG_VERSION}
+{_$DEFINE DEBUG_VERSION}
 
 interface
 
@@ -213,7 +213,7 @@ var
   strStatus_DeletingTagInfo: String = 'Deleting Tag Info...';
   strStatus_UndoingChanges: String = 'Undoing Changes...';
   strStatus_ExitCode127: String = 'Could not start mp3gain. Is it installed?';
-  strAbout: String = 'About';
+//  strAbout: String = 'About';
   strFiles: String = 'File(s)';
 
   boolStr: array[Boolean] of String = ('no','yes');

@@ -43,11 +43,11 @@ type
     Memo3: TMemo;
     Memo4: TMemo;
     PageControl: TPageControl;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
-    TabSheet4: TTabSheet;
-    TabSheet5: TTabSheet;
-    TabSheet3: TTabSheet;
+    tbsAbout: TTabSheet;
+    tbsAuthors: TTabSheet;
+    tbsTranslation: TTabSheet;
+    tbsLicense: TTabSheet;
+    tbsThanksTo: TTabSheet;
     procedure Label1Click(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
   private

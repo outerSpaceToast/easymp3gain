@@ -155,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0033';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0035';
 
  var
    S: TStringList;
@@ -236,7 +236,7 @@ begin
   try
     ListFiles(Application.Location,'lng',SL,0);
     if SL.Count>0 then
-      LoadLanguageFile(Application.Location+SL[0]);
+      LoadLanguageFile(SL[0]);
   finally
     SL.Free;
   end;
@@ -246,12 +246,21 @@ procedure TfrmMP3GainGUIMain.LoadLanguageFile(AFile: String);
 var
   SL: TStringList;
   i: Integer;
+  strWidgetSet: String;
 begin
   SL := TStringList.Create;
   try
     SL.LoadFromFile(AFile);
-    if not (Copy(SL.Values['version'],1,5)='0.1.1') then
+    if not (Copy(SL.Values['version'],1,5)='0.1.2') then
+    begin
       MessageDlg('Wrong language-pack version.',mtError,[mbOK],0);
+      Exit;
+    end;
+    {$IFDEF LCLwin32}strWidgetset := 'Win32';{$ENDIF}
+    {$IFDEF LCLgtk}strWidgetset := 'GTK';{$ENDIF}
+    {$IFDEF LCLgtk2}strWidgetset := 'GTK2';{$ENDIF}
+    {$IFDEF LCLqt}strWidgetset := 'QT';{$ENDIF}
+    {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
     strStatus_Analyzing := SL.Values['Status_Analyzing'];
     strStatus_Gaining := SL.Values['Status_Gaining'];
     strStatus_Finished := SL.Values['Status_Finished'];
@@ -259,9 +268,11 @@ begin
     strStatus_DeletingTagInfo := SL.Values['Status_DeletingTagInfo'];
     strStatus_UndoingChanges := SL.Values['Status_UndoingChanges'];
     strStatus_ExitCode127 := SL.Values['Status_ExitCode127'];
-    
+    strAbout := SL.Values['About'];
+    strFiles := SL.Values['Files'];
     mnuFile.Caption := SL.Values['mnuFile'];
     mnuFileAddFolder.Caption := SL.Values['mnuFileAddFolder'];
+    mnuFileAddFolderRecursive.Caption := SL.Values['mnuFileAddFolderRecursively'];
     mnuFileAddFiles.Caption := SL.Values['mnuFileAddFiles'];
     mnuFileClearSelected.Caption := SL.Values['mnuFileClearSelected'];
     mnuFileClearAllFiles.Caption := SL.Values['mnuFileClearAllFiles'];
@@ -306,12 +317,14 @@ begin
     pnlVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
 
     frmMP3GainGUIInfo.btnClose.Caption := SL.Values['Close'];
-    frmMP3GainGUIInfo.TabSheet1.Caption := SL.Values['InfoAbout'];
-    frmMP3GainGUIInfo.TabSheet2.Caption := SL.Values['InfoAuthors'];
-    frmMP3GainGUIInfo.TabSheet3.Caption := SL.Values['InfoTranslation'];
-    frmMP3GainGUIInfo.TabSheet4.Caption := SL.Values['InfoLicence'];
+    frmMP3GainGUIInfo.tbsAbout.Caption := SL.Values['InfoAbout'];
+    frmMP3GainGUIInfo.tbsAuthors.Caption := SL.Values['InfoAuthors'];
+    frmMP3GainGUIInfo.tbsTranslation.Caption := SL.Values['InfoTranslation'];
+    frmMP3GainGUIInfo.tbsLicense.Caption := SL.Values['InfoLicence'];
+    frmMP3GainGUIInfo.tbsThanksTo.Caption := SL.Values['InfoThanksTo'];
     frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
-      SL.Values['InfoDescription'] + #13#13 + '(c) 2007, Thomas Dieffenbach';
+      SL.Values['InfoDescription'] +#10 +'Widgetset: '+strWidgetset +
+      #10#10 + '(c) 2007, Thomas Dieffenbach';
     frmMP3GainGUIInfo.Caption := SL.Values['InfoAbout'] + ' ' + APPLICATION_NAME;
 
     frmMP3GainConstant.btnCancel.Caption := SL.Values['Cancel'];

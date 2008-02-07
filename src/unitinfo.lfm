@@ -32,22 +32,22 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     Height = 200
     Top = 56
     Width = 452
-    ActivePage = TabSheet1
+    ActivePage = tbsAbout
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabIndex = 0
     TabOrder = 0
-    object TabSheet1: TTabSheet
+    object tbsAbout: TTabSheet
       Caption = 'About'
       ClientHeight = 167
       ClientWidth = 446
       object lblDescription: TLabel
         Left = 85
-        Height = 97
+        Height = 120
         Top = 16
         Width = 351
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoSize = False
-        Caption = 'MP3Gain-GUI, graphical user interface for the'#10'mp3 gaining tool mp3gain'#10#10'(c) 2007, Thomas Dieffenbach'
+        Caption = 'MP3Gain-GUI, graphical user interface for mp3gain'#10#10'(c) 2007, Thomas Dieffenbach'
         ParentColor = False
         WordWrap = True
       end
@@ -61,7 +61,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         ParentColor = False
       end
     end
-    object TabSheet2: TTabSheet
+    object tbsAuthors: TTabSheet
       Caption = 'Authors'
       ClientHeight = 167
       ClientWidth = 446
@@ -83,7 +83,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         TabOrder = 0
       end
     end
-    object TabSheet3: TTabSheet
+    object tbsThanksTo: TTabSheet
       Caption = 'Thanks to'
       ClientHeight = 167
       ClientWidth = 446
@@ -105,7 +105,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         TabOrder = 0
       end
     end
-    object TabSheet4: TTabSheet
+    object tbsTranslation: TTabSheet
       Caption = 'Translation'
       ClientHeight = 167
       ClientWidth = 446
@@ -124,7 +124,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         TabOrder = 0
       end
     end
-    object TabSheet5: TTabSheet
+    object tbsLicense: TTabSheet
       Caption = 'License'
       ClientHeight = 167
       ClientWidth = 446
