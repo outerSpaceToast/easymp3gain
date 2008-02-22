@@ -47,7 +47,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Width = 351
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoSize = False
-        Caption = 'MP3Gain-GUI, graphical user interface for mp3gain'#10#10'(c) 2007, Thomas Dieffenbach'
+        Caption = 'easyMP3gain, graphical user interface for mp3gain'#10#10'(c) 2007, Thomas Dieffenbach'
         ParentColor = False
         WordWrap = True
       end

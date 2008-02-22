@@ -155,7 +155,8 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0035';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0037';
+   APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
    S: TStringList;
@@ -166,6 +167,7 @@ type
    FilesToProcessCount: Integer=0;
    FilesProcessedCount: Integer=0;
    Print_Debug_Info: Boolean = false;
+   strWidgetSet: String;
 
 var
   frmMp3GainGUIMain: TfrmMp3GainGUIMain;
@@ -225,6 +227,15 @@ var
 begin
   Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
   frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
+  strWidgetset := 'not specified';
+  {$IFDEF LCLwin32}strWidgetset := 'Win32';{$ENDIF}
+  {$IFDEF LCLgtk}strWidgetset := 'GTK';{$ENDIF}
+  {$IFDEF LCLgtk2}strWidgetset := 'GTK2';{$ENDIF}
+  {$IFDEF LCLqt}strWidgetset := 'QT';{$ENDIF}
+  {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
+  frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
+     APPLICATION_DESCRIPTION +#10 +'Widgetset: '+strWidgetset +
+      #10#10 + '(c) 2007, Thomas Dieffenbach';
   MP3Gain := TMP3Gain.Create;
   MP3Gain.OnRunFinished := @OnMP3GainReady;
   MP3Gain.TargetVolume := REF_VOLUME;
@@ -246,7 +257,6 @@ procedure TfrmMP3GainGUIMain.LoadLanguageFile(AFile: String);
 var
   SL: TStringList;
   i: Integer;
-  strWidgetSet: String;
 begin
   SL := TStringList.Create;
   try
@@ -256,11 +266,6 @@ begin
       MessageDlg('Wrong language-pack version.',mtError,[mbOK],0);
       Exit;
     end;
-    {$IFDEF LCLwin32}strWidgetset := 'Win32';{$ENDIF}
-    {$IFDEF LCLgtk}strWidgetset := 'GTK';{$ENDIF}
-    {$IFDEF LCLgtk2}strWidgetset := 'GTK2';{$ENDIF}
-    {$IFDEF LCLqt}strWidgetset := 'QT';{$ENDIF}
-    {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
     strStatus_Analyzing := SL.Values['Status_Analyzing'];
     strStatus_Gaining := SL.Values['Status_Gaining'];
     strStatus_Finished := SL.Values['Status_Finished'];

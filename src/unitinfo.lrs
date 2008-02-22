@@ -15,7 +15,7 @@ LazarusResources.Add('TfrmMP3GainGUIInfo','FORMDATA',[
   +'bsAbout'#7'Caption'#6#5'About'#12'ClientHeight'#3#167#0#11'ClientWidth'#3
   +#190#1#0#6'TLabel'#14'lblDescription'#4'Left'#2'U'#6'Height'#2'x'#3'Top'#2#16
   +#5'Width'#3'_'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#8
-  +'AutoSize'#8#7'Caption'#6'OMP3Gain-GUI, graphical user interface for mp3gain'
+  +'AutoSize'#8#7'Caption'#6'OeasyMP3gain, graphical user interface for mp3gain'
   +#10#10'(c) 2007, Thomas Dieffenbach'#11'ParentColor'#8#8'WordWrap'#9#0#0#6'T'
   +'Label'#6'Label1'#4'Left'#2'U'#6'Height'#2#22#3'Top'#3#137#0#5'Width'#3'H'#1
   +#8'AutoSize'#8#7'Caption'#6'"http://easymp3gain.sourceforge.net'#11'ParentCo'
