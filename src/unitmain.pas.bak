@@ -155,7 +155,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0037';
+   APPLICATION_VERSION = '0.1.2 alpha SVN-0038';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -660,12 +660,14 @@ procedure TfrmMp3GainGUIMain.ToolButton5Click(Sender: TObject);
 var
   X: TStringList;
 begin
+  {$IFDEF DEBUG_VERSION}
   X := TStringList.Create;
   try
     ListFiles('/home/thomas/.wine/','*',X,10);
   finally
     X.Free;
   end;
+  {$ENDIF}
 end;
 
 procedure TfrmMp3GainGUIMain.btnAddFolderClick(Sender: TObject);
