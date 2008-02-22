@@ -1,4 +1,4 @@
-2007-?-? | easyMP3Gain 0.2.0 alpha:
+2008-02-22 | easyMP3Gain 0.2.0 alpha:
 Album-analyzing added
 Statusbar showing things like current operation, file, file count etc.
 New icon-theme (Tango)
@@ -8,5 +8,5 @@ Several small improvements
 
 2007-10-03 | easyMP3Gain 0.1.0 alpha:
 First preview of easyMP3Gain. 
-Track gain, -analysis, constant gain, gag-info-reading and -deleting should work.
+Track gain, -analysis, constant gain, tag-info-reading and -deleting should work.
 No album-analyze support yet.
