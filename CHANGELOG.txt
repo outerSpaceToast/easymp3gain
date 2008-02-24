@@ -1,3 +1,6 @@
+2008-??-?? | easyMP3Gain 0.?
+Files can now be dropped in the ListBox
+
 2008-02-22 | easyMP3Gain 0.2.0 alpha:
 Album-analyzing added
 Statusbar showing things like current operation, file, file count etc.

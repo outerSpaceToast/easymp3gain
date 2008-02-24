@@ -99,6 +99,7 @@ type
     procedure CheckBox1Change(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure ListView1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure ToolBar1Click(Sender: TObject);
@@ -155,7 +156,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.1.2 alpha SVN-0040';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0041';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -644,6 +645,15 @@ end;
 procedure TfrmMp3GainGUIMain.FormCreate(Sender: TObject);
 begin
   Print_Debug_Info := Paramstr(1)='-debug';
+end;
+
+procedure TfrmMp3GainGUIMain.FormDropFiles(Sender: TObject;
+  const FileNames: array of String);
+var
+  i:Integer;
+begin
+   for i:=0 to Length(FileNames)-1 do
+    AddSongItem(FileNames[i]);
 end;
 
 procedure TfrmMp3GainGUIMain.ListView1MouseMove(Sender: TObject;

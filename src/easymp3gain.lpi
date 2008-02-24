@@ -27,11 +27,11 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LCL"/>
-      </Item1>
-      <Item2>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
     <Units Count="39">
@@ -39,8 +39,8 @@
         <Filename Value="easymp3gain.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="easymp3gain"/>
-        <CursorPos X="60" Y="12"/>
-        <TopLine Value="1"/>
+        <CursorPos X="35" Y="29"/>
+        <TopLine Value="9"/>
         <EditorIndex Value="4"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -51,8 +51,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="47" Y="158"/>
-        <TopLine Value="141"/>
+        <CursorPos X="9" Y="40"/>
+        <TopLine Value="38"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -317,7 +317,12 @@
         <Loaded Value="True"/>
       </Unit38>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="1" HistoryIndex="0">
+      <Position1>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="160" Column="32" TopLine="151"/>
+      </Position1>
+    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="5"/>
@@ -334,7 +339,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="3">
+    <BreakPoints Count="4">
       <Item1>
         <Source Value="../MP3-Manager/main.pas"/>
         <Line Value="289"/>
@@ -347,6 +352,10 @@
         <Source Value="../lt/unit1.pas"/>
         <Line Value="53"/>
       </Item3>
+      <Item4>
+        <Source Value="unitmain.pas"/>
+        <Line Value="596"/>
+      </Item4>
     </BreakPoints>
     <Watches Count="7">
       <Item1>

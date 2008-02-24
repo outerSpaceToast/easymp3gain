@@ -5,6 +5,8 @@ Anzeige: Datei x von y
 Option: "Tag neu schreiben" Ja/Nein
 Option: Automatisches Auslesen: Ja/Nein
 Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
+Icons (alpha)
+easymp3gain-Abhängigkeit ins Package
 
 done:
 Hinzufügen von Unterordnern
@@ -22,6 +24,7 @@ Album Gain (alte Output-Items löschen!)
 Bei Album-Analyse: zum Schluss ausgeben!
 Fehler in der Konsole
 Übersetzung anpassen (0.2)
+Drag&Drop
 
 
 zurück:
