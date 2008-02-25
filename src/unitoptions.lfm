@@ -1,0 +1,48 @@
+object frmMp3GainOptions: TfrmMp3GainOptions
+  Left = 290
+  Height = 130
+  Top = 175
+  Width = 308
+  HorzScrollBar.Page = 307
+  VertScrollBar.Page = 129
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Options'
+  ClientHeight = 130
+  ClientWidth = 308
+  OnShow = FormShow
+  Position = poScreenCenter
+  object btnOK: TButton
+    Left = 56
+    Height = 25
+    Top = 94
+    Width = 75
+    Caption = '&OK'
+    OnClick = btnOKClick
+    TabOrder = 0
+  end
+  object btnClose: TButton
+    Left = 192
+    Height = 25
+    Top = 94
+    Width = 75
+    Caption = '&Close'
+    OnClick = btnCloseClick
+    TabOrder = 1
+  end
+  object chkRewriteTags: TCheckBox
+    Left = 20
+    Height = 21
+    Top = 21
+    Width = 100
+    Caption = 'Rewrite Tags'
+    TabOrder = 2
+  end
+  object chkAutoReadAtStartup: TCheckBox
+    Left = 21
+    Height = 21
+    Top = 54
+    Width = 209
+    Caption = 'Auto-read at program startup'
+    TabOrder = 3
+  end
+end
