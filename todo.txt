@@ -7,6 +7,7 @@ Option: Automatisches Auslesen: Ja/Nein
 Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
 Icons (alpha)
 easymp3gain-Abhängigkeit ins Package
+Übersetzung für Options
 
 done:
 Hinzufügen von Unterordnern

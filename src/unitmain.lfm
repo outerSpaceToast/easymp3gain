@@ -1,4 +1,4 @@
-object frmMp3GainGUIMain: TfrmMp3GainGUIMain
+object frmMp3GainMain: TfrmMp3GainMain
   Left = 418
   Height = 435
   Top = 307
@@ -364,6 +364,13 @@ object frmMp3GainGUIMain: TfrmMp3GainGUIMain
         Caption = 'Only Selected Items'
         GroupIndex = 1
         OnClick = mnuOptionsOnlySelectedItemsClick
+      end
+      object MenuItem6: TMenuItem
+        Caption = '-'
+      end
+      object mnuOptionsAdvanced: TMenuItem
+        Caption = '&Advanced'
+        OnClick = mnuOptionsAdvancedClick
       end
     end
     object mnuHelp: TMenuItem

@@ -213,7 +213,7 @@ var
   strStatus_DeletingTagInfo: String = 'Deleting Tag Info...';
   strStatus_UndoingChanges: String = 'Undoing Changes...';
   strStatus_ExitCode127: String = 'Could not start mp3gain. Is it installed?';
-//  strAbout: String = 'About';
+  strAbout: String = 'About';
   strFiles: String = 'File(s)';
 
   boolStr: array[Boolean] of String = ('no','yes');
@@ -557,23 +557,23 @@ var
 begin
   case value of
     setProgress:
-      frmMP3GainGUIMain.ProgressBar.Position := FProgress;
+      frmMP3GainMain.ProgressBar.Position := FProgress;
     setStatusText:
-      frmMP3GainGUIMain.StatusBar.Panels[0].Text := FStatusText;
+      frmMP3GainMain.StatusBar.Panels[0].Text := FStatusText;
     setStatusCode:
       if (FExitCodeProcess<>0) then
-        frmMP3GainGUIMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
+        frmMP3GainMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
     setSongItemHasFinished:
     begin
       Inc(FilesProcessedCount);
-      frmMP3GainGUIMain.ProgressBarGeneral.Max := FilesToProcessCount;
-      frmMP3GainGUIMain.ProgressBarGeneral.Position := FilesProcessedCount;
-      frmMP3GainGUIMain.StatusBar.Panels[SB_FILENAME].Text := '';
+      frmMP3GainMain.ProgressBarGeneral.Max := FilesToProcessCount;
+      frmMP3GainMain.ProgressBarGeneral.Position := FilesProcessedCount;
+      frmMP3GainMain.StatusBar.Panels[SB_FILENAME].Text := '';
     end;
     setSongItemHasStarted:
     begin
       SongItem := SongItems[FMP3GainProcess.FCurrentSongItem]; // Careful!
-      frmMP3GainGUIMain.StatusBar.Panels[SB_FILENAME].Text := SongItem.FileName;
+      frmMP3GainMain.StatusBar.Panels[SB_FILENAME].Text := SongItem.FileName;
     end;
   end;
   if not (SongItem=nil) then
@@ -602,7 +602,7 @@ begin
           SongItems[i].HasAlbumData := true;
           SongItems[i].Gain_Album := FResult+FTargetVolume-REF_VOLUME;
           SongItems[i].Volume_Album := REF_VOLUME-FResult;
-          frmMp3GainGUIMain.UpdateView(SongItems[i]);
+          frmMP3GainMain.UpdateView(SongItems[i]);
         end;
       end;
       setMaxAmplitude_Track:
@@ -617,7 +617,7 @@ begin
         SongItem.MaxAmplitude_Album := FResult;
       end;
     end;
-    frmMp3GainGUIMain.UpdateView(SongItem);
+    frmMP3GainMain.UpdateView(SongItem);
   end;
 end;
 

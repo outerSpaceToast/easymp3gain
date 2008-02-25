@@ -28,14 +28,16 @@ uses
   {$ENDIF}{_$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms
-  { add your units here }, Unitmain, unitinfo, UnitMP3Gain, unitgainconstant;
+  { add your units here }, Unitmain, unitinfo, UnitMP3Gain, unitgainconstant,
+  unitoptions;
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmMp3GainGUIMain, frmMp3GainGUIMain);
+  Application.CreateForm(TfrmMp3GainMain, frmMp3GainMain);
   Application.CreateForm(TfrmMP3GainGUIInfo, frmMP3GainGUIInfo);
   Application.CreateForm(TfrmMP3GainConstant, frmMP3GainConstant);
-  frmMP3GainGUIMain.Init;
+  frmMP3GainMain.Init;
+  Application.CreateForm(TfrmMp3GainOptions, frmMp3GainOptions);
   Application.Run;
 end.
 

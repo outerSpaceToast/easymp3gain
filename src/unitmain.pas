@@ -33,9 +33,9 @@ uses
 
 type
 
-  { TfrmMp3GainGUIMain }
+  { TfrmMp3GainMain }
 
-  TfrmMp3GainGUIMain = class(TForm)
+  TfrmMp3GainMain = class(TForm)
     Bevel2: TBevel;
     edtVolume: TEdit;
     ImageList1: TImageList;
@@ -46,6 +46,8 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem6: TMenuItem;
+    mnuOptionsAdvanced: TMenuItem;
     mnuFileAddFolderRecursive: TMenuItem;
     mnuOptionsOnlySelectedItems: TMenuItem;
     pnlVolume: TPanel;
@@ -131,6 +133,7 @@ type
     procedure mnuModifyGainApplyConstantClick(Sender: TObject);
     procedure mnuModifyGainApplyTrackClick(Sender: TObject);
     procedure mnuModifyGainUndoClick(Sender: TObject);
+    procedure mnuOptionsAdvancedClick(Sender: TObject);
     procedure mnuOptionsDeleteTagInfosClick(Sender: TObject);
     procedure mnuOptionsOnlySelectedItemsClick(Sender: TObject);
     procedure mnuOptionsReadTagInfoClick(Sender: TObject);
@@ -156,7 +159,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0041';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0042';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -171,13 +174,13 @@ type
    strWidgetSet: String;
 
 var
-  frmMp3GainGUIMain: TfrmMp3GainGUIMain;
+  frmMp3GainMain: TfrmMp3GainMain;
 
 implementation
 
-uses unitinfo, BaseUnix;
+uses unitinfo, unitoptions, BaseUnix;
 
-{ TfrmMp3GainGUIMain }
+{ TfrmMp3GainMain }
 
 Procedure ListFiles(const FilePath: String; const Extension: String;
                     ListBox:TStringList; SubLevelMax: Byte);
@@ -217,12 +220,12 @@ begin
   FindClose(SR);
 end;
 
-procedure TfrmMP3GainGUIMain.UpdateFileCount;
+procedure TfrmMp3GainMain.UpdateFileCount;
 begin
   StatusBar.Panels[SB_FILECOUNT].Text := IntToStr(lvFiles.Items.Count) + ' '+ strFiles;
 end;
 
-procedure TfrmMP3GainGUIMain.Init;
+procedure TfrmMp3GainMain.Init;
 var
   SL:TStringList;
 begin
@@ -243,7 +246,7 @@ begin
   //MP3Gain.SongItem := nil;
   TaskList := TMP3GainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
-  frmMP3GainGUIMain.ImageList1.GetBitmap(3,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
+  frmMp3GainMain.ImageList1.GetBitmap(3,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   SL := TStringList.Create;
   try
     ListFiles(Application.Location,'lng',SL,0);
@@ -254,7 +257,7 @@ begin
   end;
 end;
 
-procedure TfrmMP3GainGUIMain.LoadLanguageFile(AFile: String);
+procedure TfrmMp3GainMain.LoadLanguageFile(AFile: String);
 var
   SL: TStringList;
   i: Integer;
@@ -343,7 +346,7 @@ begin
   end;
 end;
 
-procedure TfrmMP3GainGUIMain.LockControls(lock: Boolean);
+procedure TfrmMp3GainMain.LockControls(lock: Boolean);
 var
   i: Integer;
 begin
@@ -359,7 +362,7 @@ begin
   btnCancel.Enabled := lock;
 end;
 
-procedure TfrmMp3GainGUIMain.QueueFiles(AAction: TMP3GainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
+procedure TfrmMp3GainMain.QueueFiles(AAction: TMP3GainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
 var
   i: Integer;
   a: Integer;
@@ -407,13 +410,13 @@ begin
   end;
 end;
 
-procedure TfrmMp3GainGUIMain.WaitForMP3GainReady;
+procedure TfrmMp3GainMain.WaitForMP3GainReady;
 begin                             // Synchronize notwendig?
  while (not MP3Gain.IsReady) do ;
  Sleep(100);
 end;
 
-procedure TfrmMp3GainGUIMain.UpdateView(AItem: TSongItem);
+procedure TfrmMp3GainMain.UpdateView(AItem: TSongItem);
 begin
   if not AItem.HasData then exit;
   with AItem.ListViewItem do
@@ -430,7 +433,7 @@ begin
   //MP3Gain.SongItem := nil;
 end;
 
-procedure TfrmMp3GainGUIMain.OnMP3GainReady(Sender: TObject);
+procedure TfrmMp3GainMain.OnMP3GainReady(Sender: TObject);
 var
   i: Integer;
   n,k: Integer;
@@ -465,7 +468,7 @@ begin
   end;
 end;
 
-procedure TfrmMp3GainGUIMain.AddFiles(SL: TStringList);
+procedure TfrmMp3GainMain.AddFiles(SL: TStringList);
 var
   i: Integer;
 begin
@@ -475,7 +478,7 @@ begin
   end;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuFileAddFilesClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuFileAddFilesClick(Sender: TObject);
 var
   i: Integer;
 begin
@@ -485,7 +488,7 @@ begin
   //AddFiles(OpenDialog.Files);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuFileAddFolderClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuFileAddFolderClick(Sender: TObject);
 var
   SL: TStringList;
   sublevels: Byte;
@@ -503,17 +506,17 @@ begin
   //mnuOptionsReadTagInfoClick(Sender);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuFileAddFolderRecursiveClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuFileAddFolderRecursiveClick(Sender: TObject);
 begin
 
 end;
 
-procedure TfrmMp3GainGUIMain.mnuFileExitClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuFileExitClick(Sender: TObject);
 begin
   Application.Terminate;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuFileClearAllFilesClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuFileClearAllFilesClick(Sender: TObject);
 var
   i: Integer;
 begin
@@ -523,7 +526,7 @@ begin
   end;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuFileClearSelectedClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuFileClearSelectedClick(Sender: TObject);
 var
   i: Integer;
 begin
@@ -534,17 +537,17 @@ begin
   end;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuHelpInfoClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuHelpInfoClick(Sender: TObject);
 begin
   frmMP3GainGUIInfo.ShowModal;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuModifyGainApplyAlbumClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuModifyGainApplyAlbumClick(Sender: TObject);
 begin
   QueueFiles(mgaAlbumGain, MP3Gain.TargetVolume, true);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuModifyGainApplyConstantClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuModifyGainApplyConstantClick(Sender: TObject);
 var
   r: Integer;
 begin
@@ -553,42 +556,47 @@ begin
   QueueFiles(mgaConstantGain, Double(r)/10, true);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuModifyGainApplyTrackClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuModifyGainApplyTrackClick(Sender: TObject);
 begin
   QueueFiles(mgaTrackGain, MP3Gain.TargetVolume, true);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuModifyGainUndoClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuModifyGainUndoClick(Sender: TObject);
 begin
   QueueFiles(mgaUndoChanges, MP3Gain.TargetVolume, true);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuOptionsDeleteTagInfosClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuOptionsAdvancedClick(Sender: TObject);
+begin
+  frmMP3GainOptions.Show;
+end;
+
+procedure TfrmMp3GainMain.mnuOptionsDeleteTagInfosClick(Sender: TObject);
 begin
   QueueFiles(mgaDeleteTagInfo, MP3Gain.TargetVolume, false);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuOptionsOnlySelectedItemsClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuOptionsOnlySelectedItemsClick(Sender: TObject);
 begin
   btnOnlySelectedItems.Down := mnuOptionsOnlySelectedItems.Checked;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuOptionsReadTagInfoClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuOptionsReadTagInfoClick(Sender: TObject);
 begin
   QueueFiles(mgaCheckTagInfo, MP3Gain.TargetVolume, false);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuAnalysisTrackClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuAnalysisTrackClick(Sender: TObject);
 begin
   QueueFiles(mgaTrackAnalyze, MP3Gain.TargetVolume, false);
 end;
 
-procedure TfrmMp3GainGUIMain.mnuAnalysisAlbumClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuAnalysisAlbumClick(Sender: TObject);
 begin
   QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume, false);
 end;
 
-procedure TfrmMp3GainGUIMain.AddSongItem(AName: String);
+procedure TfrmMp3GainMain.AddSongItem(AName: String);
 var
   SongItem: TSongItem;
   ListViewItem: TListItem;
@@ -617,24 +625,24 @@ begin
   UpdateFileCount;
 end;
 
-procedure TfrmMp3GainGUIMain.DelSongItem(AItemIndex: Integer);
+procedure TfrmMp3GainMain.DelSongItem(AItemIndex: Integer);
 begin
   TSongItem(lvFiles.Items[AItemIndex].Data).Free;
   lvFiles.Items.Delete(AItemIndex);
   UpdateFileCount;
 end;
 
-procedure TfrmMp3GainGUIMain.btnAddFilesClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnAddFilesClick(Sender: TObject);
 begin
   mnuFileAddFilesClick(Sender);
 end;
 
-procedure TfrmMp3GainGUIMain.CheckBox1Change(Sender: TObject);
+procedure TfrmMp3GainMain.CheckBox1Change(Sender: TObject);
 begin
 
 end;
 
-procedure TfrmMp3GainGUIMain.FormClose(Sender: TObject;
+procedure TfrmMp3GainMain.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   mnuFileClearAllFilesClick(Sender);
@@ -642,12 +650,12 @@ begin
   MP3Gain.Free;
 end;
 
-procedure TfrmMp3GainGUIMain.FormCreate(Sender: TObject);
+procedure TfrmMp3GainMain.FormCreate(Sender: TObject);
 begin
   Print_Debug_Info := Paramstr(1)='-debug';
 end;
 
-procedure TfrmMp3GainGUIMain.FormDropFiles(Sender: TObject;
+procedure TfrmMp3GainMain.FormDropFiles(Sender: TObject;
   const FileNames: array of String);
 var
   i:Integer;
@@ -656,17 +664,17 @@ begin
     AddSongItem(FileNames[i]);
 end;
 
-procedure TfrmMp3GainGUIMain.ListView1MouseMove(Sender: TObject;
+procedure TfrmMp3GainMain.ListView1MouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 begin
 end;
 
-procedure TfrmMp3GainGUIMain.ToolBar1Click(Sender: TObject);
+procedure TfrmMp3GainMain.ToolBar1Click(Sender: TObject);
 begin
 
 end;
 
-procedure TfrmMp3GainGUIMain.ToolButton5Click(Sender: TObject);
+procedure TfrmMp3GainMain.ToolButton5Click(Sender: TObject);
 var
   X: TStringList;
 begin
@@ -680,12 +688,12 @@ begin
   {$ENDIF}
 end;
 
-procedure TfrmMp3GainGUIMain.btnAddFolderClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnAddFolderClick(Sender: TObject);
 begin
   mnuFileAddFolderClick(mnuFileAddFolderRecursive);
 end;
 
-procedure TfrmMp3GainGUIMain.btnAnalysisClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnAnalysisClick(Sender: TObject);
 begin
   if pmnAnalysisTrack.Checked then
     mnuAnalysisTrackClick(Sender)
@@ -693,7 +701,7 @@ begin
     mnuAnalysisAlbumClick(Sender);
 end;
 
-procedure TfrmMp3GainGUIMain.btnCancelClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnCancelClick(Sender: TObject);
 var
   i: Integer;
 begin
@@ -702,17 +710,17 @@ begin
   btnCancel.Enabled := False;
 end;
 
-procedure TfrmMp3GainGUIMain.btnClearAllClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnClearAllClick(Sender: TObject);
 begin
   mnuFileClearAllFilesClick(Sender);
 end;
 
-procedure TfrmMp3GainGUIMain.btnClearFilesClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnClearFilesClick(Sender: TObject);
 begin
   mnuFileClearSelectedClick(Sender);
 end;
 
-procedure TfrmMp3GainGUIMain.btnGainClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnGainClick(Sender: TObject);
 begin
   if pmnGainTrack.Checked then
     mnuModifyGainApplyTrackClick(Sender)
@@ -720,12 +728,12 @@ begin
     mnuModifyGainApplyAlbumClick(Sender);
 end;
 
-procedure TfrmMp3GainGUIMain.btnOnlySelectedItemsClick(Sender: TObject);
+procedure TfrmMp3GainMain.btnOnlySelectedItemsClick(Sender: TObject);
 begin
   mnuOptionsOnlySelectedItems.Checked := btnOnlySelectedItems.Down;
 end;
 
-procedure TfrmMp3GainGUIMain.edtVolumeChange(Sender: TObject);
+procedure TfrmMp3GainMain.edtVolumeChange(Sender: TObject);
 var
   value, r: Double;
   i, e: Integer;
@@ -758,13 +766,13 @@ begin
   end;
 end;
 
-procedure TfrmMp3GainGUIMain.lvFilesKeyDown(Sender: TObject; var Key: Word;
+procedure TfrmMp3GainMain.lvFilesKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key=46) then mnuFileClearSelectedClick(Sender);
 end;
 
-procedure TfrmMp3GainGUIMain.lvFilesMouseMove(Sender: TObject;
+procedure TfrmMp3GainMain.lvFilesMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
   Item: TListItem;
@@ -786,7 +794,7 @@ begin
   lvFiles.Hint := Item.Caption;
 end;
 
-procedure TfrmMp3GainGUIMain.mnuAnalysisClearClick(Sender: TObject);
+procedure TfrmMp3GainMain.mnuAnalysisClearClick(Sender: TObject);
 var
   i,k: Integer;
 begin
