@@ -5,6 +5,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   Width = 308
   HorzScrollBar.Page = 307
   VertScrollBar.Page = 129
+  ActiveControl = btnOK
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Options'
   ClientHeight = 130

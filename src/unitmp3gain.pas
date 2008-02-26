@@ -177,6 +177,10 @@ type
     property ErrorHasOccured: Boolean read FErrorHasOccured default false;
 end;
 
+  TMP3GainOptions = record
+    RewriteTags, AutoReadAtStartup:Boolean;
+  end;
+
 function RoundGainValue(Value: Double): Double;
   
 const
@@ -219,6 +223,10 @@ var
   strFiles: String = 'File(s)';
 
   boolStr: array[Boolean] of String = ('no','yes');
+
+  strHomeDir: String = '';
+  
+  MP3GainOptions: TMP3GainOptions;
   
 
 implementation
