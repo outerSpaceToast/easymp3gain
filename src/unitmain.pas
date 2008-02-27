@@ -159,7 +159,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0044';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0045';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -244,6 +244,9 @@ begin
   MP3Gain.OnRunFinished := @OnMP3GainReady;
   MP3Gain.TargetVolume := REF_VOLUME;
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
+  MP3GainOptions.UseTempFiles:=True;       // Pre-setting
+  MP3GainOptions.AutoReadAtStartup:=True;  // Pre-setting
+  frmMP3GainOptions.LoadSettings;          // Load settings from config-file
   TaskList := TMP3GainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList1.GetBitmap(3,frmMP3GainGUIInfo.Image1.Picture.Bitmap);

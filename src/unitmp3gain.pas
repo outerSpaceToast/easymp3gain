@@ -178,7 +178,8 @@ type
 end;
 
   TMP3GainOptions = record
-    RewriteTags, AutoReadAtStartup:Boolean;
+    IgnoreTags, AutoReadAtStartup, UseTempFiles, PreserveOriginalTimestamp:Boolean;
+    
   end;
 
 function RoundGainValue(Value: Double): Double;
@@ -378,7 +379,7 @@ begin
     try
       SL.Text := FMP3GainProcess.ProcessOutput;
     {$IFDEF DEBUG_VERSION}
-      SL.SaveToFile('/home/thomas/out'+InttoStr(QWord(now)) +'.txt');
+      SL.SaveToFile(strHomeDir+'out'+InttoStr(QWord(now)) +'.txt');
     {$ENDIF}
       for i:= SL.Count-1 downto 0 do
       begin
@@ -399,7 +400,7 @@ begin
         if (p>-1) then
         begin
             {$IFDEF DEBUG_VERSION}
-              FDataList.SaveToFile('/home/thomas/out_data.txt');
+              FDataList.SaveToFile(strHomeDir+'out_data.txt');
             {$ENDIF}
           if (FDataList[p] = strResult_Album_Unquoted) then
           begin
@@ -521,7 +522,7 @@ begin
     end;
     if SL.Count=0 then exit;
     {$IFDEF DEBUG_VERSION}
-      SL.SaveToFile('/home/thomas/prog.txt');
+      SL.SaveToFile(strHomeDir+'prog.txt');
     {$ENDIF}
     for i:= SL.Count-1 downto 0 do
     begin
@@ -846,7 +847,7 @@ begin
   {$IFDEF DEBUG_VERSION}
       X.Add(ProcessOutput);
       X.Add('## Count:'+IntToStr(n)+'##');
-      X.SaveToFile('/home/thomas/op.txt');
+      X.SaveToFile(strHomeDir+'op.txt');
   {$ENDIF}
         Debugln('Processing output from mp3gain.');
         Synchronize(OnResultEvent);

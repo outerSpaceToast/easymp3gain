@@ -2,16 +2,21 @@
 
 LazarusResources.Add('TfrmMp3GainOptions','FORMDATA',[
   'TPF0'#18'TfrmMp3GainOptions'#17'frmMp3GainOptions'#4'Left'#3'"'#1#6'Height'#3
-  +#130#0#3'Top'#3#175#0#5'Width'#3'4'#1#18'HorzScrollBar.Page'#3'3'#1#18'VertS'
-  +'crollBar.Page'#3#129#0#13'ActiveControl'#7#5'btnOK'#11'BorderIcons'#11#12'b'
-  +'iSystemMenu'#10'biMinimize'#0#7'Caption'#6#7'Options'#12'ClientHeight'#3#130
-  +#0#11'ClientWidth'#3'4'#1#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenC'
-  +'enter'#0#7'TButton'#5'btnOK'#4'Left'#2'8'#6'Height'#2#25#3'Top'#2'^'#5'Widt'
-  +'h'#2'K'#7'Caption'#6#3'&OK'#7'OnClick'#7#10'btnOKClick'#8'TabOrder'#2#0#0#0
-  +#7'TButton'#8'btnClose'#4'Left'#3#192#0#6'Height'#2#25#3'Top'#2'^'#5'Width'#2
-  +'K'#7'Caption'#6#6'&Close'#7'OnClick'#7#13'btnCloseClick'#8'TabOrder'#2#1#0#0
-  +#9'TCheckBox'#14'chkRewriteTags'#4'Left'#2#20#6'Height'#2#21#3'Top'#2#21#5'W'
-  +'idth'#2'd'#7'Caption'#6#12'Rewrite Tags'#8'TabOrder'#2#2#0#0#9'TCheckBox'#20
-  +'chkAutoReadAtStartup'#4'Left'#2#21#6'Height'#2#21#3'Top'#2'6'#5'Width'#3#209
-  +#0#7'Caption'#6#28'Auto-read at program startup'#8'TabOrder'#2#3#0#0#0
+  +#175#0#3'Top'#3#175#0#5'Width'#3#141#1#18'HorzScrollBar.Page'#3#140#1#18'Ver'
+  +'tScrollBar.Page'#3#174#0#13'ActiveControl'#7#5'btnOK'#11'BorderIcons'#11#12
+  +'biSystemMenu'#10'biMinimize'#0#7'Caption'#6#7'Options'#12'ClientHeight'#3
+  +#175#0#11'ClientWidth'#3#141#1#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poSc'
+  +'reenCenter'#0#7'TButton'#5'btnOK'#4'Left'#3#0#1#6'Height'#2#25#3'Top'#3#144
+  +#0#5'Width'#2'K'#7'Caption'#6#3'&OK'#7'OnClick'#7#10'btnOKClick'#8'TabOrder'
+  +#2#0#0#0#7'TButton'#8'btnClose'#4'Left'#2'0'#6'Height'#2#25#3'Top'#3#144#0#5
+  +'Width'#2'K'#7'Caption'#6#6'&Close'#7'OnClick'#7#13'btnCloseClick'#8'TabOrde'
+  +'r'#2#1#0#0#9'TCheckBox'#13'chkIgnoreTags'#4'Left'#2#16#6'Height'#2#21#3'Top'
+  +#2#16#5'Width'#3#15#1#7'Caption'#6'''Ignore Tags (Do not read or write them)'
+  +#8'TabOrder'#2#2#0#0#9'TCheckBox'#20'chkAutoReadAtStartup'#4'Left'#2#16#6'He'
+  +'ight'#2#21#3'Top'#2'.'#5'Width'#3#209#0#7'Caption'#6#28'Auto-read at progra'
+  +'m startup'#8'TabOrder'#2#3#0#0#9'TCheckBox'#15'chkUseTempFiles'#4'Left'#2#16
+  +#6'Height'#2#21#3'Top'#2'K'#5'Width'#3#144#0#7'Caption'#6#19'Use temporary f'
+  +'iles'#8'TabOrder'#2#4#0#0#9'TCheckBox'#28'chkPreserveOriginalTimestamp'#4'L'
+  +'eft'#2#16#6'Height'#2#21#3'Top'#2'h'#5'Width'#3#220#0#7'Caption'#6' Preserv'
+  +'e original file timestamp'#8'TabOrder'#2#5#0#0#0
 ]);

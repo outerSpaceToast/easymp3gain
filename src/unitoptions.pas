@@ -14,7 +14,9 @@ type
   TfrmMp3GainOptions = class(TForm)
     btnOK: TButton;
     btnClose: TButton;
-    chkRewriteTags: TCheckBox;
+    chkUseTempFiles: TCheckBox;
+    chkPreserveOriginalTimestamp: TCheckBox;
+    chkIgnoreTags: TCheckBox;
     chkAutoReadAtStartup: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
@@ -22,6 +24,7 @@ type
   private
     { private declarations }
   public
+    procedure LoadSettings;
     { public declarations }
   end; 
 
@@ -45,10 +48,14 @@ var
 begin
   StringList := TStringList.Create;
   try
-    MP3GainOptions.RewriteTags := chkRewriteTags.Checked;
-    StringList.Values['RewriteTags']:=BoolToStr(MP3GainOptions.RewriteTags);
+    MP3GainOptions.IgnoreTags := chkIgnoreTags.Checked;
+    StringList.Values['IgnoreTags']:=BoolToStr(MP3GainOptions.IgnoreTags);
     MP3GainOptions.AutoReadAtStartup := chkAutoReadAtStartup.Checked;
     StringList.Values['AutoReadAtStartup']:=BoolToStr(MP3GainOptions.AutoReadAtStartup);
+    MP3GainOptions.UseTempFiles := chkUseTempFiles.Checked;
+    StringList.Values['UseTempFiles']:=BoolToStr(MP3GainOptions.UseTempFiles);
+    MP3GainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
+    StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MP3GainOptions.PreserveOriginalTimestamp);
     StringList.SaveToFile(strHomeDir+strConfigFileName);
   finally
     StringList.Free;
@@ -58,6 +65,14 @@ begin
 end;
 
 procedure TfrmMp3GainOptions.FormShow(Sender: TObject);
+begin
+  chkIgnoreTags.Checked := MP3GainOptions.IgnoreTags;
+  chkAutoReadAtStartup.Checked := MP3GainOptions.AutoReadAtStartup;
+  chkPreserveOriginalTimestamp.Checked := MP3GainOptions.PreserveOriginalTimestamp;
+  chkUseTempFiles.Checked := MP3GainOptions.UseTempFiles;
+end;
+
+procedure TfrmMp3GainOptions.LoadSettings;
 var
  StringList: TStringList;
 begin
@@ -65,10 +80,10 @@ begin
     StringList := TStringList.Create;
     try
       StringList.LoadFromFile(strHomeDir+strConfigFileName);
-      MP3GainOptions.RewriteTags := StrToBool(StringList.Values['RewriteTags']);
-      chkRewriteTags.Checked := MP3GainOptions.RewriteTags;
+      MP3GainOptions.IgnoreTags := StrToBool(StringList.Values['IgnoreTags']);
       MP3GainOptions.AutoReadAtStartup := StrToBool(StringList.Values['AutoReadAtStartup']);
-      chkAutoReadAtStartup.Checked := MP3GainOptions.AutoReadAtStartup;
+      MP3GainOptions.PreserveOriginalTimestamp := StrToBool(StringList.Values['PreserveOriginalTimestamp']);
+      MP3GainOptions.UseTempFiles := StrToBool(StringList.Values['UseTempFiles']);
     finally
       StringList.Free;
     end;

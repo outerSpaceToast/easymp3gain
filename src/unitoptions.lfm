@@ -1,49 +1,65 @@
 object frmMp3GainOptions: TfrmMp3GainOptions
   Left = 290
-  Height = 130
+  Height = 175
   Top = 175
-  Width = 308
-  HorzScrollBar.Page = 307
-  VertScrollBar.Page = 129
+  Width = 397
+  HorzScrollBar.Page = 396
+  VertScrollBar.Page = 174
   ActiveControl = btnOK
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Options'
-  ClientHeight = 130
-  ClientWidth = 308
+  ClientHeight = 175
+  ClientWidth = 397
   OnShow = FormShow
   Position = poScreenCenter
   object btnOK: TButton
-    Left = 56
+    Left = 256
     Height = 25
-    Top = 94
+    Top = 144
     Width = 75
     Caption = '&OK'
     OnClick = btnOKClick
     TabOrder = 0
   end
   object btnClose: TButton
-    Left = 192
+    Left = 48
     Height = 25
-    Top = 94
+    Top = 144
     Width = 75
     Caption = '&Close'
     OnClick = btnCloseClick
     TabOrder = 1
   end
-  object chkRewriteTags: TCheckBox
-    Left = 20
+  object chkIgnoreTags: TCheckBox
+    Left = 16
     Height = 21
-    Top = 21
-    Width = 100
-    Caption = 'Rewrite Tags'
+    Top = 16
+    Width = 271
+    Caption = 'Ignore Tags (Do not read or write them)'
     TabOrder = 2
   end
   object chkAutoReadAtStartup: TCheckBox
-    Left = 21
+    Left = 16
     Height = 21
-    Top = 54
+    Top = 46
     Width = 209
     Caption = 'Auto-read at program startup'
     TabOrder = 3
+  end
+  object chkUseTempFiles: TCheckBox
+    Left = 16
+    Height = 21
+    Top = 75
+    Width = 144
+    Caption = 'Use temporary files'
+    TabOrder = 4
+  end
+  object chkPreserveOriginalTimestamp: TCheckBox
+    Left = 16
+    Height = 21
+    Top = 104
+    Width = 220
+    Caption = 'Preserve original file timestamp'
+    TabOrder = 5
   end
 end
