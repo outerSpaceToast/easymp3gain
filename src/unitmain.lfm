@@ -113,12 +113,12 @@ object frmMp3GainMain: TfrmMp3GainMain
     object ToolButton4: TToolButton
       Left = 420
       Top = 2
-      Width = 23
+      Width = 10
       Caption = 'ToolButton4'
       Style = tbsSeparator
     end
     object pnlVolume: TPanel
-      Left = 443
+      Left = 430
       Height = 40
       Top = 2
       Width = 256
@@ -164,18 +164,26 @@ object frmMp3GainMain: TfrmMp3GainMain
       end
     end
     object btnCancel: TToolButton
-      Left = 699
+      Left = 696
       Top = 2
-      Caption = 'btnCancel'
+      Caption = 'Abbrechen'
       Enabled = False
-      Visible = False
+      ImageIndex = 6
       OnClick = btnCancelClick
     end
     object ToolButton5: TToolButton
-      Left = 749
+      Left = 746
       Top = 2
       Caption = 'ToolButton5'
+      Visible = False
       OnClick = ToolButton5Click
+    end
+    object ToolButton6: TToolButton
+      Left = 686
+      Top = 2
+      Width = 10
+      Caption = 'ToolButton6'
+      Style = tbsSeparator
     end
   end
   object StatusBar: TStatusBar

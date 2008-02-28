@@ -98,6 +98,7 @@ type
     ToolButton4: TToolButton;
     btnCancel: TToolButton;
     ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
     procedure CheckBox1Change(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -159,7 +160,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0045';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0047';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -245,7 +246,7 @@ begin
   MP3Gain.TargetVolume := REF_VOLUME;
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
   MP3GainOptions.UseTempFiles:=True;       // Pre-setting
-  MP3GainOptions.AutoReadAtStartup:=True;  // Pre-setting
+  MP3GainOptions.AutoReadAtFileAdd:=True;  // Pre-setting
   frmMP3GainOptions.LoadSettings;          // Load settings from config-file
   TaskList := TMP3GainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
@@ -268,7 +269,7 @@ begin
   SL := TStringList.Create;
   try
     SL.LoadFromFile(AFile);
-    if not (Copy(SL.Values['version'],1,5)='0.1.2') then
+    if not (Copy(SL.Values['version'],1,5)='0.2.1') then
     begin
       MessageDlg('Wrong language-pack version.',mtError,[mbOK],0);
       Exit;
@@ -302,6 +303,7 @@ begin
     mnuOptionsReadTagInfo.Caption := SL.Values['mnuOptionsReadTagInfo'];
     mnuOptionsDeleteTagInfos.Caption := SL.Values['mnuOptionsDeleteTagInfos'];
     mnuOptionsOnlySelectedItems.Caption := SL.Values['mnuOptionsOnlySelectedItems'];
+    mnuOptionsAdvanced.Caption := SL.Values['mnuOptionsAdvanced'];
     mnuHelp.Caption := SL.Values['mnuHelp'];
     mnuHelpInfo.Caption := SL.Values['mnuHelpInfo'];
     
@@ -341,6 +343,14 @@ begin
 
     frmMP3GainConstant.btnCancel.Caption := SL.Values['Cancel'];
     frmMP3GainConstant.btnOK.Caption := SL.Values['OK'];
+    
+    frmMP3GainOptions.Caption := SL.Values['Options_Caption'];
+    frmMP3GainOptions.btnOK.Caption := SL.Values['OK'];
+    frmMP3GainOptions.btnCancel.Caption := SL.Values['Cancel'];
+    frmMP3GainOptions.chkAutoReadAtFileAdd.Caption := SL.Values['Options_chkAutoReadAtFileAdd'];;
+    frmMP3GainOptions.chkIgnoreTags.Caption := SL.Values['Options_chkIgnoreTags'];;
+    frmMP3GainOptions.chkPreserveOriginalTimestamp.Caption := SL.Values['Options_chkPreserveOriginalTimestamp'];;
+    frmMP3GainOptions.chkUseTempFiles.Caption := SL.Values['Options_chkUseTempFiles'];;
     
     boolStr[FALSE] := SL.Values['clipping_no'];
     boolStr[TRUE] := SL.Values['clipping_yes'];
@@ -621,10 +631,13 @@ begin
       SongItem.ListViewItem.SubItems.Add('');
     end;
   end;
-  LockControls(true);
-  TaskList.AddTask(SongItem, mgaCheckTagInfo, MP3Gain.TargetVolume);
-  if MP3Gain.IsReady then
-    OnMP3GainReady(Self);
+  if MP3GainOptions.AutoReadAtFileAdd then
+  begin
+    LockControls(true);
+    TaskList.AddTask(SongItem, mgaCheckTagInfo, MP3Gain.TargetVolume);
+    if MP3Gain.IsReady then
+      OnMP3GainReady(Self);
+  end;
   UpdateFileCount;
 end;
 
@@ -684,7 +697,7 @@ begin
   {$IFDEF DEBUG_VERSION}
   X := TStringList.Create;
   try
-    ListFiles('/home/thomas/.wine/','*',X,10);
+    ListFiles(strHomeDir + '.wine/','*',X,10);
   finally
     X.Free;
   end;

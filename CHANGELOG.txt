@@ -1,5 +1,7 @@
 2008-??-?? | easyMP3Gain 0.?
 Files can now be dropped in the ListBox
+Included a dialog with some options (auto-read tags, ignore tags, use temporary files, keep original file timestamp)
+Added Button to cancel outstanding operations
 
 2008-02-22 | easyMP3Gain 0.2.0 alpha:
 Album-analyzing added

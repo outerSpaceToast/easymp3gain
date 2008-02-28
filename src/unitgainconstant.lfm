@@ -9,22 +9,23 @@ object frmMP3GainConstant: TfrmMP3GainConstant
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Constant Gain'
+  ClientHeight = 114
+  ClientWidth = 273
   OnShow = FormShow
   Position = poScreenCenter
   object lblGain: TLabel
     Left = 16
-    Height = 17
+    Height = 20
     Top = 56
-    Width = 50
+    Width = 43
     Caption = 'lblGain'
-    Color = clNone
     ParentColor = False
   end
   object btnOK: TButton
-    Left = 48
+    Left = 32
     Height = 25
     Top = 80
-    Width = 75
+    Width = 100
     BorderSpacing.InnerBorder = 4
     Caption = 'OK'
     OnClick = btnOKClick
@@ -34,7 +35,7 @@ object frmMP3GainConstant: TfrmMP3GainConstant
     Left = 144
     Height = 25
     Top = 80
-    Width = 75
+    Width = 100
     BorderSpacing.InnerBorder = 4
     Cancel = True
     Caption = 'Cancel'

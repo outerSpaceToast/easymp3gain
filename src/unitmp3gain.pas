@@ -178,7 +178,7 @@ type
 end;
 
   TMP3GainOptions = record
-    IgnoreTags, AutoReadAtStartup, UseTempFiles, PreserveOriginalTimestamp:Boolean;
+    IgnoreTags, AutoReadAtFileAdd, UseTempFiles, PreserveOriginalTimestamp:Boolean;
     
   end;
 
@@ -715,6 +715,12 @@ begin
       FStatusText := strStatus_UndoingChanges
     end;
   end;
+  if MP3GainOptions.UseTempFiles then
+    cmd := cmd + '-t '
+  else
+    cmd := cmd + '-T ';
+  if MP3GainOptions.PreserveOriginalTimestamp then cmd := cmd + '-p ';
+  if MP3GainOptions.IgnoreTags then cmd := cmd + '-s s ';
   MP3GainSync(setStatusText);
   for i:=0 to SongItems.Count-1 do
     Filenames := Filenames + ' "' + SongItems[i].FileName + '"';

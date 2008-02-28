@@ -36,8 +36,8 @@ begin
   Application.CreateForm(TfrmMp3GainMain, frmMp3GainMain);
   Application.CreateForm(TfrmMP3GainGUIInfo, frmMP3GainGUIInfo);
   Application.CreateForm(TfrmMP3GainConstant, frmMP3GainConstant);
-  frmMP3GainMain.Init;
   Application.CreateForm(TfrmMp3GainOptions, frmMp3GainOptions);
+  frmMP3GainMain.Init;
   Application.Run;
 end.
 

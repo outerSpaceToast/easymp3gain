@@ -13,14 +13,16 @@ type
 
   TfrmMp3GainOptions = class(TForm)
     btnOK: TButton;
-    btnClose: TButton;
+    btnCancel: TButton;
     chkUseTempFiles: TCheckBox;
     chkPreserveOriginalTimestamp: TCheckBox;
     chkIgnoreTags: TCheckBox;
-    chkAutoReadAtStartup: TCheckBox;
+    chkAutoReadAtFileAdd: TCheckBox;
     procedure FormShow(Sender: TObject);
-    procedure btnCloseClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
+    procedure chkAutoReadAtFileAddChange(Sender: TObject);
+    procedure chkIgnoreTagsChange(Sender: TObject);
   private
     { private declarations }
   public
@@ -37,7 +39,7 @@ uses UnitMP3Gain;
 
 { TfrmMp3GainOptions }
 
-procedure TfrmMp3GainOptions.btnCloseClick(Sender: TObject);
+procedure TfrmMp3GainOptions.btnCancelClick(Sender: TObject);
 begin
   Close;
 end;
@@ -50,8 +52,8 @@ begin
   try
     MP3GainOptions.IgnoreTags := chkIgnoreTags.Checked;
     StringList.Values['IgnoreTags']:=BoolToStr(MP3GainOptions.IgnoreTags);
-    MP3GainOptions.AutoReadAtStartup := chkAutoReadAtStartup.Checked;
-    StringList.Values['AutoReadAtStartup']:=BoolToStr(MP3GainOptions.AutoReadAtStartup);
+    MP3GainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
+    StringList.Values['AutoReadAtFileAdd']:=BoolToStr(MP3GainOptions.AutoReadAtFileAdd);
     MP3GainOptions.UseTempFiles := chkUseTempFiles.Checked;
     StringList.Values['UseTempFiles']:=BoolToStr(MP3GainOptions.UseTempFiles);
     MP3GainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
@@ -64,10 +66,20 @@ begin
   Close;
 end;
 
+procedure TfrmMp3GainOptions.chkAutoReadAtFileAddChange(Sender: TObject);
+begin
+  if chkAutoReadAtFileAdd.Checked then chkIgnoreTags.Checked := False;
+end;
+
+procedure TfrmMp3GainOptions.chkIgnoreTagsChange(Sender: TObject);
+begin
+  if chkIgnoreTags.Checked then chkAutoReadAtFileAdd.Checked := False;
+end;
+
 procedure TfrmMp3GainOptions.FormShow(Sender: TObject);
 begin
   chkIgnoreTags.Checked := MP3GainOptions.IgnoreTags;
-  chkAutoReadAtStartup.Checked := MP3GainOptions.AutoReadAtStartup;
+  chkAutoReadAtFileAdd.Checked := MP3GainOptions.AutoReadAtFileAdd;
   chkPreserveOriginalTimestamp.Checked := MP3GainOptions.PreserveOriginalTimestamp;
   chkUseTempFiles.Checked := MP3GainOptions.UseTempFiles;
 end;
@@ -81,7 +93,7 @@ begin
     try
       StringList.LoadFromFile(strHomeDir+strConfigFileName);
       MP3GainOptions.IgnoreTags := StrToBool(StringList.Values['IgnoreTags']);
-      MP3GainOptions.AutoReadAtStartup := StrToBool(StringList.Values['AutoReadAtStartup']);
+      MP3GainOptions.AutoReadAtFileAdd := StrToBool(StringList.Values['AutoReadAtFileAdd']);
       MP3GainOptions.PreserveOriginalTimestamp := StrToBool(StringList.Values['PreserveOriginalTimestamp']);
       MP3GainOptions.UseTempFiles := StrToBool(StringList.Values['UseTempFiles']);
     finally
