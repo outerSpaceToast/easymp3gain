@@ -6,7 +6,8 @@ Option: "Tag neu schreiben" Ja/Nein
 Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
 Icons (alpha)
 easymp3gain-Abhängigkeit ins Package
-Übersetzung für Options
+Werbung (&Wiki Seite auf ubuntu-forum.de und Wiki auf ubuntuusers.de)
+mp3gain beim Programm beenden abwürgen!
 
 done:
 Hinzufügen von Unterordnern
@@ -28,6 +29,7 @@ Drag&Drop
 Option: Automatisches Auslesen: Ja/Nein
 Optionen
 Stopp Button
+Übersetzung für Options
 
 
 zurück:

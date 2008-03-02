@@ -160,7 +160,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0047';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0048';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -219,6 +219,26 @@ begin
     end;
   until FindNext(SR)<>0;
   FindClose(SR);
+end;
+
+function URLDecode(a: String): String;
+var
+  i: Integer;
+begin
+  i:=1;
+  while i<=Length(a) do
+  begin
+    if not (a[i]='%') then
+    begin
+      Result := Result + a[i];
+      inc(i);
+    end
+    else
+    begin
+      Result := Result + Chr(StrToInt('$'+a[i+1]+a[i+2]));
+      inc(i,3);
+    end;
+  end;
 end;
 
 procedure TfrmMp3GainMain.UpdateFileCount;
@@ -677,7 +697,7 @@ var
   i:Integer;
 begin
    for i:=0 to Length(FileNames)-1 do
-    AddSongItem(FileNames[i]);
+    AddSongItem(URLDecode(FileNames[i]));
 end;
 
 procedure TfrmMp3GainMain.ListView1MouseMove(Sender: TObject;
