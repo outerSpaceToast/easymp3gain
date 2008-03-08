@@ -98,6 +98,9 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
           'Thorsten Reinbold'
           '    IconSet "Tango" and Testing'
           ''
+          'Patrick Kohan'
+          '    IconSet "Tango"'
+          ''
           'The FreePascal- and Lazarus-Team'
           'The MP3Gain-Team'
         )

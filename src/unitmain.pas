@@ -38,7 +38,7 @@ type
   TfrmMp3GainMain = class(TForm)
     Bevel2: TBevel;
     edtVolume: TEdit;
-    ImageList1: TImageList;
+    ImageList2: TImageList;
     lblTargetVolume: TLabel;
     lblTargetVolumeUnit: TLabel;
     lvFiles: TListView;
@@ -160,7 +160,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0048';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0049';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -270,7 +270,7 @@ begin
   frmMP3GainOptions.LoadSettings;          // Load settings from config-file
   TaskList := TMP3GainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
-  frmMp3GainMain.ImageList1.GetBitmap(3,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
+  frmMp3GainMain.ImageList2.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   SL := TStringList.Create;
   try
     ListFiles(Application.Location,'lng',SL,0);

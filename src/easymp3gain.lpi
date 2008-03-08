@@ -34,14 +34,14 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="40">
+    <Units Count="41">
       <Unit0>
         <Filename Value="easymp3gain.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="easymp3gain"/>
         <CursorPos X="65" Y="39"/>
         <TopLine Value="11"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -51,8 +51,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="5" Y="242"/>
-        <TopLine Value="175"/>
+        <CursorPos X="82" Y="273"/>
+        <TopLine Value="250"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -82,7 +82,7 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitinfo.lrs"/>
         <UnitName Value="UnitInfo"/>
-        <CursorPos X="32" Y="41"/>
+        <CursorPos X="70" Y="56"/>
         <TopLine Value="50"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
@@ -200,7 +200,7 @@
         <UnitName Value="UnitGainConstant"/>
         <CursorPos X="72" Y="74"/>
         <TopLine Value="49"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit21>
@@ -322,16 +322,36 @@
         <UnitName Value="UnitOptions"/>
         <CursorPos X="43" Y="36"/>
         <TopLine Value="16"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit39>
+      <Unit40>
+        <Filename Value="/usr/share/lazarus/lcl/include/imglist.inc"/>
+        <CursorPos X="1" Y="356"/>
+        <TopLine Value="341"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit40>
     </Units>
-    <JumpHistory Count="1" HistoryIndex="0">
+    <JumpHistory Count="4" HistoryIndex="3">
       <Position1>
         <Filename Value="unitmain.pas"/>
-        <Caret Line="101" Column="72" TopLine="100"/>
+        <Caret Line="181" Column="57" TopLine="175"/>
       </Position1>
+      <Position2>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="42" Column="17" TopLine="41"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="274" Column="40" TopLine="245"/>
+      </Position3>
+      <Position4>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="271" Column="44" TopLine="255"/>
+      </Position4>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
