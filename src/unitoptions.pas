@@ -58,6 +58,7 @@ begin
     StringList.Values['UseTempFiles']:=BoolToStr(MP3GainOptions.UseTempFiles);
     MP3GainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
     StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MP3GainOptions.PreserveOriginalTimestamp);
+    StringList.Values['ToolBarImageListIndex']:=IntToStr(MP3GainOptions.ToolBarImageListIndex);
     StringList.SaveToFile(strHomeDir+strConfigFileName);
   finally
     StringList.Free;
@@ -96,6 +97,7 @@ begin
       MP3GainOptions.AutoReadAtFileAdd := StrToBool(StringList.Values['AutoReadAtFileAdd']);
       MP3GainOptions.PreserveOriginalTimestamp := StrToBool(StringList.Values['PreserveOriginalTimestamp']);
       MP3GainOptions.UseTempFiles := StrToBool(StringList.Values['UseTempFiles']);
+      MP3GainOptions.ToolBarImageListIndex := StrToInt(StringList.Values['ToolBarImageListIndex']);
     finally
       StringList.Free;
     end;

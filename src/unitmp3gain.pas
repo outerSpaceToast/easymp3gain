@@ -179,6 +179,7 @@ end;
 
   TMP3GainOptions = record
     IgnoreTags, AutoReadAtFileAdd, UseTempFiles, PreserveOriginalTimestamp:Boolean;
+    ToolBarImageListIndex: Integer;
     
   end;
 

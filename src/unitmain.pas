@@ -38,6 +38,7 @@ type
   TfrmMp3GainMain = class(TForm)
     Bevel2: TBevel;
     edtVolume: TEdit;
+    ImageList1: TImageList;
     ImageList2: TImageList;
     lblTargetVolume: TLabel;
     lblTargetVolumeUnit: TLabel;
@@ -116,6 +117,7 @@ type
     procedure btnGainClick(Sender: TObject);
     procedure btnOnlySelectedItemsClick(Sender: TObject);
     procedure edtVolumeChange(Sender: TObject);
+    procedure lvFilesColumnClick(Sender: TObject; Column: TListColumn);
     procedure lvFilesKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
     procedure lvFilesMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -149,6 +151,7 @@ type
     procedure LoadLanguageFile(AFile: String);
     procedure AddFiles(SL: TStringList);
     procedure UpdateFileCount;
+    procedure SortListView(Lv:TListView; Index:integer; Reverse: Boolean);
     { private declarations }
   public
     procedure Init;
@@ -160,7 +163,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0049';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0050';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -179,7 +182,7 @@ var
 
 implementation
 
-uses unitinfo, unitoptions, BaseUnix;
+uses unitinfo, unitoptions {$IFDEF UNIX}, BaseUnix{$ENDIF};
 
 { TfrmMp3GainMain }
 
@@ -241,6 +244,23 @@ begin
   end;
 end;
 
+procedure TfrmMp3GainMain.SortListView(Lv:TListView; Index:integer; Reverse: Boolean);
+ var StrLi: TStringList;
+   i: integer;
+ begin
+   StrLi := TStringList.Create;
+   if Index = 0 then
+     for i := 0 to Lv.Items.Count - 1 do StrLi.AddObject(Lv.Items[i].Caption, Lv.Items[i])
+   else
+     for i := 0 to Lv.Items.Count - 1 do StrLi.AddObject(Lv.Items[i].SubItems[Index - 1], Lv.Items[i]);
+   StrLi.Sort;
+   if not Reverse then
+     for i := 0 to StrLi.count - 1 do Lv.Items[i] := TListItem(StrLi.Objects[i])
+   else
+     for i := 0 to StrLi.count - 1 do Lv.Items[i] := TListItem(StrLi.Objects[StrLi.count-1-i]);
+   StrLi.free;
+ end;
+
 procedure TfrmMp3GainMain.UpdateFileCount;
 begin
   StatusBar.Panels[SB_FILECOUNT].Text := IntToStr(lvFiles.Items.Count) + ' '+ strFiles;
@@ -267,7 +287,12 @@ begin
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
   MP3GainOptions.UseTempFiles:=True;       // Pre-setting
   MP3GainOptions.AutoReadAtFileAdd:=True;  // Pre-setting
+  MP3GainOptions.ToolBarImageListIndex:=1; // Pre-setting
   frmMP3GainOptions.LoadSettings;          // Load settings from config-file
+  if MP3GainOptions.ToolBarImageListIndex=1 then
+    ToolBar1.Images := ImageList1;
+  if MP3GainOptions.ToolBarImageListIndex=2 then
+    ToolBar1.Images := ImageList2;
   TaskList := TMP3GainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList2.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
@@ -776,6 +801,8 @@ var
 begin
   Val(edtVolume.Text, value, e);
   if (e>0) or (value<1) then exit;
+  if value>500 then value:=500;
+  if value<5 then value:=5;
   MP3Gain.TargetVolume := value;
   for i:=lvFiles.Items.Count-1 downto 0 do
   begin
@@ -800,6 +827,13 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmMp3GainMain.lvFilesColumnClick(Sender: TObject;
+  Column: TListColumn);
+begin
+  SortListView(lvFiles, Column.Index, Boolean(Column.Tag));
+  Column.Tag := not Column.Tag;
 end;
 
 procedure TfrmMp3GainMain.lvFilesKeyDown(Sender: TObject; var Key: Word;
@@ -827,7 +861,7 @@ begin
     exit;
   end;
   Item := lvFiles.Items[a];
-  lvFiles.Hint := Item.Caption;
+  lvFiles.Hint := TSongItem(Item.Data).FileName;
 end;
 
 procedure TfrmMp3GainMain.mnuAnalysisClearClick(Sender: TObject);
@@ -838,8 +872,6 @@ begin
   begin
     with lvFiles.Items[i] do
     begin
-      //TSongItem(Data)^.HasData := false;
-      //TSongItem(Data)^.HasAlbumData := false;
       for k:=0 to SubItems.Count-1 do
         SubItems[k] := '';
     end;

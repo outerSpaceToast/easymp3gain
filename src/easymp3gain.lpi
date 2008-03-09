@@ -8,7 +8,7 @@
       <IconPath Value="./"/>
       <TargetFileExt Value=""/>
       <Title Value="easymp3gain"/>
-      <ActiveEditorIndexAtStart Value="2"/>
+      <ActiveEditorIndexAtStart Value="3"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -27,11 +27,11 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="LCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item2>
     </RequiredPackages>
     <Units Count="41">
@@ -39,9 +39,9 @@
         <Filename Value="easymp3gain.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="easymp3gain"/>
-        <CursorPos X="65" Y="39"/>
-        <TopLine Value="11"/>
-        <EditorIndex Value="5"/>
+        <CursorPos X="16" Y="26"/>
+        <TopLine Value="8"/>
+        <EditorIndex Value="4"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -51,9 +51,9 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="82" Y="273"/>
-        <TopLine Value="250"/>
-        <EditorIndex Value="2"/>
+        <CursorPos X="46" Y="813"/>
+        <TopLine Value="794"/>
+        <EditorIndex Value="3"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -83,7 +83,7 @@
         <ResourceFilename Value="unitinfo.lrs"/>
         <UnitName Value="UnitInfo"/>
         <CursorPos X="70" Y="56"/>
-        <TopLine Value="50"/>
+        <TopLine Value="47"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -92,13 +92,13 @@
         <Filename Value="unitmp3gain.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMP3Gain"/>
-        <CursorPos X="56" Y="723"/>
-        <TopLine Value="707"/>
+        <CursorPos X="3" Y="199"/>
+        <TopLine Value="183"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="2">
-          <Item0 X="6" Y="381" ID="0"/>
-          <Item1 X="23" Y="569" ID="1"/>
+          <Item0 X="6" Y="382" ID="0"/>
+          <Item1 X="23" Y="570" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit6>
@@ -199,8 +199,8 @@
         <ResourceFilename Value="unitgainconstant.lrs"/>
         <UnitName Value="UnitGainConstant"/>
         <CursorPos X="72" Y="74"/>
-        <TopLine Value="49"/>
-        <EditorIndex Value="6"/>
+        <TopLine Value="46"/>
+        <EditorIndex Value="5"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit21>
@@ -320,45 +320,44 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitoptions.lrs"/>
         <UnitName Value="UnitOptions"/>
-        <CursorPos X="43" Y="36"/>
-        <TopLine Value="16"/>
-        <EditorIndex Value="4"/>
-        <UsageCount Value="33"/>
-        <Loaded Value="True"/>
+        <CursorPos X="1" Y="100"/>
+        <TopLine Value="80"/>
+        <UsageCount Value="42"/>
       </Unit39>
       <Unit40>
         <Filename Value="/usr/share/lazarus/lcl/include/imglist.inc"/>
         <CursorPos X="1" Y="356"/>
         <TopLine Value="341"/>
-        <EditorIndex Value="3"/>
-        <UsageCount Value="10"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit40>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="5" HistoryIndex="4">
       <Position1>
         <Filename Value="unitmain.pas"/>
-        <Caret Line="181" Column="57" TopLine="175"/>
+        <Caret Line="181" Column="30" TopLine="180"/>
       </Position1>
       <Position2>
         <Filename Value="unitmain.pas"/>
-        <Caret Line="42" Column="17" TopLine="41"/>
+        <Caret Line="809" Column="27" TopLine="789"/>
       </Position2>
       <Position3>
         <Filename Value="unitmain.pas"/>
-        <Caret Line="274" Column="40" TopLine="245"/>
+        <Caret Line="807" Column="24" TopLine="790"/>
       </Position3>
       <Position4>
         <Filename Value="unitmain.pas"/>
-        <Caret Line="271" Column="44" TopLine="255"/>
+        <Caret Line="804" Column="23" TopLine="784"/>
       </Position4>
+      <Position5>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="813" Column="27" TopLine="794"/>
+      </Position5>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="5"/>
-    <SearchPaths>
-      <LCLWidgetType Value="gtk2"/>
-    </SearchPaths>
     <CodeGeneration>
       <Generate Value="Faster"/>
       <TargetCPU Value="i386"/>
@@ -369,7 +368,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="3">
       <Item1>
         <Source Value="../MP3-Manager/main.pas"/>
         <Line Value="289"/>
@@ -382,10 +381,6 @@
         <Source Value="../lt/unit1.pas"/>
         <Line Value="53"/>
       </Item3>
-      <Item4>
-        <Source Value="unitmain.pas"/>
-        <Line Value="596"/>
-      </Item4>
     </BreakPoints>
     <Watches Count="7">
       <Item1>
