@@ -161,6 +161,7 @@ type
     procedure FreeProcess;
   public
     procedure Run;
+    procedure Cancel;
     constructor Create;
     destructor Destroy; override; // reintroduce
   published
@@ -338,6 +339,12 @@ begin
 end;
 
 // ----------------------------------- TMP3Gain -------------------------------
+
+procedure TMP3Gain.Cancel;
+begin
+  if Assigned(FMP3GainProcess) then
+    FMP3GainProcess.Cancel := true;
+end;
 
 function TMP3Gain.GetIsReady: Boolean;
 begin
@@ -637,6 +644,7 @@ end;
 procedure TMP3Gain.CreateProcess;
 begin
   FMP3GainProcess := TMP3GainProcess.Create(true);
+  FMP3GainProcess.Cancel := False;
   FMP3GainProcess.FProgressEvent := @ProcessProgress;
   FMP3GainProcess.FResultEvent := @ProcessResult;
   FMP3GainProcess.FFinishedEvent := @RunFinished;
@@ -823,8 +831,13 @@ begin
     P.Options := [poUsePipes,poNoConsole];
     P.Execute;
     Debugln('mp3gain started.');
-    while P.Running do
+    while (P.Running) do
     begin
+      if Self.Cancel then
+      begin
+        Debugln('terminating mp3gain');
+        P.Terminate(0);  // terminate mp3gain-process
+      end;
       Debugln('Trying to read progress-output...');
       BytesRead := ReadFromPipeStream(P.Stderr, ProcessOutput);
       Debugln('Read ', BytesRead, ' Bytes');
@@ -861,6 +874,7 @@ begin
         end; *)
       end;
     end;
+    Debugln('mp3gain terminated...');
     Debugln('Trying to read output...');
     BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
     Debugln('Read ', BytesRead, ' Bytes.');

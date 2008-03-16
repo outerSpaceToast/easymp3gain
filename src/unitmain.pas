@@ -163,7 +163,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0050';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0052';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -707,7 +707,7 @@ procedure TfrmMp3GainMain.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   mnuFileClearAllFilesClick(Sender);
-  //MP3Gain.FMP3GainProcess.Free;
+  btnCancelClick(Sender);
   MP3Gain.Free;
 end;
 
@@ -768,6 +768,8 @@ var
 begin
   for i:=TaskList.Count-1 downto 0 do
     TaskList.DeleteTask(i);
+  if (MP3Gain.MP3GainAction in [mgaTrackAnalyze, mgaAlbumAnalyze]) then
+    MP3Gain.Cancel;
   btnCancel.Enabled := False;
 end;
 

@@ -39,7 +39,7 @@
         <Filename Value="easymp3gain.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="easymp3gain"/>
-        <CursorPos X="16" Y="26"/>
+        <CursorPos X="1" Y="42"/>
         <TopLine Value="8"/>
         <EditorIndex Value="4"/>
         <UsageCount Value="200"/>
@@ -51,8 +51,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="46" Y="813"/>
-        <TopLine Value="794"/>
+        <CursorPos X="16" Y="697"/>
+        <TopLine Value="696"/>
         <EditorIndex Value="3"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -92,13 +92,13 @@
         <Filename Value="unitmp3gain.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMP3Gain"/>
-        <CursorPos X="3" Y="199"/>
-        <TopLine Value="183"/>
+        <CursorPos X="32" Y="877"/>
+        <TopLine Value="855"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="2">
-          <Item0 X="6" Y="382" ID="0"/>
-          <Item1 X="23" Y="570" ID="1"/>
+          <Item0 X="6" Y="389" ID="0"/>
+          <Item1 X="23" Y="577" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit6>
@@ -322,39 +322,18 @@
         <UnitName Value="UnitOptions"/>
         <CursorPos X="1" Y="100"/>
         <TopLine Value="80"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="46"/>
       </Unit39>
       <Unit40>
         <Filename Value="/usr/share/lazarus/lcl/include/imglist.inc"/>
         <CursorPos X="1" Y="356"/>
         <TopLine Value="341"/>
         <EditorIndex Value="2"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit40>
     </Units>
-    <JumpHistory Count="5" HistoryIndex="4">
-      <Position1>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="181" Column="30" TopLine="180"/>
-      </Position1>
-      <Position2>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="809" Column="27" TopLine="789"/>
-      </Position2>
-      <Position3>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="807" Column="24" TopLine="790"/>
-      </Position3>
-      <Position4>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="804" Column="23" TopLine="784"/>
-      </Position4>
-      <Position5>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="813" Column="27" TopLine="794"/>
-      </Position5>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="5"/>

@@ -193,6 +193,7 @@ object frmMp3GainMain: TfrmMp3GainMain
     end
     object btnCancel: TToolButton
       Left = 696
+      Hint = 'Cancel current operations'
       Top = 2
       Caption = 'Abbrechen'
       Enabled = False
