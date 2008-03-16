@@ -100,7 +100,6 @@ type
     btnCancel: TToolButton;
     ToolButton5: TToolButton;
     ToolButton6: TToolButton;
-    procedure CheckBox1Change(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
@@ -150,6 +149,7 @@ type
     procedure LockControls(lock: Boolean);
     procedure LoadLanguageFile(AFile: String);
     procedure AddFiles(SL: TStringList);
+    procedure AddFolder(S: String; sublevels: Integer);
     procedure UpdateFileCount;
     procedure SortListView(Lv:TListView; Index:integer; Reverse: Boolean);
     { private declarations }
@@ -163,7 +163,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0052';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0053';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -536,6 +536,19 @@ begin
   end;
 end;
 
+procedure TfrmMp3GainMain.AddFolder(S: String; sublevels: Integer);
+var
+  SL: TStringList;
+begin
+  SL := TStringList.Create;
+  try
+    ListFiles(IncludeTrailingPathDelimiter(S),'mp3', SL, sublevels);
+    AddFiles(SL);
+  finally
+    SL.Free;
+  end;
+end;
+
 procedure TfrmMp3GainMain.mnuFileAddFilesClick(Sender: TObject);
 var
   i: Integer;
@@ -548,20 +561,12 @@ end;
 
 procedure TfrmMp3GainMain.mnuFileAddFolderClick(Sender: TObject);
 var
-  SL: TStringList;
   sublevels: Byte;
 begin
   if not SelectDirectoryDialog.Execute then exit;
   Application.ProcessMessages;
   if Sender=mnuFileAddFolderRecursive then sublevels := 6 else sublevels := 0;
-  SL := TStringList.Create;
-  try
-    ListFiles(IncludeTrailingPathDelimiter(SelectDirectoryDialog.FileName),'mp3', SL, sublevels);
-    AddFiles(SL);
-  finally
-    SL.Free;
-  end;
-  //mnuOptionsReadTagInfoClick(Sender);
+  AddFolder(SelectDirectoryDialog.FileName, sublevels);
 end;
 
 procedure TfrmMp3GainMain.mnuFileAddFolderRecursiveClick(Sender: TObject);
@@ -698,11 +703,6 @@ begin
   mnuFileAddFilesClick(Sender);
 end;
 
-procedure TfrmMp3GainMain.CheckBox1Change(Sender: TObject);
-begin
-
-end;
-
 procedure TfrmMp3GainMain.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
@@ -720,9 +720,16 @@ procedure TfrmMp3GainMain.FormDropFiles(Sender: TObject;
   const FileNames: array of String);
 var
   i:Integer;
+  S: String;
 begin
    for i:=0 to Length(FileNames)-1 do
-    AddSongItem(URLDecode(FileNames[i]));
+   begin
+     S := URLDecode(FileNames[i]);
+     if DirectoryExists(S) then
+       AddFolder(S,0)
+     else
+       AddSongItem(S);
+   end;
 end;
 
 procedure TfrmMp3GainMain.ListView1MouseMove(Sender: TObject;

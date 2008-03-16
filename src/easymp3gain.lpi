@@ -51,8 +51,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="16" Y="697"/>
-        <TopLine Value="696"/>
+        <CursorPos X="60" Y="185"/>
+        <TopLine Value="160"/>
         <EditorIndex Value="3"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -322,7 +322,7 @@
         <UnitName Value="UnitOptions"/>
         <CursorPos X="1" Y="100"/>
         <TopLine Value="80"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit39>
       <Unit40>
         <Filename Value="/usr/share/lazarus/lcl/include/imglist.inc"/>
