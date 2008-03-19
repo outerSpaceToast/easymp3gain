@@ -163,7 +163,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0053';
+   APPLICATION_VERSION = '0.2.1 alpha SVN-0054';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -359,6 +359,7 @@ begin
     btnClearFiles.Hint := mnuFileClearSelected.Caption;
     btnClearAll.Hint := mnuFileClearAllFiles.Caption;
     btnOnlySelectedItems.Hint := mnuOptionsOnlySelectedItems.Caption;
+    btnCancel.Hint := SL.Values['CancelHint'];
     pmnAnalysisTrack.Caption := mnuAnalysisTrack.Caption;
     pmnAnalysisAlbum.Caption := mnuAnalysisAlbum.Caption;
     pmnGainTrack.Caption := mnuModifyGainApplyTrack.Caption;

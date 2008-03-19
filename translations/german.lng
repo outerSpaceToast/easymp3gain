@@ -1,5 +1,7 @@
 version=0.2.1
 language=german
+author=Thomas Dieffenbach
+author_mail=giantics@gmx.de
 Status_Analyzing=Analysiere...
 Status_Gaining=Passe Lautstärke an...
 Status_Finished=Fertig.
@@ -9,6 +11,7 @@ Status_UndoingChanges=Mache Änderungen rückgängig...
 Status_ExitCode127=Konnte mp3gain nicht starten. Ist es installiert?
 About=Über
 Files=Datei(en)
+CancelHint=Alle laufenden Aktionen abbrechen
 mnuFile=Datei
 mnuFileAddFolder=Verzeichnis hinzufügen
 mnuFileAddFolderRecursively=Verzeichnis rekursiv hinzufügen
