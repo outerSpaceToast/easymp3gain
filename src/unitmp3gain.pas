@@ -582,7 +582,16 @@ begin
       frmMP3GainMain.StatusBar.Panels[0].Text := FStatusText;
     setStatusCode:
       if (FExitCodeProcess<>0) then
-        frmMP3GainMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
+      begin
+        if FExitCodeProcess=127 then
+          frmMP3GainMain.StatusBar.Panels[1].Text := 'Error: Could not run mp3gain'
+        else
+          frmMP3GainMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
+      end
+      else
+      begin
+         frmMP3GainMain.StatusBar.Panels[1].Text := '';
+      end;
     setSongItemHasFinished:
     begin
       Inc(FilesProcessedCount);
@@ -791,7 +800,7 @@ procedure TMP3GainProcess.Execute;
   function ReadFromPipeStream(AStream: TInputPipeStream; var AString: String): Integer;
   var
     M: TMemoryStream;
-    BytesRead: Integer;
+    BytesRead: Int64;
     n: Integer;
   begin
     M := TMemoryStream.Create;
@@ -827,75 +836,80 @@ begin
 {$ENDIF}
   P := TProcess.Create(nil);
   try
-    P.CommandLine := FProcessCommand;
-    P.Options := [poUsePipes,poNoConsole];
-    P.Execute;
-    Debugln('mp3gain started.');
-    while (P.Running) do
-    begin
-      if Self.Cancel then
+    try
+      P.CommandLine := FProcessCommand;
+      P.Options := [poUsePipes,poNoConsole];
+      P.Execute;
+      Debugln('mp3gain started.');
+      while (P.Running) do
       begin
-        Debugln('terminating mp3gain');
-        P.Terminate(0);  // terminate mp3gain-process
-      end;
-      Debugln('Trying to read progress-output...');
-      BytesRead := ReadFromPipeStream(P.Stderr, ProcessOutput);
-      Debugln('Read ', BytesRead, ' Bytes');
-      if BytesRead>0 then
-      begin
-        Debugln('Trying to synchronize progress...');
-        Synchronize(OnProgressEvent);
-        Debugln('Synchronized.');
-      end;
-      Sleep(100);
-      if FASongItemHasFinished then   // A SongItem Finished, read the output
-      begin
-        Debugln('SongItem has finished: ', FCurrentSongItem);
-        FASongItemHasFinished := false;
-        BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
-        if (BytesRead>0) then
+        if Self.Cancel then
         begin
-          Debugln('Processing output from mp3gain: ');
-          Debugln(' # ' + ProcessOutput);
-          Synchronize(OnResultEvent);
+          Debugln('terminating mp3gain');
+          P.Terminate(0);  // terminate mp3gain-process
         end;
-       (* n := ReadProcessOutput(P.Output, @Buffer); //P.Output.Read(Buffer, READ_BYTES);
-        if n>0 then
+        Debugln('Trying to read progress-output...');
+        BytesRead := ReadFromPipeStream(P.Stderr, ProcessOutput);
+        Debugln('Read ', BytesRead, ' Bytes');
+        if BytesRead>0 then
         begin
-          str_echo := str_echo + Buffer;
-          ProcessOutput := str_echo; //pchar
-  {$IFDEF DEBUG_VERSION}
-      X.Add(ProcessOutput);
-      X.Add('## Count:'+IntToStr(n)+'##');
-      X.SaveToFile(strHomeDir+'op.txt');
-  {$ENDIF}
-        Debugln('Processing output from mp3gain.');
-        Synchronize(OnResultEvent);
-        end; *)
+          Debugln('Trying to synchronize progress...');
+          Synchronize(OnProgressEvent);
+          Debugln('Synchronized.');
+        end;
+        Sleep(100);
+        if FASongItemHasFinished then   // A SongItem Finished, read the output
+        begin
+          Debugln('SongItem has finished: ', FCurrentSongItem);
+          FASongItemHasFinished := false;
+          BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
+          if (BytesRead>0) then
+          begin
+            Debugln('Processing output from mp3gain: ');
+            Debugln(' # ' + ProcessOutput);
+            Synchronize(OnResultEvent);
+          end;
+         (* n := ReadProcessOutput(P.Output, @Buffer); //P.Output.Read(Buffer, READ_BYTES);
+          if n>0 then
+          begin
+            str_echo := str_echo + Buffer;
+            ProcessOutput := str_echo; //pchar
+    {$IFDEF DEBUG_VERSION}
+        X.Add(ProcessOutput);
+        X.Add('## Count:'+IntToStr(n)+'##');
+        X.SaveToFile(strHomeDir+'op.txt');
+    {$ENDIF}
+          Debugln('Processing output from mp3gain.');
+          Synchronize(OnResultEvent);
+          end; *)
+        end;
       end;
+      Debugln('mp3gain terminated...');
+      Debugln('Trying to read output...');
+      BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
+      Debugln('Read ', BytesRead, ' Bytes.');
+      Debugln(ProcessOutput);
+      Synchronize(OnResultEvent);
+      (*
+      n := ReadProcessOutput(P.Output, @Buffer);  // read the final output
+      if n>0 then
+      begin
+        str_echo := str_echo + Buffer;
+        ProcessOutput := str_echo; //pchar
+      end;*)
+    finally
+      e := P.ExitStatus;
+      FExitStatus := e;
+      P.Free;
     end;
-    Debugln('mp3gain terminated...');
-    Debugln('Trying to read output...');
-    BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
-    Debugln('Read ', BytesRead, ' Bytes.');
-    Debugln(ProcessOutput);
-    Synchronize(OnResultEvent);
-    (*
-    n := ReadProcessOutput(P.Output, @Buffer);  // read the final output
-    if n>0 then
-    begin
-      str_echo := str_echo + Buffer;
-      ProcessOutput := str_echo; //pchar
-    end;*)
-  finally
-    e := P.ExitStatus;
-    P.Free;
+  except
+    on e1:EProcess do
+      FExitStatus := 127;
   end;
 {$IFDEF DEBUG_VERSION}
   X.Free;
 {$ENDIF}
   M.Free;
-  FExitStatus := e;
   Synchronize(OnStatusCodeEvent);
   Self.FreeOnTerminate := true;   // Thread-Bug in FPC2.2 True
   Synchronize(OnFinished);
