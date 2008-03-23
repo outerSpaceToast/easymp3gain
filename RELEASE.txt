@@ -1,8 +1,7 @@
-0.2.0 alpha:
+0.3.0 beta:
 easyMP3Gain is a graphical user interface for mp3gain. The Interface looks similar to the one available for Windows.
 It's a native GTK/GTK+ application, so it runs on Linux and FreeBSD/OpenBSD (not tested yet).
 A QT-Version will be available soon.
-This contains new features like album-analyzing.
+This version contains new features like drag&drop, sorting, cancel-button, etc.
 
 known bugs:
-GTK-Version crashes, when any operation is performed and mp3gain is not installed.

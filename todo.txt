@@ -3,10 +3,10 @@ Anzeige: Datei x von y
 Option: "Tag neu schreiben" Ja/Nein
 Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
 Icons (alpha)
-easymp3gain-Abhängigkeit ins Package
 Werbung (&Wiki Seite auf ubuntu-forum.de und Wiki auf ubuntuusers.de)
 
 done:
+easymp3gain-Abhängigkeit ins Package
 Hinzufügen von Unterordnern
 SongItem von PRecord nach Class
 nur neu hinzugefügte Dateien auslesen

@@ -163,7 +163,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.1 alpha SVN-0054';
+   APPLICATION_VERSION = '0.2.9 beta';// SVN-0055';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -269,6 +269,7 @@ end;
 procedure TfrmMp3GainMain.Init;
 var
   SL:TStringList;
+  bmp: TBitmap;
 begin
   Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
   frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
@@ -295,7 +296,7 @@ begin
     ToolBar1.Images := ImageList2;
   TaskList := TMP3GainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
-  frmMp3GainMain.ImageList2.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
+  frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   SL := TStringList.Create;
   try
     ListFiles(Application.Location,'lng',SL,0);
@@ -314,7 +315,7 @@ begin
   SL := TStringList.Create;
   try
     SL.LoadFromFile(AFile);
-    if not (Copy(SL.Values['version'],1,5)='0.2.1') then
+    if not (Copy(SL.Values['version'],1,5)='0.3.0') then
     begin
       MessageDlg('Wrong language-pack version.',mtError,[mbOK],0);
       Exit;
