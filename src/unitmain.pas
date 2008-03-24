@@ -163,7 +163,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.2.9 beta';// SVN-0055';
+   APPLICATION_VERSION = '0.3.0 beta';// SVN-0057';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -300,6 +300,7 @@ begin
   SL := TStringList.Create;
   try
     ListFiles(Application.Location,'lng',SL,0);
+    Writeln('Searching for language-file in '+Application.Location+'  found: ',SL.Count);
     if SL.Count>0 then
       LoadLanguageFile(SL[0]);
   finally

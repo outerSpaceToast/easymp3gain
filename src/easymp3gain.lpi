@@ -8,7 +8,7 @@
       <IconPath Value="./"/>
       <TargetFileExt Value=""/>
       <Title Value="easymp3gain"/>
-      <ActiveEditorIndexAtStart Value="2"/>
+      <ActiveEditorIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
       <ProjectVersion Value=""/>
@@ -27,11 +27,11 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="LCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item2>
     </RequiredPackages>
     <Units Count="42">
@@ -40,7 +40,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="easymp3gain"/>
         <CursorPos X="1" Y="1"/>
-        <TopLine Value="1"/>
+        <TopLine Value="11"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -51,8 +51,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="88" Y="300"/>
-        <TopLine Value="726"/>
+        <CursorPos X="34" Y="303"/>
+        <TopLine Value="276"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -91,14 +91,12 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMP3Gain"/>
         <CursorPos X="11" Y="594"/>
-        <TopLine Value="820"/>
-        <EditorIndex Value="2"/>
+        <TopLine Value="81"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="2">
           <Item0 X="6" Y="389" ID="0"/>
           <Item1 X="23" Y="577" ID="1"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="../Mp3GainGUI/unitthread.pas"/>
@@ -318,7 +316,7 @@
         <UnitName Value="UnitOptions"/>
         <CursorPos X="1" Y="100"/>
         <TopLine Value="80"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="61"/>
       </Unit39>
       <Unit40>
         <Filename Value="/usr/share/lazarus/lcl/include/imglist.inc"/>
@@ -333,76 +331,7 @@
         <UsageCount Value="9"/>
       </Unit41>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
-      <Position1>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="903" Column="11" TopLine="877"/>
-      </Position1>
-      <Position2>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="101" Column="24" TopLine="95"/>
-      </Position2>
-      <Position3>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="111" Column="12" TopLine="95"/>
-      </Position3>
-      <Position4>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="129" Column="46" TopLine="113"/>
-      </Position4>
-      <Position5>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="6" Column="85" TopLine="1"/>
-      </Position5>
-      <Position6>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="111" Column="16" TopLine="95"/>
-      </Position6>
-      <Position7>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="129" Column="50" TopLine="113"/>
-      </Position7>
-      <Position8>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="585" Column="42" TopLine="560"/>
-      </Position8>
-      <Position9>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="833" Column="1" TopLine="667"/>
-      </Position9>
-      <Position10>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="892" Column="24" TopLine="876"/>
-      </Position10>
-      <Position11>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="2" Column="49" TopLine="1"/>
-      </Position11>
-      <Position12>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="148" Column="11" TopLine="132"/>
-      </Position12>
-      <Position13>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="178" Column="50" TopLine="162"/>
-      </Position13>
-      <Position14>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="473" Column="39" TopLine="457"/>
-      </Position14>
-      <Position15>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="486" Column="28" TopLine="470"/>
-      </Position15>
-      <Position16>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="490" Column="11" TopLine="474"/>
-      </Position16>
-      <Position17>
-        <Filename Value="unitmp3gain.pas"/>
-        <Caret Line="587" Column="78" TopLine="569"/>
-      </Position17>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="5"/>
