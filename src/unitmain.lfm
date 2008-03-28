@@ -499,6 +499,21 @@ object frmMp3GainMain: TfrmMp3GainMain
       object MenuItem2: TMenuItem
         Caption = '-'
       end
+      object mnuFileSelectAll: TMenuItem
+        Caption = 'Select all files'
+        OnClick = mnuFileSelectAllClick
+      end
+      object mnuFileSelectNone: TMenuItem
+        Caption = 'Deselect all files'
+        OnClick = mnuFileSelectNoneClick
+      end
+      object mnuSelectionInvert: TMenuItem
+        Caption = 'Invert selection'
+        OnClick = mnuSelectionInvertClick
+      end
+      object MenuItem10: TMenuItem
+        Caption = '-'
+      end
       object mnuFileClearSelected: TMenuItem
         Caption = 'Clear selected file(s)'
         OnClick = mnuFileClearSelectedClick

@@ -45,9 +45,13 @@ type
     lvFiles: TListView;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
+    MenuItem10: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem6: TMenuItem;
+    mnuSelectionInvert: TMenuItem;
+    mnuFileSelectNone: TMenuItem;
+    mnuFileSelectAll: TMenuItem;
     mnuOptionsAdvanced: TMenuItem;
     mnuFileAddFolderRecursive: TMenuItem;
     mnuOptionsOnlySelectedItems: TMenuItem;
@@ -130,6 +134,7 @@ type
     procedure mnuFileExitClick(Sender: TObject);
     procedure mnuFileClearAllFilesClick(Sender: TObject);
     procedure mnuFileClearSelectedClick(Sender: TObject);
+    procedure mnuFileSelectAllClick(Sender: TObject);
     procedure mnuHelpInfoClick(Sender: TObject);
     procedure mnuModifyGainApplyAlbumClick(Sender: TObject);
     procedure mnuModifyGainApplyConstantClick(Sender: TObject);
@@ -139,6 +144,8 @@ type
     procedure mnuOptionsDeleteTagInfosClick(Sender: TObject);
     procedure mnuOptionsOnlySelectedItemsClick(Sender: TObject);
     procedure mnuOptionsReadTagInfoClick(Sender: TObject);
+    procedure mnuFileSelectNoneClick(Sender: TObject);
+    procedure mnuSelectionInvertClick(Sender: TObject);
   private
     MP3Gain: TMP3Gain;
     procedure WaitForMP3GainReady;
@@ -163,7 +170,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.0 beta';// SVN-0057';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0060';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -316,7 +323,7 @@ begin
   SL := TStringList.Create;
   try
     SL.LoadFromFile(AFile);
-    if not (Copy(SL.Values['version'],1,5)='0.3.0') then
+    if not (Copy(SL.Values['version'],1,5)='0.3.1') then
     begin
       MessageDlg('Wrong language-pack version.',mtError,[mbOK],0);
       Exit;
@@ -603,6 +610,36 @@ begin
   end;
 end;
 
+procedure TfrmMp3GainMain.mnuFileSelectAllClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i:=lvFiles.Items.Count-1 downto 0 do
+  begin
+    lvFiles.Items[i].Selected:=true;
+  end;
+end;
+
+procedure TfrmMp3GainMain.mnuFileSelectNoneClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i:=lvFiles.Items.Count-1 downto 0 do
+  begin
+    lvFiles.Items[i].Selected:=false;
+  end;
+end;
+
+procedure TfrmMp3GainMain.mnuSelectionInvertClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i:=lvFiles.Items.Count-1 downto 0 do
+  begin
+    lvFiles.Items[i].Selected:= not lvFiles.Items[i].Selected;
+  end;
+end;
+
 procedure TfrmMp3GainMain.mnuHelpInfoClick(Sender: TObject);
 begin
   frmMP3GainGUIInfo.ShowModal;
@@ -813,7 +850,7 @@ var
 begin
   Val(edtVolume.Text, value, e);
   if (e>0) or (value<1) then exit;
-  if value>500 then value:=500;
+  if value>255 then value:=255;
   if value<5 then value:=5;
   MP3Gain.TargetVolume := value;
   for i:=lvFiles.Items.Count-1 downto 0 do

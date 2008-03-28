@@ -27,11 +27,11 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LCL"/>
-      </Item1>
-      <Item2>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
     <Units Count="42">
@@ -40,7 +40,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="easymp3gain"/>
         <CursorPos X="1" Y="1"/>
-        <TopLine Value="11"/>
+        <TopLine Value="8"/>
         <EditorIndex Value="1"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -51,8 +51,8 @@
         <IsPartOfProject Value="True"/>
         <ResourceFilename Value="unitmain.lrs"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="34" Y="303"/>
-        <TopLine Value="276"/>
+        <CursorPos X="31" Y="853"/>
+        <TopLine Value="846"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -316,7 +316,7 @@
         <UnitName Value="UnitOptions"/>
         <CursorPos X="1" Y="100"/>
         <TopLine Value="80"/>
-        <UsageCount Value="61"/>
+        <UsageCount Value="62"/>
       </Unit39>
       <Unit40>
         <Filename Value="/usr/share/lazarus/lcl/include/imglist.inc"/>
@@ -331,7 +331,48 @@
         <UsageCount Value="9"/>
       </Unit41>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="10" HistoryIndex="9">
+      <Position1>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="231" Column="33" TopLine="226"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="51" Column="26" TopLine="50"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="52" Column="26" TopLine="50"/>
+      </Position3>
+      <Position4>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="53" Column="26" TopLine="50"/>
+      </Position4>
+      <Position5>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="137" Column="54" TopLine="136"/>
+      </Position5>
+      <Position6>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="147" Column="51" TopLine="146"/>
+      </Position6>
+      <Position7>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="678" Column="37" TopLine="651"/>
+      </Position7>
+      <Position8>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="325" Column="50" TopLine="317"/>
+      </Position8>
+      <Position9>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="148" Column="56" TopLine="147"/>
+      </Position9>
+      <Position10>
+        <Filename Value="unitmain.pas"/>
+        <Caret Line="633" Column="36" TopLine="613"/>
+      </Position10>
+    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="5"/>

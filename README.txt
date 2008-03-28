@@ -2,7 +2,7 @@
 REQUIREMENTS:
 easyMP3Gain requires a Linux based OS with X11 and the program mp3gain installed.
 If your OS doesn't provide a mp3gain-package install it manually and download the easymp3gain-tar.gz-package.
-Make sure that the mp3gain-binary or a link is in the "/bin"-directory of you OS.
+Make sure that the mp3gain-binary or a link is in the "/bin"-directory of your OS.
 
 RUNNING (.deb):
 1. Install the package easymp3gain_x.deb
