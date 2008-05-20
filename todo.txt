@@ -3,7 +3,10 @@ Anzeige: Datei x von y
 Option: "Tag neu schreiben" Ja/Nein
 Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
 Icons (alpha)
-Werbung (&Wiki Seite auf ubuntu-forum.de und Wiki auf ubuntuusers.de)
+Copyright-Datum ändern
+Lautstärke-Abstand in Toolbar!
+Vorbis-Support
+Files and Folders as argument
 
 done:
 easymp3gain-Abhängigkeit ins Package

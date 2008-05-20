@@ -23,6 +23,14 @@ type
     procedure Synchronize(value: Integer);
     { public declarations }
   end; 
+  
+  TCallbackProcess=class(TComponent)
+  private
+    FProcess: TProcess;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+  end;
 
 var
   Form1: TForm1; 
@@ -31,6 +39,7 @@ var
   FASongItemHasFinished:Boolean;
   FCurrentSongItem:Integer;
   FExitStatus: Integer;
+  CallBackProcess: TCallbackProcess;
   
 const
   OnResultEvent=0;
@@ -149,14 +158,23 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  BytesRead:=0;
-  ProcessOutput:='';
-  FASongItemHasFinished := false;
-  FCurrentSongItem:=0;
-  Execute;
+  CallBackProcess := TCallBackProcess.Create(Self);
+  try
+  
+  finally
+    CallBackProcess.Free;;
+  end;
 end;
 
+constructor TCallbackProcess.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+end;
 
+destructor TCallbackProcess.Destroy;
+begin
+  inherited Destroy;
+end;
 
 initialization
   {$I unit1.lrs}
