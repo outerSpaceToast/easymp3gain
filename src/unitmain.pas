@@ -170,7 +170,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0060';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0061';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -288,7 +288,7 @@ begin
   {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
      APPLICATION_DESCRIPTION +#10 +'Widgetset: '+strWidgetset +
-      #10#10 + '(c) 2007, Thomas Dieffenbach';
+      #10#10 + '(c) 2007-2008, Thomas Dieffenbach';
   MP3Gain := TMP3Gain.Create;
   MP3Gain.OnRunFinished := @OnMP3GainReady;
   MP3Gain.TargetVolume := REF_VOLUME;
