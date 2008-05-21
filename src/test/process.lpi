@@ -46,38 +46,18 @@
         <ResourceBaseClass Value="Form"/>
         <ResourceFilename Value="unit1.lrs"/>
         <UnitName Value="Unit1"/>
-        <CursorPos X="34" Y="32"/>
-        <TopLine Value="11"/>
+        <CursorPos X="3" Y="187"/>
+        <TopLine Value="157"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit1>
     </Units>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="1" HistoryIndex="0">
       <Position1>
         <Filename Value="unit1.pas"/>
-        <Caret Line="162" Column="16" TopLine="130"/>
+        <Caret Line="30" Column="24" TopLine="11"/>
       </Position1>
-      <Position2>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="166" Column="7" TopLine="147"/>
-      </Position2>
-      <Position3>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="160" Column="56" TopLine="145"/>
-      </Position3>
-      <Position4>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="171" Column="28" TopLine="151"/>
-      </Position4>
-      <Position5>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="29" Column="5" TopLine="13"/>
-      </Position5>
-      <Position6>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="31" Column="54" TopLine="15"/>
-      </Position6>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

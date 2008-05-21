@@ -24,12 +24,18 @@ type
     { public declarations }
   end; 
   
+  TProcessChannel=(pcOut, pcError);
+  
+  TCallBackEvent=procedure(pcChannel: TProcessChannel; strData: String);
+  
   TCallbackProcess=class(TComponent)
   private
     FProcess: TProcess;
+    FCallBackEvent: TCallBackEvent;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    procedure Run(strCommand: String);
   end;
 
 var
@@ -174,6 +180,11 @@ end;
 destructor TCallbackProcess.Destroy;
 begin
   inherited Destroy;
+end;
+
+procedure Run(strCommand: String);
+begin
+
 end;
 
 initialization
