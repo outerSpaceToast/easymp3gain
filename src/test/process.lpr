@@ -12,7 +12,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmMP3GainMain, frmMP3GainMain);
   Application.Run;
 end.
 
