@@ -4,12 +4,13 @@ object frmMP3GainMain: TfrmMP3GainMain
   Top = 175
   Width = 838
   HorzScrollBar.Page = 837
-  VertScrollBar.Page = 645
+  VertScrollBar.Page = 618
+  ActiveControl = Button1
   Caption = 'frmMP3GainMain'
-  ClientHeight = 646
+  ClientHeight = 619
   ClientWidth = 838
+  Menu = MainMenu1
   OnCreate = FormCreate
-  LCLVersion = '0.9.25'
   object Button1: TButton
     Left = 56
     Height = 25
@@ -46,8 +47,8 @@ object frmMP3GainMain: TfrmMP3GainMain
     TabOrder = 3
   end
   object StatusBar: TStatusBar
-    Height = 17
-    Top = 629
+    Height = 23
+    Top = 596
     Width = 838
     Panels = <    
       item
@@ -70,7 +71,7 @@ object frmMP3GainMain: TfrmMP3GainMain
     Top = 573
     Width = 100
     Max = 100
-    TabOrder = 5
+    TabOrder = 4
   end
   object Button2: TButton
     Left = 336
@@ -79,7 +80,7 @@ object frmMP3GainMain: TfrmMP3GainMain
     Width = 75
     Caption = 'Button2'
     OnClick = Button2Click
-    TabOrder = 6
+    TabOrder = 5
   end
   object lvFiles: TListView
     Left = 43
@@ -108,7 +109,14 @@ object frmMP3GainMain: TfrmMP3GainMain
       item
         Width = 210
       end>
-    TabOrder = 7
+    TabOrder = 6
     ViewStyle = vsReport
+  end
+  object MainMenu1: TMainMenu
+    left = 480
+    top = 16
+    object mnuFile: TMenuItem
+      Caption = 'File'
+    end
   end
 end

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  callbackprocess, unitmp3gain, ComCtrls;
+  callbackprocess, unitmp3gain, ComCtrls, Menus, gettext, translations;
 
 type
 
@@ -17,7 +17,9 @@ type
     Button2: TButton;
     Edit1: TEdit;
     lvFiles: TListView;
+    MainMenu1: TMainMenu;
     Memo1: TMemo;
+    mnuFile: TMenuItem;
     ProgressBar: TProgressBar;
     ProgressBarGeneral: TProgressBar;
     StatusBar: TStatusBar;
@@ -49,6 +51,10 @@ var
   MP3Gain: TMP3Gain;
   
 implementation
+
+resourcestring
+   Caption1 = 'Some text';
+   HelloWorld1 = 'Hello World';
 
 { TfrmMP3GainMain }
 
@@ -130,7 +136,14 @@ end;
 
 
 procedure TfrmMP3GainMain.FormCreate(Sender: TObject);
+    var
+      PODirectory, Lang, FallbackLang: String;
 begin
+      PODirectory := './languages/';
+      GetLanguageIDs(Lang, FallbackLang); // in unit gettext
+      TranslateUnitResourceStrings('Unit1', PODirectory + 'process.%s.po', Lang, FallbackLang);
+      Caption := HelloWorld1;
+    
   MP3Gain := TMP3Gain.Create;
   MP3Gain.OnRunFinished := @OnMP3GainReady;
   MP3Gain.TargetVolume := REF_VOLUME;
