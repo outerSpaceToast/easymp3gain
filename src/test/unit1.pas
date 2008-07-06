@@ -25,6 +25,7 @@ type
     StatusBar: TStatusBar;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     procedure ProcessCallbackEvent(pcChannel: TProcessChannel; strData: String);
@@ -74,11 +75,20 @@ procedure TfrmMP3GainMain.Button2Click(Sender: TObject);
 var
   a: Integer;
 begin
+  ProgressBar.Position:= 0;
+  ProgressBarGeneral.Position:=0;
   AddSongItem('/home/thomas/mp32/m1000.mp3');
-  a := TaskList.AddTask(nil, mgaCheckTagInfo, 89);
+  a := TaskList.AddTask(lvFiles.Items[0].Data, mgaDeleteTagInfo, 89);
+  a := TaskList.AddTask(lvFiles.Items[0].Data, mgaTrackAnalyze, 89);
+  a := TaskList.AddTask(lvFiles.Items[0].Data, mgaCheckTagInfo, 89);
   FilesToProcessCount:=1;
   //QueueFiles(mgaCheckTagInfo, MP3Gain.TargetVolume, false);
   OnMP3GainReady(Self);
+end;
+
+procedure TfrmMP3GainMain.Button3Click(Sender: TObject);
+begin
+  Application.ProcessMEssages
 end;
 
 procedure TfrmMp3GainMain.AddSongItem(AName: String);
@@ -149,7 +159,7 @@ begin
   MP3Gain.TargetVolume := REF_VOLUME;
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
   MP3GainOptions.UseTempFiles:=True;       // Pre-setting
-  MP3GainOptions.AutoReadAtFileAdd:=True;  // Pre-setting
+  MP3GainOptions.AutoReadAtFileAdd:=False;  // Pre-setting
   MP3GainOptions.ToolBarImageListIndex:=1; // Pre-setting
   TaskList := TMP3GainTaskList.Create;
 end;
@@ -172,7 +182,8 @@ var
   n,k: Integer;
 begin
   //if (not (MP3Gain.SongItem=nil)) then UpdateView(MP3Gain.SongItem);
-  if TaskList.Count >0 then
+  //if TaskList.Count >0 then
+  while (TaskList.Count >0) do
   begin
     n := 0;
     for k:=0 to TaskList[n].SongItems.Count-1 do
@@ -192,8 +203,8 @@ begin
       MP3Gain.TargetVolume := TaskList[n].Volume;
     MP3Gain.Run;
     TaskList.DeleteTask(n);
-  end
-  else
+  end;
+  //else
   begin
     FilesToProcessCount := 0;
     FilesProcessedCount := 0;

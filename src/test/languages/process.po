@@ -26,3 +26,7 @@ msgstr ""
 msgid "Hello World"
 msgstr ""
 
+#: TFRMMP3GAINMAIN.BUTTON3.CAPTION
+msgid "Button3"
+msgstr ""
+

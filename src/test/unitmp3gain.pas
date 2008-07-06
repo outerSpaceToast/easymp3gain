@@ -101,35 +101,6 @@ type
 
   TSynEvt = TThreadMethod;
 
-  (*TMP3GainProcess = class(TThread)
-  private
-    FProcessCommand: String;
-    FProgressEvent: TSynEvt;
-    FResultEvent: TSynEvt;
-    FFinishedEvent: TSynEvt;
-    FStatusCodeEvent: TSynEvt;
-    FExitStatus: Integer;
-    FCurrentSongItem: Integer;
-    FASongItemHasFinished: Boolean;
-    //function ReadProcessOutput(Pipe: TInputPipeStream; Buffer: PChar): LongInt;
-  protected
-    procedure Execute; override;
-  public
-    Cancel: Boolean;
-    ProcessOutput: String;
-    Constructor Create(CreateSuspended : boolean);
-    destructor Destroy; override;
-  published
-    property OnProgressEvent: TSynEvt read FProgressEvent write FProgressEvent;
-    property OnResultEvent: TSynEvt read FResultEvent write FResultEvent;
-    property OnFinished: TSynEvt read FFinishedEvent write FFinishedEvent;
-    property OnStatusCodeEvent: TSynEvt read FStatusCodeEvent write FStatusCodeEvent;
-    //property ProcessOutput: String read FProcessOutput;
-    property ProcessCommand: String read FProcessCommand write FProcessCommand;
-    property ExitStatus: Integer read FExitStatus;
-    property ASongItemHasFinished: Boolean read FASongItemHasFinished write FASongItemHasFinished;
-  end;   *)
-
   { TMP3Gain }
 
   TMP3Gain = class
@@ -544,7 +515,6 @@ begin
   FProgress:=100;
   MP3GainSync(setProgress);
   MP3GainSync(setSongItemHasFinished);
-  OnRunFinished(Self);
 end;
 
 procedure TMP3Gain.MP3GainSync(value: TSyncEventType);
@@ -643,7 +613,7 @@ begin
   if pcChannel=pcStdOut then
     ProcessResult(strData);
   if pcChannel=pcFinished then
-   // Memo1.Lines.Add('Finished.');
+    RunFinished;// Memo1.Lines.Add('Finished.');
   if pcChannel=pcError then
   begin
     FExitCodeProcess := 127;
@@ -731,6 +701,8 @@ begin
   FGainProcess.CommandLine := cmd + ' -o' + Filenames;    // -o Tab delimited output
   MP3GainSync(setSongItemHasStarted);
   FGainProcess.Execute;
+  while not (FReady) do
+    Application.ProcessMessages;
 end;
 
 constructor TMP3Gain.Create;
@@ -743,148 +715,15 @@ begin
   FDataList := TStringList.Create;
   FHeaderList.Delimiter := chr(9);
   FDataList.Delimiter := chr(9);
-  //CreateProcess;  // Thread-Bug in FPC2.2 True    1
 end;
 
 destructor TMP3Gain.Destroy;
 begin
-  //FMP3GainProcess.Free;
   FHeaderList.Free;
   FDataList.Free;
   FSongItemList.Free;
   inherited Destroy;
 end;
-
-// ----------------------------------- TMP3GainProcess ------------------------
-
-(*constructor TMP3GainProcess.Create(CreateSuspended : boolean);
-begin
-  inherited Create(CreateSuspended);
-  FreeOnTerminate := True;   // Thread-Bug in FPC2.2 True    1
-end;
-
-destructor TMP3GainProcess.Destroy;
-begin
-  inherited Destroy;
-end;
-
-
-procedure TMP3GainProcess.Execute;
-
-  function ReadFromPipeStream(AStream: TInputPipeStream; var AString: String): Integer;
-  var
-    M: TMemoryStream;
-    BytesRead: Int64;
-    n: Integer;
-  begin
-    M := TMemoryStream.Create;
-    BytesRead := 0;
-    try
-      repeat
-        M.SetSize(BytesRead + AStream.NumBytesAvailable);
-        n := AStream.Read((M.Memory + BytesRead)^, AStream.NumBytesAvailable);
-        Inc(BytesRead, n);
-      until (n=0);
-      if BytesRead>0 then
-      begin
-        SetLength(AString,BytesRead);
-        M.Read(AString[1],BytesRead);
-      end;
-    finally
-      M.Free;
-      Result := BytesRead;
-    end;
-  end;
-  
-var
-  P: TProcess;
-{$IFDEF DEBUG_VERSION}
-  X: TStringList;
-{$ENDIF}
-  e: Integer;
-begin
-  FCurrentSongItem := 0;
-{$IFDEF DEBUG_VERSION}
-  X := TStringList.Create;
-{$ENDIF}
-  P := TProcess.Create(nil);
-  (*try
-    try
-      P.CommandLine := FProcessCommand;
-      P.Options := [poUsePipes,poNoConsole];
-      P.Execute;
-      while (P.Running) do
-      begin
-        if Self.Cancel then
-        begin
-          P.Terminate(0);  // terminate mp3gain-process
-        end;
-        BytesRead := ReadFromPipeStream(P.Stderr, ProcessOutput);
-        if BytesRead>0 then
-        begin
-          Synchronize(OnProgressEvent);
-        end;
-        Sleep(100);
-        if FASongItemHasFinished then   // A SongItem Finished, read the output
-        begin
-          Debugln('SongItem has finished: ', FCurrentSongItem);
-          FASongItemHasFinished := false;
-          BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
-          if (BytesRead>0) then
-          begin
-            Debugln('Processing output from mp3gain: ');
-            Debugln(' # ' + ProcessOutput);
-            Synchronize(OnResultEvent);
-          end;
-         (* n := ReadProcessOutput(P.Output, @Buffer); //P.Output.Read(Buffer, READ_BYTES);
-          if n>0 then
-          begin
-            str_echo := str_echo + Buffer;
-            ProcessOutput := str_echo; //pchar
-    {$IFDEF DEBUG_VERSION}
-        X.Add(ProcessOutput);
-        X.Add('## Count:'+IntToStr(n)+'##');
-        X.SaveToFile(strHomeDir+'op.txt');
-    {$ENDIF}
-          Debugln('Processing output from mp3gain.');
-          Synchronize(OnResultEvent);
-          end; *)
-        end;
-      end;
-      Debugln('mp3gain terminated...');
-      Debugln('Trying to read output...');
-      BytesRead := ReadFromPipeStream(P.Output, ProcessOutput);
-      Debugln('Read ', BytesRead, ' Bytes.');
-      Debugln(ProcessOutput);
-      Synchronize(OnResultEvent);
-      (*
-      n := ReadProcessOutput(P.Output, @Buffer);  // read the final output
-      if n>0 then
-      begin
-        str_echo := str_echo + Buffer;
-        ProcessOutput := str_echo; //pchar
-      end;*)
-    finally
-      e := P.ExitStatus;
-      FExitStatus := e;
-      P.Free;
-    end;
-  except
-    on e1:EProcess do
-      FExitStatus := 127;
-  end;
-{$IFDEF DEBUG_VERSION}
-  X.Free;
-{$ENDIF}
-  M.Free;
-  Synchronize(OnStatusCodeEvent);
-  Self.FreeOnTerminate := true;   // Thread-Bug in FPC2.2 True
-  Synchronize(OnFinished);
-  *)
-  Self.Terminate;   // Thread-Bug in FPC2.2 True
-end;  *)
-
-
 
 end.
 

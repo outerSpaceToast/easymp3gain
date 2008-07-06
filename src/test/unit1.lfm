@@ -1,14 +1,14 @@
 object frmMP3GainMain: TfrmMP3GainMain
-  Left = 335
-  Height = 646
-  Top = 175
-  Width = 838
-  HorzScrollBar.Page = 837
-  VertScrollBar.Page = 618
+  Left = 301
+  Height = 696
+  Top = 171
+  Width = 867
+  HorzScrollBar.Page = 866
+  VertScrollBar.Page = 668
   ActiveControl = Button1
   Caption = 'frmMP3GainMain'
-  ClientHeight = 619
-  ClientWidth = 838
+  ClientHeight = 669
+  ClientWidth = 867
   Menu = MainMenu1
   OnCreate = FormCreate
   object Button1: TButton
@@ -39,17 +39,17 @@ object frmMP3GainMain: TfrmMP3GainMain
     Text = 'Edit1'
   end
   object ProgressBar: TProgressBar
-    Left = 73
+    Left = 43
     Height = 20
-    Top = 608
-    Width = 311
+    Top = 616
+    Width = 656
     Max = 100
     TabOrder = 3
   end
   object StatusBar: TStatusBar
     Height = 23
-    Top = 596
-    Width = 838
+    Top = 646
+    Width = 867
     Panels = <    
       item
         Width = 50
@@ -66,10 +66,10 @@ object frmMP3GainMain: TfrmMP3GainMain
     SimplePanel = False
   end
   object ProgressBarGeneral: TProgressBar
-    Left = 138
+    Left = 43
     Height = 20
-    Top = 573
-    Width = 100
+    Top = 592
+    Width = 660
     Max = 100
     TabOrder = 4
   end
