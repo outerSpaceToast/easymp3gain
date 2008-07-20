@@ -4,11 +4,11 @@ object frmMp3GainMain: TfrmMp3GainMain
   Top = 274
   Width = 806
   HorzScrollBar.Page = 805
-  VertScrollBar.Page = 434
+  VertScrollBar.Page = 407
   ActiveControl = edtVolume
   AllowDropFiles = True
   Caption = 'MP3Gain GUI'
-  ClientHeight = 435
+  ClientHeight = 408
   ClientWidth = 806
   Icon.Data = {
     36100000424D3610000000000000360000002800000020000000200000000100
@@ -148,7 +148,6 @@ object frmMp3GainMain: TfrmMp3GainMain
   OnDropFiles = FormDropFiles
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '0.9.25'
   object ToolBar1: TToolBar
     Height = 50
     Width = 806
@@ -321,7 +320,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   end
   object StatusBar: TStatusBar
     Height = 23
-    Top = 412
+    Top = 385
     Width = 806
     Panels = <    
       item
@@ -338,7 +337,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   object ProgressBar: TProgressBar
     Left = 5
     Height = 15
-    Top = 378
+    Top = 351
     Width = 796
     Align = alBottom
     BorderSpacing.Left = 5
@@ -347,11 +346,11 @@ object frmMp3GainMain: TfrmMp3GainMain
     Max = 100
     Smooth = True
     Step = 1
-    TabOrder = 3
+    TabOrder = 2
   end
   object lvFiles: TListView
     Left = 5
-    Height = 323
+    Height = 296
     Top = 50
     Width = 796
     Align = alClient
@@ -389,7 +388,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       item
         Caption = 'clip (Album)'
         Visible = False
-        Width = 0
+        Width = 5
       end>
     MultiSelect = True
     ReadOnly = True
@@ -403,7 +402,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   object ProgressBarGeneral: TProgressBar
     Left = 5
     Height = 15
-    Top = 395
+    Top = 368
     Width = 796
     Align = alBottom
     Anchors = [akLeft, akBottom]
@@ -412,7 +411,7 @@ object frmMp3GainMain: TfrmMp3GainMain
     BorderSpacing.Bottom = 2
     Max = 100
     Smooth = True
-    TabOrder = 4
+    TabOrder = 3
   end
   object MainMenu1: TMainMenu
     left = 208
@@ -531,6 +530,13 @@ object frmMp3GainMain: TfrmMp3GainMain
         Caption = '&Advanced'
         OnClick = mnuOptionsAdvancedClick
       end
+      object MenuItem7: TMenuItem
+        Caption = '-'
+      end
+      object mnuOptionsShowConsoleOutput: TMenuItem
+        Caption = 'Show console output...'
+        OnClick = mnuOptionsShowConsoleOutputClick
+      end
     end
     object mnuHelp: TMenuItem
       Caption = 'Help'
@@ -541,6 +547,7 @@ object frmMp3GainMain: TfrmMp3GainMain
     end
   end
   object OpenDialog: TOpenDialog
+    Title = 'Vorhandene Datei öffnen'
     Filter = 'mp3 Files|*.mp3'
     FilterIndex = -1
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
@@ -548,6 +555,7 @@ object frmMp3GainMain: TfrmMp3GainMain
     top = 128
   end
   object SelectDirectoryDialog: TSelectDirectoryDialog
+    Title = 'Verzeichnis auswählen'
     FilterIndex = 0
     left = 144
     top = 128

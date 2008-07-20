@@ -29,7 +29,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms
   { add your units here }, Unitmain, unitinfo, UnitMP3Gain, unitgainconstant,
-  unitoptions;
+  unitoptions, unitconsoleoutput;
 
 begin
   Application.Initialize;
@@ -37,6 +37,7 @@ begin
   Application.CreateForm(TfrmMP3GainGUIInfo, frmMP3GainGUIInfo);
   Application.CreateForm(TfrmMP3GainConstant, frmMP3GainConstant);
   Application.CreateForm(TfrmMp3GainOptions, frmMp3GainOptions);
+  Application.CreateForm(TfrmMP3GainConsoleOutput, frmMP3GainConsoleOutput);
   frmMP3GainMain.Init;
   Application.Run;
 end.
