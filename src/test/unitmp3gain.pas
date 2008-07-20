@@ -613,7 +613,7 @@ begin
   if pcChannel=pcStdOut then
     ProcessResult(strData);
   if pcChannel=pcFinished then
-    RunFinished;// Memo1.Lines.Add('Finished.');
+    RunFinished;
   if pcChannel=pcError then
   begin
     FExitCodeProcess := 127;

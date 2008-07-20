@@ -77,7 +77,7 @@ var
 begin
   ProgressBar.Position:= 0;
   ProgressBarGeneral.Position:=0;
-  AddSongItem('/home/thomas/mp32/m1000.mp3');
+  AddSongItem('/home/thomas/test.mp3'); //home/thomas/mp32/m1000.mp3
   a := TaskList.AddTask(lvFiles.Items[0].Data, mgaDeleteTagInfo, 89);
   a := TaskList.AddTask(lvFiles.Items[0].Data, mgaTrackAnalyze, 89);
   a := TaskList.AddTask(lvFiles.Items[0].Data, mgaCheckTagInfo, 89);
@@ -141,7 +141,7 @@ begin
       SubItems[SI_ALBUMVOLUME] := Format('%.1f',[AItem.Volume_Album]);
     end;
   end;
-  //MP3Gain.SongItem := nil;
+  Application.ProcessMessages;
 end;
 
 
