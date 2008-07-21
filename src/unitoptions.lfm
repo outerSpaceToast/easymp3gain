@@ -3,15 +3,14 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   Height = 175
   Top = 175
   Width = 416
-  HorzScrollBar.Page = 415
-  VertScrollBar.Page = 174
-  ActiveControl = btnOK
+  ActiveControl = chkIgnoreTags
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Options'
   ClientHeight = 175
   ClientWidth = 416
   OnShow = FormShow
   Position = poScreenCenter
+  LCLVersion = '0.9.25'
   object btnOK: TButton
     Left = 264
     Height = 25
@@ -32,35 +31,35 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   end
   object chkIgnoreTags: TCheckBox
     Left = 16
-    Height = 21
+    Height = 22
     Top = 16
-    Width = 271
+    Width = 272
     Caption = 'Ignore Tags (Do not read or write them)'
     OnChange = chkIgnoreTagsChange
     TabOrder = 2
   end
   object chkAutoReadAtFileAdd: TCheckBox
     Left = 16
-    Height = 21
+    Height = 22
     Top = 46
-    Width = 318
+    Width = 319
     Caption = 'Auto-read tags when adding files or directories'
     OnChange = chkAutoReadAtFileAddChange
     TabOrder = 3
   end
   object chkUseTempFiles: TCheckBox
     Left = 16
-    Height = 21
+    Height = 22
     Top = 75
-    Width = 144
+    Width = 145
     Caption = 'Use temporary files'
     TabOrder = 4
   end
   object chkPreserveOriginalTimestamp: TCheckBox
     Left = 16
-    Height = 21
+    Height = 22
     Top = 104
-    Width = 220
+    Width = 221
     Caption = 'Preserve original file timestamp'
     TabOrder = 5
   end

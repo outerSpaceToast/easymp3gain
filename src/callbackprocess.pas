@@ -84,7 +84,6 @@ begin
       FCallBackEvent(pcStdError, strTemp);
     if ReadFromPipeStream(FProcess.Output,strTemp)>0 then
       FCallBackEvent(pcStdOut, strTemp);
-    //FCallBackEvent(pcFinished, '');
   except
     on E:EProcess do
       FCallBackEvent(pcError, 'Process-Error');

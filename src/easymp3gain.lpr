@@ -23,9 +23,9 @@ program easymp3gain;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{_$IFDEF UseCThreads}
+  (*{$IFDEF UNIX}{_$IFDEF UseCThreads}
   cthreads,
-  {$ENDIF}{_$ENDIF}
+  {$ENDIF}{_$ENDIF}*)
   Interfaces, // this includes the LCL widgetset
   Forms
   { add your units here }, Unitmain, unitinfo, UnitMP3Gain, unitgainconstant,

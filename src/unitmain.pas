@@ -151,15 +151,14 @@ type
     procedure mnuOptionsShowConsoleOutputClick(Sender: TObject);
     procedure mnuSelectionInvertClick(Sender: TObject);
   private
-    MP3Gain: TMP3Gain;
-    procedure WaitForMP3GainReady;
-    procedure QueueFiles(AAction: TMP3GainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
+    MediaGain: TMediaGain;
+    procedure QueueFiles(AAction: TMediaGainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
     procedure ProcessQueue(Sender: TObject);
-    procedure AddSongItem(AName: String);
+    function AddSongItem(AName: String): TSongItem;
     procedure DelSongItem(AItemIndex: Integer);
     procedure LockControls(lock: Boolean);
     procedure LoadLanguageFile(AFile: String);
-    procedure AddFiles(SL: TStringList);
+    procedure AddFiles(SL: TStrings);
     procedure AddFolder(S: String; sublevels: Integer);
     procedure UpdateFileCount;
     procedure SortListView(Lv:TListView; Index:integer; Reverse: Boolean);
@@ -174,7 +173,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0074';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0075';
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -288,24 +287,24 @@ begin
   {$IFDEF LCLwin32}strWidgetset := 'Win32';{$ENDIF}
   {$IFDEF LCLgtk}strWidgetset := 'GTK';{$ENDIF}
   {$IFDEF LCLgtk2}strWidgetset := 'GTK2';{$ENDIF}
-  {$IFDEF LCLqt}strWidgetset := 'QT';{$ENDIF}
+  {$IFDEF LCLqt}strWidgetset := 'QT4';{$ENDIF}
   {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
      APPLICATION_DESCRIPTION +#10 +'Widgetset: '+strWidgetset +
       #10#10 + '(c) 2007-2008, Thomas Dieffenbach';
-  MP3Gain := TMP3Gain.Create;
-  MP3Gain.TargetVolume := REF_VOLUME;
-  MP3Gain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
+  MediaGain := TMediaGain.Create;
+  MediaGain.TargetVolume := REF_VOLUME;
+  MediaGain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
-  MP3GainOptions.UseTempFiles:=True;       // Pre-setting
-  MP3GainOptions.AutoReadAtFileAdd:=True;  // Pre-setting
-  MP3GainOptions.ToolBarImageListIndex:=1; // Pre-setting
+  MediaGainOptions.UseTempFiles:=True;       // Pre-setting
+  MediaGainOptions.AutoReadAtFileAdd:=True;  // Pre-setting
+  MediaGainOptions.ToolBarImageListIndex:=1; // Pre-setting
   frmMP3GainOptions.LoadSettings;          // Load settings from config-file
-  if MP3GainOptions.ToolBarImageListIndex=1 then
+  if MediaGainOptions.ToolBarImageListIndex=1 then
     ToolBar1.Images := ImageList1;
-  if MP3GainOptions.ToolBarImageListIndex=2 then
+  if MediaGainOptions.ToolBarImageListIndex=2 then
     ToolBar1.Images := ImageList2;
-  TaskList := TMP3GainTaskList.Create;
+  TaskList := TMediaGainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   SL := TStringList.Create;
@@ -434,12 +433,11 @@ begin
   btnCancel.Enabled := lock;
 end;
 
-procedure TfrmMp3GainMain.QueueFiles(AAction: TMP3GainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
+procedure TfrmMp3GainMain.QueueFiles(AAction: TMediaGainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
 var
   i: Integer;
   a: Integer;
 begin
-  //LockControls(true);
   if AAction=mgaAlbumAnalyze then
   begin
     a := TaskList.AddTask(nil, AAction, AVolume);
@@ -472,20 +470,13 @@ begin
   begin
     if (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then continue;
     TSongItem(lvFiles.Items[i].Data).HasData := false;
-    //TSongItem(lvFiles.Items[i].Data).HasAlbumData := false;
   end;
-  if MP3Gain.IsReady then
+  if MediaGain.IsReady then
   begin
     ProgressBarGeneral.Position := 0;
     ProgressBar.Position := 0;
     ProcessQueue(Self);
   end;
-end;
-
-procedure TfrmMp3GainMain.WaitForMP3GainReady;
-begin                             // Synchronize notwendig?
- while (not MP3Gain.IsReady) do ;
- Sleep(100);
 end;
 
 procedure TfrmMp3GainMain.UpdateView(AItem: TSongItem);
@@ -511,7 +502,8 @@ var
   Integer;
 begin
   LockControls(True);
-  while (TaskList.Count >0) do
+  MediaGain.Cancel := False;
+  while ((TaskList.Count >0) and (not MediaGain.Cancel)) do
   begin
     n := 0;
     for k:=0 to TaskList[n].SongItems.Count-1 do
@@ -522,57 +514,43 @@ begin
           SubItems[i] := '';
       end;
     end;
-    MP3Gain.SongItems.Assign(TaskList[n].SongItems);
-    //MP3Gain.FileName := TaskList[n].SongItem.FileName;
-    MP3Gain.MP3GainAction := TaskList[n].MP3GainAction;
-    if MP3Gain.MP3GainAction=mgaConstantGain then
-      MP3Gain.VolumeGain := TaskList[n].Volume
+    MediaGain.SongItems.Assign(TaskList[n].SongItems);
+    MediaGain.MediaGainAction := TaskList[n].MediaGainAction;
+    if MediaGain.MediaGainAction=mgaConstantGain then
+      MediaGain.VolumeGain := TaskList[n].Volume
     else
-      MP3Gain.TargetVolume := TaskList[n].Volume;
-    MP3Gain.Run;
+      MediaGain.TargetVolume := TaskList[n].Volume;
+    MediaGain.Run;
     TaskList.DeleteTask(n);
   end;
+  TaskList.Clear;
+  if MediaGain.Cancel then
+    StatusBar.Panels[SB_STATUS].Text := strStatus_Aborted
+  else
+    StatusBar.Panels[SB_STATUS].Text := strStatus_Finished;
   FilesToProcessCount := 0;
   FilesProcessedCount := 0;
   LockControls(False);
-  
- (* //if (not (MP3Gain.SongItem=nil)) then UpdateView(MP3Gain.SongItem);
-  if TaskList.Count >0 then
-  begin
-    n := 0;
-    for k:=0 to TaskList[n].SongItems.Count-1 do
-    begin
-      with TaskList[n].SongItems[k].ListViewItem do
-      begin
-        for i:=0 to SubItems.Count-1 do
-          SubItems[i] := '';
-      end;
-    end;
-    MP3Gain.SongItems.Assign(TaskList[n].SongItems);
-    //MP3Gain.FileName := TaskList[n].SongItem.FileName;
-    MP3Gain.MP3GainAction := TaskList[n].MP3GainAction;
-    if MP3Gain.MP3GainAction=mgaConstantGain then
-      MP3Gain.VolumeGain := TaskList[n].Volume
-    else
-      MP3Gain.TargetVolume := TaskList[n].Volume;
-    MP3Gain.Run;
-    TaskList.DeleteTask(n);
-  end
-  else
-  begin
-    LockControls(false);
-    FilesToProcessCount := 0;
-    FilesProcessedCount := 0;
-  end;  *)
 end;
 
-procedure TfrmMp3GainMain.AddFiles(SL: TStringList);
+procedure TfrmMp3GainMain.AddFiles(SL: TStrings);
 var
   i: Integer;
+  SongItem: TSongItem;
 begin
   for i:=0 to SL.Count-1 do
   begin
-    AddSongItem(SL[i]);
+    SongItem := AddSongItem(SL[i]);
+    if (MediaGainOptions.AutoReadAtFileAdd and (SongItem<>nil)) then
+    begin
+      TaskList.AddTask(SongItem, mgaCheckTagInfo, MediaGain.TargetVolume);
+      Inc(FilesToProcessCount);
+    end;
+  end;
+  if MediaGainOptions.AutoReadAtFileAdd then
+  begin
+    if MediaGain.IsReady then
+      ProcessQueue(Self);                    // start to read tags of new files
   end;
 end;
 
@@ -594,9 +572,7 @@ var
   i: Integer;
 begin
   if not OpenDialog.Execute then exit;
-  for i:=0 to OpenDialog.Files.Count-1 do
-    AddSongItem(OpenDialog.Files[i]);
-  //AddFiles(OpenDialog.Files);
+  AddFiles(OpenDialog.Files)
 end;
 
 procedure TfrmMp3GainMain.mnuFileAddFolderClick(Sender: TObject);
@@ -663,7 +639,7 @@ end;
 procedure TfrmMp3GainMain.mnuOptionsShowConsoleOutputClick(Sender: TObject);
 begin
   frmMP3GainConsoleOutput.Show;
-  MP3Gain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
+  MediaGain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
 end;
 
 procedure TfrmMp3GainMain.mnuSelectionInvertClick(Sender: TObject);
@@ -683,7 +659,7 @@ end;
 
 procedure TfrmMp3GainMain.mnuModifyGainApplyAlbumClick(Sender: TObject);
 begin
-  QueueFiles(mgaAlbumGain, MP3Gain.TargetVolume, true);
+  QueueFiles(mgaAlbumGain, MediaGain.TargetVolume, true);
 end;
 
 procedure TfrmMp3GainMain.mnuModifyGainApplyConstantClick(Sender: TObject);
@@ -697,12 +673,12 @@ end;
 
 procedure TfrmMp3GainMain.mnuModifyGainApplyTrackClick(Sender: TObject);
 begin
-  QueueFiles(mgaTrackGain, MP3Gain.TargetVolume, true);
+  QueueFiles(mgaTrackGain, MediaGain.TargetVolume, true);
 end;
 
 procedure TfrmMp3GainMain.mnuModifyGainUndoClick(Sender: TObject);
 begin
-  QueueFiles(mgaUndoChanges, MP3Gain.TargetVolume, true);
+  QueueFiles(mgaUndoChanges, MediaGain.TargetVolume, true);
 end;
 
 procedure TfrmMp3GainMain.mnuOptionsAdvancedClick(Sender: TObject);
@@ -712,7 +688,7 @@ end;
 
 procedure TfrmMp3GainMain.mnuOptionsDeleteTagInfosClick(Sender: TObject);
 begin
-  QueueFiles(mgaDeleteTagInfo, MP3Gain.TargetVolume, false);
+  QueueFiles(mgaDeleteTagInfo, MediaGain.TargetVolume, false);
 end;
 
 procedure TfrmMp3GainMain.mnuOptionsOnlySelectedItemsClick(Sender: TObject);
@@ -722,47 +698,49 @@ end;
 
 procedure TfrmMp3GainMain.mnuOptionsReadTagInfoClick(Sender: TObject);
 begin
-  QueueFiles(mgaCheckTagInfo, MP3Gain.TargetVolume, false);
+  QueueFiles(mgaCheckTagInfo, MediaGain.TargetVolume, false);
 end;
 
 procedure TfrmMp3GainMain.mnuAnalysisTrackClick(Sender: TObject);
 begin
-  QueueFiles(mgaTrackAnalyze, MP3Gain.TargetVolume, false);
+  QueueFiles(mgaTrackAnalyze, MediaGain.TargetVolume, false);
 end;
 
 procedure TfrmMp3GainMain.mnuAnalysisAlbumClick(Sender: TObject);
 begin
-  QueueFiles(mgaAlbumAnalyze, MP3Gain.TargetVolume, false);
+  QueueFiles(mgaAlbumAnalyze, MediaGain.TargetVolume, false);
 end;
 
-procedure TfrmMp3GainMain.AddSongItem(AName: String);
+function TfrmMp3GainMain.AddSongItem(AName: String): TSongItem;
 var
   SongItem: TSongItem;
   ListViewItem: TListItem;
   k: SmallInt;
+  strExt: String;
 begin
   ListViewItem := lvFiles.Items.Add;
   with ListViewItem do
   begin
     Caption := AName;
-    SongItem := TSongItem.Create; //GetMem(SongItem, SizeOf(TSongItem));
+    SongItem := TSongItem.Create;
     Data := SongItem;
     SongItem.ListViewItem := ListViewItem;
     SongItem.HasAlbumData := false;
     SongItem.HasData := false;
     SongItem.FileName := AName;
     SongItem.ExtractedFileName := ExtractFileName(AName);
+    SongItem.MediaType := mtUnknown;
+    strExt := LowerCase(ExtractFileExt(AName));
+    if strExt = 'mp3' then
+      SongItem.MediaType := mtMP3
+    else if (strExt = 'ogg') or (strExt = 'oga') then
+      SongItem.MediaType := mtVorbis;
     for k := 0 to SI_COUNT-1 do
     begin
       SongItem.ListViewItem.SubItems.Add('');
     end;
   end;
-  if MP3GainOptions.AutoReadAtFileAdd then
-  begin
-    TaskList.AddTask(SongItem, mgaCheckTagInfo, MP3Gain.TargetVolume);
-    if MP3Gain.IsReady then
-      ProcessQueue(Self);
-  end;
+  Result := SongItem;
   UpdateFileCount;
 end;
 
@@ -783,7 +761,7 @@ procedure TfrmMp3GainMain.FormClose(Sender: TObject;
 begin
   mnuFileClearAllFilesClick(Sender);
   btnCancelClick(Sender);
-  MP3Gain.Free;
+  MediaGain.Free;
 end;
 
 procedure TfrmMp3GainMain.Button1Click(Sender: TObject);
@@ -852,10 +830,10 @@ procedure TfrmMp3GainMain.btnCancelClick(Sender: TObject);
 var
   i: Integer;
 begin
-  for i:=TaskList.Count-1 downto 0 do
+  (*for i:=TaskList.Count-1 downto 0 do
     TaskList.DeleteTask(i);
-  if (MP3Gain.MP3GainAction in [mgaTrackAnalyze, mgaAlbumAnalyze]) then
-    MP3Gain.Cancel;
+  if (MediaGain.MP3GainAction in [mgaTrackAnalyze, mgaAlbumAnalyze]) then*)
+  MediaGain.Cancel := True;
   btnCancel.Enabled := False;
 end;
 
@@ -891,7 +869,7 @@ begin
   if (e>0) or (value<1) then exit;
   if value>255 then value:=255;
   if value<5 then value:=5;
-  MP3Gain.TargetVolume := value;
+  MediaGain.TargetVolume := value;
   for i:=lvFiles.Items.Count-1 downto 0 do
   begin
     with lvFiles.Items[i] do

@@ -139,7 +139,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
-          '(c) 2007, Thomas Dieffenbach'
+          '(c) 2007-2008, Thomas Dieffenbach'
           ''
           'This program is distributed under the terms of the GPL v2.'
           ''

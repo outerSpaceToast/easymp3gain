@@ -1,3 +1,8 @@
+2008-??-?? | easyMP3Gain 0.4.0 beta
+New process-module (internally)
+Console Output can be viewed
+Several small improvements
+
 2008-03-24 | easyMP3Gain 0.3.0 beta
 Files can now easily be added by Drag&Drop
 Included a dialog with some options (auto-read tags, ignore tags, use temporary files, keep original file timestamp)

@@ -50,15 +50,15 @@ var
 begin
   StringList := TStringList.Create;
   try
-    MP3GainOptions.IgnoreTags := chkIgnoreTags.Checked;
-    StringList.Values['IgnoreTags']:=BoolToStr(MP3GainOptions.IgnoreTags);
-    MP3GainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
-    StringList.Values['AutoReadAtFileAdd']:=BoolToStr(MP3GainOptions.AutoReadAtFileAdd);
-    MP3GainOptions.UseTempFiles := chkUseTempFiles.Checked;
-    StringList.Values['UseTempFiles']:=BoolToStr(MP3GainOptions.UseTempFiles);
-    MP3GainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
-    StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MP3GainOptions.PreserveOriginalTimestamp);
-    StringList.Values['ToolBarImageListIndex']:=IntToStr(MP3GainOptions.ToolBarImageListIndex);
+    MediaGainOptions.IgnoreTags := chkIgnoreTags.Checked;
+    StringList.Values['IgnoreTags']:=BoolToStr(MediaGainOptions.IgnoreTags);
+    MediaGainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
+    StringList.Values['AutoReadAtFileAdd']:=BoolToStr(MediaGainOptions.AutoReadAtFileAdd);
+    MediaGainOptions.UseTempFiles := chkUseTempFiles.Checked;
+    StringList.Values['UseTempFiles']:=BoolToStr(MediaGainOptions.UseTempFiles);
+    MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
+    StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MediaGainOptions.PreserveOriginalTimestamp);
+    StringList.Values['ToolBarImageListIndex']:=IntToStr(MediaGainOptions.ToolBarImageListIndex);
     StringList.SaveToFile(strHomeDir+strConfigFileName);
   finally
     StringList.Free;
@@ -79,10 +79,10 @@ end;
 
 procedure TfrmMp3GainOptions.FormShow(Sender: TObject);
 begin
-  chkIgnoreTags.Checked := MP3GainOptions.IgnoreTags;
-  chkAutoReadAtFileAdd.Checked := MP3GainOptions.AutoReadAtFileAdd;
-  chkPreserveOriginalTimestamp.Checked := MP3GainOptions.PreserveOriginalTimestamp;
-  chkUseTempFiles.Checked := MP3GainOptions.UseTempFiles;
+  chkIgnoreTags.Checked := MediaGainOptions.IgnoreTags;
+  chkAutoReadAtFileAdd.Checked := MediaGainOptions.AutoReadAtFileAdd;
+  chkPreserveOriginalTimestamp.Checked := MediaGainOptions.PreserveOriginalTimestamp;
+  chkUseTempFiles.Checked := MediaGainOptions.UseTempFiles;
 end;
 
 procedure TfrmMp3GainOptions.LoadSettings;
@@ -93,11 +93,11 @@ begin
     StringList := TStringList.Create;
     try
       StringList.LoadFromFile(strHomeDir+strConfigFileName);
-      MP3GainOptions.IgnoreTags := StrToBool(StringList.Values['IgnoreTags']);
-      MP3GainOptions.AutoReadAtFileAdd := StrToBool(StringList.Values['AutoReadAtFileAdd']);
-      MP3GainOptions.PreserveOriginalTimestamp := StrToBool(StringList.Values['PreserveOriginalTimestamp']);
-      MP3GainOptions.UseTempFiles := StrToBool(StringList.Values['UseTempFiles']);
-      MP3GainOptions.ToolBarImageListIndex := StrToInt(StringList.Values['ToolBarImageListIndex']);
+      MediaGainOptions.IgnoreTags := StrToBool(StringList.Values['IgnoreTags']);
+      MediaGainOptions.AutoReadAtFileAdd := StrToBool(StringList.Values['AutoReadAtFileAdd']);
+      MediaGainOptions.PreserveOriginalTimestamp := StrToBool(StringList.Values['PreserveOriginalTimestamp']);
+      MediaGainOptions.UseTempFiles := StrToBool(StringList.Values['UseTempFiles']);
+      MediaGainOptions.ToolBarImageListIndex := StrToInt(StringList.Values['ToolBarImageListIndex']);
     finally
       StringList.Free;
     end;

@@ -23,12 +23,12 @@ unit UnitMP3Gain;
 
 {$mode objfpc}{$H+}
 
-{$DEFINE DEBUG_VERSION}
+{_$DEFINE DEBUG_VERSION}
 
 interface
 
 uses
-  Classes, SysUtils,ComCtrls,Forms, pipes, callbackprocess;
+  Classes, SysUtils,ComCtrls,Forms, callbackprocess;
 
 type
 
@@ -36,11 +36,13 @@ type
     setAlbumGain, setMaxAmplitude_Track, setMaxAmplitude_Album,
     setSongItemHasFinished, setSongItemHasStarted, setWholeAlbumGain);
 
-  TMP3GainAction = (mgaTrackAnalyze, mgaAlbumAnalyze, mgaCheckTagInfo,
+  TMediaGainAction = (mgaTrackAnalyze, mgaAlbumAnalyze, mgaCheckTagInfo,
     mgaDeleteTagInfo, mgaAlbumGain, mgaTrackGain, mgaConstantGain,
     mgaUndoChanges);
     
-  TMP3GainTask = class;
+  TMediaGainTask = class;
+  
+  TMediaType = (mtMP3, mtVorbis, mtUnknown);
 
   TSongItem = class
   public
@@ -60,19 +62,20 @@ type
     Clip_Album: Boolean;
     HasAlbumData: Boolean;
     HasData: Boolean;
+    MediaType: TMediaType;
   end;
   
-  TMP3GainTaskList = class(TList)
+  TMediaGainTaskList = class(TList)
   private
-    function GetItem(AIndex:integer): TMP3GainTask;
-    procedure SetItem(AIndex:integer; AItem: TMP3GainTask);
+    function GetItem(AIndex:integer): TMediaGainTask;
+    procedure SetItem(AIndex:integer; AItem: TMediaGainTask);
   protected
   public
-    function Add(Item: TMP3GainTask): Integer;
-    function AddTask(ASongItem: TSongItem; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer; overload;
-    function AddTask(ASongItem: Pointer; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer; overload;
+    function Add(Item: TMediaGainTask): Integer;
+    function AddTask(ASongItem: TSongItem; AMediaGainAction: TMediaGainAction; AVolume: Double): Integer; overload;
+    function AddTask(ASongItem: Pointer; AMediaGainAction: TMediaGainAction; AVolume: Double): Integer; overload;
     procedure DeleteTask(AIndex: Integer);
-    property Items[AIndex:integer]: TMP3GainTask read GetItem write SetItem;default;
+    property Items[AIndex:integer]: TMediaGainTask read GetItem write SetItem;default;
   end;
 
   TSongItemList = class(TList)
@@ -86,11 +89,11 @@ type
     property Items[AIndex:integer]: TSongItem read GetItem write SetItem;default;
   end;
 
-  TMP3GainTask = class
+  TMediaGainTask = class
   private
     FSongItemList: TSongItemList;
   public
-    MP3GainAction: TMP3GainAction;
+    MediaGainAction: TMediaGainAction;
     Volume: Real;
     constructor Create;
     destructor Destroy; override;
@@ -101,16 +104,16 @@ type
 
   TSynEvt = TThreadMethod;
 
-  { TMP3Gain }
+  { TMediaGain }
 
-  TMP3Gain = class
+  TMediaGain = class
   private
     FGainProcess:TCallbackProcess;
     FReady: Boolean;
     FProgress: Byte;
     FStatusText: String;
     FExitCodeProcess: Integer;
-    FMP3GainAction: TMP3GainAction;
+    FMediaGainAction: TMediaGainAction;
     FTargetVolume: Real;
     FVolumeGain: Real;
     FResult: Real;
@@ -122,9 +125,10 @@ type
     SongItem: TSongItem;
     FConsoleOutput: TStrings;
     FCurrentSongItem: Integer;
+    FCancel: Boolean;
     function ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
     function GetIsReady: Boolean;
-    procedure MP3GainSync(value: TSyncEventType);
+    procedure MediaGainSync(value: TSyncEventType);
     procedure ProcessProgress(strData: String);
     procedure ProcessResult(strData: String);
     procedure ProcessStatusCode;
@@ -132,16 +136,17 @@ type
     procedure CreateProcess;
     procedure FreeProcess;
     procedure OnGainProcessEvent(pcChannel: TProcessChannel; strData: String);
+    procedure DoCancel(value: Boolean);
   public
     procedure Run;
-    procedure Cancel;
     constructor Create;
     destructor Destroy; override; // reintroduce
   published
+    property Cancel: Boolean read FCancel write DoCancel default false;
     property ConsoleOutput: TStrings read FConsoleOutput write FConsoleOutput;
     property Progress: Byte read FProgress;
     property StatusText: String read FStatusText;
-    property MP3GainAction: TMP3GainAction read FMP3GainAction write FMP3GainAction;
+    property MediaGainAction: TMediaGainAction read FMediaGainAction write FMediaGainAction;
     property TargetVolume: Real read FTargetVolume write FTargetVolume;
     property VolumeGain: Real read FVolumeGain write FVolumeGain;
     property Result: Real read FResult;
@@ -152,7 +157,7 @@ type
     property ErrorHasOccured: Boolean read FErrorHasOccured default false;
 end;
 
-  TMP3GainOptions = record
+  TMediaGainOptions = record
     IgnoreTags, AutoReadAtFileAdd, UseTempFiles, PreserveOriginalTimestamp:Boolean;
     ToolBarImageListIndex: Integer;
     
@@ -166,7 +171,7 @@ const
   MP3_GAIN_CMD = 'mp3gain';
 {$ENDIF}
 {$IFDEF WIN32}
-  MP3_GAIN_CMD = 'mp3gain.exe';
+  MP3_GAIN_CMD = 'MP3Gain.exe';
 {$ENDIF}
   
   SI_VOLUME = 0;
@@ -182,22 +187,24 @@ const
   SB_STATUS = 0;
   SB_FILECOUNT = 1;
   SB_FILENAME = 2;
+  SB_ERROR = 1;
   
   REF_VOLUME = 89;
   
-  strConfigFileName: String = '.easymp3gain';
+  strConfigFileName: String = '.easyMediaGain';
   
-  CONSOLE_OUTPUT_MAX_LINES = 200;
+  CONSOLE_OUTPUT_MAX_LINES = 400;
   
 var
-  TaskList: TMP3GainTaskList;
+  TaskList: TMediaGainTaskList;
   strStatus_Analyzing: String = 'Analyzing...';
   strStatus_Gaining: String = 'Gaining...';
   strStatus_Finished: String = 'Finished.';
   strStatus_CheckingTagInfo: String = 'Checking Tag Info...';
   strStatus_DeletingTagInfo: String = 'Deleting Tag Info...';
   strStatus_UndoingChanges: String = 'Undoing Changes...';
-  strStatus_ExitCode127: String = 'Could not start mp3gain. Is it installed?';
+  strStatus_ExitCode127: String = 'Could not start MediaGain. Is it installed?';
+  strStatus_Aborted: String = 'Aborted.';
   strAbout: String = 'About';
   strFiles: String = 'File(s)';
 
@@ -205,7 +212,7 @@ var
 
   strHomeDir: String = '';
   
-  MP3GainOptions: TMP3GainOptions;
+  MediaGainOptions: TMediaGainOptions;
   
 
 implementation
@@ -221,41 +228,41 @@ begin
   Result := Double(t*1.5);
 end;
 
-// ----------------------------------- TMP3GainTaskList -----------------------
+// ----------------------------------- TMediaGainTaskList -----------------------
 
-function TMP3GainTaskList.Add(Item: TMP3GainTask): Integer;
+function TMediaGainTaskList.Add(Item: TMediaGainTask): Integer;
 begin
   Result := inherited Add(Item);
 end;
 
-function TMP3GainTaskList.AddTask(ASongItem: TSongItem; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer;
+function TMediaGainTaskList.AddTask(ASongItem: TSongItem; AMediaGainAction: TMediaGainAction; AVolume: Double): Integer;
 var
-  Item: TMP3GainTask;
+  Item: TMediaGainTask;
 begin
-  Item := TMP3GainTask.Create;
-  Item.MP3GainAction := AMP3GainAction;
+  Item := TMediaGainTask.Create;
+  Item.MediaGainAction := AMediaGainAction;
   if not (ASongItem=nil) then Item.SongItems.Add(ASongItem);
   Item.Volume := AVolume;
   Result := inherited Add(Item);
 end;
 
-function TMP3GainTaskList.AddTask(ASongItem: Pointer; AMP3GainAction: TMP3GainAction; AVolume: Double): Integer;
+function TMediaGainTaskList.AddTask(ASongItem: Pointer; AMediaGainAction: TMediaGainAction; AVolume: Double): Integer;
 begin
-  Result := AddTask(TSongItem(ASongItem), AMP3GainAction, AVolume);
+  Result := AddTask(TSongItem(ASongItem), AMediaGainAction, AVolume);
 end;
 
-procedure TMP3GainTaskList.DeleteTask(AIndex: Integer);
+procedure TMediaGainTaskList.DeleteTask(AIndex: Integer);
 begin
-  TMP3GainTask(Items[AIndex]).Free;
+  TMediaGainTask(Items[AIndex]).Free;
   inherited Delete(AIndex);
 end;
 
-function TMP3GainTaskList.GetItem(AIndex:integer): TMP3GainTask;
+function TMediaGainTaskList.GetItem(AIndex:integer): TMediaGainTask;
 begin
-  Result := TMP3GainTask(inherited Items[AIndex]);
+  Result := TMediaGainTask(inherited Items[AIndex]);
 end;
 
-procedure TMP3GainTaskList.SetItem(AIndex:integer;AItem:TMP3GainTask);
+procedure TMediaGainTaskList.SetItem(AIndex:integer;AItem:TMediaGainTask);
 begin
   inherited Items[AIndex] := AItem;
 end;
@@ -282,35 +289,36 @@ begin
   inherited Items[AIndex] := AItem;
 end;
 
-// ----------------------------------- TMP3GainTask ---------------------------
+// ----------------------------------- TMediaGainTask ---------------------------
 
-constructor TMP3GainTask.Create;
+constructor TMediaGainTask.Create;
 begin
   inherited;
   FSongItemList := TSongItemList.Create;
   FSongItemList.Clear;
 end;
 
-destructor TMP3GainTask.Destroy;
+destructor TMediaGainTask.Destroy;
 begin
   FSongItemList.Free;
   inherited Destroy;
 end;
 
-// ----------------------------------- TMP3Gain -------------------------------
+// ----------------------------------- TMediaGain -------------------------------
 
-procedure TMP3Gain.Cancel;
+procedure TMediaGain.DoCancel(value: Boolean);
 begin
-  if Assigned(FGainProcess) then
-    FGainProcess.Free;
+  if (value and Assigned(FGainProcess)) then
+    ;//FGainProcess.Free;
+  FCancel := value;
 end;
 
-function TMP3Gain.GetIsReady: Boolean;
+function TMediaGain.GetIsReady: Boolean;
 begin
   Result := FReady;
 end;
 
-procedure TMP3Gain.ProcessResult(strData: String);
+procedure TMediaGain.ProcessResult(strData: String);
 
   function GetSongItem(const AFileName: String): TSongItem;
   var
@@ -338,7 +346,7 @@ var
   s: String;
   Album_Result_Event: Boolean;
 begin
-  //if FMP3GainProcess.ExitStatus=0 then
+  //if FMediaGainProcess.ExitStatus=0 then
   begin
     Album_Result_Event := false;
     SL := TStringList.Create;
@@ -389,9 +397,9 @@ begin
             begin
               FResult := r;
               if Album_Result_Event then
-                MP3GainSync(setWholeAlbumGain)
+                MediaGainSync(setWholeAlbumGain)
               else
-                MP3GainSync(setTrackGain);
+                MediaGainSync(setTrackGain);
             end;
           end;
 
@@ -403,10 +411,10 @@ begin
             begin
               FResult := r;
               //if Album_Result_Event then
-              //  MP3GainSync(setWholeAlbumGain);
+              //  MediaGainSync(setWholeAlbumGain);
               //else
               if not Album_Result_Event then
-                MP3GainSync(setAlbumGain)
+                MediaGainSync(setAlbumGain)
             end;
           end;
 
@@ -418,7 +426,7 @@ begin
             begin
               FResult := r;
               if not Album_Result_Event then
-                MP3GainSync(setMaxAmplitude_Track);
+                MediaGainSync(setMaxAmplitude_Track);
             end;
           end;
         except
@@ -432,18 +440,18 @@ begin
   end
   (*else  // Exit Code <> 0
   begin
-    if FMP3GainProcess.ExitStatus=127 then
+    if FMediaGainProcess.ExitStatus=127 then
       FStatusText := strStatus_ExitCode127
     else
-      FStatusText := 'Error running mp3gain: ' + IntToStr(FMP3GainProcess.ExitStatus);
-    MP3GainSync(setStatusText);
+      FStatusText := 'Error running MediaGain: ' + IntToStr(FMediaGainProcess.ExitStatus);
+    MediaGainSync(setStatusText);
     FProgress := 100;
-    MP3GainSync(setProgress);
+    MediaGainSync(setProgress);
     FErrorHasOccured := True;
   end;*)
 end;
 
-function TMP3Gain.ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
+function TMediaGain.ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
 var
   a, b: Integer;
 begin
@@ -465,7 +473,7 @@ begin
   end;
 end;
 
-procedure TMP3Gain.ProcessProgress(strData: String);
+procedure TMediaGain.ProcessProgress(strData: String);
 var
   SL: TStringList;
   i, NewSongItem: Integer;
@@ -490,8 +498,8 @@ begin
       begin
         FCurrentSongItem := NewSongItem;
         FProgress := 0;
-        MP3GainSync(setSongItemHasFinished);
-        MP3GainSync(setSongItemHasStarted);
+        MediaGainSync(setSongItemHasFinished);
+        MediaGainSync(setSongItemHasStarted);
       end;
       if b>FProgress then
       begin
@@ -500,27 +508,30 @@ begin
     end;
   finally
     SL.Free;
-    MP3GainSync(setProgress);
+    MediaGainSync(setProgress);
   end;
 end;
 
-procedure TMP3Gain.ProcessStatusCode;
+procedure TMediaGain.ProcessStatusCode;
 begin
   //FExitCodeProcess := FGainProcess.ExitStatus;
-  MP3GainSync(setStatusCode);
+  MediaGainSync(setStatusCode);
 end;
 
-procedure TMP3Gain.RunFinished;
+procedure TMediaGain.RunFinished;
 begin
   FReady := true;
   FStatusText := strStatus_Finished;
-  MP3GainSync(setStatusText);
   FProgress:=100;
-  MP3GainSync(setProgress);
-  MP3GainSync(setSongItemHasFinished);
+  if not (FMediaGainAction = mgaCheckTagInfo) then
+  begin
+    MediaGainSync(setStatusText);   // only synchronize when not checking TagInfo, because
+    MediaGainSync(setProgress);     // its much faster when loading long file lists
+  end;
+  MediaGainSync(setSongItemHasFinished);
 end;
 
-procedure TMP3Gain.MP3GainSync(value: TSyncEventType);
+procedure TMediaGain.MediaGainSync(value: TSyncEventType);
 var
   i: Integer;
 begin
@@ -528,25 +539,25 @@ begin
     setProgress:
       frmMP3GainMain.ProgressBar.Position := FProgress;
     setStatusText:
-      frmMP3GainMain.StatusBar.Panels[0].Text := FStatusText;
+      frmMP3GainMain.StatusBar.Panels[SB_STATUS].Text := FStatusText;
     setStatusCode:
       if (FExitCodeProcess<>0) then
       begin
         if FExitCodeProcess=127 then
-          frmMP3GainMain.StatusBar.Panels[1].Text := 'Error: Could not run mp3gain'
+          frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := 'Error: Could not run mp3gain'
         else
-          frmMP3GainMain.StatusBar.Panels[1].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
+          frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := 'An error occured: ' + IntToStr(FExitCodeProcess);
       end
       else
       begin
-         frmMP3GainMain.StatusBar.Panels[1].Text := '';
+         frmMP3GainMain.StatusBar.Panels[SB_STATUS].Text := '';
       end;
     setSongItemHasFinished:
     begin
       Inc(FilesProcessedCount);
       frmMP3GainMain.ProgressBarGeneral.Max := FilesToProcessCount;
       frmMP3GainMain.ProgressBarGeneral.Position := FilesProcessedCount;
-      frmMP3GainMain.StatusBar.Panels[SB_FILENAME].Text := '';
+      //frmMP3GainMain.StatusBar.Panels[SB_FILENAME].Text := '';
     end;
     setSongItemHasStarted:
     begin
@@ -559,8 +570,8 @@ begin
     case value of
       setTrackGain:
       begin
-        if FMP3GainAction = mgaTrackGain then exit; //FResult := REF_VOLUME - (SongItem.Volume_Old + SongItem.Volume_Difference); //REF_VOLUME - (SongItem.Volume_Track + FResult);
-        if FMP3GainAction = mgaAlbumGain then exit;//FResult := REF_VOLUME - (SongItem.Volume_Old + SongItem.Volume_Difference);//REF_VOLUME - (FTargetVolume - FResult);
+        if FMediaGainAction = mgaTrackGain then exit; //FResult := REF_VOLUME - (SongItem.Volume_Old + SongItem.Volume_Difference); //REF_VOLUME - (SongItem.Volume_Track + FResult);
+        if FMediaGainAction = mgaAlbumGain then exit;//FResult := REF_VOLUME - (SongItem.Volume_Old + SongItem.Volume_Difference);//REF_VOLUME - (FTargetVolume - FResult);
         SongItem.HasData := true; // TagInfo existing
         SongItem.Volume_Track := REF_VOLUME-FResult;  //FResult + SongItem.Gain_Track;
         SongItem.Gain_Track := FResult+FTargetVolume-REF_VOLUME; //FTargetVolume - SongItem.Volume_Track
@@ -573,7 +584,7 @@ begin
       end;
       setWholeAlbumGain:  // For the whole SongItem-List
       begin
-        if FMP3GainAction = mgaAlbumGain then FResult := REF_VOLUME - (SongItem.Volume_Album + FResult);
+        if FMediaGainAction = mgaAlbumGain then FResult := REF_VOLUME - (SongItem.Volume_Album + FResult);
         for i:=SongItems.Count-1 downto 0 do
         begin
           SongItems[i].HasAlbumData := true;
@@ -584,7 +595,7 @@ begin
       end;
       setMaxAmplitude_Track:
       begin
-        if FMP3GainAction = mgaTrackGain then FResult := SongItem.MaxAmplitude_Track + FResult;
+        if FMediaGainAction = mgaTrackGain then FResult := SongItem.MaxAmplitude_Track + FResult;
         FBoolResult := FResult > 32768;
         SongItem.Clipping := FBoolResult;
         SongItem.MaxAmplitude_Track := FResult;
@@ -599,18 +610,18 @@ begin
   Application.ProcessMessages;
 end;
 
-procedure TMP3Gain.CreateProcess;
+procedure TMediaGain.CreateProcess;
 begin
   FGainProcess := TCallBackProcess.Create(Application);
   FGainProcess.CallBackEvent := @OnGainProcessEvent;
 end;
 
-procedure TMP3Gain.FreeProcess;
+procedure TMediaGain.FreeProcess;
 begin
   FGainProcess.Free;
 end;
 
-procedure TMP3Gain.OnGainProcessEvent(pcChannel: TProcessChannel; strData: String);
+procedure TMediaGain.OnGainProcessEvent(pcChannel: TProcessChannel; strData: String);
 begin
   if (Assigned(FConsoleOutput)) then
   begin
@@ -628,24 +639,24 @@ begin
   if pcChannel=pcError then
   begin
     FExitCodeProcess := 127;
-    MP3GainSync(setStatusCode);
+    MediaGainSync(setStatusCode);
   end;
 end;
 
-procedure TMP3Gain.Run;
+procedure TMediaGain.Run;
 var
   cmd, Filenames: String;
   i: Integer;
 begin
   if SongItems.Count<1 then exit;
-  //while (not FMP3GainProcess.Suspended) do ;//FMP3GainProcess.WaitFor;  // Thread-Bug in FPC2.2 True     1
+  //while (not FMediaGainProcess.Suspended) do ;//FMediaGainProcess.WaitFor;  // Thread-Bug in FPC2.2 True     1
   FReady := false;
   FProgress := 0;
   Filenames := '';
   SongItem := SongItems[0]; // Set Pointer to first Item
   FCurrentSongItem := 0;
   FErrorHasOccured := false;
-  MP3GainSync(setProgress);
+  MediaGainSync(setProgress);
   CreateProcess;    // Thread-Bug in FPC2.2 True     1
   FHeaderList.Clear;
   cmd := MP3_GAIN_CMD + ' ';
@@ -653,7 +664,7 @@ begin
   begin
     SongItems[i].Volume_Old := SongItems[i].Volume_Track;
   end;
-  case FMP3GainAction of
+  case FMediaGainAction of
     mgaTrackAnalyze:
     begin
       FStatusText := strStatus_Analyzing;
@@ -701,23 +712,23 @@ begin
       FStatusText := strStatus_UndoingChanges
     end;
   end;
-  if MP3GainOptions.UseTempFiles then
+  if MediaGainOptions.UseTempFiles then
     cmd := cmd + '-t '
   else
     cmd := cmd + '-T ';
-  if MP3GainOptions.PreserveOriginalTimestamp then cmd := cmd + '-p ';
-  if MP3GainOptions.IgnoreTags then cmd := cmd + '-s s ';
-  MP3GainSync(setStatusText);
+  if MediaGainOptions.PreserveOriginalTimestamp then cmd := cmd + '-p ';
+  if MediaGainOptions.IgnoreTags then cmd := cmd + '-s s ';
+  MediaGainSync(setStatusText);
   for i:=0 to SongItems.Count-1 do
     Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
   FGainProcess.CommandLine := cmd + ' -o' + Filenames;    // -o Tab delimited output
-  MP3GainSync(setSongItemHasStarted);
+  MediaGainSync(setSongItemHasStarted);
   FGainProcess.Execute;
   while not (FReady) do
     Application.ProcessMessages;
 end;
 
-constructor TMP3Gain.Create;
+constructor TMediaGain.Create;
 begin
   inherited Create;
   FReady := true;
@@ -730,7 +741,7 @@ begin
   FDataList.Delimiter := chr(9);
 end;
 
-destructor TMP3Gain.Destroy;
+destructor TMediaGain.Destroy;
 begin
   FHeaderList.Free;
   FDataList.Free;
