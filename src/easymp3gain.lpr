@@ -29,7 +29,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms
   { add your units here }, Unitmain, unitinfo, UnitMP3Gain, unitgainconstant,
-  unitoptions, unitconsoleoutput;
+  unitoptions, unitconsoleoutput, unittranslate;
 
 begin
   Application.Initialize;

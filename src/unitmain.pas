@@ -157,7 +157,7 @@ type
     function AddSongItem(AName: String): TSongItem;
     procedure DelSongItem(AItemIndex: Integer);
     procedure LockControls(lock: Boolean);
-    procedure LoadLanguageFile(AFile: String);
+    //procedure LoadLanguageFile(AFile: String);
     procedure AddFiles(SL: TStrings);
     procedure AddFolder(S: String; sublevels: Integer);
     procedure UpdateFileCount;
@@ -174,6 +174,8 @@ type
    
    APPLICATION_NAME = 'easyMP3Gain';
    APPLICATION_VERSION = '0.3.1 beta SVN-0075';
+
+  resourcestring
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
 
  var
@@ -192,7 +194,7 @@ var
 
 implementation
 
-uses unitInfo, unitConsoleOutput,  unitOptions {$IFDEF UNIX}, BaseUnix{$ENDIF};
+uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions {$IFDEF UNIX}, BaseUnix{$ENDIF};
 
 { TfrmMp3GainMain }
 
@@ -307,7 +309,16 @@ begin
   TaskList := TMediaGainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
-  SL := TStringList.Create;
+  
+  TranslateAll;
+  
+  lblTargetVolume.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolume.Caption);
+  lblTargetVolumeUnit.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolumeUnit.Caption);
+  edtVolume.Left := lblTargetVolume.Width + 10;
+  lblTargetVolumeUnit.Left := edtVolume.Left + 50;
+  pnlVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
+
+  (*SL := TStringList.Create;
   try
     ListFiles(Application.Location,'lng',SL,0);
     Writeln('Searching for language-file in '+Application.Location+'  found: ',SL.Count);
@@ -315,10 +326,10 @@ begin
       LoadLanguageFile(SL[0]);
   finally
     SL.Free;
-  end;
+  end; *)
 end;
 
-procedure TfrmMp3GainMain.LoadLanguageFile(AFile: String);
+(*procedure TfrmMp3GainMain.LoadLanguageFile(AFile: String);
 var
   SL: TStringList;
   i: Integer;
@@ -415,7 +426,7 @@ begin
   finally
     SL.Free;
   end;
-end;
+end;    *)
 
 procedure TfrmMp3GainMain.LockControls(lock: Boolean);
 var

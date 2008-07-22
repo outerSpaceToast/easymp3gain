@@ -5,7 +5,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   Width = 806
   ActiveControl = edtVolume
   AllowDropFiles = True
-  Caption = 'MP3Gain GUI'
+  Caption = 'easyMP3Gain'
   ClientHeight = 412
   ClientWidth = 806
   Menu = MainMenu1
@@ -52,7 +52,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       Hint = 'Analyze'
       Top = 2
       HelpType = htKeyword
-      Caption = 'Track Analysis'
+      Caption = 'Analysis'
       DropdownMenu = pmnAnalysis
       ImageIndex = 2
       Style = tbsDropDown
@@ -62,7 +62,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       Left = 174
       Hint = 'Gain'
       Top = 2
-      Caption = 'Track Gain'
+      Caption = 'Gain'
       DropdownMenu = pmnGain
       ImageIndex = 3
       Style = tbsDropDown
@@ -117,9 +117,9 @@ object frmMp3GainMain: TfrmMp3GainMain
     end
     object btnCancel: TToolButton
       Left = 696
-      Hint = 'Cancel current operations'
+      Hint = 'Stop current operations'
       Top = 2
-      Caption = 'Abbrechen'
+      Caption = 'Stop'
       Enabled = False
       ImageIndex = 7
       OnClick = btnCancelClick
@@ -286,15 +286,15 @@ object frmMp3GainMain: TfrmMp3GainMain
     object mnuFile: TMenuItem
       Caption = 'File'
       object mnuFileAddFolder: TMenuItem
-        Caption = 'Add folder'
+        Caption = 'Add folder...'
         OnClick = mnuFileAddFolderClick
       end
       object mnuFileAddFolderRecursive: TMenuItem
-        Caption = 'Add folder recursively'
+        Caption = 'Add folder recursively...'
         OnClick = mnuFileAddFolderClick
       end
       object mnuFileAddFiles: TMenuItem
-        Caption = 'Add files'
+        Caption = 'Add files...'
         OnClick = mnuFileAddFilesClick
       end
       object MenuItem2: TMenuItem

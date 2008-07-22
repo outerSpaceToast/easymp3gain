@@ -3,9 +3,7 @@ object frmMP3GainConstant: TfrmMP3GainConstant
   Height = 114
   Top = 175
   Width = 273
-  HorzScrollBar.Page = 272
-  VertScrollBar.Page = 113
-  ActiveControl = btnOK
+  ActiveControl = tbGain
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Constant Gain'
@@ -13,9 +11,10 @@ object frmMP3GainConstant: TfrmMP3GainConstant
   ClientWidth = 273
   OnShow = FormShow
   Position = poScreenCenter
+  LCLVersion = '0.9.25'
   object lblGain: TLabel
     Left = 16
-    Height = 20
+    Height = 19
     Top = 56
     Width = 43
     Caption = 'lblGain'

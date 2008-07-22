@@ -195,20 +195,24 @@ const
   
   CONSOLE_OUTPUT_MAX_LINES = 400;
   
+resourcestring
+  strStatus_Analyzing = 'Analyzing...';
+  strStatus_Gaining = 'Gaining...';
+  strStatus_Finished = 'Finished.';
+  strStatus_CheckingTagInfo = 'Checking Tag Info...';
+  strStatus_DeletingTagInfo = 'Deleting Tag Info...';
+  strStatus_UndoingChanges = 'Undoing Changes...';
+  strStatus_ExitCode127 = 'Could not start mp3Gain. Is it installed?';
+  strStatus_Aborted = 'Aborted.';
+  strAbout = 'About';
+  strFiles = 'File(s)';
+  strYes = 'yes';
+  strNo = 'no';
+
 var
   TaskList: TMediaGainTaskList;
-  strStatus_Analyzing: String = 'Analyzing...';
-  strStatus_Gaining: String = 'Gaining...';
-  strStatus_Finished: String = 'Finished.';
-  strStatus_CheckingTagInfo: String = 'Checking Tag Info...';
-  strStatus_DeletingTagInfo: String = 'Deleting Tag Info...';
-  strStatus_UndoingChanges: String = 'Undoing Changes...';
-  strStatus_ExitCode127: String = 'Could not start MediaGain. Is it installed?';
-  strStatus_Aborted: String = 'Aborted.';
-  strAbout: String = 'About';
-  strFiles: String = 'File(s)';
 
-  boolStr: array[Boolean] of String = ('no','yes');
+  boolStr: array[Boolean] of String = (strNo,strYes);
 
   strHomeDir: String = '';
   
