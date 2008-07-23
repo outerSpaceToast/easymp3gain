@@ -26,7 +26,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Buttons,
-  ComCtrls, StdCtrls, UnitMP3Gain;
+  ComCtrls, StdCtrls, UnitMediaGain;
 
 type
 

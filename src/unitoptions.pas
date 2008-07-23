@@ -35,7 +35,7 @@ var
 
 implementation
 
-uses UnitMP3Gain;
+uses UnitMediaGain;
 
 { TfrmMp3GainOptions }
 

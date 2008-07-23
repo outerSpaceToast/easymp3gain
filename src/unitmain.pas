@@ -28,7 +28,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
-  ComCtrls, StdCtrls, Process, UnitMP3Gain, UnitGainConstant, Math, ExtCtrls,
+  ComCtrls, StdCtrls, Process, UnitMediaGain, UnitGainConstant, Math, ExtCtrls,
   Buttons;
 
 type
@@ -173,10 +173,28 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0075';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0076';
+   
+  SI_VOLUME = 0;
+  SI_CLIPPING = 1;
+  SI_TRACKGAIN = 2;
+  SI_CLIPTRACK = 3;
+  SI_ALBUMVOLUME = 4;
+  SI_ALBUMGAIN = 5;
+  SI_CLIPALBUM = 6;
+
+  SI_COUNT = 7;
 
   resourcestring
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
+   COLUMN_FILE = 'File';
+   COLUMN_VOLUME = 'Volume';
+   COLUMN_CLIPPING = 'clipping';
+   COLUMN_TRACKGAIN = 'Track Gain';
+   COLUMN_CLIPTRACK = 'clip';
+   COLUMN_ALBUMVOLUME = 'Album Vol.';
+   COLUMN_ALBUMGAIN = 'Album Gain';
+   COLUMN_CLIPALBUM = 'clip (Album)';
 
  var
    S: TStringList;
@@ -282,6 +300,7 @@ procedure TfrmMp3GainMain.Init;
 var
   SL:TStringList;
   bmp: TBitmap;
+  i: SmallInt;
 begin
   Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
   frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
@@ -292,7 +311,7 @@ begin
   {$IFDEF LCLqt}strWidgetset := 'QT4';{$ENDIF}
   {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
-     APPLICATION_DESCRIPTION +#10 +'Widgetset: '+strWidgetset +
+     APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
       #10#10 + '(c) 2007-2008, Thomas Dieffenbach';
   MediaGain := TMediaGain.Create;
   MediaGain.TargetVolume := REF_VOLUME;
@@ -311,6 +330,15 @@ begin
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   
   TranslateAll;
+
+  lvFiles.Column[0].Caption                := COLUMN_FILE;
+  lvFiles.Column[SI_VOLUME+1].Caption      := COLUMN_VOLUME;
+  lvFiles.Column[SI_CLIPPING+1].Caption    := COLUMN_CLIPPING;
+  lvFiles.Column[SI_TRACKGAIN+1].Caption   := COLUMN_TRACKGAIN;
+  lvFiles.Column[SI_CLIPTRACK+1].Caption   := COLUMN_CLIPTRACK;
+  lvFiles.Column[SI_ALBUMVOLUME+1].Caption := COLUMN_ALBUMVOLUME;
+  lvFiles.Column[SI_ALBUMGAIN+1].Caption   := COLUMN_ALBUMGAIN;
+  lvFiles.Column[SI_CLIPALBUM+1].Caption   := COLUMN_CLIPALBUM;
   
   lblTargetVolume.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolume.Caption);
   lblTargetVolumeUnit.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolumeUnit.Caption);
@@ -742,9 +770,9 @@ begin
     SongItem.ExtractedFileName := ExtractFileName(AName);
     SongItem.MediaType := mtUnknown;
     strExt := LowerCase(ExtractFileExt(AName));
-    if strExt = 'mp3' then
+    if strExt = '.mp3' then
       SongItem.MediaType := mtMP3
-    else if (strExt = 'ogg') or (strExt = 'oga') then
+    else if (strExt = '.ogg') or (strExt = '.oga') then
       SongItem.MediaType := mtVorbis;
     for k := 0 to SI_COUNT-1 do
     begin
