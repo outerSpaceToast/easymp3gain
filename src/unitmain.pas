@@ -1,7 +1,7 @@
 unit UnitMain;
 
 {
-     Copyright (C) 2007 by Thomas Dieffenbach
+     Copyright (C) 2007-2008 by Thomas Dieffenbach
      giantics@gmx.de
 
      This program is free software; you can redistribute it and/or modify
@@ -173,7 +173,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0076';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0078';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
