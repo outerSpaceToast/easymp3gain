@@ -173,7 +173,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0079';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0080';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -206,6 +206,8 @@ type
    FilesProcessedCount: Integer=0;
    Print_Debug_Info: Boolean = false;
    strWidgetSet: String;
+   strHomeDir: String = '';
+   strBinDir: String = '';
 
 var
   frmMp3GainMain: TfrmMp3GainMain;
@@ -317,9 +319,11 @@ begin
   MediaGain.TargetVolume := REF_VOLUME;
   MediaGain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
-  MediaGainOptions.UseTempFiles:=True;       // Pre-setting
-  MediaGainOptions.AutoReadAtFileAdd:=True;  // Pre-setting
-  MediaGainOptions.ToolBarImageListIndex:=1; // Pre-setting
+  MediaGainOptions.UseTempFiles:=True;               // Pre-setting
+  MediaGainOptions.AutoReadAtFileAdd:=True;          // Pre-setting
+  MediaGainOptions.ToolBarImageListIndex:=1;         // Pre-setting
+  MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
+  MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
   frmMP3GainOptions.LoadSettings;          // Load settings from config-file
   if MediaGainOptions.ToolBarImageListIndex=1 then
     ToolBar1.Images := ImageList1;
@@ -328,6 +332,8 @@ begin
   TaskList := TMediaGainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
+  
+  strBinDir := IncludeTrailingPathDelimiter(Application.Location);
   
   TranslateAll;
 
@@ -774,7 +780,7 @@ begin
       SongItem.MediaType := mtMP3
     else if (strExt = '.ogg') or (strExt = '.oga') then
       SongItem.MediaType := mtVorbis
-    else if (strExt = '.mp4') or (strExt = '.m4a') or (strExt = '.aac') then
+    else if (strExt = '.mp4') or (strExt = '.m4a') then
       SongItem.MediaType := mtAAC;
     for k := 0 to SI_COUNT-1 do
     begin

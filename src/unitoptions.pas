@@ -18,6 +18,10 @@ type
     chkPreserveOriginalTimestamp: TCheckBox;
     chkIgnoreTags: TCheckBox;
     chkAutoReadAtFileAdd: TCheckBox;
+    edtMP3GainBackend: TEdit;
+    edtAACGainBackend: TEdit;
+    lblAACGainBackend: TLabel;
+    lblMP3GainBackend: TLabel;
     procedure FormShow(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
@@ -35,7 +39,7 @@ var
 
 implementation
 
-uses UnitMediaGain;
+uses UnitMediaGain, UnitMain;
 
 { TfrmMp3GainOptions }
 
@@ -59,6 +63,10 @@ begin
     MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
     StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MediaGainOptions.PreserveOriginalTimestamp);
     StringList.Values['ToolBarImageListIndex']:=IntToStr(MediaGainOptions.ToolBarImageListIndex);
+    MediaGainOptions.strMP3GainBackend := edtMP3GainBackend.Text;
+    StringList.Values['MP3GainBackend']:=MediaGainOptions.strMP3GainBackend;
+    MediaGainOptions.strAACGainBackend := edtAACGainBackend.Text;
+    StringList.Values['AACGainBackend']:=MediaGainOptions.strAACGainBackend;
     StringList.SaveToFile(strHomeDir+strConfigFileName);
   finally
     StringList.Free;
@@ -83,6 +91,8 @@ begin
   chkAutoReadAtFileAdd.Checked := MediaGainOptions.AutoReadAtFileAdd;
   chkPreserveOriginalTimestamp.Checked := MediaGainOptions.PreserveOriginalTimestamp;
   chkUseTempFiles.Checked := MediaGainOptions.UseTempFiles;
+  edtMP3GainBackend.Text := MediaGainOptions.strMP3GainBackend;
+  edtAACGainBackend.Text := MediaGainOptions.strAACGainBackend;
 end;
 
 procedure TfrmMp3GainOptions.LoadSettings;
@@ -98,6 +108,8 @@ begin
       MediaGainOptions.PreserveOriginalTimestamp := StrToBool(StringList.Values['PreserveOriginalTimestamp']);
       MediaGainOptions.UseTempFiles := StrToBool(StringList.Values['UseTempFiles']);
       MediaGainOptions.ToolBarImageListIndex := StrToInt(StringList.Values['ToolBarImageListIndex']);
+      MediaGainOptions.strMP3GainBackend := StringList.Values['MP3GainBackend'];
+      MediaGainOptions.strAACGainBackend := StringList.Values['AACGainBackend'];
     finally
       StringList.Free;
     end;

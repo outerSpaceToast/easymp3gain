@@ -61,18 +61,21 @@ var
   PODirectory, Lang, FallbackLang: String;
   po : TPOFile;
 begin
-  PODirectory := '../languages/';
+  PODirectory := strBinDir + '../languages/';    // change that for release
   GetLanguageIDs(Lang, FallbackLang); // in unit gettext
   TranslateUnitResourceStrings('UnitMain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
   TranslateUnitResourceStrings('UnitMediaGain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
-  po := TPOFile.Create(PODirectory+'easymp3gain.'+FallbackLang+'.po');
-  try
-    PassComponents(po,frmMP3GainMain);
-    PassComponents(po,frmMP3GainConstant);
-    PassComponents(po,frmMP3GainConsoleOutput);
-    PassComponents(po,frmMP3GainGUIInfo);
-  finally
-    po.Free;
+  if FileExists(PODirectory+'easymp3gain.'+FallbackLang+'.po') then
+  begin
+    po := TPOFile.Create(PODirectory+'easymp3gain.'+FallbackLang+'.po');
+    try
+      PassComponents(po,frmMP3GainMain);
+      PassComponents(po,frmMP3GainConstant);
+      PassComponents(po,frmMP3GainConsoleOutput);
+      PassComponents(po,frmMP3GainGUIInfo);
+    finally
+      po.Free;
+    end;
   end;
 end;
 

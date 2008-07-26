@@ -158,6 +158,8 @@ end;
   TMediaGainOptions = record
     IgnoreTags, AutoReadAtFileAdd, UseTempFiles, PreserveOriginalTimestamp:Boolean;
     ToolBarImageListIndex: Integer;
+    strMP3GainBackend: String;
+    strAACGainBackend: String;
     
   end;
 
@@ -175,6 +177,8 @@ const
   
   CONSOLE_OUTPUT_MAX_LINES = 400;
   
+  STATUSCODE_UNKNOWNMEDIATYPE = 1001;
+  
 resourcestring
   strStatus_Analyzing = 'Analyzing...';
   strStatus_Gaining = 'Gaining...';
@@ -185,6 +189,7 @@ resourcestring
   strStatus_ExitCode127 = 'Error: Cannot start backend. Installed?';
   strStatus_ErrorOccured = 'An error occured:';
   strStatus_Aborted = 'Aborted.';
+  strStatus_UnknownMediaType = 'Unknown Media Type:';
   strAbout = 'About';
   strFiles = 'File(s)';
   strYes = 'yes';
@@ -194,8 +199,6 @@ var
   TaskList: TMediaGainTaskList;
 
   boolStr: array[Boolean] of String = (strNo,strYes);
-
-  strHomeDir: String = '';
   
   MediaGainOptions: TMediaGainOptions;
   
@@ -348,6 +351,8 @@ begin
       begin
         if FExitCodeProcess=127 then
           frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := strStatus_ExitCode127
+        else if (FExitCodeProcess=STATUSCODE_UNKNOWNMEDIATYPE) then
+          frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := strStatus_UnknownMediaType + ' ' + SongItem.ExtractedFileName
         else
           frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := strStatus_ErrorOccured + ' ' + IntToStr(FExitCodeProcess);
       end
@@ -452,30 +457,40 @@ begin
   if SongItems.Count<1 then exit;
   
   FReady := false;
-  FProgress := 0;
-  Filenames := '';
-  SongItem := SongItems[0]; // Set Pointer to first Item
-  FCurrentSongItem := 0;
-  FErrorHasOccured := false;
-  MediaGainSync(setProgress);
-  CreateProcess;
-  FHeaderList.Clear;
-  
-  if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
-    UnitMP3Gain.CreateCommand(Self, cmd)
-  else if SongItem.MediaType=mtVorbis then
-    UnitVorbisGain.CreateCommand(Self, cmd)
-  else exit;
-  
-  MediaGainSync(setStatusText);
-  for i:=0 to SongItems.Count-1 do
-    Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
-  FGainProcess.CommandLine := cmd + Filenames;
-  MediaGainSync(setSongItemHasStarted);
-  FGainProcess.Execute;
-  while not (FReady) do
-    Application.ProcessMessages;
-  FreeProcess;
+  try
+    FProgress := 0;
+    Filenames := '';
+    SongItem := SongItems[0]; // Set Pointer to first Item
+    FCurrentSongItem := 0;
+    FErrorHasOccured := false;
+    MediaGainSync(setProgress);
+    CreateProcess;
+    FHeaderList.Clear;
+
+    if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
+      UnitMP3Gain.CreateCommand(Self, cmd)
+    else if SongItem.MediaType=mtVorbis then
+      UnitVorbisGain.CreateCommand(Self, cmd)
+    else
+    begin
+      FExitCodeProcess := STATUSCODE_UNKNOWNMEDIATYPE;
+      FStatusText := strStatus_UnknownMediaType;
+      MediaGainSync(setStatusCode);
+      exit;
+    end;
+
+    MediaGainSync(setStatusText);
+    for i:=0 to SongItems.Count-1 do
+      Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
+    FGainProcess.CommandLine := cmd + Filenames;
+    MediaGainSync(setSongItemHasStarted);
+    FGainProcess.Execute;
+    while not (FReady) do
+      Application.ProcessMessages;
+    FreeProcess;
+  finally
+    FReady := true;
+  end;
 end;
 
 constructor TMediaGain.Create;
