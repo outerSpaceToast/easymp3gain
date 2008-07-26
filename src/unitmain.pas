@@ -173,7 +173,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0078';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0079';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -773,7 +773,9 @@ begin
     if strExt = '.mp3' then
       SongItem.MediaType := mtMP3
     else if (strExt = '.ogg') or (strExt = '.oga') then
-      SongItem.MediaType := mtVorbis;
+      SongItem.MediaType := mtVorbis
+    else if (strExt = '.mp4') or (strExt = '.m4a') or (strExt = '.aac') then
+      SongItem.MediaType := mtAAC;
     for k := 0 to SI_COUNT-1 do
     begin
       SongItem.ListViewItem.SubItems.Add('');

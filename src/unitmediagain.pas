@@ -41,7 +41,7 @@ type
     
   TMediaGainTask = class;
   
-  TMediaType = (mtMP3, mtVorbis, mtUnknown);
+  TMediaType = (mtMP3, mtVorbis, mtAAC, mtUnknown);
 
   TSongItem = class
   public
@@ -305,13 +305,13 @@ end;
 
 procedure TMediaGain.ProcessResult(strData: String);
 begin
-  if SongItem.MediaType=mtMP3 then
+  if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
     UnitMP3Gain.ProcessResult(Self, strData, FHeaderList, FDataList, SongItem);
 end;
 
 procedure TMediaGain.ProcessProgress(strData: String);
 begin
-  if SongItem.MediaType=mtMP3 then
+  if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
     UnitMP3Gain.ProcessProgress(Self, strData, FCurrentSongItem, FProgress);
 end;
 
@@ -461,7 +461,7 @@ begin
   CreateProcess;
   FHeaderList.Clear;
   
-  if SongItem.MediaType=mtMP3 then
+  if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
     UnitMP3Gain.CreateCommand(Self, cmd)
   else if SongItem.MediaType=mtVorbis then
     UnitVorbisGain.CreateCommand(Self, cmd)

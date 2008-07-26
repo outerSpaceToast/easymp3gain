@@ -32,9 +32,11 @@ uses
 const
 {$IFDEF LINUX}
   MP3_GAIN_CMD = 'mp3gain';
+  AAC_GAIN_CMD = 'aacgain';
 {$ENDIF}
 {$IFDEF WIN32}
   MP3_GAIN_CMD = 'MP3Gain.exe';
+  AAC_GAIN_CMD = 'AACGain.exe';
 {$ENDIF}
 
 procedure CreateCommand(MediaGain: TMediaGain; var cmd: String);
@@ -234,9 +236,13 @@ procedure CreateCommand(MediaGain: TMediaGain; var cmd: String);
 var
   i: Integer;
 begin
-  cmd := MP3_GAIN_CMD + ' ';
   with MediaGain do
   begin
+    if SongItems.Count < 1 then exit;
+    if SongItems[0].MediaType=mtMP3 then
+      cmd := MP3_GAIN_CMD + ' '
+    else if SongItems[0].MediaType=mtAAC then
+      cmd := AAC_GAIN_CMD + ' ';
     for i:=0 to SongItems.Count-1 do
     begin
       SongItems[i].Volume_Old := SongItems[i].Volume_Track;

@@ -414,14 +414,14 @@ object frmMp3GainMain: TfrmMp3GainMain
     end
   end
   object OpenDialog: TOpenDialog
-    Filter = 'Audio files|*.mp3; *.ogg; *.oga|MP3 files|*.mp3|Ogg-Vorbis files|*.ogg; *.oga|All files|*.*'
+    Filter = 'Audio files|*.mp3; *.ogg; *.oga; *.mp4; *.m4a; *.aac|MP3 files|*.mp3|Ogg-Vorbis files|*.ogg; *.oga|Advanced Audio Coding files|*.mp4; *.m4a; *.aac|All files|*.*'
     FilterIndex = 0
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
     left = 176
     top = 128
   end
   object SelectDirectoryDialog: TSelectDirectoryDialog
-    Filter = 'Audio files|*.mp3; *.ogg; *.oga|MP3 files|*.mp3|Ogg-Vorbis files|*.ogg; *.oga|All files|*.*'
+    Filter = 'Audio files|*.mp3; *.ogg; *.oga; *.mp4; *.m4a; *.aac|MP3 files|*.mp3|Ogg-Vorbis files|*.ogg; *.oga|Advanced Audio Coding files|*.mp4; *.m4a; *.aac|All files|*.*'
     FilterIndex = 0
     left = 144
     top = 128
