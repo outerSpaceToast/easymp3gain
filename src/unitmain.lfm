@@ -23,7 +23,6 @@ object frmMp3GainMain: TfrmMp3GainMain
     Caption = 'ToolBar1'
     Flat = True
     TabOrder = 0
-    OnClick = ToolBar1Click
     object btnAddFiles: TToolButton
       Left = 1
       Hint = 'Add File(s)...'

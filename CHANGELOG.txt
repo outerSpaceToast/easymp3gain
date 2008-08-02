@@ -1,6 +1,7 @@
 2008-??-?? | easyMP3Gain 0.4.0 beta
 New process-module (internally)
 Console Output can be viewed
+Accepts files as argument
 Several small improvements
 
 2008-03-24 | easyMP3Gain 0.3.0 beta

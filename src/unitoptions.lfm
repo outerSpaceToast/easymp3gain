@@ -1,12 +1,12 @@
 object frmMp3GainOptions: TfrmMp3GainOptions
   Left = 290
-  Height = 274
+  Height = 295
   Top = 175
   Width = 416
   ActiveControl = chkIgnoreTags
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Options'
-  ClientHeight = 274
+  ClientHeight = 295
   ClientWidth = 416
   OnShow = FormShow
   Position = poScreenCenter
@@ -27,10 +27,18 @@ object frmMp3GainOptions: TfrmMp3GainOptions
     Caption = 'AACGain backend:'
     ParentColor = False
   end
+  object Label1: TLabel
+    Left = 24
+    Height = 19
+    Top = 202
+    Width = 245
+    Caption = 'Number of sublevels when adding files:'
+    ParentColor = False
+  end
   object btnOK: TButton
     Left = 264
     Height = 25
-    Top = 240
+    Top = 264
     Width = 100
     Caption = '&OK'
     OnClick = btnOKClick
@@ -39,7 +47,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   object btnCancel: TButton
     Left = 48
     Height = 25
-    Top = 240
+    Top = 264
     Width = 100
     Caption = '&Cancel'
     OnClick = btnCancelClick
@@ -94,5 +102,13 @@ object frmMp3GainOptions: TfrmMp3GainOptions
     Width = 152
     TabOrder = 7
     Text = 'aacgain'
+  end
+  object edtSublevelCount: TEdit
+    Left = 24
+    Height = 23
+    Top = 224
+    Width = 40
+    TabOrder = 8
+    Text = '6'
   end
 end

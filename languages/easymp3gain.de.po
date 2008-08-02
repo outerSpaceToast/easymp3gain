@@ -47,6 +47,14 @@ msgstr ""
 msgid "mp3gain"
 msgstr ""
 
+#: TFRMMP3GAINOPTIONS.EDTSUBLEVELCOUNT.TEXT
+msgid "6"
+msgstr ""
+
+#: TFRMMP3GAINOPTIONS.LABEL1.CAPTION
+msgid "Number of sublevels when adding files:"
+msgstr ""
+
 #: TFRMMP3GAINOPTIONS.LBLAACGAINBACKEND.CAPTION
 msgid "AACGain backend:"
 msgstr ""

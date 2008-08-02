@@ -160,6 +160,11 @@ end;
     ToolBarImageListIndex: Integer;
     strMP3GainBackend: String;
     strAACGainBackend: String;
+    TargetVolume: ^Real;
+    AnalysisTypeAlbum: Boolean;
+    GainTypeAlbum: Boolean;
+    SubLevelCount: Byte;
+    
     
   end;
 

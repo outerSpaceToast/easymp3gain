@@ -1,14 +1,15 @@
 Meldung wenn Gain aber noch kein Analyse
 Anzeige: Datei x von y
 Option: "Tag neu schreiben" Ja/Nein
-Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
 Icons (alpha)
-Copyright-Datum ändern
-Lautstärke-Abstand in Toolbar!
 Vorbis-Support
 Files and Folders as argument
+Bei rekursiver Ordnerdurchsuche: Nur richtige Dateitypen
 
 done:
+Copyright-Datum ändern
+Lautstärke-Abstand in Toolbar!
+Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
 easymp3gain-Abhängigkeit ins Package
 Hinzufügen von Unterordnern
 SongItem von PRecord nach Class

@@ -112,7 +112,6 @@ type
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure ListView1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
-    procedure ToolBar1Click(Sender: TObject);
     procedure ToolButton5Click(Sender: TObject);
     procedure btnAddFilesClick(Sender: TObject);
     procedure btnAddFolderClick(Sender: TObject);
@@ -173,7 +172,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0080';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0081';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -324,11 +323,11 @@ begin
   MediaGainOptions.ToolBarImageListIndex:=1;         // Pre-setting
   MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
   MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
+  MediaGainOptions.TargetVolume := @(MediaGain.TargetVolume);
+  MediaGainOptions.AnalysisTypeAlbum := False;
+  MediaGainOptions.GainTypeAlbum := False;
   frmMP3GainOptions.LoadSettings;          // Load settings from config-file
-  if MediaGainOptions.ToolBarImageListIndex=1 then
-    ToolBar1.Images := ImageList1;
-  if MediaGainOptions.ToolBarImageListIndex=2 then
-    ToolBar1.Images := ImageList2;
+
   TaskList := TMediaGainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
@@ -351,6 +350,19 @@ begin
   edtVolume.Left := lblTargetVolume.Width + 10;
   lblTargetVolumeUnit.Left := edtVolume.Left + 50;
   pnlVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
+  
+  SL := TStringList.Create;
+  try
+    for i:= 1 to ParamCount do
+    begin
+      if FileExists(Paramstr(i)) then
+        SL.Add(Paramstr(i));
+    end;
+    AddFiles(SL);
+  finally
+    SL.Free;
+  end;
+  
 
   (*SL := TStringList.Create;
   try
@@ -626,7 +638,10 @@ var
 begin
   if not SelectDirectoryDialog.Execute then exit;
   Application.ProcessMessages;
-  if Sender=mnuFileAddFolderRecursive then sublevels := 6 else sublevels := 0;
+  if Sender=mnuFileAddFolderRecursive then
+    sublevels := MediaGainOptions.SubLevelCount
+  else
+    sublevels := 0;
   AddFolder(SelectDirectoryDialog.FileName, sublevels);
 end;
 
@@ -808,6 +823,7 @@ procedure TfrmMp3GainMain.FormClose(Sender: TObject;
 begin
   mnuFileClearAllFilesClick(Sender);
   btnCancelClick(Sender);
+  frmMp3GainOptions.SaveSettings;
   MediaGain.Free;
 end;
 
@@ -830,7 +846,7 @@ begin
    begin
      S := URLDecode(FileNames[i]);
      if DirectoryExists(S) then
-       AddFolder(S,0)
+       AddFolder(S,MediaGainOptions.SubLevelCount)
      else
        AddSongItem(S);
    end;
@@ -839,11 +855,6 @@ end;
 procedure TfrmMp3GainMain.ListView1MouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 begin
-end;
-
-procedure TfrmMp3GainMain.ToolBar1Click(Sender: TObject);
-begin
-
 end;
 
 procedure TfrmMp3GainMain.ToolButton5Click(Sender: TObject);
