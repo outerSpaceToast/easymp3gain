@@ -172,7 +172,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0081';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0082';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -515,7 +515,7 @@ begin
       begin
         Inc(FilesToProcessCount);
         TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
-        if CheckTagInfoAfterwards then
+        if (CheckTagInfoAfterwards) and (TSongItem(lvFiles.Items[i].Data).MediaType=mtMP3) then
         begin
           Inc(FilesToProcessCount);
           TaskList.AddTask(lvFiles.Items[i].Data, mgaCheckTagInfo, AVolume);

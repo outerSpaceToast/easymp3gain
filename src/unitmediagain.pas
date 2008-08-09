@@ -314,13 +314,17 @@ end;
 procedure TMediaGain.ProcessResult(strData: String);
 begin
   if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
-    UnitMP3Gain.ProcessResult(Self, strData, FHeaderList, FDataList, SongItem);
+    UnitMP3Gain.ProcessResult(Self, strData, FHeaderList, FDataList, SongItem)
+  else if (SongItem.MediaType=mtVorbis) then
+   UnitVorbisGain.ProcessResult(Self, strData, FHeaderList, FDataList, SongItem)
 end;
 
 procedure TMediaGain.ProcessProgress(strData: String);
 begin
   if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
-    UnitMP3Gain.ProcessProgress(Self, strData, FCurrentSongItem, FProgress);
+    UnitMP3Gain.ProcessProgress(Self, strData, FCurrentSongItem, FProgress)
+  else if (SongItem.MediaType=mtVorbis) then
+    UnitVorbisGain.ProcessProgress(Self, strData, FCurrentSongItem, FProgress);
 end;
 
 procedure TMediaGain.ProcessStatusCode;
@@ -507,8 +511,6 @@ begin
   FHeaderList := TStringList.Create;
   FDataList := TStringList.Create;
   FConsoleOutput := nil;
-  FHeaderList.Delimiter := chr(9);
-  FDataList.Delimiter := chr(9);
 end;
 
 destructor TMediaGain.Destroy;

@@ -1,4 +1,6 @@
 2008-??-?? | easyMP3Gain 0.4.0 beta
+AAC-file support (for ".mp4" and ".m4a" files, not raw ".aac")
+GUI saves settings (target volume, etc..)
 New process-module (internally)
 Console Output can be viewed
 Accepts files as argument

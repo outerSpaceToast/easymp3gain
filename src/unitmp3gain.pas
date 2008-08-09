@@ -128,6 +128,8 @@ var
   s: String;
   Album_Result_Event: Boolean;
 begin
+  FHeaderList.Delimiter := chr(9);
+  FDataList.Delimiter := chr(9);
   with MediaGain do
   begin
     Album_Result_Event := false;
