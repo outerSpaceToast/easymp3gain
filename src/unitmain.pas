@@ -168,11 +168,13 @@ type
     { public declarations }
   end; 
   
+  TStringArray = array of String;
+  
   const
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0082';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0083';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -217,9 +219,9 @@ uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions {$IFDEF UNIX}, Base
 
 { TfrmMp3GainMain }
 
-Procedure ListFiles(const FilePath: String; const Extension: String;
+Procedure ListFiles(const FilePath: String; Extension: array of String;
                     ListBox:TStringList; SubLevelMax: Byte);
-
+                    
   function IsRealDirectory(FilePath, Value: String): Boolean;
   var
     info: stat;
@@ -237,22 +239,26 @@ var
   {$IFDEF DEBUG_VERSION}
   X: TStringList;
   {$ENDIF}
+  i: SmallInt;
 begin
-  if FindFirst(FilePath+'*.'+Extension,faAnyFile,SR)=0 then    // Files
-  repeat
-    if not ((faDirectory and SR.Attr)=faDirectory) then
-      ListBox.Add(FilePath + SR.Name);
-  until FindNext(SR)<>0;
-  FindClose(SR);
-  if (SubLevelMax>0) and (FindFirst(FilePath+'*',faDirectory,SR)=0) then     // SubFolders
-  repeat
-    if ((faDirectory or faSymLink) and SR.Attr)=faDirectory then
-    begin
-      if IsRealDirectory(FilePath, SR.Name) then
-        ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
-    end;
-  until FindNext(SR)<>0;
-  FindClose(SR);
+  for i:=Low(Extension) to High(Extension) do
+  begin
+    if FindFirst(FilePath+'*.'+Extension[i],faAnyFile,SR)=0 then    // Files
+    repeat
+      if not ((faDirectory and SR.Attr)=faDirectory) then
+        ListBox.Add(FilePath + SR.Name);
+    until FindNext(SR)<>0;
+    FindClose(SR);
+    if (SubLevelMax>0) and (FindFirst(FilePath+'*',faDirectory,SR)=0) then     // SubFolders
+    repeat
+      if ((faDirectory or faSymLink) and SR.Attr)=faDirectory then
+      begin
+        if IsRealDirectory(FilePath, SR.Name) then
+          ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
+      end;
+    until FindNext(SR)<>0;
+    FindClose(SR);
+  end;
 end;
 
 function URLDecode(a: String): String;
@@ -515,7 +521,7 @@ begin
       begin
         Inc(FilesToProcessCount);
         TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
-        if (CheckTagInfoAfterwards) and (TSongItem(lvFiles.Items[i].Data).MediaType=mtMP3) then
+        if (CheckTagInfoAfterwards) then
         begin
           Inc(FilesToProcessCount);
           TaskList.AddTask(lvFiles.Items[i].Data, mgaCheckTagInfo, AVolume);
@@ -541,13 +547,23 @@ begin
   if not AItem.HasData then exit;
   with AItem.ListViewItem do
   begin
-    SubItems[SI_TRACKGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Track)]);
+    if (AItem.MediaType=mtMP3) or (AItem.MediaType=mtAAC) then
+      SubItems[SI_TRACKGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Track)])
+    else
+      SubItems[SI_TRACKGAIN] := Format('(%.1f)',[AItem.Gain_Track]);
     SubItems[SI_VOLUME] := Format('%.1f',[AItem.Volume_Track]);
     SubItems[SI_CLIPPING] := boolStr[AItem.Clipping];
     if AItem.HasAlbumData then
     begin
-      SubItems[SI_ALBUMGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Album)]);
-      SubItems[SI_ALBUMVOLUME] := Format('%.1f',[AItem.Volume_Album]);
+      if (AItem.MediaType=mtMP3) or (AItem.MediaType=mtAAC) then
+      begin
+        SubItems[SI_ALBUMGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Album)]);
+        SubItems[SI_ALBUMVOLUME] := Format('%.1f',[AItem.Volume_Album]);
+      end else
+      begin
+        SubItems[SI_ALBUMGAIN] := Format('(%.1f)',[RoundGainValue(AItem.Gain_Album)]);
+        SubItems[SI_ALBUMVOLUME] := '?';
+      end;
     end;
   end;
 end;
@@ -617,7 +633,7 @@ var
 begin
   SL := TStringList.Create;
   try
-    ListFiles(IncludeTrailingPathDelimiter(S),'mp3', SL, sublevels);
+    ListFiles(IncludeTrailingPathDelimiter(S),['mp3','ogg','mp4','m4a'], SL, sublevels); // array of Endungen
     AddFiles(SL);
   finally
     SL.Free;
@@ -932,7 +948,8 @@ begin
   begin
     with lvFiles.Items[i] do
     begin
-      if TSongItem(Data).HasData then
+      if (TSongItem(Data).HasData) and
+         ((TSongItem(Data).MediaType=mtMP3) or (TSongItem(Data).MediaType=mtAAC)) then
       begin
         r := value-TSongItem(Data).Volume_Track;
         TSongItem(Data).Gain_Track := RoundGainValue(r);

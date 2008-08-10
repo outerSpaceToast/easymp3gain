@@ -53,7 +53,15 @@ end;
 
 procedure TfrmMp3GainOptions.btnOKClick(Sender: TObject);
 begin
-  SaveSettings;
+  MediaGainOptions.IgnoreTags := chkIgnoreTags.Checked;
+  MediaGainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
+  MediaGainOptions.UseTempFiles := chkUseTempFiles.Checked;
+  MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
+  MediaGainOptions.strMP3GainBackend := edtMP3GainBackend.Text;
+  MediaGainOptions.strAACGainBackend := edtAACGainBackend.Text;
+  MediaGainOptions.AnalysisTypeAlbum := frmMp3GainMain.pmnAnalysisAlbum.Checked;
+  MediaGainOptions.GainTypeAlbum := frmMp3GainMain.pmnGainAlbum.Checked;
+  MediaGainOptions.SubLevelCount := StrToInt(edtSublevelCount.Text);
   Close;
 end;
 
@@ -84,25 +92,15 @@ var
 begin
   StringList := TStringList.Create;
   try
-    MediaGainOptions.IgnoreTags := chkIgnoreTags.Checked;
     StringList.Values['IgnoreTags']:=BoolToStr(MediaGainOptions.IgnoreTags);
-    MediaGainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
     StringList.Values['AutoReadAtFileAdd']:=BoolToStr(MediaGainOptions.AutoReadAtFileAdd);
-    MediaGainOptions.UseTempFiles := chkUseTempFiles.Checked;
     StringList.Values['UseTempFiles']:=BoolToStr(MediaGainOptions.UseTempFiles);
-    MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
     StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MediaGainOptions.PreserveOriginalTimestamp);
-    MediaGainOptions.strMP3GainBackend := edtMP3GainBackend.Text;
     StringList.Values['MP3GainBackend']:=MediaGainOptions.strMP3GainBackend;
-    MediaGainOptions.strAACGainBackend := edtAACGainBackend.Text;
     StringList.Values['AACGainBackend']:=MediaGainOptions.strAACGainBackend;
-    MediaGainOptions.AnalysisTypeAlbum := frmMp3GainMain.pmnAnalysisAlbum.Checked;
     StringList.Values['AnalysisTypeAlbum'] := BoolToStr(MediaGainOptions.AnalysisTypeAlbum);
-    MediaGainOptions.GainTypeAlbum := frmMp3GainMain.pmnGainAlbum.Checked;
     StringList.Values['GainTypeAlbum'] := BoolToStr(MediaGainOptions.GainTypeAlbum);
-    MediaGainOptions.SubLevelCount := StrToInt(edtSublevelCount.Text);
     StringList.Values['SubLevelCount'] := IntToStr(MediaGainOptions.SubLevelCount);
-    
     StringList.Values['ToolBarImageListIndex']:=IntToStr(MediaGainOptions.ToolBarImageListIndex);
     StringList.Values['TargetVolume'] := FloatToStr(MediaGainOptions.TargetVolume^);
 

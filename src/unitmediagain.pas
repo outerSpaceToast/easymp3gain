@@ -489,14 +489,23 @@ begin
     end;
 
     MediaGainSync(setStatusText);
-    for i:=0 to SongItems.Count-1 do
-      Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
-    FGainProcess.CommandLine := cmd + Filenames;
-    MediaGainSync(setSongItemHasStarted);
-    FGainProcess.Execute;
-    while not (FReady) do
-      Application.ProcessMessages;
-    FreeProcess;
+
+    if (SongItem.MediaType = mtVorbis) and (Self.MediaGainAction=mgaCheckTagInfo) then
+    begin
+      UnitVorbisGain.ReadVorbisComments(Self);
+    end
+    else
+    begin
+      for i:=0 to SongItems.Count-1 do
+        Filenames := Filenames + ' "' + SongItems[i].FileName + '"';
+      FGainProcess.CommandLine := cmd + Filenames;
+      MediaGainSync(setSongItemHasStarted);
+      FGainProcess.Execute;
+      while not (FReady) do
+        Application.ProcessMessages;
+      FreeProcess;
+    end;
+
   finally
     FReady := true;
   end;

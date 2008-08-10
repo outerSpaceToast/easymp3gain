@@ -25,7 +25,7 @@ unit UnitVorbisGain;
 interface
 
 uses
-  Classes, SysUtils, UnitMediaGain, UnitMain;
+  Classes, SysUtils, UnitMediaGain, UnitMain, VorbisComment;
   
 const
 {$IFDEF LINUX}
@@ -41,6 +41,7 @@ procedure ProcessProgress(MediaGain: TMediaGain; strData: String; var FCurrentSo
                           var FProgress: Byte);
 procedure ProcessResult(MediaGain: TMediaGain; strData: String; FHeaderList, FDataList: TStringList;
                         var SongItem: TSongItem);
+procedure ReadVorbisComments(MediaGain: TMediaGain);
 
 implementation
 
@@ -142,16 +143,11 @@ begin
         begin
           SongItems[i].Volume_Difference:=RoundGainValue(TargetVolume-SongItems[i].Volume_Album);
         end;
-        cmd := cmd + '-a -g ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
+        cmd := cmd + '-a '; //'-g ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
         StatusText := strStatus_Gaining;
       end;
       mgaTrackGain:
       begin
-        for i:=0 to SongItems.Count-1 do
-        begin
-          SongItems[i].Volume_Difference:=RoundGainValue(TargetVolume-SongItems[i].Volume_Track);
-        end;
-        cmd := cmd + '-g ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
         StatusText := strStatus_Gaining
       end;
       mgaConstantGain:
@@ -165,13 +161,7 @@ begin
         StatusText := strStatus_UndoingChanges
       end;
     end;
-    (*if MediaGainOptions.UseTempFiles then
-      cmd := cmd + '-t '
-    else
-      cmd := cmd + '-T ';*)
-    //if MediaGainOptions.PreserveOriginalTimestamp then cmd := cmd + '-p ';
-    //if MediaGainOptions.IgnoreTags then cmd := cmd + '-s s ';
-    cmd := cmd + ' -f -s';                                                   // fast & silent
+    cmd := cmd + ' -s';                                                   // silent
   end; // with FMediaGain
 end;
 
@@ -216,146 +206,43 @@ end;
 
 procedure ProcessResult(MediaGain: TMediaGain; strData: String; FHeaderList, FDataList: TStringList;
                         var SongItem: TSongItem);
-
-  function GetSongItem(const AFileName: String): TSongItem;
-  var
-    i: Integer;
-  begin
-    Result := nil;
-    for i:=MediaGain.SongItems.Count-1 downto 0 do
-    begin
-      if (MediaGain.SongItems[i].FileName = AFileName) then
-        Result := MediaGain.SongItems[i];
-    end;
-  end;
-
-const
-  strResult_Gain = 'Gain';
-  strResult_Peak = 'Peak';
-  strResult_Scale = 'Scale';
-  strResult_NewPeak = 'New Peak';
-  strResult_File = 'Track';
-  strResult_AlbumGain = 'Recommended Album Gain:';
-//   Gain   |  Peak  | Scale | New Peak | Track
-//----------+--------+-------+----------+------
-// -8.59 dB |  41100 |  0.37 |    15288 | Nightwish - 02 - Bye Bye Beautiful.ogg
-//-10.32 dB |  42759 |  0.30 |    13033 | Nightwish - 03 - Amaranth.ogg
-//
-//Recommended Album Gain: -9.92 dB
-//Writing tags to 'Nightwish - 02 - Bye Bye Beautiful.ogg'
-//Writing tags to 'Nightwish - 03 - Amaranth.ogg'
-
-
-var
-  SL: TStringList;
-  i,p,e: Integer;
-  r: Double;
-  s: String;
-  Album_Result_Event: Boolean;
 begin
-  FHeaderList.Delimiter := '|';
-  FDataList.Delimiter := '|';
-  with MediaGain do
-  begin
-    Album_Result_Event := false;
-    SL := TStringList.Create;
-    try
-      SL.Text := strData;
-    {_$IFDEF DEBUG_VERSION}
-      SL.SaveToFile(strHomeDir+'out'+InttoStr(QWord(now)) +'.txt');
-    {_$ENDIF}
-      for i:= SL.Count-1 downto 0 do
-      begin
-        if (SL[i]='') then SL.Delete(i);
-      end;
-      while (FHeaderList.Count<1) and (SL.Count>0) do
-      begin
-        S:=SL[0];
-        S:=IntToStr(Pos(S,strResult_Gain));
-        Writeln(S);
-        if (Pos(strResult_Gain,SL[0])>0) and
-           (Pos(strResult_Peak,SL[0])>0) and
-           (Pos(strResult_File,SL[0])>0) then
-        begin
-          FHeaderList.DelimitedText := SL[0];
-          TrimList(FHeaderList);
-          SL.Delete(0); // Delete Header-Item in Stringlist
-          break;
-        end;
-        SL.Delete(0);   // Delete Pre-Header-Item in Stringlist
-      end;
-      if SL.Count<1 then exit;
-      
-      for i:=0 to SL.Count-1 do
-      begin
-        S := SL[i];
-        FDataList.DelimitedText := S;
-        if FDataList.Count < FHeaderList.Count then
-        begin
-          if Pos(S,strResult_AlbumGain)>0 then
-          begin
-            Result := ExtractNumber(S);
-            if not Album_Result_Event then
-              MediaGainSync(setAlbumGain)
-          end;
-          continue; // no Track-Line
-        end;
-        TrimList(FDataList);
+  // not used
+end;
 
-        p := FHeaderList.IndexOf(strResult_File);
-        if (p>-1) then
-        begin
-            {$IFDEF DEBUG_VERSION}
-              FDataList.SaveToFile(strHomeDir+'out_data.txt');
-            {$ENDIF}
-         (* if (FDataList[p] = strResult_AlbumGain) then
-          begin
-            Album_Result_Event := true;
-          end else
-          begin
-            Album_Result_Event := false;
-            SongItem := GetSongItem(FDataList[p]);
-            Writeln('SongItem: ', LongInt(SongItem));
-            if SongItem=nil then continue;
-          end; *)
-          SongItem := GetSongItem(FDataList[p]);
-        end;
-
-        try
-          p := FHeaderList.IndexOf(strResult_Gain);
-          if (p>-1) then
-          begin
-            Val(FDataList[p],r,e);
-            if not (e>0) then
-            begin
-              Result := r;
-              if Album_Result_Event then
-                MediaGainSync(setWholeAlbumGain)
-              else
-                MediaGainSync(setTrackGain);
-            end;
-          end;
-
-          p := FHeaderList.IndexOf(strResult_Peak);
-          if (p>-1) then
-          begin
-            Val(FDataList[p],r,e);
-            if not (e>0) then
-            begin
-              Result := r;
-              if not Album_Result_Event then
-                MediaGainSync(setMaxAmplitude_Track);
-            end;
-          end;
-        except
-          //on E:Error do ;// An error occured
-        end;
+procedure ReadVorbisComments(MediaGain: TMediaGain);
+const
+  strTrackPeak = 'REPLAYGAIN_TRACK_PEAK';
+  strTrackGain = 'REPLAYGAIN_TRACK_GAIN';
+  strAlbumPeak = 'REPLAYGAIN_ALBUM_PEAK';
+  strAlbumGain = 'REPLAYGAIN_ALBUM_GAIN';
+var
+  VorbisComment: TVorbisComment;
+  Comments: TComments;
+  bSuccess: Boolean;
+  i: Integer;
+begin
+  VorbisComment := TVorbisComment.Create;
+  try
+    Comments := VorbisComment.ReadComments(MediaGain.SongItems[0].FileName, bSuccess);
+    if not bSuccess then exit;
+    for i:=0 to Length(Comments)-1do
+    begin
+      if (Comments[i].Name = strTrackGain) then
+      begin
+        MediaGain.Result:= ExtractNumber(Comments[i].Value);
+        MediaGain.MediaGainSync(setTrackGain);
       end;
-    finally
-      SL.Free;
-      FDataList.Clear;
+      if (Comments[i].Name = strAlbumGain) then
+      begin
+        MediaGain.Result:= ExtractNumber(Comments[i].Value);
+        MediaGain.MediaGainSync(setWholeAlbumGain);
+      end;
     end;
-  end
+  finally
+    VorbisComment.Free;
+    MediaGain.MediaGainSync(setSongItemHasFinished);
+  end;
 end;
 
 end.
