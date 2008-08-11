@@ -174,7 +174,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0083';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0084';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -500,45 +500,55 @@ procedure TfrmMp3GainMain.QueueFiles(AAction: TMediaGainAction; AVolume: Double;
 var
   i: Integer;
   a: Integer;
+  MediaType: TMediaType;
+  SongItems :TSongItemList;
 begin
-  if AAction=mgaAlbumAnalyze then
-  begin
-    a := TaskList.AddTask(nil, AAction, AVolume);
+  SongItems := TSongItemList.Create;
+  try
     for i:=0 to lvFiles.Items.Count-1 do
     begin
       if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
       begin
         Inc(FilesToProcessCount);
-        TaskList[a].SongItems.Add(lvFiles.Items[i].Data);
+        SongItems.Add(lvFiles.Items[i].Data);
+        TSongItem(lvFiles.Items[i].Data).HasData := false;
       end;
     end;
-  end
-  else // no AlbumAnalyze-Task
-  begin
-    for i:=0 to lvFiles.Items.Count-1 do
+    if SongItems.Count<1 then exit;
+    MediaType := SongItems[0].MediaType;
+    for i:=0 to SongItems.Count-1 do
     begin
-      if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
+      if not (SongItems[i].MediaType=MediaType) then
+        MediaType := mtUnknown;
+    end;
+
+
+    if (AAction=mgaAlbumAnalyze) or ((AAction=mgaAlbumGain) and (MediaType=mtVorbis)) then
+    begin
+      a := TaskList.AddTask(nil, AAction, AVolume);
+      TaskList[a].SongItems.Assign(SongItems);
+    end
+    else // no AlbumAnalyze-Task and no AlbumGain with Vorbis
+    begin
+      for i:=0 to SongItems.Count-1 do
       begin
-        Inc(FilesToProcessCount);
-        TaskList.AddTask(lvFiles.Items[i].Data, AAction, AVolume);
+        TaskList.AddTask(SongItems[i], AAction, AVolume);
         if (CheckTagInfoAfterwards) then
         begin
           Inc(FilesToProcessCount);
-          TaskList.AddTask(lvFiles.Items[i].Data, mgaCheckTagInfo, AVolume);
+          TaskList.AddTask(SongItems[i], mgaCheckTagInfo, AVolume);
         end;
       end;
     end;
-  end;
-  for i:=0 to lvFiles.Items.Count-1 do
-  begin
-    if (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then continue;
-    TSongItem(lvFiles.Items[i].Data).HasData := false;
-  end;
-  if MediaGain.IsReady then
-  begin
-    ProgressBarGeneral.Position := 0;
-    ProgressBar.Position := 0;
-    ProcessQueue(Self);
+
+    if MediaGain.IsReady then
+    begin
+      ProgressBarGeneral.Position := 0;
+      ProgressBar.Position := 0;
+      ProcessQueue(Self);
+    end;
+  finally
+    SongItems.Free;
   end;
 end;
 
