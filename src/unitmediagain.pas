@@ -160,6 +160,7 @@ end;
     ToolBarImageListIndex: Integer;
     strMP3GainBackend: String;
     strAACGainBackend: String;
+    strVorbisGainBackend: String;
     TargetVolume: ^Real;
     AnalysisTypeAlbum: Boolean;
     GainTypeAlbum: Boolean;
@@ -178,7 +179,7 @@ const
   
   REF_VOLUME = 89;
   
-  strConfigFileName: String = '.easyMediaGain';
+  strConfigFileName: String = '.easyMP3Gain';
   
   CONSOLE_OUTPUT_MAX_LINES = 400;
   
@@ -385,17 +386,31 @@ begin
     case value of
       setTrackGain:
       begin
-        if FMediaGainAction = mgaTrackGain then exit; //FResult := REF_VOLUME - (SongItem.Volume_Old + SongItem.Volume_Difference); //REF_VOLUME - (SongItem.Volume_Track + FResult);
-        if FMediaGainAction = mgaAlbumGain then exit;//FResult := REF_VOLUME - (SongItem.Volume_Old + SongItem.Volume_Difference);//REF_VOLUME - (FTargetVolume - FResult);
+        if FMediaGainAction = mgaTrackGain then exit;
+        if FMediaGainAction = mgaAlbumGain then exit;
         SongItem.HasData := true; // TagInfo existing
-        SongItem.Volume_Track := REF_VOLUME-FResult;  //FResult + SongItem.Gain_Track;
-        SongItem.Gain_Track := FResult+FTargetVolume-REF_VOLUME; //FTargetVolume - SongItem.Volume_Track
+        if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
+        begin
+          SongItem.Volume_Track := REF_VOLUME-FResult;
+          SongItem.Gain_Track := FResult+FTargetVolume-REF_VOLUME;
+        end else
+        begin
+          SongItem.Volume_Track := REF_VOLUME-FResult;
+          SongItem.Gain_Track := FResult;
+        end;
       end;
       setAlbumGain:
       begin
         SongItem.HasAlbumData := true;
-        SongItem.Gain_Album := FResult+FTargetVolume-REF_VOLUME;
-        SongItem.Volume_Album := REF_VOLUME-FResult;
+        if (SongItem.MediaType=mtMP3) or (SongItem.MediaType=mtAAC) then
+        begin
+          SongItem.Gain_Album := FResult+FTargetVolume-REF_VOLUME;
+          SongItem.Volume_Album := REF_VOLUME-FResult;
+        end else
+        begin
+          SongItem.Gain_Album := FResult;
+          SongItem.Volume_Album := REF_VOLUME-FResult;
+        end;
       end;
       setWholeAlbumGain:  // For the whole SongItem-List
       begin

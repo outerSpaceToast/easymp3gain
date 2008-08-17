@@ -18,10 +18,12 @@ type
     chkPreserveOriginalTimestamp: TCheckBox;
     chkIgnoreTags: TCheckBox;
     chkAutoReadAtFileAdd: TCheckBox;
+    edtVorbisGainBackend: TEdit;
     edtSublevelCount: TEdit;
     edtMP3GainBackend: TEdit;
     edtAACGainBackend: TEdit;
     Label1: TLabel;
+    lblVorbisGainBackend: TLabel;
     lblAACGainBackend: TLabel;
     lblMP3GainBackend: TLabel;
     procedure FormShow(Sender: TObject);
@@ -59,6 +61,7 @@ begin
   MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
   MediaGainOptions.strMP3GainBackend := edtMP3GainBackend.Text;
   MediaGainOptions.strAACGainBackend := edtAACGainBackend.Text;
+  MediaGainOptions.strVorbisGainBackend := edtVorbisGainBackend.Text;
   MediaGainOptions.AnalysisTypeAlbum := frmMp3GainMain.pmnAnalysisAlbum.Checked;
   MediaGainOptions.GainTypeAlbum := frmMp3GainMain.pmnGainAlbum.Checked;
   MediaGainOptions.SubLevelCount := StrToInt(edtSublevelCount.Text);
@@ -83,6 +86,7 @@ begin
   chkUseTempFiles.Checked := MediaGainOptions.UseTempFiles;
   edtMP3GainBackend.Text := MediaGainOptions.strMP3GainBackend;
   edtAACGainBackend.Text := MediaGainOptions.strAACGainBackend;
+  edtVorbisGainBackend.Text := MediaGainOptions.strVorbisGainBackend;
   edtSubLevelCount.Text := IntToStr(MediaGainOptions.SubLevelCount);
 end;
 
@@ -98,6 +102,7 @@ begin
     StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MediaGainOptions.PreserveOriginalTimestamp);
     StringList.Values['MP3GainBackend']:=MediaGainOptions.strMP3GainBackend;
     StringList.Values['AACGainBackend']:=MediaGainOptions.strAACGainBackend;
+    StringList.Values['VorbisGainBackend']:=MediaGainOptions.strVorbisGainBackend;
     StringList.Values['AnalysisTypeAlbum'] := BoolToStr(MediaGainOptions.AnalysisTypeAlbum);
     StringList.Values['GainTypeAlbum'] := BoolToStr(MediaGainOptions.GainTypeAlbum);
     StringList.Values['SubLevelCount'] := IntToStr(MediaGainOptions.SubLevelCount);
@@ -125,6 +130,7 @@ begin
       MediaGainOptions.ToolBarImageListIndex := StrToInt(StringList.Values['ToolBarImageListIndex']);
       MediaGainOptions.strMP3GainBackend := StringList.Values['MP3GainBackend'];
       MediaGainOptions.strAACGainBackend := StringList.Values['AACGainBackend'];
+      MediaGainOptions.strVorbisGainBackend := StringList.Values['VorbisGainBackend'];
       MediaGainOptions.TargetVolume^ := StrToFloat(StringList.Values['TargetVolume']);
       MediaGainOptions.AnalysisTypeAlbum := StrToBool(StringList.Values['AnalysisTypeAlbum']);
       MediaGainOptions.GainTypeAlbum := StrToBool(StringList.Values['GainTypeAlbum']);

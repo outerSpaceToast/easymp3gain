@@ -27,15 +27,7 @@ interface
 uses
   Classes, SysUtils, UnitMediaGain, UnitMain, VorbisComment;
   
-const
-{$IFDEF LINUX}
-  VORBIS_GAIN_CMD = 'vorbisgain';
-  VORBIS_INFO_CMD = 'ogginfo';
-{$ENDIF}
-{$IFDEF WIN32}
-  VORBIS_GAIN_CMD = 'VorbisGain.exe';
-{$ENDIF}
-  
+
 procedure CreateCommand(MediaGain: TMediaGain; var cmd: String);
 procedure ProcessProgress(MediaGain: TMediaGain; strData: String; var FCurrentSongItem: Integer;
                           var FProgress: Byte);
@@ -45,9 +37,9 @@ procedure ReadVorbisComments(MediaGain: TMediaGain);
 
 implementation
 
-function ExtractProgressValue(S: String; var CurrentSongItem: Integer): SmallInt;
+function ExtractProgressValue(MediaGain: TMediaGain; S: String; var CurrentSongItem: Integer): SmallInt;
 var
-  a, b: Integer;
+  a, b, i: Integer;
 begin
   if Pos('%',S)<>0 then
   begin
@@ -58,7 +50,11 @@ begin
       exit;
     end;
     Result := StrToInt(Trim(Copy(S,a-2,2)));
-
+    for i:= 0 to MediaGain.SongItems.Count-1 do
+    begin
+      if MediaGain.SongItems[i].FileName = Trim(Copy(S,a+3,Length(S))) then
+        CurrentSongItem := i;
+    end;
     (*if (a>0) and (b>0) then
     begin
       CurrentSongItem := StrToInt(Trim(Copy(S,a+1,b-a-1))) -1;  // starts with 0 not 1
@@ -87,7 +83,7 @@ begin
     {$ENDIF}
     for i:= SL.Count-1 downto 0 do
     begin
-      b := ExtractProgressValue(SL[i], NewSongItem);
+      b := ExtractProgressValue(MediaGain, SL[i], NewSongItem);
       if NewSongItem >FCurrentSongItem then
       begin
         FCurrentSongItem := NewSongItem;
@@ -110,7 +106,7 @@ procedure CreateCommand(MediaGain: TMediaGain; var cmd: String);
 var
   i: Integer;
 begin
-  cmd := VORBIS_GAIN_CMD + ' ';
+  cmd := MediaGainOptions.strVorbisGainBackend + ' ';
   with MediaGain do
   begin
     for i:=0 to SongItems.Count-1 do
@@ -129,7 +125,7 @@ begin
       end;
       mgaCheckTagInfo:
       begin
-        cmd := VORBIS_INFO_CMD + ' '; //cmd + '-d ';    // display
+        cmd := '';
         StatusText := strStatus_CheckingTagInfo;
       end;
       mgaDeleteTagInfo:
@@ -236,7 +232,7 @@ begin
       if (Comments[i].Name = strAlbumGain) then
       begin
         MediaGain.Result:= ExtractNumber(Comments[i].Value);
-        MediaGain.MediaGainSync(setWholeAlbumGain);
+        MediaGain.MediaGainSync(setAlbumGain);
       end;
     end;
   finally

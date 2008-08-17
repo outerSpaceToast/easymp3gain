@@ -174,7 +174,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0084';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0085';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -327,12 +327,17 @@ begin
   MediaGainOptions.UseTempFiles:=True;               // Pre-setting
   MediaGainOptions.AutoReadAtFileAdd:=True;          // Pre-setting
   MediaGainOptions.ToolBarImageListIndex:=1;         // Pre-setting
-  MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
-  MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
   MediaGainOptions.TargetVolume := @(MediaGain.TargetVolume);
   MediaGainOptions.AnalysisTypeAlbum := False;
   MediaGainOptions.GainTypeAlbum := False;
+  MediaGainOptions.SubLevelCount := 8;
   frmMP3GainOptions.LoadSettings;          // Load settings from config-file
+  if MediaGainOptions.strMP3GainBackend ='' then
+    MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
+  if MediaGainOptions.strAACGainBackend ='' then
+    MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
+  if MediaGainOptions.strVorbisGainBackend ='' then
+    MediaGainOptions.strVorbisGainBackend := 'vorbisgain';   // Pre-setting
 
   TaskList := TMediaGainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
@@ -558,11 +563,17 @@ begin
   with AItem.ListViewItem do
   begin
     if (AItem.MediaType=mtMP3) or (AItem.MediaType=mtAAC) then
-      SubItems[SI_TRACKGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Track)])
+    begin
+      SubItems[SI_TRACKGAIN] := Format('%.1f',[RoundGainValue(AItem.Gain_Track)]);
+      SubItems[SI_VOLUME] := Format('%.1f',[AItem.Volume_Track]);
+      SubItems[SI_CLIPPING] := boolStr[AItem.Clipping];
+    end
     else
-      SubItems[SI_TRACKGAIN] := Format('(%.1f)',[AItem.Gain_Track]);
-    SubItems[SI_VOLUME] := Format('%.1f',[AItem.Volume_Track]);
-    SubItems[SI_CLIPPING] := boolStr[AItem.Clipping];
+    begin
+      SubItems[SI_TRACKGAIN] := Format('(%.2f)',[AItem.Gain_Track]);
+      SubItems[SI_VOLUME] := Format('%.2f',[AItem.Volume_Track]);
+      SubItems[SI_CLIPPING] := '';
+    end;
     if AItem.HasAlbumData then
     begin
       if (AItem.MediaType=mtMP3) or (AItem.MediaType=mtAAC) then
@@ -571,7 +582,7 @@ begin
         SubItems[SI_ALBUMVOLUME] := Format('%.1f',[AItem.Volume_Album]);
       end else
       begin
-        SubItems[SI_ALBUMGAIN] := Format('(%.1f)',[RoundGainValue(AItem.Gain_Album)]);
+        SubItems[SI_ALBUMGAIN] := Format('(%.2f)',[AItem.Gain_Album]);
         SubItems[SI_ALBUMVOLUME] := '?';
       end;
     end;
@@ -849,7 +860,8 @@ procedure TfrmMp3GainMain.FormClose(Sender: TObject;
 begin
   mnuFileClearAllFilesClick(Sender);
   btnCancelClick(Sender);
-  frmMp3GainOptions.SaveSettings;
+  frmMP3GainOptions.btnOKClick(Sender);
+  frmMP3GainOptions.SaveSettings;
   MediaGain.Free;
 end;
 

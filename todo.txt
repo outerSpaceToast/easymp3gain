@@ -5,6 +5,7 @@ Icons (alpha)
 Vorbis-Support
 Files and Folders as argument
 Bei rekursiver Ordnerdurchsuche: Nur richtige Dateitypen
+Rekursive Ordner-Aufnahme: NTFS! (FAT32?)
 
 done:
 Copyright-Datum ändern
