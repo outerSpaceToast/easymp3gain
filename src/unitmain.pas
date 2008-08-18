@@ -174,7 +174,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0085';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0086';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -249,16 +249,16 @@ begin
         ListBox.Add(FilePath + SR.Name);
     until FindNext(SR)<>0;
     FindClose(SR);
-    if (SubLevelMax>0) and (FindFirst(FilePath+'*',faDirectory,SR)=0) then     // SubFolders
-    repeat
-      if ((faDirectory or faSymLink) and SR.Attr)=faDirectory then
-      begin
-        if IsRealDirectory(FilePath, SR.Name) then
-          ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
-      end;
-    until FindNext(SR)<>0;
-    FindClose(SR);
   end;
+  if (SubLevelMax>0) and (FindFirst(FilePath+'*',faDirectory,SR)=0) then     // SubFolders
+  repeat
+    if ((faDirectory or faSymLink) and SR.Attr)=faDirectory then
+    begin
+      if IsRealDirectory(FilePath, SR.Name) then
+        ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
+    end;
+  until FindNext(SR)<>0;
+  FindClose(SR);
 end;
 
 function URLDecode(a: String): String;
@@ -324,14 +324,20 @@ begin
   MediaGain.TargetVolume := REF_VOLUME;
   MediaGain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
-  MediaGainOptions.UseTempFiles:=True;               // Pre-setting
-  MediaGainOptions.AutoReadAtFileAdd:=True;          // Pre-setting
-  MediaGainOptions.ToolBarImageListIndex:=1;         // Pre-setting
+
   MediaGainOptions.TargetVolume := @(MediaGain.TargetVolume);
-  MediaGainOptions.AnalysisTypeAlbum := False;
-  MediaGainOptions.GainTypeAlbum := False;
-  MediaGainOptions.SubLevelCount := 8;
-  frmMP3GainOptions.LoadSettings;          // Load settings from config-file
+  if not frmMP3GainOptions.LoadSettings then         // Load settings from config-file
+  begin
+    MediaGainOptions.UseTempFiles:=True;               // Pre-setting
+    MediaGainOptions.AutoReadAtFileAdd:=True;          // Pre-setting
+    MediaGainOptions.ToolBarImageListIndex:=1;         // Pre-setting
+    MediaGainOptions.AnalysisTypeAlbum := False;
+    MediaGainOptions.GainTypeAlbum := False;
+    MediaGainOptions.SubLevelCount := 8;
+    MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
+    MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
+    MediaGainOptions.strVorbisGainBackend := 'vorbisgain';   // Pre-setting
+  end;
   if MediaGainOptions.strMP3GainBackend ='' then
     MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
   if MediaGainOptions.strAACGainBackend ='' then
@@ -665,6 +671,7 @@ procedure TfrmMp3GainMain.mnuFileAddFilesClick(Sender: TObject);
 var
   i: Integer;
 begin
+  {$IFDEF LCLqt}OpenDialog.Files.Clear;{$ENDIF}
   if not OpenDialog.Execute then exit;
   AddFiles(OpenDialog.Files)
 end;

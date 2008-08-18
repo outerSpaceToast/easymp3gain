@@ -35,7 +35,7 @@ type
     { private declarations }
   public
     procedure SaveSettings;
-    procedure LoadSettings;
+    function LoadSettings: Boolean;
     { public declarations }
   end; 
 
@@ -95,7 +95,9 @@ var
   StringList: TStringList;
 begin
   StringList := TStringList.Create;
+  StringList.Clear;
   try
+    StringList.Values['Version'] := APPLICATION_VERSION;
     StringList.Values['IgnoreTags']:=BoolToStr(MediaGainOptions.IgnoreTags);
     StringList.Values['AutoReadAtFileAdd']:=BoolToStr(MediaGainOptions.AutoReadAtFileAdd);
     StringList.Values['UseTempFiles']:=BoolToStr(MediaGainOptions.UseTempFiles);
@@ -108,19 +110,19 @@ begin
     StringList.Values['SubLevelCount'] := IntToStr(MediaGainOptions.SubLevelCount);
     StringList.Values['ToolBarImageListIndex']:=IntToStr(MediaGainOptions.ToolBarImageListIndex);
     StringList.Values['TargetVolume'] := FloatToStr(MediaGainOptions.TargetVolume^);
-
     StringList.SaveToFile(strHomeDir+strConfigFileName);
   finally
     StringList.Free;
   end;
 end;
 
-procedure TfrmMp3GainOptions.LoadSettings;
+function TfrmMp3GainOptions.LoadSettings: Boolean;
 var
  StringList: TStringList;
 begin
   try
     StringList := TStringList.Create;
+    Result:=False;
     try
       StringList.LoadFromFile(strHomeDir+strConfigFileName);
       MediaGainOptions.IgnoreTags := StrToBool(StringList.Values['IgnoreTags']);
@@ -135,6 +137,7 @@ begin
       MediaGainOptions.AnalysisTypeAlbum := StrToBool(StringList.Values['AnalysisTypeAlbum']);
       MediaGainOptions.GainTypeAlbum := StrToBool(StringList.Values['GainTypeAlbum']);
       MediaGainOptions.SubLevelCount := StrToInt(StringList.Values['SubLevelCount']);
+      Result := StringList.Values['Version'] = APPLICATION_VERSION;
     finally
       StringList.Free;
       if MediaGainOptions.ToolBarImageListIndex=1 then
