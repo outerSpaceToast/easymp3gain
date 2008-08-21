@@ -36,6 +36,8 @@ type
   public
     procedure SaveSettings;
     function LoadSettings: Boolean;
+    procedure SettingsToControls;
+    procedure SettingsFromControls;
     { public declarations }
   end; 
 
@@ -55,16 +57,7 @@ end;
 
 procedure TfrmMp3GainOptions.btnOKClick(Sender: TObject);
 begin
-  MediaGainOptions.IgnoreTags := chkIgnoreTags.Checked;
-  MediaGainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
-  MediaGainOptions.UseTempFiles := chkUseTempFiles.Checked;
-  MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
-  MediaGainOptions.strMP3GainBackend := edtMP3GainBackend.Text;
-  MediaGainOptions.strAACGainBackend := edtAACGainBackend.Text;
-  MediaGainOptions.strVorbisGainBackend := edtVorbisGainBackend.Text;
-  MediaGainOptions.AnalysisTypeAlbum := frmMp3GainMain.pmnAnalysisAlbum.Checked;
-  MediaGainOptions.GainTypeAlbum := frmMp3GainMain.pmnGainAlbum.Checked;
-  MediaGainOptions.SubLevelCount := StrToInt(edtSublevelCount.Text);
+  SettingsFromControls;
   Close;
 end;
 
@@ -79,6 +72,25 @@ begin
 end;
 
 procedure TfrmMp3GainOptions.FormShow(Sender: TObject);
+begin
+  SettingsToControls;
+end;
+
+procedure TfrmMp3GainOptions.SettingsFromControls;
+begin
+  MediaGainOptions.IgnoreTags := chkIgnoreTags.Checked;
+  MediaGainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
+  MediaGainOptions.UseTempFiles := chkUseTempFiles.Checked;
+  MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
+  MediaGainOptions.strMP3GainBackend := edtMP3GainBackend.Text;
+  MediaGainOptions.strAACGainBackend := edtAACGainBackend.Text;
+  MediaGainOptions.strVorbisGainBackend := edtVorbisGainBackend.Text;
+  MediaGainOptions.AnalysisTypeAlbum := frmMp3GainMain.pmnAnalysisAlbum.Checked;
+  MediaGainOptions.GainTypeAlbum := frmMp3GainMain.pmnGainAlbum.Checked;
+  MediaGainOptions.SubLevelCount := StrToInt(edtSublevelCount.Text);
+end;
+
+procedure TfrmMp3GainOptions.SettingsToControls;
 begin
   chkIgnoreTags.Checked := MediaGainOptions.IgnoreTags;
   chkAutoReadAtFileAdd.Checked := MediaGainOptions.AutoReadAtFileAdd;

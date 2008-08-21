@@ -337,6 +337,7 @@ begin
     MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
     MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
     MediaGainOptions.strVorbisGainBackend := 'vorbisgain';   // Pre-setting
+    ToolBar1.Images := frmMp3GainMain.ImageList1;
   end;
   if MediaGainOptions.strMP3GainBackend ='' then
     MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
@@ -344,7 +345,8 @@ begin
     MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
   if MediaGainOptions.strVorbisGainBackend ='' then
     MediaGainOptions.strVorbisGainBackend := 'vorbisgain';   // Pre-setting
-
+  frmMP3GainOptions.SettingsToControls;
+    
   TaskList := TMediaGainTaskList.Create;
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
