@@ -202,7 +202,7 @@ resourcestring
   strNo = 'no';
 
 var
-  TaskList: TMediaGainTaskList;
+  TaskList: array of TMediaGainTaskList;
 
   boolStr: array[Boolean] of String = (strNo,strYes);
   
