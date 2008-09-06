@@ -139,11 +139,12 @@ begin
         begin
           SongItems[i].Volume_Difference:=RoundGainValue(TargetVolume-SongItems[i].Volume_Album);
         end;
-        cmd := cmd + '-a '; //'-g ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
+        cmd := cmd + '-a -f'; //'-g ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
         StatusText := strStatus_Gaining;
       end;
       mgaTrackGain:
       begin
+        cmd := cmd + '-f ';
         StatusText := strStatus_Gaining
       end;
       mgaConstantGain:

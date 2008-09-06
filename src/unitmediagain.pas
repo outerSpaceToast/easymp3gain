@@ -47,6 +47,7 @@ type
   public
     FileName: String;
     ExtractedFileName: String;
+    FilePath: String;
     ListViewItem: TListItem;
     MaxAmplitude_Track: Double;
     MaxAmplitude_Album: Double;
@@ -202,7 +203,7 @@ resourcestring
   strNo = 'no';
 
 var
-  TaskList: array of TMediaGainTaskList;
+  TaskList: TMediaGainTaskList;
 
   boolStr: array[Boolean] of String = (strNo,strYes);
   
@@ -420,7 +421,7 @@ begin
           SongItems[i].HasAlbumData := true;
           SongItems[i].Gain_Album := FResult+FTargetVolume-REF_VOLUME;
           SongItems[i].Volume_Album := REF_VOLUME-FResult;
-//qwert          frmMP3GainMain.UpdateView(SongItems[i]);
+          frmMP3GainMain.UpdateView(SongItems[i]);
         end;
       end;
       setMaxAmplitude_Track:
