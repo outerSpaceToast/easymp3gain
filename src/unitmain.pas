@@ -176,7 +176,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0089';
+   APPLICATION_VERSION = '0.3.1 beta SVN-0090';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -224,43 +224,34 @@ uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions {$IFDEF UNIX}, Base
 Procedure ListFiles(const FilePath: String; Extension: array of String;
                     ListBox:TStringList; SubLevelMax: Byte);
                     
-  function IsRealDirectory(FilePath, Value: String): Boolean;
+  function IsRealDirectory(const strPath, strFile: string):Boolean;
   var
     info: stat;
   begin
-    Result := false;
-    if not ((Value='.') or (Value='..') or (Value='')) then
-    begin
-      fplstat(FilePath+Value,@info);
-      if info.nlink<>1 then Result := true;
-    end;
+    fplstat(strPath + strFile, @info);
+    Result := not ((strFile='.') or (strFile='..') or fpS_ISLNK(info.st_mode));
   end;
 
 var
   SR: TSearchRec;
-  {$IFDEF DEBUG_VERSION}
-  X: TStringList;
-  {$ENDIF}
   i: SmallInt;
 begin
-  for i:=Low(Extension) to High(Extension) do
-  begin
-    if FindFirst(FilePath+'*.'+Extension[i],faAnyFile,SR)=0 then    // Files
-    repeat
-      if not ((faDirectory and SR.Attr)=faDirectory) then
-        ListBox.Add(FilePath + SR.Name);
-    until FindNext(SR)<>0;
-    FindClose(SR);
-  end;
-  if (SubLevelMax>0) and (FindFirst(FilePath+'*',faDirectory,SR)=0) then     // SubFolders
+  if FindFirst(FilePath+'*',faAnyFile,SR)=0 then
   repeat
-    if ((faDirectory or faSymLink) and SR.Attr)=faDirectory then
+    for i:=Low(Extension) to High(Extension) do            // Files
+    begin
+      if (ExtractFileExt(SR.Name)='.'+Extension[i]) and
+        not ((faDirectory and SR.Attr)=faDirectory) then
+        ListBox.Add(FilePath + SR.Name);
+    end;
+    if (SubLevelMax>0) and (((faDirectory or faSymLink) and SR.Attr)=faDirectory) then  //Directories
     begin
       if IsRealDirectory(FilePath, SR.Name) then
         ListFiles(IncludeTrailingPathDelimiter(FilePath + SR.Name), Extension, ListBox, SubLevelMax-1);
     end;
   until FindNext(SR)<>0;
   FindClose(SR);
+
 end;
 
 function URLDecode(a: String): String;

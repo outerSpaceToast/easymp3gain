@@ -2,6 +2,7 @@
 AAC support (for ".mp4" and ".m4a" files, not raw ".aac")
 Ogg-Vorbis support (".ogg" and ".oga")
 GUI saves settings (target volume, etc..)
+Recursive adding of files now works on NTFS-drives
 New process-module (internally)
 Console Output can be viewed
 Accepts files as argument
