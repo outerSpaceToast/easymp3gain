@@ -1,4 +1,4 @@
-2008-??-?? | easyMP3Gain 0.4.0 beta
+2008-??-?? | easyMP3Gain 0.3.9 beta
 AAC support (for ".mp4" and ".m4a" files, not raw ".aac")
 Ogg-Vorbis support (".ogg" and ".oga")
 GUI saves settings (target volume, etc..)

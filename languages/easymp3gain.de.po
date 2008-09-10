@@ -88,7 +88,7 @@ msgid "89"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.LBLTARGETVOLUME.CAPTION
-msgid "Target Volume:"
+msgid "mp3 - Target Volume:"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.LBLTARGETVOLUMEUNIT.CAPTION

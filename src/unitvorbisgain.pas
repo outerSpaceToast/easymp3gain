@@ -37,6 +37,10 @@ procedure ReadVorbisComments(MediaGain: TMediaGain);
 
 implementation
 
+
+// ------------------------------------------------------------------------------------------------
+// ExtractProgressValue: Extracts the progress-value (0%-100%) out of the strings of the backend
+// ------------------------------------------------------------------------------------------------
 function ExtractProgressValue(MediaGain: TMediaGain; S: String; var CurrentSongItem: Integer): SmallInt;
 var
   a, b, i: Integer;
@@ -55,13 +59,12 @@ begin
       if MediaGain.SongItems[i].FileName = Trim(Copy(S,a+3,Length(S))) then
         CurrentSongItem := i;
     end;
-    (*if (a>0) and (b>0) then
-    begin
-      CurrentSongItem := StrToInt(Trim(Copy(S,a+1,b-a-1))) -1;  // starts with 0 not 1
-    end;*)
   end;
 end;
 
+// ---------------------------------------------------------------------------------------
+// ProcessProgress: Handles the progress-value (0%-100%), current file, etc. of the backend
+// ---------------------------------------------------------------------------------------
 procedure ProcessProgress(MediaGain: TMediaGain; strData: String; var FCurrentSongItem: Integer;
                           var FProgress: Byte);
 var
@@ -102,6 +105,9 @@ begin
   end;
 end;
 
+// ------------------------------------------------------------------------------------------------
+// CreateCommand: Creates the correct command for calling the backend
+// ------------------------------------------------------------------------------------------------
 procedure CreateCommand(MediaGain: TMediaGain; var cmd: String);
 var
   i: Integer;
@@ -130,7 +136,7 @@ begin
       end;
       mgaDeleteTagInfo:
       begin
-        cmd := cmd + '-c ';    // clean
+        cmd := cmd + '-c ';
         StatusText := strStatus_DeletingTagInfo;
       end;
       mgaAlbumGain:
@@ -139,7 +145,7 @@ begin
         begin
           SongItems[i].Volume_Difference:=RoundGainValue(TargetVolume-SongItems[i].Volume_Album);
         end;
-        cmd := cmd + '-a -f'; //'-g ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
+        cmd := cmd + '-a -f';
         StatusText := strStatus_Gaining;
       end;
       mgaTrackGain:
@@ -149,7 +155,7 @@ begin
       end;
       mgaConstantGain:
       begin
-        //cmd := cmd + '-g ' + Format('%3.1f',[SongItems[0]. VolumeGain]);   // -c = ignore clipping
+        cmd := '';
         StatusText := strStatus_Gaining //??
       end;
       mgaUndoChanges:
@@ -162,6 +168,10 @@ begin
   end; // with FMediaGain
 end;
 
+
+// ------------------------------------------------------------------------------------------------
+// ExtractNumber: Extracts the real-value out of a string
+// ------------------------------------------------------------------------------------------------
 function ExtractNumber(S: String): Real;
 var
   i,k,a,b: Integer;
@@ -193,6 +203,9 @@ begin
    Result := 0;
 end;
 
+// ---------------------------------------------------
+// TrimList: Trims every item of a TStringList
+// ---------------------------------------------------
 procedure TrimList(AList: TStringList);
 var
   i: Integer;
@@ -201,12 +214,18 @@ begin
     AList[i] := Trim(AList[i]);
 end;
 
+// ------------------------------------------------------------------------------------------------
+// ProcessResult: Used to parse the output of the backend, not needed anymore (see ReadVorbisComments)
+// ------------------------------------------------------------------------------------------------
 procedure ProcessResult(MediaGain: TMediaGain; strData: String; FHeaderList, FDataList: TStringList;
                         var SongItem: TSongItem);
 begin
   // not used
 end;
 
+// ------------------------------------------------------------------------------------------------
+// ReadVorbisComments: Reads the VorbisGain-Tags out of a Vorbis-file
+// ------------------------------------------------------------------------------------------------
 procedure ReadVorbisComments(MediaGain: TMediaGain);
 const
   strTrackPeak = 'REPLAYGAIN_TRACK_PEAK';

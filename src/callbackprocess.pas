@@ -18,6 +18,7 @@ type
     FProcess: TProcess;
     FCallBackEvent: TCallBackEvent;
     FCommandLine: String;
+    FCancel: Boolean;
     procedure CreateProcess;
     function ReadFromPipeStream(AStream: TInputPipeStream; var AString: String): Integer;
   public
@@ -26,6 +27,7 @@ type
     procedure Execute;
     property CallBackEvent: TCallBackEvent write FCallBackEvent;
   published
+    property Cancel: Boolean read FCancel write FCancel;
     property CommandLine: String read FCommandLine write FCommandLine;
   end;
 
@@ -72,11 +74,13 @@ var
 begin
   try
     CreateProcess;
+    FCancel := False;
     FProcess.CommandLine := FCommandLine;
     FProcess.Execute;
     while (FProcess.Running) do
     begin
       Sleep(10);
+      if FCancel then FProcess.Terminate(0);
       if ReadFromPipeStream(FProcess.Stderr,strTemp)>0 then
         FCallBackEvent(pcStdError, strTemp);
     end;

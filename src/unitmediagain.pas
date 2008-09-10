@@ -125,7 +125,6 @@ type
     SongItem: TSongItem;
     FConsoleOutput: TStrings;
     FCurrentSongItem: Integer;
-    FCancel: Boolean;
     function GetIsReady: Boolean;
     procedure ProcessProgress(strData: String);
     procedure ProcessResult(strData: String);
@@ -135,13 +134,15 @@ type
     procedure FreeProcess;
     procedure OnGainProcessEvent(pcChannel: TProcessChannel; strData: String);
     procedure DoCancel(value: Boolean);
+    function GetCancel: Boolean;
   public
     procedure Run;
     constructor Create;
     destructor Destroy; override; // reintroduce
     procedure MediaGainSync(value: TSyncEventType);
+    procedure SetCurrentSongItemName(strValue:String);
   published
-    property Cancel: Boolean read FCancel write DoCancel default false;
+    property Cancel: Boolean read GetCancel write DoCancel default false;
     property ConsoleOutput: TStrings read FConsoleOutput write FConsoleOutput;
     property Progress: Byte read FProgress;
     property StatusText: String read FStatusText write FStatusText;
@@ -301,11 +302,20 @@ end;
 
 // ----------------------------------- TMediaGain -------------------------------
 
+function TMediaGain.GetCancel:Boolean;
+begin
+  if Assigned(FGainProcess) then
+    Result := FGainProcess.Cancel
+  else
+    Result := False;
+end;
+
 procedure TMediaGain.DoCancel(value: Boolean);
 begin
   if (value and Assigned(FGainProcess)) then
     ;//FGainProcess.Free;
-  FCancel := value;
+  if Assigned(FGainProcess) then
+    FGainProcess.Cancel:=value;
 end;
 
 function TMediaGain.GetIsReady: Boolean;
@@ -348,6 +358,20 @@ begin
   MediaGainSync(setSongItemHasFinished);
 end;
 
+procedure TMediaGain.SetCurrentSongItemName(strValue: String);
+var
+  i: Integer;
+begin
+  for i:= 0 to SongItems.Count-1 do
+  begin
+    if (SongItems[i].FileName = strValue) then
+    begin
+      SongItem := SongItems[i];
+      break;
+    end;
+  end;
+end;
+
 procedure TMediaGain.MediaGainSync(value: TSyncEventType);
 var
   i: Integer;
@@ -379,6 +403,8 @@ begin
     end;
     setSongItemHasStarted:
     begin
+      if (SongItems.Count>FCurrentSongItem) and (FCurrentSongItem>=0) then
+         SongItem := SongItems[FCurrentSongItem];
       frmMP3GainMain.StatusBar.Panels[SB_FILENAME].Text := SongItem.FileName;
     end;
   end;

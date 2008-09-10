@@ -112,7 +112,6 @@ type
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure ListView1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
-    procedure ToolButton5Click(Sender: TObject);
     procedure btnAddFilesClick(Sender: TObject);
     procedure btnAddFolderClick(Sender: TObject);
     procedure btnAnalysisClick(Sender: TObject);
@@ -176,7 +175,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.1 beta SVN-0090';
+   APPLICATION_VERSION = '0.3.9 beta SVN-0091';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -367,8 +366,10 @@ begin
   try
     for i:= 1 to ParamCount do
     begin
-      if FileExists(Paramstr(i)) then
-        SL.Add(Paramstr(i));
+      if DirectoryExists(Paramstr(i)) then
+        AddFolder(Paramstr(i),MediaGainOptions.SubLevelCount)
+      else
+        AddSongItem(Paramstr(i));
     end;
     AddFiles(SL);
   finally
@@ -565,55 +566,6 @@ begin
     ProgressBar.Position := 0;
     ProcessQueue(Self);
   end;
-
- (*          // NEU SCHREIBEN MIT SPLITTING DER TASKLISTEN
-  SongItems := TSongItemList.Create;
-  try
-    for i:=0 to lvFiles.Items.Count-1 do
-    begin
-      if not (mnuOptionsOnlySelectedItems.Checked and (not lvFiles.Items[i].Selected)) then
-      begin
-        Inc(FilesToProcessCount);
-        SongItems.Add(lvFiles.Items[i].Data);
-        TSongItem(lvFiles.Items[i].Data).HasData := false;
-      end;
-    end;
-    if SongItems.Count<1 then exit;
-    MediaType := SongItems[0].MediaType;
-    for i:=0 to SongItems.Count-1 do
-    begin
-      if not (SongItems[i].MediaType=MediaType) then
-        MediaType := mtUnknown;
-    end;
-
-
-    if (AAction=mgaAlbumAnalyze) or ((AAction=mgaAlbumGain) and (MediaType=mtVorbis)) then
-    begin
-      a := TaskList.AddTask(nil, AAction, AVolume);
-      TaskList[a].SongItems.Assign(SongItems);
-    end
-    else // no AlbumAnalyze-Task and no AlbumGain with Vorbis
-    begin
-      for i:=0 to SongItems.Count-1 do
-      begin
-        TaskList.AddTask(SongItems[i], AAction, AVolume);
-        if (CheckTagInfoAfterwards) then
-        begin
-          Inc(FilesToProcessCount);
-          TaskList.AddTask(SongItems[i], mgaCheckTagInfo, AVolume);
-        end;
-      end;
-    end;
-
-    if MediaGain.IsReady then
-    begin
-      ProgressBarGeneral.Position := 0;
-      ProgressBar.Position := 0;
-      ProcessQueue(Self);
-    end;
-  finally
-    SongItems.Free;
-  end;   *)
 end;
 
 procedure TfrmMp3GainMain.UpdateView(AItem: TSongItem);
@@ -684,6 +636,8 @@ begin
     StatusBar.Panels[SB_STATUS].Text := strStatus_Finished;
   FilesToProcessCount := 0;
   FilesProcessedCount := 0;
+  ProgressBarGeneral.Position := ProgressBarGeneral.Max;
+  ProgressBar.Position := 0;
   LockControls(False);
 end;
 
@@ -957,20 +911,6 @@ procedure TfrmMp3GainMain.ListView1MouseMove(Sender: TObject;
 begin
 end;
 
-procedure TfrmMp3GainMain.ToolButton5Click(Sender: TObject);
-var
-  X: TStringList;
-begin
-  {$IFDEF DEBUG_VERSION}
-  X := TStringList.Create;
-  try
-    ListFiles(strHomeDir + '.wine/','*',X,10);
-  finally
-    X.Free;
-  end;
-  {$ENDIF}
-end;
-
 procedure TfrmMp3GainMain.btnAddFolderClick(Sender: TObject);
 begin
   mnuFileAddFolderClick(mnuFileAddFolderRecursive);
@@ -988,9 +928,6 @@ procedure TfrmMp3GainMain.btnCancelClick(Sender: TObject);
 var
   i: Integer;
 begin
-  (*for i:=TaskList.Count-1 downto 0 do
-    TaskList.DeleteTask(i);
-  if (MediaGain.MP3GainAction in [mgaTrackAnalyze, mgaAlbumAnalyze]) then*)
   MediaGain.Cancel := True;
   btnCancel.Enabled := False;
 end;
