@@ -175,7 +175,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.9 beta SVN-0091';
+   APPLICATION_VERSION = '0.3.9 beta SVN-0092';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -723,7 +723,10 @@ begin
   for i:=lvFiles.Items.Count-1 downto 0 do
   begin
     if (lvFiles.Items[i].Selected) then
+    begin
       DelSongItem(i);
+      {$IFDEF LCLqt}lvFiles.Selected := nil;{$ENDIF}
+    end;
   end;
 end;
 
