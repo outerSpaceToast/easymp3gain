@@ -35,7 +35,7 @@ type
   TfrmMP3GainGUIInfo = class(TForm)
     btnClose: TButton;
     Image1: TImage;
-    Label1: TLabel;
+    lblURL: TLabel;
     lblProgramName: TLabel;
     lblDescription: TLabel;
     Memo1: TMemo;

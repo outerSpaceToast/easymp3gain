@@ -3,18 +3,17 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
   Height = 300
   Top = 175
   Width = 471
-  HorzScrollBar.Page = 470
-  VertScrollBar.Page = 299
-  ActiveControl = btnClose
+  ActiveControl = PageControl
   Caption = 'About MP3Gain-GUI'
   ClientHeight = 300
   ClientWidth = 471
   Position = poScreenCenter
+  LCLVersion = '0.9.25'
   object lblProgramName: TLabel
     Left = 59
-    Height = 20
+    Height = 19
     Top = 20
-    Width = 116
+    Width = 102
     Caption = 'MP3Gain-GUI'
     Font.Height = -14
     Font.Style = [fsBold]
@@ -25,7 +24,6 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     Height = 32
     Top = 15
     Width = 32
-    Transparent = False
   end
   object PageControl: TPageControl
     Left = 8
@@ -47,17 +45,15 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Width = 351
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoSize = False
-        Caption = 'easyMP3gain, graphical user interface for mp3gain'#10#10'(c) 2007, Thomas Dieffenbach'
         ParentColor = False
         WordWrap = True
       end
-      object Label1: TLabel
+      object lblURL: TLabel
         Left = 85
         Height = 22
         Top = 137
         Width = 328
         AutoSize = False
-        Caption = 'http://easymp3gain.sourceforge.net'
         ParentColor = False
       end
     end

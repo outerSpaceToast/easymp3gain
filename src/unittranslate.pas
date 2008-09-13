@@ -31,7 +31,7 @@ procedure TranslateAll;
 
 implementation
 
-uses unitMain, unitConsoleOutput, unitGainConstant, unitInfo;
+uses unitMain, unitConsoleOutput, unitGainConstant, unitInfo, UnitOptions;
 
 procedure PassComponents(po: TPOFile; aComponent: TComponent);
 var
@@ -73,6 +73,7 @@ begin
       PassComponents(po,frmMP3GainConstant);
       PassComponents(po,frmMP3GainConsoleOutput);
       PassComponents(po,frmMP3GainGUIInfo);
+      PassComponents(po,frmMP3GainOptions);
     finally
       po.Free;
     end;

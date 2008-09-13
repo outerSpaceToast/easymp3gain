@@ -175,7 +175,8 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.9 beta SVN-0092';
+   APPLICATION_VERSION = '0.3.9 beta SVN-0093';
+   APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -188,7 +189,7 @@ type
   SI_COUNT = 7;
 
   resourcestring
-   APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain';
+   APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain, aacgain and vorbisgain';
    COLUMN_FILE = 'File';
    COLUMN_VOLUME = 'Volume';
    COLUMN_CLIPPING = 'clipping';
@@ -302,16 +303,13 @@ var
   i: SmallInt;
 begin
   Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
-  frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
   strWidgetset := 'not specified';
   {$IFDEF LCLwin32}strWidgetset := 'Win32';{$ENDIF}
   {$IFDEF LCLgtk}strWidgetset := 'GTK';{$ENDIF}
   {$IFDEF LCLgtk2}strWidgetset := 'GTK2';{$ENDIF}
   {$IFDEF LCLqt}strWidgetset := 'QT4';{$ENDIF}
   {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
-  frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
-     APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
-      #10#10 + '(c) 2007-2008, Thomas Dieffenbach';
+
   MediaGain := TMediaGain.Create;
   MediaGain.TargetVolume := REF_VOLUME;
   MediaGain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
@@ -340,12 +338,18 @@ begin
   frmMP3GainOptions.SettingsToControls;
     
   TaskList := TMediaGainTaskList.Create;
-  frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   
   strBinDir := IncludeTrailingPathDelimiter(Application.Location);
   
   TranslateAll;
+  
+  frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
+     APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
+      #10#10 + '(c) 2007-2008, Thomas Dieffenbach';
+  frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
+  frmMP3GainGUIInfo.lblURL.Caption := APPLICATION_URL;
+  frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
 
   lvFiles.Column[0].Caption                := COLUMN_FILE;
   lvFiles.Column[SI_VOLUME+1].Caption      := COLUMN_VOLUME;

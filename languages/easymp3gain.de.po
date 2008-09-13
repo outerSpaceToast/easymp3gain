@@ -1,40 +1,41 @@
 # translation of easymp3gain.po to deutsch
 # Thomas Dieffenbach <t.dieffenbach@gmx.de>, 2008.
+# Thomas Dieffenbach <giantics@gmx.de>, 2008.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: Thomas Dieffenbach <t.dieffenbach@gmx.de>\n"
-"PO-Revision-Date: 2008-07-23 19:56+0200\n"
+"Last-Translator: Thomas Dieffenbach <giantics@gmx.de>\n"
+"PO-Revision-Date: 2008-09-13 22:46+0200\n"
 "Project-Id-Version: easymp3gain\n"
-"Language-Team: deutsch <de@li.org>\n"
+"Language-Team: deutsch <giantics@gmx.de>\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "MIME-Version: 1.0\n"
 
 #: TFRMMP3GAINMAIN.BTNADDFILES.CAPTION
 msgid "Add File(s)"
-msgstr ""
+msgstr "Datei(en) hinzufügen"
 
 #: TFRMMP3GAINMAIN.BTNADDFILES.HINT
 msgid "Add File(s)..."
-msgstr ""
+msgstr "Datei(en) hinzufügen..."
 
 #: TFRMMP3GAINMAIN.BTNADDFOLDER.CAPTION
 msgid "Add Folder"
-msgstr ""
+msgstr "Verzeichnis hinzufügen"
 
 #: TFRMMP3GAINMAIN.BTNADDFOLDER.HINT
 msgid "Add Folder..."
-msgstr ""
+msgstr "Verzeichnis hinzufügen..."
 
 #: TFRMMP3GAINMAIN.BTNANALYSIS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.BTNANALYSIS.CAPTION"
 msgid "Analysis"
-msgstr ""
+msgstr "Analysieren"
 
 #: TFRMMP3GAINMAIN.BTNANALYSIS.HINT
 msgid "Analyze"
-msgstr ""
+msgstr "Analysieren"
 
 #: TFRMMP3GAINMAIN.BTNCANCEL.CAPTION
 msgid "Stop"
@@ -42,42 +43,42 @@ msgstr "Abbrechen"
 
 #: TFRMMP3GAINMAIN.BTNCANCEL.HINT
 msgid "Stop current operations"
-msgstr ""
+msgstr "Momentane Prozesse abbrechen"
 
 #: TFRMMP3GAINMAIN.BTNCLEARALL.CAPTION
 msgid "Clear All"
-msgstr ""
+msgstr "Alle Einträge entfernen"
 
 #: TFRMMP3GAINMAIN.BTNCLEARALL.HINT
 msgid "Remove all files"
-msgstr ""
+msgstr "Alle Dateien entfernen"
 
 #: TFRMMP3GAINMAIN.BTNCLEARFILES.CAPTION
 msgid "Clear File(s)"
-msgstr ""
+msgstr "Einträge entfernen"
 
 #: TFRMMP3GAINMAIN.BTNCLEARFILES.HINT
 msgid "Remove selected files"
-msgstr ""
+msgstr "Markierte Dateien entfernen"
 
 #: TFRMMP3GAINMAIN.BTNGAIN.CAPTION
 msgctxt "TFRMMP3GAINMAIN.BTNGAIN.CAPTION"
 msgid "Gain"
-msgstr ""
+msgstr "Laustärke anpassen"
 
 #: TFRMMP3GAINMAIN.BTNGAIN.HINT
 msgctxt "TFRMMP3GAINMAIN.BTNGAIN.HINT"
 msgid "Gain"
-msgstr ""
+msgstr "Lautstärke anpassen"
 
 #: TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.CAPTION"
 msgid "Only Selected Items"
-msgstr ""
+msgstr "Nur markierte Einträge"
 
 #: TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.HINT
 msgid "Process only selected items"
-msgstr ""
+msgstr "Nur markierte Einträge verarbeiten"
 
 #: TFRMMP3GAINMAIN.CAPTION
 msgid "easyMP3Gain"
@@ -85,221 +86,302 @@ msgstr "easyMP3Gain"
 
 #: TFRMMP3GAINMAIN.EDTVOLUME.TEXT
 msgid "89"
-msgstr ""
+msgstr "89"
 
 #: TFRMMP3GAINMAIN.LBLTARGETVOLUME.CAPTION
 msgid "mp3 - Target Volume:"
-msgstr ""
+msgstr "mp3 Lautstärke:"
 
 #: TFRMMP3GAINMAIN.LBLTARGETVOLUMEUNIT.CAPTION
 msgid "dB"
-msgstr ""
+msgstr "dB"
 
 #: TFRMMP3GAINMAIN.LVFILES.COLUMNS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.LVFILES.COLUMNS.CAPTION"
 msgid "clip (Album)"
-msgstr ""
+msgstr "clip (Album)"
 
 #: TFRMMP3GAINMAIN.MENUITEM1.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM1.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MENUITEM10.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM10.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MENUITEM2.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM2.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MENUITEM3.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM3.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MENUITEM4.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM4.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MENUITEM5.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM5.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MENUITEM6.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM6.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MENUITEM7.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MENUITEM7.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION"
 msgid "Analysis"
-msgstr ""
+msgstr "Analysieren"
 
 #: TFRMMP3GAINMAIN.MNUANALYSISALBUM.CAPTION
 msgid "Album analysis"
-msgstr ""
+msgstr "Analysiere Album"
 
 #: TFRMMP3GAINMAIN.MNUANALYSISCLEAR.CAPTION
 msgid "Clear"
-msgstr ""
+msgstr "Analyseergebnisse löschen"
 
 #: TFRMMP3GAINMAIN.MNUANALYSISTRACK.CAPTION
 msgid "Track anlysis"
-msgstr ""
+msgstr "Analysiere Lied"
 
 #: TFRMMP3GAINMAIN.MNUFILE.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUFILE.CAPTION"
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFILES.CAPTION
 msgid "Add files..."
-msgstr ""
+msgstr "Datei(en) hinzufügen..."
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFOLDER.CAPTION
 msgid "Add folder..."
-msgstr ""
+msgstr "Verzeichnis hinzufügen..."
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFOLDERRECURSIVE.CAPTION
 msgid "Add folder recursively..."
-msgstr ""
+msgstr "Verzeichnis hinzufügen (rekursiv)..."
 
 #: TFRMMP3GAINMAIN.MNUFILECLEARALLFILES.CAPTION
 msgid "Clear all files"
-msgstr ""
+msgstr "Alle Einträge löschen"
 
 #: TFRMMP3GAINMAIN.MNUFILECLEARSELECTED.CAPTION
 msgid "Clear selected file(s)"
-msgstr ""
+msgstr "Selektierte Einträge löschen"
 
 #: TFRMMP3GAINMAIN.MNUFILEEXIT.CAPTION
 msgid "Exit"
-msgstr ""
+msgstr "Programm beenden"
 
 #: TFRMMP3GAINMAIN.MNUFILESELECTALL.CAPTION
 msgid "Select all files"
-msgstr ""
+msgstr "Alle Dateien markieren"
 
 #: TFRMMP3GAINMAIN.MNUFILESELECTNONE.CAPTION
 msgid "Deselect all files"
-msgstr ""
+msgstr "Alle Dateien entmarkieren"
 
 #: TFRMMP3GAINMAIN.MNUHELP.CAPTION
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
 #: TFRMMP3GAINMAIN.MNUHELPINFO.CAPTION
 msgid "About easyMP3Gain..."
-msgstr ""
+msgstr "Über easyMP3Gain..."
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAIN.CAPTION
 msgid "Modify Gain"
-msgstr ""
+msgstr "Lautstärke anpassen"
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION
 msgid "Apply album gain"
-msgstr ""
+msgstr "Album anpassen"
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYCONSTANT.CAPTION
 msgid "Apply constant gain..."
-msgstr ""
+msgstr "Konstante Anpassung..."
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION
 msgid "Apply track gain"
-msgstr ""
+msgstr "Lied anpassen"
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINUNDO.CAPTION
 msgid "Undo"
-msgstr ""
+msgstr "Anpassungen rückgängig"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSADVANCED.CAPTION
 msgid "&Advanced"
-msgstr ""
+msgstr "&Erweitert"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSDELETETAGINFOS.CAPTION
 msgid "Delete Tags"
-msgstr ""
+msgstr "Tags aus Dateien entfernen"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION"
 msgid "Only Selected Items"
-msgstr ""
+msgstr "Nur markierte Einträge bearbeiten"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSREADTAGINFO.CAPTION
 msgid "Read Tags"
-msgstr ""
+msgstr "Tags auslesen"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSSHOWCONSOLEOUTPUT.CAPTION
 msgid "Show console output..."
-msgstr ""
+msgstr "Konsolenausgabe anzeigen..."
 
 #: TFRMMP3GAINMAIN.MNUSELECTIONINVERT.CAPTION
 msgid "Invert selection"
-msgstr ""
+msgstr "Markierung invertieren"
 
 #: TFRMMP3GAINMAIN.PMNANALYSISALBUM.CAPTION
 msgid "Album Analysis"
-msgstr ""
+msgstr "Analysiere Album"
 
 #: TFRMMP3GAINMAIN.PMNANALYSISTRACK.CAPTION
+msgctxt "TFRMMP3GAINMAIN.PMNANALYSISTRACK.CAPTION"
 msgid "Track Analysis"
-msgstr ""
+msgstr "Analysiere Lied"
 
 #: TFRMMP3GAINMAIN.PMNGAINALBUM.CAPTION
 msgctxt "TFRMMP3GAINMAIN.PMNGAINALBUM.CAPTION"
 msgid "Album Gain"
-msgstr ""
+msgstr "Album anpassen"
 
 #: TFRMMP3GAINMAIN.PMNGAINTRACK.CAPTION
 msgctxt "TFRMMP3GAINMAIN.PMNGAINTRACK.CAPTION"
 msgid "Track Gain"
-msgstr ""
+msgstr "Lied anpassen"
 
 #: TFRMMP3GAINMAIN.TOOLBAR1.CAPTION
 msgid "ToolBar1"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.TOOLBUTTON1.CAPTION
 msgid "ToolButton1"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.TOOLBUTTON2.CAPTION
 msgid "ToolButton2"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.TOOLBUTTON3.CAPTION
 msgid "ToolButton3"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.TOOLBUTTON4.CAPTION
 msgid "ToolButton4"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.TOOLBUTTON5.CAPTION
 msgid "ToolButton5"
-msgstr ""
+msgstr "-"
 
 #: TFRMMP3GAINMAIN.TOOLBUTTON6.CAPTION
 msgid "ToolButton6"
-msgstr ""
+msgstr "-"
+
+#: TFRMMP3GAINOPTIONS.BTNCANCEL.CAPTION
+msgid "&Cancel"
+msgstr "&Abbrechen"
+
+#: TFRMMP3GAINOPTIONS.BTNOK.CAPTION
+msgid "&OK"
+msgstr "&OK"
+
+#: TFRMMP3GAINOPTIONS.CHKAUTOREADATFILEADD.CAPTION
+msgid "Auto-read tags when adding files or directories"
+msgstr "Tags beim Laden automatisch auslesen"
+
+#: TFRMMP3GAINOPTIONS.CHKIGNORETAGS.CAPTION
+msgid "Ignore Tags (Do not read or write them)"
+msgstr "Tags ignorieren (nicht lesen und schreiben)"
+
+#: TFRMMP3GAINOPTIONS.CHKPRESERVEORIGINALTIMESTAMP.CAPTION
+msgid "Preserve original file timestamp"
+msgstr "Originalen Zeitstempel beibehalten"
+
+#: TFRMMP3GAINOPTIONS.CHKUSETEMPFILES.CAPTION
+msgid "Use temporary files"
+msgstr "Temporäre Dateien benutzen"
+
+#: TFRMMP3GAINOPTIONS.EDTAACGAINBACKEND.TEXT
+msgid "aacgain"
+msgstr "aacgain"
+
+#: TFRMMP3GAINOPTIONS.EDTMP3GAINBACKEND.TEXT
+msgid "mp3gain"
+msgstr "mp3gain"
+
+#: TFRMMP3GAINOPTIONS.EDTVORBISGAINBACKEND.TEXT
+msgid "vorbisgain"
+msgstr "vorbisgain"
+
+#: TFRMMP3GAINOPTIONS.LABEL1.CAPTION
+msgid "Number of sublevels when adding files:"
+msgstr "Anzahl der Unterverzeichnis-Ebenen (beim Hinzufügen):"
+
+#: TFRMMP3GAINOPTIONS.LBLAACGAINBACKEND.CAPTION
+msgid "AACGain backend:"
+msgstr "AACGain Backend:"
+
+#: TFRMMP3GAINOPTIONS.LBLMP3GAINBACKEND.CAPTION
+msgid "MP3Gain backend:"
+msgstr "MP3Gain Backend"
+
+#: TFRMMP3GAINOPTIONS.LBLVORBISGAINBACKEND.CAPTION
+msgid "VorbisGain backend:"
+msgstr "VorbisGain Backend:"
+
+#: TFRMMP3GAINGUIINFO.BTNCLOSE.CAPTION
+msgid "Close"
+msgstr "Schließen"
+
+#: TFRMMP3GAINGUIINFO.CAPTION
+msgid "About MP3Gain-GUI"
+msgstr "Über easyMP3Gain"
+
+#: TFRMMP3GAINGUIINFO.LBLPROGRAMNAME.CAPTION
+msgid "MP3Gain-GUI"
+msgstr "easyMP3Gain"
+
+#: TFRMMP3GAINGUIINFO.TBSAUTHORS.CAPTION
+msgid "Authors"
+msgstr "Autoren"
+
+#: TFRMMP3GAINGUIINFO.TBSLICENSE.CAPTION
+msgid "License"
+msgstr "Lizenz"
+
+#: TFRMMP3GAINGUIINFO.TBSTHANKSTO.CAPTION
+msgid "Thanks to"
+msgstr "Danke an"
+
+#: TFRMMP3GAINGUIINFO.TBSTRANSLATION.CAPTION
+msgid "Translation"
+msgstr "Übersetzung"
 
 #: unitmain.application_description
-msgid "graphical user interface for mp3gain"
-msgstr "Grafische Benutzeroberfläche für MP3Gain"
+msgid "graphical user interface for mp3gain, aacgain and vorbisgain"
+msgstr "Grafische Benutzeroberfläche für MP3Gain, AACGain und VorbisGain"
 
 #: unitmain.column_albumgain
 msgctxt "unitmain.column_albumgain"
@@ -387,7 +469,7 @@ msgstr "Mache Änderungen rückgängig..."
 
 #: unitmediagain.strstatus_unknownmediatype
 msgid "Unknown Media Type:"
-msgstr ""
+msgstr "Unbekannter Datei-Typ"
 
 #: unitmediagain.stryes
 msgid "yes"
