@@ -61,7 +61,7 @@ var
   PODirectory, Lang, FallbackLang: String;
   po : TPOFile;
 begin
-  PODirectory := strBinDir + '../languages/';    // change that for release
+  PODirectory := strBinDir + './lang/';    // change that for release
   GetLanguageIDs(Lang, FallbackLang); // in unit gettext
   TranslateUnitResourceStrings('UnitMain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
   TranslateUnitResourceStrings('UnitMediaGain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);

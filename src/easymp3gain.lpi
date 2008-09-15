@@ -8,7 +8,7 @@
       <IconPath Value="./"/>
       <TargetFileExt Value=""/>
       <Title Value="easymp3gain"/>
-      <ActiveEditorIndexAtStart Value="1"/>
+      <ActiveEditorIndexAtStart Value="2"/>
     </General>
     <i18n>
       <OutDir Value="../languages"/>
@@ -264,9 +264,11 @@
         <Filename Value="unittranslate.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitTranslate"/>
-        <CursorPos X="74" Y="34"/>
-        <TopLine Value="1"/>
+        <CursorPos X="37" Y="64"/>
+        <TopLine Value="43"/>
+        <EditorIndex Value="2"/>
         <UsageCount Value="135"/>
+        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="/usr/lib/lazarus/lcl/include/wincontrol.inc"/>
