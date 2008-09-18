@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<CONFIG>
-  <Compiler Value="/usr/bin/ppc386" Date="1211922229"/>
-  <Params Value=" -S2cgi -OG2 -TLinux -Pi386 -gl -vewnhi -l -Fu/usr/lib/lazarus/lcl/units/i386-linux/ -Fu/usr/lib/lazarus/lcl/units/i386-linux/qt/ -Fu/usr/lib/lazarus/packager/units/i386-linux/ -Fu. -oeasymp3gain -dLCL -dLCLqt easymp3gain.lpr"/>
-</CONFIG>
