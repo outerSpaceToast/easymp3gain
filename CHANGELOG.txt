@@ -1,0 +1,32 @@
+2008-09-16 | easyMP3Gain 0.4.0 beta
+AAC support (for ".mp4" and ".m4a" files, not raw ".aac")
+Ogg-Vorbis support (".ogg" and ".oga")
+GUI saves settings (target volume, etc..)
+Recursive adding of files now works on NTFS-drives
+New process-module (internally)
+Console Output can be viewed
+Localization-system changed to GNU gettext
+Automatic album detection (by directory)
+Accepts files as argument
+Several other improvements
+
+2008-03-24 | easyMP3Gain 0.3.0 beta
+Files can now easily be added by Drag&Drop
+Included a dialog with some options (auto-read tags, ignore tags, use temporary files, keep original file timestamp)
+Added Button to cancel outstanding operations
+Icons for all buttons
+Files can now be sorted by clicking on columns
+mp3gain is being aborted when exiting easyMP3Gain
+
+2008-02-22 | easyMP3Gain 0.2.0 alpha:
+Album-analyzing added
+Statusbar showing things like current operation, file, file count etc.
+New icon-theme (Tango)
+Second progressbar showing general progress
+Button added which allows to perform changes only on selected items.
+Several small improvements
+
+2007-10-03 | easyMP3Gain 0.1.0 alpha:
+First preview of easyMP3Gain. 
+Track gain, -analysis, constant gain, tag-info-reading and -deleting should work.
+No album-analyze support yet.
