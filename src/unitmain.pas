@@ -176,7 +176,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.9 beta SVN-0097';
+   APPLICATION_VERSION = '0.4.0 beta'; //'0.3.9 beta SVN-0097';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    
   SI_VOLUME = 0;
