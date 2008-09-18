@@ -441,7 +441,7 @@ msgid "An error occured:"
 msgstr ""
 
 #: unitmediagain.strstatus_exitcode127
-msgid "Error: Cannot start backend. Installed?"
+msgid "Error: Cannot start %s. Installed?"
 msgstr ""
 
 #: unitmediagain.strstatus_finished

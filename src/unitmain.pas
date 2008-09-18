@@ -158,6 +158,7 @@ type
     //procedure LoadLanguageFile(AFile: String);
     procedure AddFiles(SL: TStrings);
     procedure AddFolder(S: String; sublevels: Integer);
+    procedure AddFileAndDirectoryList(SL: TStringList; sublevels: Integer);
     procedure UpdateFileCount;
     procedure SortListView(Lv:TListView; Index:integer; Reverse: Boolean);
     function AddTask(ASongItem: TSongItem; AMediaGainAction: TMediaGainAction; AVolume: Double): Integer;
@@ -175,7 +176,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.3.9 beta SVN-0096';
+   APPLICATION_VERSION = '0.3.9 beta SVN-0097';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    
   SI_VOLUME = 0;
@@ -259,6 +260,7 @@ var
   i: Integer;
 begin
   i:=1;
+  Result := '';
   while i<=Length(a) do
   begin
     if not (a[i]='%') then
@@ -299,8 +301,8 @@ end;
 procedure TfrmMp3GainMain.Init;
 var
   SL:TStringList;
-  bmp: TBitmap;
   i: SmallInt;
+  aSubLevelCount: Byte;
 begin
   Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
   strWidgetset := 'not specified';
@@ -366,130 +368,19 @@ begin
   lblTargetVolumeUnit.Left := edtVolume.Left + 50;
   pnlVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
   
+  if ParamStr(1)='-r' then
+    aSubLevelCount := MediaGainOptions.SubLevelCount
+  else
+    aSubLevelCount := 0;
   SL := TStringList.Create;
   try
     for i:= 1 to ParamCount do
-    begin
-      if DirectoryExists(Paramstr(i)) then
-        AddFolder(Paramstr(i),MediaGainOptions.SubLevelCount)
-      else
-        AddSongItem(Paramstr(i));
-    end;
-    AddFiles(SL);
+      SL.Add(Paramstr(i));
+    AddFileAndDirectoryList(SL,aSubLevelCount);
   finally
     SL.Free;
   end;
-  
-
-  (*SL := TStringList.Create;
-  try
-    ListFiles(Application.Location,'lng',SL,0);
-    Writeln('Searching for language-file in '+Application.Location+'  found: ',SL.Count);
-    if SL.Count>0 then
-      LoadLanguageFile(SL[0]);
-  finally
-    SL.Free;
-  end; *)
 end;
-
-(*procedure TfrmMp3GainMain.LoadLanguageFile(AFile: String);
-var
-  SL: TStringList;
-  i: Integer;
-begin
-  SL := TStringList.Create;
-  try
-    SL.LoadFromFile(AFile);
-    if not (Copy(SL.Values['version'],1,5)='0.3.1') then
-    begin
-      MessageDlg('Wrong language-pack version.',mtError,[mbOK],0);
-      Exit;
-    end;
-    strStatus_Analyzing := SL.Values['Status_Analyzing'];
-    strStatus_Gaining := SL.Values['Status_Gaining'];
-    strStatus_Finished := SL.Values['Status_Finished'];
-    strStatus_CheckingTagInfo := SL.Values['Status_CheckingTagInfo'];
-    strStatus_DeletingTagInfo := SL.Values['Status_DeletingTagInfo'];
-    strStatus_UndoingChanges := SL.Values['Status_UndoingChanges'];
-    strStatus_ExitCode127 := SL.Values['Status_ExitCode127'];
-    strAbout := SL.Values['About'];
-    strFiles := SL.Values['Files'];
-    mnuFile.Caption := SL.Values['mnuFile'];
-    mnuFileAddFolder.Caption := SL.Values['mnuFileAddFolder'];
-    mnuFileAddFolderRecursive.Caption := SL.Values['mnuFileAddFolderRecursively'];
-    mnuFileAddFiles.Caption := SL.Values['mnuFileAddFiles'];
-    mnuFileClearSelected.Caption := SL.Values['mnuFileClearSelected'];
-    mnuFileClearAllFiles.Caption := SL.Values['mnuFileClearAllFiles'];
-    mnuFileExit.Caption := SL.Values['mnuFileExit'];
-    mnuAnalysis.Caption := SL.Values['mnuAnalysis'];
-    mnuAnalysisTrack.Caption := SL.Values['mnuAnalysisTrack'];
-    mnuAnalysisAlbum.Caption := SL.Values['mnuAnalysisAlbum'];
-    mnuAnalysisClear.Caption := SL.Values['mnuAnalysisClear'];
-    mnuModifyGain.Caption := SL.Values['mnuModifyGain'];
-    mnuModifyGainApplyTrack.Caption := SL.Values['mnuModifyGainApplyTrack'];
-    mnuModifyGainApplyAlbum.Caption := SL.Values['mnuModifyGainApplyAlbum'];
-    mnuModifyGainApplyConstant.Caption := SL.Values['mnuModifyGainApplyConstant'];
-    mnuModifyGainUndo.Caption := SL.Values['mnuModifyGainUndo'];
-    mnuOptions.Caption := SL.Values['mnuOptions'];
-    mnuOptionsReadTagInfo.Caption := SL.Values['mnuOptionsReadTagInfo'];
-    mnuOptionsDeleteTagInfos.Caption := SL.Values['mnuOptionsDeleteTagInfos'];
-    mnuOptionsOnlySelectedItems.Caption := SL.Values['mnuOptionsOnlySelectedItems'];
-    mnuOptionsAdvanced.Caption := SL.Values['mnuOptionsAdvanced'];
-    mnuHelp.Caption := SL.Values['mnuHelp'];
-    mnuHelpInfo.Caption := SL.Values['mnuHelpInfo'];
-    
-    btnAddFiles.Hint := mnuFileAddFiles.Caption;
-    btnAddFolder.Hint := mnuFileAddFolder.Caption;
-    btnAnalysis.Hint := mnuAnalysis.Caption;
-    btnGain.Hint := mnuModifyGain.Caption;
-    btnClearFiles.Hint := mnuFileClearSelected.Caption;
-    btnClearAll.Hint := mnuFileClearAllFiles.Caption;
-    btnOnlySelectedItems.Hint := mnuOptionsOnlySelectedItems.Caption;
-    btnCancel.Hint := SL.Values['CancelHint'];
-    pmnAnalysisTrack.Caption := mnuAnalysisTrack.Caption;
-    pmnAnalysisAlbum.Caption := mnuAnalysisAlbum.Caption;
-    pmnGainTrack.Caption := mnuModifyGainApplyTrack.Caption;
-    pmnGainAlbum.Caption := mnuModifyGainApplyAlbum.Caption;
-
-    for i:= 0 to lvFiles.Columns.Count-1 do
-      lvFiles.Columns[i].Caption := SL.Values['FileBoxColumn'+IntToStr(i)];
-      
-    lblTargetVolume.Caption := SL.Values['TargetVolume'];
-    lblTargetVolumeUnit.Caption := SL.Values['TargetVolumeUnit'];
-    lblTargetVolume.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolume.Caption);
-    lblTargetVolumeUnit.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolumeUnit.Caption);
-    edtVolume.Left := lblTargetVolume.Width + 10;
-    lblTargetVolumeUnit.Left := edtVolume.Left + 50;
-    pnlVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
-
-    frmMP3GainGUIInfo.btnClose.Caption := SL.Values['Close'];
-    frmMP3GainGUIInfo.tbsAbout.Caption := SL.Values['InfoAbout'];
-    frmMP3GainGUIInfo.tbsAuthors.Caption := SL.Values['InfoAuthors'];
-    frmMP3GainGUIInfo.tbsTranslation.Caption := SL.Values['InfoTranslation'];
-    frmMP3GainGUIInfo.tbsLicense.Caption := SL.Values['InfoLicence'];
-    frmMP3GainGUIInfo.tbsThanksTo.Caption := SL.Values['InfoThanksTo'];
-    frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
-      SL.Values['InfoDescription'] +#10 +'Widgetset: '+strWidgetset +
-      #10#10 + '(c) 2007, Thomas Dieffenbach';
-    frmMP3GainGUIInfo.Caption := SL.Values['InfoAbout'] + ' ' + APPLICATION_NAME;
-
-    frmMP3GainConstant.btnCancel.Caption := SL.Values['Cancel'];
-    frmMP3GainConstant.btnOK.Caption := SL.Values['OK'];
-    
-    frmMP3GainOptions.Caption := SL.Values['Options_Caption'];
-    frmMP3GainOptions.btnOK.Caption := SL.Values['OK'];
-    frmMP3GainOptions.btnCancel.Caption := SL.Values['Cancel'];
-    frmMP3GainOptions.chkAutoReadAtFileAdd.Caption := SL.Values['Options_chkAutoReadAtFileAdd'];;
-    frmMP3GainOptions.chkIgnoreTags.Caption := SL.Values['Options_chkIgnoreTags'];;
-    frmMP3GainOptions.chkPreserveOriginalTimestamp.Caption := SL.Values['Options_chkPreserveOriginalTimestamp'];;
-    frmMP3GainOptions.chkUseTempFiles.Caption := SL.Values['Options_chkUseTempFiles'];;
-    
-    boolStr[FALSE] := SL.Values['clipping_no'];
-    boolStr[TRUE] := SL.Values['clipping_yes'];
-  finally
-    SL.Free;
-  end;
-end;    *)
 
 procedure TfrmMp3GainMain.LockControls(lock: Boolean);
 var
@@ -524,8 +415,8 @@ var
   iListIdx: Integer;
   bListIdxFound: Boolean;
 begin
+  Result := -1;
   bListIdxFound := False;
-  
   if (AMediaGainAction=mgaAlbumAnalyze) or
      ((AMediaGainAction=mgaAlbumGain) and (ASongItem.MediaType=mtVorbis)) then
   begin
@@ -540,17 +431,21 @@ begin
   end;
   
   if (bListIdxFound) then
-    TaskList[iListIdx].SongItems.Add(ASongItem)
+  begin
+    TaskList[iListIdx].SongItems.Add(ASongItem);
+    Result := iListIdx;
+  end
   else
+  begin
     TaskList.AddTask(ASongItem, AMediaGainAction, AVolume);
+    Result := TaskList.Count-1;
+  end;
   Inc(FilesToProcessCount);
 end;
 
 procedure TfrmMp3GainMain.QueueFiles(AAction: TMediaGainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
 var
   i: Integer;
-  a: Integer;
-  MediaType: TMediaType;
 begin
   for i:=0 to lvFiles.Items.Count-1 do
   begin
@@ -559,7 +454,8 @@ begin
       TSongItem(lvFiles.Items[i].Data).HasData := false;
       TSongItem(lvFiles.Items[i].Data).HasAlbumData := false;
       AddTask(TSongItem(lvFiles.Items[i].Data), AAction, AVolume);
-      if (CheckTagInfoAfterwards) or (TSongItem(lvFiles.Items[i].Data).MediaType=mtVorbis) then
+      if (CheckTagInfoAfterwards) or (TSongItem(lvFiles.Items[i].Data).MediaType=mtVorbis)
+         and (not (AAction=mgaCheckTagInfo)) then
         AddTask(TSongItem(lvFiles.Items[i].Data), mgaCheckTagInfo, AVolume);
     end;
   end;
@@ -607,11 +503,10 @@ end;
 procedure TfrmMp3GainMain.ProcessQueue(Sender: TObject);
 var
   i: Integer;
-  n,k, iListIdx: Integer;
+  n,k: Integer;
 begin
   LockControls(True);
   MediaGain.Cancel := False;
-
   while ((TaskList.Count >0) and (not MediaGain.Cancel)) do
   begin
     n := 0;
@@ -653,11 +548,13 @@ begin
   for i:=0 to SL.Count-1 do
   begin
     SongItem := AddSongItem(SL[i]);
-    if (MediaGainOptions.AutoReadAtFileAdd and (SongItem<>nil)) then
+    if (SongItem = nil) then continue;
+    if (MediaGainOptions.AutoReadAtFileAdd) then
     begin
       AddTask(SongItem, mgaCheckTagInfo, MediaGain.TargetVolume);
     end;
   end;
+  UpdateFileCount;
   if MediaGainOptions.AutoReadAtFileAdd then
   begin
     if MediaGain.IsReady then
@@ -671,16 +568,34 @@ var
 begin
   SL := TStringList.Create;
   try
-    ListFiles(IncludeTrailingPathDelimiter(S),['mp3','ogg','mp4','m4a'], SL, sublevels); // array of Endungen
-    AddFiles(SL);
+    SL.Add(S);
+    AddFileAndDirectoryList(SL, sublevels);
   finally
     SL.Free;
   end;
 end;
 
-procedure TfrmMp3GainMain.mnuFileAddFilesClick(Sender: TObject);
+procedure TfrmMp3GainMain.AddFileAndDirectoryList(SL: TStringList; sublevels: Integer);
 var
   i: Integer;
+  aFileList: TStringList;
+begin
+  aFileList := TStringList.Create;
+  try
+    for i:=0 to SL.Count-1 do
+    begin
+      if DirectoryExists(SL[i]) then
+        ListFiles(IncludeTrailingPathDelimiter(SL[i]),['mp3','ogg','mp4','m4a'], aFileList, sublevels) // array of Endungen
+      else
+        aFileList.Add(SL[i]);
+    end;
+    AddFiles(aFileList);
+  finally
+    aFileList.Free;
+  end;
+end;
+
+procedure TfrmMp3GainMain.mnuFileAddFilesClick(Sender: TObject);
 begin
   {$IFDEF LCLqt}OpenDialog.Files.Clear;{$ENDIF}
   if not OpenDialog.Execute then exit;
@@ -836,6 +751,8 @@ var
   k: SmallInt;
   strExt: String;
 begin
+  Result := nil;
+  if (not FileExists(AName)) then exit;
   ListViewItem := lvFiles.Items.Add;
   with ListViewItem do
   begin
@@ -862,7 +779,7 @@ begin
     end;
   end;
   Result := SongItem;
-  UpdateFileCount;
+  Writeln('added: ' + SongItem.FileName);
 end;
 
 procedure TfrmMp3GainMain.DelSongItem(AItemIndex: Integer);
@@ -902,15 +819,16 @@ procedure TfrmMp3GainMain.FormDropFiles(Sender: TObject;
 var
   i:Integer;
   S: String;
+  SL: TStringList;
 begin
-   for i:=0 to Length(FileNames)-1 do
-   begin
-     S := URLDecode(FileNames[i]);
-     if DirectoryExists(S) then
-       AddFolder(S,MediaGainOptions.SubLevelCount)
-     else
-       AddSongItem(S);
-   end;
+  SL := TStringList.Create;
+  try
+    for i:=0 to Length(FileNames)-1 do
+      SL.Add(URLDecode(FileNames[i]));
+    AddFileAndDirectoryList(SL, MediaGainOptions.SubLevelCount);
+  finally
+    SL.Free;
+  end;
 end;
 
 procedure TfrmMp3GainMain.ListView1MouseMove(Sender: TObject;

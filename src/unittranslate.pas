@@ -35,7 +35,7 @@ uses unitMain, unitConsoleOutput, unitGainConstant, unitInfo, UnitOptions;
 
 procedure PassComponents(po: TPOFile; aComponent: TComponent);
 var
-  i,k: Integer;
+  i: Integer;
   comp: TComponent;
 begin
   for i:=0 to aComponent.ComponentCount-1 do

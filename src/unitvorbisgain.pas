@@ -43,7 +43,7 @@ implementation
 // ------------------------------------------------------------------------------------------------
 function ExtractProgressValue(MediaGain: TMediaGain; S: String; var CurrentSongItem: Integer): SmallInt;
 var
-  a, b, i: Integer;
+  a, i: Integer;
 begin
   if Pos('%',S)<>0 then
   begin
@@ -174,7 +174,7 @@ end;
 // ------------------------------------------------------------------------------------------------
 function ExtractNumber(S: String): Real;
 var
-  i,k,a,b: Integer;
+  i,a,b: Integer;
   strResult: String;
   NumChars : set of #1..#254;
 begin
@@ -240,6 +240,8 @@ var
 begin
   VorbisComment := TVorbisComment.Create;
   try
+    MediaGain.MediaGainSync(setSongItemHasStarted);
+    Writeln('Reading Vorbis-Tags from: ' + MediaGain.SongItems[0].FileName);
     Comments := VorbisComment.ReadComments(MediaGain.SongItems[0].FileName, bSuccess);
     if not bSuccess then exit;
     for i:=0 to Length(Comments)-1do

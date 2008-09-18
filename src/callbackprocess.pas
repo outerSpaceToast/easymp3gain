@@ -73,6 +73,7 @@ var
   strTemp: String;
 begin
   try
+    strTemp := '';
     CreateProcess;
     FCancel := False;
     FProcess.CommandLine := FCommandLine;
@@ -94,8 +95,8 @@ begin
     else
       FCallBackEvent(pcError, '');
   end;
+  FreeAndNil(FProcess);
   FCallBackEvent(pcFinished, '');
-  FProcess.Free;
 end;
 
 procedure TCallbackProcess.CreateProcess;

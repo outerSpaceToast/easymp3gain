@@ -194,7 +194,7 @@ resourcestring
   strStatus_CheckingTagInfo = 'Checking Tag Info...';
   strStatus_DeletingTagInfo = 'Deleting Tag Info...';
   strStatus_UndoingChanges = 'Undoing Changes...';
-  strStatus_ExitCode127 = 'Error: Cannot start backend. Installed?';
+  strStatus_ExitCode127 = 'Error: Cannot start %s. Installed?';
   strStatus_ErrorOccured = 'An error occured:';
   strStatus_Aborted = 'Aborted.';
   strStatus_UnknownMediaType = 'Unknown Media Type:';
@@ -375,17 +375,29 @@ end;
 procedure TMediaGain.MediaGainSync(value: TSyncEventType);
 var
   i: Integer;
+  strBackend: String;
 begin
   case value of
     setProgress:
+    begin
       frmMP3GainMain.ProgressBar.Position := FProgress;
+    end;
     setStatusText:
       frmMP3GainMain.StatusBar.Panels[SB_STATUS].Text := FStatusText;
     setStatusCode:
       if (FExitCodeProcess<>0) then
       begin
         if FExitCodeProcess=127 then
-          frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := strStatus_ExitCode127
+        begin
+          strBackend := 'backend';
+          if (SongItem<>nil) then
+          begin
+            if (SongItem.MediaType=mtMP3) then strBackend:=MediaGainOptions.strMP3GainBackend;
+            if (SongItem.MediaType=mtAAC) then strBackend:=MediaGainOptions.strAACGainBackend;
+            if (SongItem.MediaType=mtVorbis) then strBackend:=MediaGainOptions.strVorbisGainBackend;
+          end;
+          frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := Format(strStatus_ExitCode127,[strBackend])
+        end
         else if (FExitCodeProcess=STATUSCODE_UNKNOWNMEDIATYPE) then
           frmMP3GainMain.StatusBar.Panels[SB_ERROR].Text := strStatus_UnknownMediaType + ' ' + SongItem.ExtractedFileName
         else
@@ -475,7 +487,7 @@ end;
 
 procedure TMediaGain.FreeProcess;
 begin
-  FGainProcess.Free;
+  FreeAndNil(FGainProcess);
 end;
 
 procedure TMediaGain.OnGainProcessEvent(pcChannel: TProcessChannel; strData: String);

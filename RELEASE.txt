@@ -1,8 +1,19 @@
-0.3.9 beta:
-easyMP3Gain is a graphical user interface for mp3gain. The Interface looks similar to the one available for Windows.
-It's a native GTK/GTK+ application, so it runs on Linux and FreeBSD/OpenBSD (not tested yet).
-A QT-Version will be available soon.
-This version contains new features like ogg-vorbis and aac-support, recursive adding on NTFS-drives, viewable console-output, etc.
+0.4.0 beta:
+easyMP3Gain is a graphical user interface for mp3gain, aacgain and vorbisgain. The Interface looks similar to the one available for Windows.
+It's a native GTK/GTK2 application, so it runs on Linux and FreeBSD/OpenBSD (not tested yet).
+A QT4-Version will be available soon.
+This version contains new features like:
+ - AAC support (for ".mp4" and ".m4a" files, not raw ".aac")
+ - Ogg-Vorbis support (".ogg" and ".oga")
+ - GUI saves settings (target volume, etc..)
+ - Recursive adding of files now works on NTFS-drives
+ - New process-module (internally)
+ - Console Output can be viewed
+ - Localization-system changed to GNU gettext
+ - Automatic album detection (by directory)
+ - Accepts files as argument
+ - Several other improvements
 
 known bugs:
-Drag&Drop does not work in the QT-Version!
+ - Drag & Drop does not work in the QT4-Version!
+ - MultiSelect does not work in the QT4-Version!

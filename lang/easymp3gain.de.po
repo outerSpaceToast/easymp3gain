@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Thomas Dieffenbach <giantics@gmx.de>\n"
-"PO-Revision-Date: 2008-09-13 22:46+0200\n"
+"PO-Revision-Date: 2008-09-18 16:35+0200\n"
 "Project-Id-Version: easymp3gain\n"
 "Language-Team: deutsch <giantics@gmx.de>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -452,8 +452,8 @@ msgid "An error occured:"
 msgstr "Ein Fehler trat auf:"
 
 #: unitmediagain.strstatus_exitcode127
-msgid "Error: Cannot start backend. Installed?"
-msgstr "Kann mp3gain nicht starten. Installiert?"
+msgid "Error: Cannot start %s. Installed?"
+msgstr "Kann %s nicht starten. Installiert?"
 
 #: unitmediagain.strstatus_finished
 msgid "Finished."
