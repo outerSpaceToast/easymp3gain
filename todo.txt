@@ -1,14 +1,16 @@
 Meldung wenn Gain aber noch kein Analyse
-Anzeige: Datei x von y
-Option: "Tag neu schreiben" Ja/Nein
-Icons (alpha)
-Vorbis-Support
-Files and Folders as argument
 Bei rekursiver Ordnerdurchsuche: Nur richtige Dateitypen
-Rekursive Ordner-Aufnahme: NTFS! (FAT32?)
+Option: "Tag neu schreiben" Ja/Nein
 QT-Version
+Max-noclip gain
+andere Target Value bei ogg
+FLAC
 
 done:
+Files and Folders as argument
+Rekursive Ordner-Aufnahme: NTFS! (FAT32?)
+Anzeige: Datei x von y
+Vorbis-Support
 Copyright-Datum ändern
 Lautstärke-Abstand in Toolbar!
 Liste einführen mit neuen zu lesenden Dateien (Hinzufügen)
