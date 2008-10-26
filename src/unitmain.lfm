@@ -12,9 +12,10 @@ object frmMp3GainMain: TfrmMp3GainMain
   OnClose = FormClose
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
+  ParentFont = False
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.26'
   object ToolBar1: TToolBar
     Height = 50
     Width = 806

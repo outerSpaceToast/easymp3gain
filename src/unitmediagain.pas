@@ -125,6 +125,7 @@ type
     SongItem: TSongItem;
     FConsoleOutput: TStrings;
     FCurrentSongItem: Integer;
+    FCancel: Boolean;
     function GetIsReady: Boolean;
     procedure ProcessProgress(strData: String);
     procedure ProcessResult(strData: String);
@@ -307,13 +308,12 @@ begin
   if Assigned(FGainProcess) then
     Result := FGainProcess.Cancel
   else
-    Result := False;
+    Result := FCancel;
 end;
 
 procedure TMediaGain.DoCancel(value: Boolean);
 begin
-  if (value and Assigned(FGainProcess)) then
-    ;//FGainProcess.Free;
+  FCancel := value;
   if Assigned(FGainProcess) then
     FGainProcess.Cancel:=value;
 end;

@@ -5,8 +5,10 @@ QT-Version
 Max-noclip gain
 andere Target Value bei ogg
 FLAC
+save window size
 
 done:
+repair "Cancel" functionality
 Files and Folders as argument
 Rekursive Ordner-Aufnahme: NTFS! (FAT32?)
 Anzeige: Datei x von y

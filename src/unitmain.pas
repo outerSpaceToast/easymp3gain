@@ -176,7 +176,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.0 beta'; //'0.3.9 beta SVN-0097';
+   APPLICATION_VERSION = '0.4.1 beta SVN-0104';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    
   SI_VOLUME = 0;
@@ -507,8 +507,9 @@ var
 begin
   LockControls(True);
   MediaGain.Cancel := False;
-  while ((TaskList.Count >0) and (not MediaGain.Cancel)) do
+  while ((TaskList.Count >0) {and (not MediaGain.Cancel)}) do
   begin
+    if MediaGain.Cancel then break;
     n := 0;
     for k:=0 to TaskList[n].SongItems.Count-1 do
     begin
