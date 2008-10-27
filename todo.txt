@@ -6,6 +6,7 @@ Max-noclip gain
 andere Target Value bei ogg
 FLAC
 save window size
+help window
 
 done:
 repair "Cancel" functionality
