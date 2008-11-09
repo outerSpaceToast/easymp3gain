@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>easyMP3Gain Help</title>
+    <meta content="">
+    <style>div.code { font-family:"courier",monospace;}</style>
+  </head>
+  <body>
+<h2>easyMP3Gain</h2><hr><p>
+
+<h5>Adding files to the list:</h5>
+There are 3 possibilities to add files to the list.
+<ol><li>Select "Add files" or "Add files recursively" in the menu "File".</li>
+<li>Drag & Drop: Drag files from a file manager and drop them into the easyMP3Gain window.</li>
+<li>start easyMP3Gain with parameters. Some examples:
+<TABLE border="0" width="0">
+  <tbody>
+    <tr>
+      <td><div class="code">easymp3gain '/home/song1.mp3' '/home/mymusic/'</div></td>
+      <td>adds song1.mp3 and all songs in /home/mymusic</td>
+    </tr>
+    <tr>
+      <td><div class="code">easymp3gain -r '/home/mymusic'</div></td>
+      <td>adds all songs in /home/mymusic recursively</td>
+    </tr>
+  </tbody>
+</TABLE>
+</li> </ol>
+<hr>
+<h5>MP3/AAC-Files vs. Ogg-Vorbis-Files:</h5>
+<p>MP3-Files are handled in an other way than Ogg-Vorbis-Files.
+The handling depends on the backends mp3gain and vorbisgain.</p>
+
+<p>Mp3-Files can be analyzed and "hard-gained". In the analyze-process volume-tags are written in the mp3-file.
+The Column "Track Gain" shows, how much the file will be gained when clicking on "Gain".
+In this process the volume of the files is changed (hard-gained).</p>
+
+<p>Vorbis-files can't be "hard-gained". If you click on "Gain" the file is analyzed and the difference to 89dB is written in the file (only as a tag).
+Some media-players read this tag and adjust the volume. In contrast to "mp3gain" "vorbisgain" has a fixed reference at 89dB.</p>
+<p><h5>Example:</h5>
+easyMP3Gain shows: Volume: 98.8; Gain: (-9.8).<br>This means, the file has a real volume of 98.8, but the player reads the gain-tag and adjusts the volume to: 98.8-9.8 = 89 dB!
+</p>
+
+<p><h5>Why is there a "?" in the "Album Volume" column?</h5>
+There is no information about the album volume in ogg-vorbis files. Only the album-gain tags can be read.</p>
+
+<p><h5>Analyzing vs. Gaining Ogg-Vorbis-Files:</h5>
+What's the difference between "Analyze" and "Gain" when working with ogg-files?<br>
+<strong>Nothing</strong>. When working with these files it doesen't matter wether you click on "analyze" or "gain". It's not necessary do run both of them.
+</p>
+<hr>
+<h5>NOTES:</h5>
+<p>The easymp3gain-deb-packages have been created on a Debian Lenny and tested under Debian Lenny and Ubuntu 8.04</p>
+
+<p><ul>easyMP3Gain can be downloaded at <a href="http://easymp3gain.sourceforge.net/">http://easymp3gain.sourceforge.net/</a></ul>
+<ul>mp3gain can be downloaded at <a href="http://mp3gain.sourceforge.net/download.php">http://mp3gain.sourceforge.net/download.php</a></ul>
+<ul>vorbisgain can be downloaded at <a href="http://sjeng.org/vorbisgain.html">http://sjeng.org/vorbisgain.html</a></ul>
+<ul>aacgain can be downloaded at <a href="http://altosdesign.com/aacgain/">http://altosdesign.com/aacgain/</a></ul></p>
+
+</body>
+</html>

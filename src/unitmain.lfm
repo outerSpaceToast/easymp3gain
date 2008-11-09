@@ -406,6 +406,13 @@ object frmMp3GainMain: TfrmMp3GainMain
     end
     object mnuHelp: TMenuItem
       Caption = 'Help'
+      object mnuHelpHelp: TMenuItem
+        Caption = 'Help...'
+        OnClick = mnuHelpHelpClick
+      end
+      object MenuItem8: TMenuItem
+        Caption = '-'
+      end
       object mnuHelpInfo: TMenuItem
         Caption = 'About easyMP3Gain...'
         OnClick = mnuHelpInfoClick

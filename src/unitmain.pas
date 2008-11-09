@@ -50,6 +50,8 @@ type
     MenuItem3: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    mnuHelpHelp: TMenuItem;
     mnuOptionsShowConsoleOutput: TMenuItem;
     mnuSelectionInvert: TMenuItem;
     mnuFileSelectNone: TMenuItem;
@@ -136,6 +138,7 @@ type
     procedure mnuFileClearAllFilesClick(Sender: TObject);
     procedure mnuFileClearSelectedClick(Sender: TObject);
     procedure mnuFileSelectAllClick(Sender: TObject);
+    procedure mnuHelpHelpClick(Sender: TObject);
     procedure mnuHelpInfoClick(Sender: TObject);
     procedure mnuModifyGainApplyAlbumClick(Sender: TObject);
     procedure mnuModifyGainApplyConstantClick(Sender: TObject);
@@ -176,7 +179,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.1 beta SVN-0105';
+   APPLICATION_VERSION = '0.4.1 beta SVN-0106';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    
   SI_VOLUME = 0;
@@ -218,7 +221,8 @@ var
 
 implementation
 
-uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions {$IFDEF UNIX}, BaseUnix{$ENDIF};
+uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions, unitHelp
+  {$IFDEF UNIX}, BaseUnix{$ENDIF};
 
 { TfrmMp3GainMain }
 
@@ -309,7 +313,7 @@ begin
   {$IFDEF LCLwin32}strWidgetset := 'Win32';{$ENDIF}
   {$IFDEF LCLgtk}strWidgetset := 'GTK';{$ENDIF}
   {$IFDEF LCLgtk2}strWidgetset := 'GTK2';{$ENDIF}
-  {$IFDEF LCLqt}strWidgetset := 'QT4';{$ENDIF}
+  {$IFDEF LCLqt}strWidgetset := 'Qt4';{$ENDIF}
   {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
 
   MediaGain := TMediaGain.Create;
@@ -658,6 +662,11 @@ begin
   begin
     lvFiles.Items[i].Selected:=true;
   end;
+end;
+
+procedure TfrmMp3GainMain.mnuHelpHelpClick(Sender: TObject);
+begin
+  frmMP3GainHelp.ShowModal;
 end;
 
 procedure TfrmMp3GainMain.mnuFileSelectNoneClick(Sender: TObject);
