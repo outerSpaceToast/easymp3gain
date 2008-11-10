@@ -29,7 +29,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Menus,
   ComCtrls, StdCtrls, Process, UnitMediaGain, UnitGainConstant, Math, ExtCtrls,
-  Buttons;
+  Buttons, LazHelpHTML, HelpIntfs;
 
 type
 
@@ -38,6 +38,8 @@ type
   TfrmMp3GainMain = class(TForm)
     Bevel2: TBevel;
     edtVolume: TEdit;
+    HTMLBrowserHelpViewer: THTMLBrowserHelpViewer;
+    HTMLHelpDatabase: THTMLHelpDatabase;
     ImageList1: TImageList;
     ImageList2: TImageList;
     lblTargetVolume: TLabel;
@@ -179,8 +181,9 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.1 beta SVN-0106';
+   APPLICATION_VERSION = '0.4.1 beta SVN-0107';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
+   HELP_DIR = '../help';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -215,6 +218,7 @@ type
    strWidgetSet: String;
    strHomeDir: String = '';
    strBinDir: String = '';
+   strLang: String = '';
 
 var
   frmMp3GainMain: TfrmMp3GainMain;
@@ -320,6 +324,7 @@ begin
   MediaGain.TargetVolume := REF_VOLUME;
   MediaGain.ConsoleOutput := frmMP3GainConsoleOutput.memoData.Lines;
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
+  HTMLHelpDataBase.BaseURL := 'file://' + HELP_DIR;
 
   MediaGainOptions.TargetVolume := @(MediaGain.TargetVolume);
   if not frmMP3GainOptions.LoadSettings then         // Load settings from config-file
@@ -665,8 +670,13 @@ begin
 end;
 
 procedure TfrmMp3GainMain.mnuHelpHelpClick(Sender: TObject);
+var
+  strKeyWord: String;
 begin
-  frmMP3GainHelp.ShowModal;
+  strKeyWord := 'index.'+ strLang + '.html';
+  if not FileExists(strBinDir+HELP_DIR+PathDelim+strKeyWord) then
+    strKeyWord := 'index.html';
+  ShowHelpOrErrorForKeyword('','HTML/'+strKeyWord);
 end;
 
 procedure TfrmMp3GainMain.mnuFileSelectNoneClick(Sender: TObject);

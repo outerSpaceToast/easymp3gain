@@ -65,6 +65,7 @@ begin
   GetLanguageIDs(Lang, FallbackLang); // in unit gettext
   TranslateUnitResourceStrings('UnitMain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
   TranslateUnitResourceStrings('UnitMediaGain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
+  strLang := FallbackLang;
   if FileExists(PODirectory+'easymp3gain.'+FallbackLang+'.po') then
   begin
     po := TPOFile.Create(PODirectory+'easymp3gain.'+FallbackLang+'.po');

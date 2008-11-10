@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>easyMP3Gain Help</title>
+    <meta content="">
+    <style>div.code { font-family:"courier",monospace;}</style>
+  </head>
+  <body>
+<h2>easyMP3Gain</h2><hr><p>
+
+<h5>Dateien zur Liste hinzuf&uuml;gen:</h5>
+Es stehen 3 M&ouml;glichkeiten zur Verf&uuml;gung:
+<ol><li>W&auml;hlen Sie "Verzeichnis (rekursiv) hinzuf&uuml;gen" or "Datei(en) hinzuf&uuml;gen" im Menn&uuml; "Datei".</li>
+<li>Drag & Drop: Ziehen Sie Dateien oder Verzeichnisse vom Dateimanager in das easyMP3Gain Fenster</li>
+<li>Starten Sie easyMP3Gain mit Parametern. Beispiele:
+<TABLE border="0" width="0">
+  <tbody>
+    <tr>
+      <td><div class="code">easymp3gain '/home/song1.mp3' '/home/mymusic/'</div></td>
+      <td>f&uuml;gt song1.mp3 und alle Dateien in /home/mymusic hinzu</td>
+    </tr>
+    <tr>
+      <td><div class="code">easymp3gain -r '/home/mymusic'</div></td>
+      <td>f&uuml;gt alle Dateien in /home/mymusic rekursiv hinzu</td>
+    </tr>
+  </tbody>
+</TABLE>
+</li> </ol>
+<hr>
+<h5>MP3/AAC-Dateien vs. Ogg-Vorbis-Dateien:</h5>
+<p>MP3-Dateien werden anders behandelt als Ogg-Vorbis-Dateien.
+Die Behandlung h&auml;ngt vom jeweiligen Backend mp3gain bzw. vorbisgain ab.</p>
+
+<p>Mp3-Dateien k&ouml;nnen analysiert und in der Lautst&auml;rke ge&auml;ndert werden. Im Analyse-Prozess werden lediglich Lautst&auml;rke-"Tags" (=Informationen) in die Datei geschrieben. 
+Die Spalte "Lautst&auml;rke" zeigt nun, um wieviel die Datei ge&auml;ndert wird, wenn sie angepasst wird.
+Im "Gain" bzw. "Anpassen"-Prozess wird die Lautst&auml;rke der Datei reell ge&auml;ndert.</p>
+
+<p>Vorbis-Dateien k&ouml;nnen nicht angepasst werden. Beim Klick auf "Anpassen" oder "Analysieren" wird die Datei anlysiert und die Differenz zu 89dB wird als in die Datei geschrieben (jedoch nur als Information).
+Einige Medien-Abspieler lesen diese Kennzeichnung und passen die Lautst&auml;rke beim Abspielen entsprechend an. Im Gegensatz zu "mp3gain" hat "vorbisgain" eine fest eingestellte Referenz bei 89dB. &Auml;nderungen im Lautst&auml;rke-Feld haben hier keinen Einfluss.</p>
+<p><h5>Beispiel:</h5>
+easyMP3Gain zeigt: Lautst&auml;rke: 98.8; Ver&auml;nderung: (-9.8).<br>Das bedeutet, die Datei hat eine relle Lautst&auml;rke von 98.8, aber die Abspiel-Software liest den "Tag" und passt die Lautst&auml;rke an auf: 98.8-9.8 = 89 dB!
+</p>
+
+<p><h5>Warum ist da ein "?" in der Spalte "Album Lautst&auml;rke"?</h5>
+In Ogg-Vorbis-Dateien existiert keine Information &uuml;ber die Album-Lautst&auml;rke. Es k&ouml;nnen lediglich die "Tags" zur Album-Ver&auml;nderung gelesen werden.</p>
+
+<p><h5>Analysieren vs. Anpassen bei Ogg-Vorbis-Dateien:</h5>
+Was ist der Unterschied zwischen "Analysieren" and "Anpassen" bei Ogg-Vorbis Dateien?<br>
+<strong>Nichts!</strong> Wenn Sie mit solchen Dateien arbeiten ist es egal ob sie "Analysieren" oder "Anpassen" klicken. Bei beiden Aktionen passiert dasselbe. Es ist deshalb nicht n&ouml;tig beides aufzurufen.
+</p>
+<hr>
+<h5>Andere Inhalte:</h5>
+<a href="install.de.html">Installation von easyMP3Gain</a>
+</body>
+</html>

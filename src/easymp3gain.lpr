@@ -30,7 +30,7 @@ uses
   Forms
   { add your units here }, Unitmain, unitinfo, UnitMP3Gain, unitgainconstant,
   unitoptions, unitconsoleoutput, unittranslate, UnitMediaGain, UnitVorbisGain,
-  VorbisComment, unithelp, TurboPowerIPro;
+  VorbisComment, TurboPowerIPro;
 
 begin
   Application.Initialize;
@@ -40,7 +40,6 @@ begin
   Application.CreateForm(TfrmMp3GainOptions, frmMp3GainOptions);
   Application.CreateForm(TfrmMP3GainConsoleOutput, frmMP3GainConsoleOutput);
   frmMP3GainMain.Init;
-  Application.CreateForm(TfrmMP3GainHelp, frmMP3GainHelp);
   Application.Run;
 end.
 

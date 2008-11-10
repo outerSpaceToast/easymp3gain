@@ -2661,4 +2661,16 @@ object frmMp3GainMain: TfrmMp3GainMain
       B5FF3AB683FF36B681FF35B580FF
     }
   end
+  object HTMLBrowserHelpViewer: THTMLBrowserHelpViewer
+    BrowserParams = '%s'
+    AutoRegister = True
+    left = 150
+    top = 174
+  end
+  object HTMLHelpDatabase: THTMLHelpDatabase
+    AutoRegister = True
+    KeywordPrefix = 'HTML/'
+    left = 185
+    top = 174
+  end
 end
