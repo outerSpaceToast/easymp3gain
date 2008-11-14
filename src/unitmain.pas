@@ -181,9 +181,9 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.1 beta SVN-0107';
+   APPLICATION_VERSION = '0.4.1 beta SVN-0108';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
-   HELP_DIR = '../help';
+   HELP_DIR = 'help';
    
   SI_VOLUME = 0;
   SI_CLIPPING = 1;
@@ -225,7 +225,7 @@ var
 
 implementation
 
-uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions, unitHelp
+uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions
   {$IFDEF UNIX}, BaseUnix{$ENDIF};
 
 { TfrmMp3GainMain }
@@ -672,11 +672,15 @@ end;
 procedure TfrmMp3GainMain.mnuHelpHelpClick(Sender: TObject);
 var
   strKeyWord: String;
+  strTempDir: String;
 begin
   strKeyWord := 'index.'+ strLang + '.html';
   if not FileExists(strBinDir+HELP_DIR+PathDelim+strKeyWord) then
     strKeyWord := 'index.html';
+  strTempDir := GetCurrentDir;
+  SetCurrentDir(strBinDir);
   ShowHelpOrErrorForKeyword('','HTML/'+strKeyWord);
+  SetCurrentDir(strTempDir);
 end;
 
 procedure TfrmMp3GainMain.mnuFileSelectNoneClick(Sender: TObject);
