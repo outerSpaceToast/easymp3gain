@@ -184,7 +184,7 @@ const
   
   strConfigFileName: String = '.easyMP3Gain';
   
-  CONSOLE_OUTPUT_MAX_LINES = 400;
+  CONSOLE_OUTPUT_MAX_LINES = 1000;
   
   STATUSCODE_UNKNOWNMEDIATYPE = 1001;
   

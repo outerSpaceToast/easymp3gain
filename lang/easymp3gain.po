@@ -188,6 +188,10 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
+#: TFRMMP3GAINMAIN.MNUHELPHELP.CAPTION
+msgid "Help..."
+msgstr ""
+
 #: TFRMMP3GAINMAIN.MNUHELPINFO.CAPTION
 msgid "About easyMP3Gain..."
 msgstr ""

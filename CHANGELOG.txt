@@ -1,4 +1,4 @@
-2008-??-?? | easyMP3Gain 0.4.2 beta
+2008-11-16 | easyMP3Gain 0.4.2 beta
 Fixed the cancel-bug
 Included a simple help-window
 

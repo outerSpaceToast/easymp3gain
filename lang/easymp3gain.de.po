@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Thomas Dieffenbach <giantics@gmx.de>\n"
-"PO-Revision-Date: 2008-09-18 16:35+0200\n"
+"PO-Revision-Date: 2008-11-16 13:41+0100\n"
 "Project-Id-Version: easymp3gain\n"
 "Language-Team: deutsch <giantics@gmx.de>\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -198,6 +198,10 @@ msgstr "Alle Dateien entmarkieren"
 #: TFRMMP3GAINMAIN.MNUHELP.CAPTION
 msgid "Help"
 msgstr "Hilfe"
+
+#: TFRMMP3GAINMAIN.MNUHELPHELP.CAPTION
+msgid "Help..."
+msgstr "Hilfe..."
 
 #: TFRMMP3GAINMAIN.MNUHELPINFO.CAPTION
 msgid "About easyMP3Gain..."
