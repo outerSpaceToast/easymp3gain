@@ -91,9 +91,9 @@ begin
       FCallBackEvent(pcStdOut, strTemp);
   except
     on E:EProcess do
-      FCallBackEvent(pcError, 'Process-Error');
+      FCallBackEvent(pcError, 'Process-Error ' + IntToStr(FProcess.ExitStatus));
     else
-      FCallBackEvent(pcError, '');
+      FCallBackEvent(pcError, IntToStr(FProcess.ExitStatus));
   end;
   FreeAndNil(FProcess);
   FCallBackEvent(pcFinished, '');

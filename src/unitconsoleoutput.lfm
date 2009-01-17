@@ -8,7 +8,8 @@ object frmMP3GainConsoleOutput: TfrmMP3GainConsoleOutput
   ClientHeight = 382
   ClientWidth = 800
   OnResize = FormResize
-  LCLVersion = '0.9.25'
+  ParentFont = False
+  LCLVersion = '0.9.26'
   object memoData: TMemo
     Left = 2
     Height = 344
@@ -18,6 +19,7 @@ object frmMP3GainConsoleOutput: TfrmMP3GainConsoleOutput
     BorderSpacing.Around = 2
     Font.Height = -12
     Font.Name = 'Monospace'
+    ParentFont = False
     TabOrder = 0
   end
   object Panel1: TPanel

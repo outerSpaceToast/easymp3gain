@@ -3,12 +3,12 @@ Bei rekursiver Ordnerdurchsuche: Nur richtige Dateitypen
 Option: "Tag neu schreiben" Ja/Nein
 QT-Version
 Max-noclip gain
-andere Target Value bei ogg
 FLAC
 save window size
-help window
+Read translation-author from .po-file
 
 done:
+help window
 repair "Cancel" functionality
 Files and Folders as argument
 Rekursive Ordner-Aufnahme: NTFS! (FAT32?)

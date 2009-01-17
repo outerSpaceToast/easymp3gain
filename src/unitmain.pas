@@ -1,7 +1,7 @@
 unit UnitMain;
 
 {
-     Copyright (C) 2007-2008 by Thomas Dieffenbach
+     Copyright (C) 2007-2009 by Thomas Dieffenbach
      giantics@gmx.de
 
      This program is free software; you can redistribute it and/or modify
@@ -181,7 +181,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.3 beta SVN-0111';
+   APPLICATION_VERSION = '0.4.3 beta SVN-0112';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
    
@@ -357,7 +357,7 @@ begin
   
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
      APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
-      #10#10 + '(c) 2007-2008, Thomas Dieffenbach';
+      #10#10 + '(c) 2007-2009, Thomas Dieffenbach';
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMP3GainGUIInfo.lblURL.Caption := APPLICATION_URL;
   frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;

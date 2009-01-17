@@ -1,7 +1,7 @@
 unit unitConsoleOutput;
 
 {
-     Copyright (C) 2007-2008 by Thomas Dieffenbach
+     Copyright (C) 2007-2009 by Thomas Dieffenbach
      giantics@gmx.de
 
      This program is free software; you can redistribute it and/or modify

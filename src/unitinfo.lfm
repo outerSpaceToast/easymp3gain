@@ -7,8 +7,9 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
   Caption = 'About MP3Gain-GUI'
   ClientHeight = 300
   ClientWidth = 471
+  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.26'
   object lblProgramName: TLabel
     Left = 59
     Height = 19
@@ -18,6 +19,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     Font.Height = -14
     Font.Style = [fsBold]
     ParentColor = False
+    ParentFont = False
   end
   object Image1: TImage
     Left = 13
@@ -118,6 +120,9 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Lines.Strings = (
           'Thomas Dieffenbach'
           '    giantics@gmx.de'
+          ''
+          'Giulio Rodoni'
+          '    giulio.rodoni@gmail.com'
         )
         ReadOnly = True
         TabOrder = 0
@@ -135,7 +140,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
-          '(c) 2007-2008, Thomas Dieffenbach'
+          '(c) 2007-2009, Thomas Dieffenbach'
           ''
           'This program is distributed under the terms of the GPL v2.'
           ''

@@ -9,11 +9,12 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   ClientHeight = 343
   ClientWidth = 416
   OnShow = FormShow
+  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.26'
   object lblMP3GainBackend: TLabel
     Left = 24
-    Height = 19
+    Height = 16
     Top = 136
     Width = 117
     Caption = 'MP3Gain backend:'
@@ -21,7 +22,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   end
   object lblAACGainBackend: TLabel
     Left = 201
-    Height = 19
+    Height = 16
     Top = 140
     Width = 115
     Caption = 'AACGain backend:'
@@ -29,7 +30,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   end
   object Label1: TLabel
     Left = 24
-    Height = 19
+    Height = 16
     Top = 248
     Width = 245
     Caption = 'Number of sublevels when adding files:'
@@ -37,7 +38,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   end
   object lblVorbisGainBackend: TLabel
     Left = 24
-    Height = 19
+    Height = 16
     Top = 192
     Width = 129
     Caption = 'VorbisGain backend:'

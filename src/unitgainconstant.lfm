@@ -10,11 +10,12 @@ object frmMP3GainConstant: TfrmMP3GainConstant
   ClientHeight = 114
   ClientWidth = 273
   OnShow = FormShow
+  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.26'
   object lblGain: TLabel
     Left = 16
-    Height = 19
+    Height = 16
     Top = 56
     Width = 43
     Caption = 'lblGain'
