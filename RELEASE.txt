@@ -1,4 +1,4 @@
-0.4.2 beta:
+0.4.4 beta:
 easyMP3Gain is a graphical user interface for mp3gain, aacgain and vorbisgain. The Interface looks similar to the one available for Windows.
 It's a native GTK/GTK2 application, so it runs on Linux and FreeBSD/OpenBSD (not tested yet).
 A QT4-Version will be available soon.

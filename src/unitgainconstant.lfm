@@ -9,13 +9,13 @@ object frmMP3GainConstant: TfrmMP3GainConstant
   Caption = 'Constant Gain'
   ClientHeight = 114
   ClientWidth = 273
+  Color = clForm
   OnShow = FormShow
-  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.26'
+  LCLVersion = '0.9.27'
   object lblGain: TLabel
     Left = 16
-    Height = 16
+    Height = 17
     Top = 56
     Width = 43
     Caption = 'lblGain'
@@ -53,7 +53,7 @@ object frmMP3GainConstant: TfrmMP3GainConstant
     Min = -120
     OnChange = tbGainChange
     PageSize = 20
-    ScalePos = trTop
+    Position = 0
     TickStyle = tsNone
     TabOrder = 2
   end

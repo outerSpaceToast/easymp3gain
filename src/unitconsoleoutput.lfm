@@ -7,9 +7,9 @@ object frmMP3GainConsoleOutput: TfrmMP3GainConsoleOutput
   Caption = 'Console Output'
   ClientHeight = 382
   ClientWidth = 800
+  Color = clForm
   OnResize = FormResize
-  ParentFont = False
-  LCLVersion = '0.9.26'
+  LCLVersion = '0.9.27'
   object memoData: TMemo
     Left = 2
     Height = 344
@@ -23,6 +23,7 @@ object frmMP3GainConsoleOutput: TfrmMP3GainConsoleOutput
     TabOrder = 0
   end
   object Panel1: TPanel
+    Left = 0
     Height = 34
     Top = 348
     Width = 800

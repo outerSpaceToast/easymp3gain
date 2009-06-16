@@ -269,6 +269,8 @@ var
 begin
   i:=1;
   Result := '';
+  if Copy(a,1,7)='file://' then                   // removes "files://" (Qt)
+    a := Copy(a,8,Length(a)-1);
   while i<=Length(a) do
   begin
     if not (a[i]='%') then
@@ -648,15 +650,20 @@ end;
 procedure TfrmMp3GainMain.mnuFileClearSelectedClick(Sender: TObject);
 var
   i: Integer;
+  iDel: array of Boolean;
 begin
-  for i:=lvFiles.Items.Count-1 downto 0 do
+  SetLength(iDel, lvFiles.Items.Count);
+  for i:= High(iDel) downto Low(iDel) do
+    iDel[i] := lvFiles.Items[i].Selected;
+  for i:= High(iDel) downto Low(iDel) do
+     if iDel[i] then  lvFiles.Items.Delete(i);
+  (*for i:=lvFiles.Items.Count-1 downto 0 do      // works not with Qt
   begin
     if (lvFiles.Items[i].Selected) then
     begin
       DelSongItem(i);
-      {$IFDEF LCLqt}lvFiles.Selected := nil;{$ENDIF}
     end;
-  end;
+  end;*)
 end;
 
 procedure TfrmMp3GainMain.mnuFileSelectAllClick(Sender: TObject);
@@ -848,7 +855,9 @@ begin
   SL := TStringList.Create;
   try
     for i:=0 to Length(FileNames)-1 do
+    begin
       SL.Add(URLDecode(FileNames[i]));
+    end;
     AddFileAndDirectoryList(SL, MediaGainOptions.SubLevelCount);
   finally
     SL.Free;

@@ -42,6 +42,9 @@ type
     edtSublevelCount: TEdit;
     edtMP3GainBackend: TEdit;
     edtAACGainBackend: TEdit;
+    grbBackends: TGroupBox;
+    grbMP3Gain: TGroupBox;
+    grbMiscellaneous: TGroupBox;
     Label1: TLabel;
     lblVorbisGainBackend: TLabel;
     lblAACGainBackend: TLabel;

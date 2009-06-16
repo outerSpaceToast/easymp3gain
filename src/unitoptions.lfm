@@ -1,131 +1,160 @@
 object frmMp3GainOptions: TfrmMp3GainOptions
-  Left = 290
-  Height = 343
-  Top = 175
-  Width = 416
-  ActiveControl = chkIgnoreTags
+  Left = 312
+  Height = 440
+  Top = 171
+  Width = 414
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Options'
-  ClientHeight = 343
-  ClientWidth = 416
+  ClientHeight = 440
+  ClientWidth = 414
+  Color = clForm
   OnShow = FormShow
-  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.26'
-  object lblMP3GainBackend: TLabel
-    Left = 24
-    Height = 16
-    Top = 136
-    Width = 117
-    Caption = 'MP3Gain backend:'
-    ParentColor = False
-  end
-  object lblAACGainBackend: TLabel
-    Left = 201
-    Height = 16
-    Top = 140
-    Width = 115
-    Caption = 'AACGain backend:'
-    ParentColor = False
-  end
-  object Label1: TLabel
-    Left = 24
-    Height = 16
-    Top = 248
-    Width = 245
-    Caption = 'Number of sublevels when adding files:'
-    ParentColor = False
-  end
-  object lblVorbisGainBackend: TLabel
-    Left = 24
-    Height = 16
-    Top = 192
-    Width = 129
-    Caption = 'VorbisGain backend:'
-    ParentColor = False
-  end
+  LCLVersion = '0.9.27'
   object btnOK: TButton
-    Left = 264
+    Left = 248
     Height = 25
-    Top = 310
+    Top = 408
     Width = 100
     Caption = '&OK'
     OnClick = btnOKClick
     TabOrder = 0
   end
   object btnCancel: TButton
-    Left = 48
+    Left = 56
     Height = 25
-    Top = 310
+    Top = 408
     Width = 100
     Caption = '&Cancel'
     OnClick = btnCancelClick
     TabOrder = 1
   end
-  object chkIgnoreTags: TCheckBox
-    Left = 16
-    Height = 22
-    Top = 16
-    Width = 272
-    Caption = 'Ignore Tags (Do not read or write them)'
-    OnChange = chkIgnoreTagsChange
+  object grbBackends: TGroupBox
+    Left = 8
+    Height = 136
+    Top = 168
+    Width = 400
+    Caption = 'Backends'
+    ClientHeight = 113
+    ClientWidth = 390
     TabOrder = 2
+    object lblAACGainBackend: TLabel
+      Left = 188
+      Height = 17
+      Top = 18
+      Width = 115
+      Caption = 'AACGain backend:'
+      ParentColor = False
+    end
+    object lblMP3GainBackend: TLabel
+      Left = 11
+      Height = 17
+      Top = 14
+      Width = 117
+      Caption = 'MP3Gain backend:'
+      ParentColor = False
+    end
+    object lblVorbisGainBackend: TLabel
+      Left = 11
+      Height = 17
+      Top = 70
+      Width = 129
+      Caption = 'VorbisGain backend:'
+      ParentColor = False
+    end
+    object edtVorbisGainBackend: TEdit
+      Left = 11
+      Height = 25
+      Top = 88
+      Width = 152
+      TabOrder = 0
+      Text = 'vorbisgain'
+    end
+    object edtMP3GainBackend: TEdit
+      Left = 11
+      Height = 25
+      Top = 35
+      Width = 152
+      TabOrder = 1
+      Text = 'mp3gain'
+    end
+    object edtAACGainBackend: TEdit
+      Left = 187
+      Height = 25
+      Top = 35
+      Width = 152
+      TabOrder = 2
+      Text = 'aacgain'
+    end
   end
-  object chkAutoReadAtFileAdd: TCheckBox
-    Left = 16
-    Height = 22
-    Top = 46
-    Width = 319
-    Caption = 'Auto-read tags when adding files or directories'
-    OnChange = chkAutoReadAtFileAddChange
+  object grbMP3Gain: TGroupBox
+    Left = 8
+    Height = 156
+    Top = 8
+    Width = 400
+    Caption = 'MP3Gain'
+    ClientHeight = 133
+    ClientWidth = 390
     TabOrder = 3
+    object chkPreserveOriginalTimestamp: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 104
+      Width = 224
+      Caption = 'Preserve original file timestamp'
+      TabOrder = 0
+    end
+    object chkUseTempFiles: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 75
+      Width = 148
+      Caption = 'Use temporary files'
+      TabOrder = 1
+    end
+    object chkAutoReadAtFileAdd: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 46
+      Width = 322
+      Caption = 'Auto-read tags when adding files or directories'
+      OnChange = chkAutoReadAtFileAddChange
+      TabOrder = 2
+    end
+    object chkIgnoreTags: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 16
+      Width = 275
+      Caption = 'Ignore Tags (Do not read or write them)'
+      OnChange = chkIgnoreTagsChange
+      TabOrder = 3
+    end
   end
-  object chkUseTempFiles: TCheckBox
-    Left = 16
-    Height = 22
-    Top = 75
-    Width = 145
-    Caption = 'Use temporary files'
+  object grbMiscellaneous: TGroupBox
+    Left = 8
+    Height = 88
+    Top = 312
+    Width = 400
+    Caption = 'Miscellaneous'
+    ClientHeight = 65
+    ClientWidth = 390
     TabOrder = 4
-  end
-  object chkPreserveOriginalTimestamp: TCheckBox
-    Left = 16
-    Height = 22
-    Top = 104
-    Width = 221
-    Caption = 'Preserve original file timestamp'
-    TabOrder = 5
-  end
-  object edtMP3GainBackend: TEdit
-    Left = 24
-    Height = 23
-    Top = 157
-    Width = 152
-    TabOrder = 6
-    Text = 'mp3gain'
-  end
-  object edtAACGainBackend: TEdit
-    Left = 200
-    Height = 23
-    Top = 157
-    Width = 152
-    TabOrder = 7
-    Text = 'aacgain'
-  end
-  object edtSublevelCount: TEdit
-    Left = 24
-    Height = 23
-    Top = 270
-    Width = 40
-    TabOrder = 8
-    Text = '6'
-  end
-  object edtVorbisGainBackend: TEdit
-    Left = 24
-    Height = 23
-    Top = 210
-    Width = 152
-    TabOrder = 9
-    Text = 'vorbisgain'
+    object Label1: TLabel
+      Left = 16
+      Height = 17
+      Top = 14
+      Width = 245
+      Caption = 'Number of sublevels when adding files:'
+      ParentColor = False
+    end
+    object edtSublevelCount: TEdit
+      Left = 16
+      Height = 25
+      Top = 36
+      Width = 40
+      TabOrder = 0
+      Text = '6'
+    end
   end
 end
