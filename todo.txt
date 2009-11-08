@@ -4,10 +4,13 @@ Option: "Tag neu schreiben" Ja/Nein
 QT-Version
 Max-noclip gain
 FLAC
-save window size
-Read translation-author from .po-file
+LoadFromFile(UTF8toSys(InputFile.Text)) (SOnderzeichen)
+Icon 48x48
 
 done:
+Target-Volume -> MP3-Target-Volume (Hint for vorbis)
+save window size
+Read translation-author from .po-file
 help window
 repair "Cancel" functionality
 Files and Folders as argument

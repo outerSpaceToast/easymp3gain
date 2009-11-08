@@ -1,6 +1,7 @@
-2009-??-?? | easyMP3Gain 0.4.4 beta?
+2009-??-?? | easyMP3Gain 0.4.4
 First release of Qt4-version 
 Added Italian translation (thanks to Giulio Rodoni!)
+Main window remebers its size after restart
 
 2008-11-16 | easyMP3Gain 0.4.2 beta
 Fixed the cancel-bug

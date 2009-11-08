@@ -40,7 +40,7 @@ type
     lblDescription: TLabel;
     Memo1: TMemo;
     Memo2: TMemo;
-    Memo3: TMemo;
+    MemoTranslation: TMemo;
     Memo4: TMemo;
     PageControl: TPageControl;
     tbsAbout: TTabSheet;

@@ -1,13 +1,13 @@
 object frmMp3GainMain: TfrmMp3GainMain
-  Left = 286
-  Height = 435
-  Top = 274
-  Width = 806
-  ActiveControl = edtVolume
+  Left = 302
+  Height = 382
+  Top = 175
+  Width = 800
+  ActiveControl = pnlVolume
   AllowDropFiles = True
   Caption = 'easyMP3Gain'
-  ClientHeight = 411
-  ClientWidth = 806
+  ClientHeight = 358
+  ClientWidth = 800
   Color = clForm
   Menu = MainMenu1
   OnClose = FormClose
@@ -15,12 +15,12 @@ object frmMp3GainMain: TfrmMp3GainMain
   OnDropFiles = FormDropFiles
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.28.2'
   object ToolBar1: TToolBar
     Left = 0
     Height = 46
     Top = 0
-    Width = 806
+    Width = 800
     ButtonHeight = 40
     ButtonWidth = 50
     Caption = 'ToolBar1'
@@ -148,7 +148,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       ClientHeight = 40
       ClientWidth = 256
       TabOrder = 0
-      object Bevel2: TBevel
+      object bvlTargetVolume: TBevel
         Left = 0
         Height = 36
         Top = 2
@@ -177,7 +177,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       end
       object edtVolume: TEdit
         Left = 162
-        Height = 25
+        Height = 22
         Top = 7
         Width = 44
         OnChange = edtVolumeChange
@@ -188,9 +188,9 @@ object frmMp3GainMain: TfrmMp3GainMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Height = 21
-    Top = 390
-    Width = 806
+    Height = 18
+    Top = 340
+    Width = 800
     Panels = <    
       item
         Width = 150
@@ -206,8 +206,8 @@ object frmMp3GainMain: TfrmMp3GainMain
   object ProgressBar: TProgressBar
     Left = 5
     Height = 15
-    Top = 356
-    Width = 796
+    Top = 306
+    Width = 790
     Align = alBottom
     BorderSpacing.Left = 5
     BorderSpacing.Right = 5
@@ -218,9 +218,9 @@ object frmMp3GainMain: TfrmMp3GainMain
   end
   object lvFiles: TListView
     Left = 5
-    Height = 305
+    Height = 255
     Top = 46
-    Width = 796
+    Width = 790
     Align = alClient
     BorderSpacing.Left = 5
     BorderSpacing.Right = 5
@@ -270,8 +270,8 @@ object frmMp3GainMain: TfrmMp3GainMain
   object ProgressBarGeneral: TProgressBar
     Left = 5
     Height = 15
-    Top = 373
-    Width = 796
+    Top = 323
+    Width = 790
     Align = alBottom
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 5

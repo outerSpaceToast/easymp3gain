@@ -167,7 +167,7 @@ begin
           begin
             Album_Result_Event := false;
             SongItem := GetSongItem(FDataList[p]);
-            Writeln('SongItem: ', LongInt(SongItem));
+            //Writeln('SongItem: ', LongInt(SongItem));
             if SongItem=nil then continue;
           end;
         end;

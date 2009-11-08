@@ -36,7 +36,7 @@ type
   { TfrmMp3GainMain }
 
   TfrmMp3GainMain = class(TForm)
-    Bevel2: TBevel;
+    bvlTargetVolume: TBevel;
     edtVolume: TEdit;
     HTMLBrowserHelpViewer: THTMLBrowserHelpViewer;
     HTMLHelpDatabase: THTMLHelpDatabase;
@@ -181,7 +181,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.3 beta SVN-0113';
+   APPLICATION_VERSION = '0.4.3 SVN-0115';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
    
@@ -205,6 +205,7 @@ type
    COLUMN_ALBUMVOLUME = 'Album Vol.';
    COLUMN_ALBUMGAIN = 'Album Gain';
    COLUMN_CLIPALBUM = 'clip (Album)';
+   TARGET_VOLUME_HINT = 'Only valid for MP3 and AAC files. Ogg-Vorbis files'' target volume is fixed to 89 dB.';
 
  var
    S: TStringList;
@@ -328,6 +329,12 @@ begin
   strHomeDir := IncludeTrailingPathDelimiter(getenvironmentvariable('HOME'));
   HTMLHelpDataBase.BaseURL := 'file://' + HELP_DIR;
 
+  bvlTargetVolume.Hint := TARGET_VOLUME_HINT;
+  lblTargetVolume.Hint := TARGET_VOLUME_HINT;
+  edtVolume.Hint := TARGET_VOLUME_HINT;
+
+  TranslateAll;
+
   MediaGainOptions.TargetVolume := @(MediaGain.TargetVolume);
   if not frmMP3GainOptions.LoadSettings then         // Load settings from config-file
   begin
@@ -354,8 +361,7 @@ begin
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
   
   strBinDir := IncludeTrailingPathDelimiter(Application.Location);
-  
-  TranslateAll;
+
   
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
      APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
@@ -810,7 +816,7 @@ begin
     end;
   end;
   Result := SongItem;
-  Writeln('added: ' + SongItem.FileName);
+  //Writeln('added: ' + SongItem.FileName);
 end;
 
 procedure TfrmMp3GainMain.DelSongItem(AItemIndex: Integer);
@@ -974,7 +980,7 @@ begin
     lvFiles.Hint := '';
     exit;
   end;
-  a := Item.Index-1;
+  a := Item.Index;
   if (a<0) or (a>lvFiles.Items.Count-1) then
   begin
     lvFiles.Hint := '';

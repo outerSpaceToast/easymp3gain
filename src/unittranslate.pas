@@ -25,7 +25,7 @@ unit unitTranslate;
 interface
 
 uses
-  Classes, SysUtils, Controls, ComCtrls, menus, gettext, translations;
+  Classes, SysUtils, Controls, ComCtrls, menus, gettext, translations, forms;
   
 procedure TranslateAll;
 
@@ -38,6 +38,8 @@ var
   i: Integer;
   comp: TComponent;
 begin
+  //if (aComponent is TForm) and (not (aComponent = frmMP3GainMain)) then
+  //  TForm(aComponent).Caption := po.Translate(TForm(comp).Caption, TForm(comp).Caption);
   for i:=0 to aComponent.ComponentCount-1 do
   begin
     comp := aComponent.Components[i];
@@ -59,12 +61,16 @@ end;
 procedure TranslateAll;
 var
   PODirectory, Lang, FallbackLang: String;
-  po : TPOFile;
+  po: TPOFile;
+  PoFile: TStringList;
+  k,p,cFound: Integer;
+  S: String;
 begin
   PODirectory := strBinDir + './lang/';    // change that for release
   GetLanguageIDs(Lang, FallbackLang); // in unit gettext
   TranslateUnitResourceStrings('UnitMain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
   TranslateUnitResourceStrings('UnitMediaGain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
+  TranslateUnitResourceStrings('UnitGainConstant', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
   strLang := FallbackLang;
   if FileExists(PODirectory+'easymp3gain.'+FallbackLang+'.po') then
   begin
@@ -78,6 +84,33 @@ begin
     finally
       po.Free;
     end;
+
+    PoFile := TStringList.Create;
+    PoFile.LoadFromFile(PODirectory+'easymp3gain.'+FallbackLang+'.po');
+    cFound:=0;
+    for k:=0 to PoFile.Count-1 do
+    begin
+       p := Pos('Translator:',PoFile[k]);  // Read translator out of po-file
+       if (p>0) then
+       begin
+         S := Copy(PoFile[k],p+11,Length(PoFile[k])-(p+11-1));
+         if S[Length(S)]='"' then S := Copy(S,1,Length(S)-1);
+         if Copy(S,Length(S)-1,2)='\n' then S := Copy(S,1,Length(S)-2);
+         frmMP3GainGUIInfo.MemoTranslation.Text := Trim(S);
+         inc(cFound);
+       end;
+       (*p := Pos('Language-Team:',PoFile[k]);  // Read translation out of po-file
+       if (p>0) then
+       begin
+         S := Copy(PoFile[k],p+14,Length(PoFile[k])-(p+14-1));
+         if S[Length(S)]='"' then S := Copy(S,1,Length(S)-1);
+         if Copy(S,Length(S)-1,2)='\n' then S := Copy(S,1,Length(S)-2);
+         frmMP3GainGUIInfo.MemoTranslation.Lines.Add('('+Trim(S)+')');
+         inc(cFound);
+       end;*)
+       if (cFound=1) then break;
+    end;
+    PoFile.Free;
   end;
 end;
 

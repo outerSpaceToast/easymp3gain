@@ -9,7 +9,7 @@ object frmMP3GainConsoleOutput: TfrmMP3GainConsoleOutput
   ClientWidth = 800
   Color = clForm
   OnResize = FormResize
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.28.2'
   object memoData: TMemo
     Left = 2
     Height = 344
@@ -37,7 +37,7 @@ object frmMP3GainConsoleOutput: TfrmMP3GainConsoleOutput
       Height = 25
       Top = 3
       Width = 75
-      Caption = 'Close'
+      Caption = '&Close'
       OnClick = btnCloseClick
       TabOrder = 0
     end

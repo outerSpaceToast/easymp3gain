@@ -145,6 +145,8 @@ begin
     StringList.Values['SubLevelCount'] := IntToStr(MediaGainOptions.SubLevelCount);
     StringList.Values['ToolBarImageListIndex']:=IntToStr(MediaGainOptions.ToolBarImageListIndex);
     StringList.Values['TargetVolume'] := FloatToStr(MediaGainOptions.TargetVolume^);
+    StringList.Values['WindowHeight'] := IntToStr(frmMp3GainMain.Height);
+    StringList.Values['WindowWidth'] := IntToStr(frmMp3GainMain.Width);
     StringList.SaveToFile(strHomeDir+strConfigFileName);
   finally
     StringList.Free;
@@ -154,6 +156,7 @@ end;
 function TfrmMp3GainOptions.LoadSettings: Boolean;
 var
  StringList: TStringList;
+ iWidth, iHeight: Integer;
 begin
   try
     StringList := TStringList.Create;
@@ -172,6 +175,12 @@ begin
       MediaGainOptions.AnalysisTypeAlbum := StrToBool(StringList.Values['AnalysisTypeAlbum']);
       MediaGainOptions.GainTypeAlbum := StrToBool(StringList.Values['GainTypeAlbum']);
       MediaGainOptions.SubLevelCount := StrToInt(StringList.Values['SubLevelCount']);
+      iHeight := StrToInt(StringList.Values['WindowHeight']);
+      iWidth := StrToInt(StringList.Values['WindowWidth']);
+      if (iHeight>20) then
+        frmMp3GainMain.Height := iHeight;
+      if (iWidth>20) then
+        frmMp3GainMain.Width := iWidth;
       Result := StringList.Values['Version'] = APPLICATION_VERSION;
     finally
       StringList.Free;

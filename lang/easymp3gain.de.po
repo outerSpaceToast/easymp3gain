@@ -1,15 +1,75 @@
 # translation of easymp3gain.po to deutsch
-# Thomas Dieffenbach <giantics@gmx.de>, 2008.
+# Thomas Dieffenbach <giantics@gmx.de>, 2009.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Thomas Dieffenbach <giantics@gmx.de>\n"
-"PO-Revision-Date: 2008-11-16 13:41+0100\n"
+"PO-Revision-Date: 2009-11-08 17:49+0100\n"
 "Project-Id-Version: easymp3gain\n"
-"Language-Team: deutsch <giantics@gmx.de>\n"
+"Language-Team: German <giantics@gmx.de>\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: TFRMMP3GAINCONSOLEOUTPUT.BTNCLOSE.CAPTION
+msgctxt "TFRMMP3GAINCONSOLEOUTPUT.BTNCLOSE.CAPTION"
+msgid "&Close"
+msgstr "&Schließen"
+
+#: TFRMMP3GAINCONSOLEOUTPUT.CAPTION
+msgid "Console Output"
+msgstr "Konsolenausgabe"
+
+#: TFRMMP3GAINCONSTANT.BTNCANCEL.CAPTION
+msgctxt "TFRMMP3GAINCONSTANT.BTNCANCEL.CAPTION"
+msgid "&Cancel"
+msgstr "&Abbrechen"
+
+#: TFRMMP3GAINCONSTANT.BTNOK.CAPTION
+msgctxt "TFRMMP3GAINCONSTANT.BTNOK.CAPTION"
+msgid "&OK"
+msgstr "&OK"
+
+#: TFRMMP3GAINCONSTANT.CAPTION
+msgid "Constant Gain"
+msgstr "Kontante Änderung"
+
+#: TFRMMP3GAINGUIINFO.BTNCLOSE.CAPTION
+#, fuzzy
+#| msgid "Close"
+msgctxt "TFRMMP3GAINGUIINFO.BTNCLOSE.CAPTION"
+msgid "&Close"
+msgstr "Schließen"
+
+#: TFRMMP3GAINGUIINFO.CAPTION
+msgid "About MP3Gain-GUI"
+msgstr "Über easyMP3Gain"
+
+#: TFRMMP3GAINGUIINFO.LBLPROGRAMNAME.CAPTION
+msgid "MP3Gain-GUI"
+msgstr "easyMP3Gain"
+
+#: TFRMMP3GAINGUIINFO.TBSABOUT.CAPTION
+msgctxt "TFRMMP3GAINGUIINFO.TBSABOUT.CAPTION"
+msgid "About"
+msgstr "Über"
+
+#: TFRMMP3GAINGUIINFO.TBSAUTHORS.CAPTION
+msgid "Authors"
+msgstr "Autoren"
+
+#: TFRMMP3GAINGUIINFO.TBSLICENSE.CAPTION
+msgid "License"
+msgstr "Lizenz"
+
+#: TFRMMP3GAINGUIINFO.TBSTHANKSTO.CAPTION
+msgid "Thanks to"
+msgstr "Danke an"
+
+#: TFRMMP3GAINGUIINFO.TBSTRANSLATION.CAPTION
+msgid "Translation"
+msgstr "Übersetzung"
 
 #: TFRMMP3GAINMAIN.BTNADDFILES.CAPTION
 msgid "Add File(s)"
@@ -140,6 +200,11 @@ msgctxt "TFRMMP3GAINMAIN.MENUITEM7.CAPTION"
 msgid "-"
 msgstr "-"
 
+#: TFRMMP3GAINMAIN.MENUITEM8.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM8.CAPTION"
+msgid "-"
+msgstr "-"
+
 #: TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION"
 msgid "Analysis"
@@ -211,6 +276,7 @@ msgid "Modify Gain"
 msgstr "Lautstärke anpassen"
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION"
 msgid "Apply album gain"
 msgstr "Album anpassen"
 
@@ -219,6 +285,7 @@ msgid "Apply constant gain..."
 msgstr "Konstante Anpassung..."
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION"
 msgid "Apply track gain"
 msgstr "Lied anpassen"
 
@@ -227,6 +294,7 @@ msgid "Undo"
 msgstr "Anpassungen rückgängig"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION"
 msgid "Options"
 msgstr "Optionen"
 
@@ -265,13 +333,17 @@ msgid "Track Analysis"
 msgstr "Analysiere Lied"
 
 #: TFRMMP3GAINMAIN.PMNGAINALBUM.CAPTION
+#, fuzzy
+#| msgid "Album Gain"
 msgctxt "TFRMMP3GAINMAIN.PMNGAINALBUM.CAPTION"
-msgid "Album Gain"
+msgid "Apply album gain"
 msgstr "Album anpassen"
 
 #: TFRMMP3GAINMAIN.PMNGAINTRACK.CAPTION
+#, fuzzy
+#| msgid "Track Gain"
 msgctxt "TFRMMP3GAINMAIN.PMNGAINTRACK.CAPTION"
-msgid "Track Gain"
+msgid "Apply track gain"
 msgstr "Lied anpassen"
 
 #: TFRMMP3GAINMAIN.TOOLBAR1.CAPTION
@@ -303,12 +375,19 @@ msgid "ToolButton6"
 msgstr "-"
 
 #: TFRMMP3GAINOPTIONS.BTNCANCEL.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.BTNCANCEL.CAPTION"
 msgid "&Cancel"
 msgstr "&Abbrechen"
 
 #: TFRMMP3GAINOPTIONS.BTNOK.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.BTNOK.CAPTION"
 msgid "&OK"
 msgstr "&OK"
+
+#: TFRMMP3GAINOPTIONS.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.CAPTION"
+msgid "Options"
+msgstr "Optionen"
 
 #: TFRMMP3GAINOPTIONS.CHKAUTOREADATFILEADD.CAPTION
 msgid "Auto-read tags when adding files or directories"
@@ -334,9 +413,25 @@ msgstr "aacgain"
 msgid "mp3gain"
 msgstr "mp3gain"
 
+#: TFRMMP3GAINOPTIONS.EDTSUBLEVELCOUNT.TEXT
+msgid "6"
+msgstr "6"
+
 #: TFRMMP3GAINOPTIONS.EDTVORBISGAINBACKEND.TEXT
 msgid "vorbisgain"
 msgstr "vorbisgain"
+
+#: TFRMMP3GAINOPTIONS.GRBBACKENDS.CAPTION
+msgid "Backends"
+msgstr "Backends"
+
+#: TFRMMP3GAINOPTIONS.GRBMISCELLANEOUS.CAPTION
+msgid "Miscellaneous"
+msgstr "Verschiedenes"
+
+#: TFRMMP3GAINOPTIONS.GRBMP3GAIN.CAPTION
+msgid "MP3Gain"
+msgstr "MP3Gain"
 
 #: TFRMMP3GAINOPTIONS.LABEL1.CAPTION
 msgid "Number of sublevels when adding files:"
@@ -354,33 +449,10 @@ msgstr "MP3Gain Backend"
 msgid "VorbisGain backend:"
 msgstr "VorbisGain Backend:"
 
-#: TFRMMP3GAINGUIINFO.BTNCLOSE.CAPTION
-msgid "Close"
-msgstr "Schließen"
-
-#: TFRMMP3GAINGUIINFO.CAPTION
-msgid "About MP3Gain-GUI"
-msgstr "Über easyMP3Gain"
-
-#: TFRMMP3GAINGUIINFO.LBLPROGRAMNAME.CAPTION
-msgid "MP3Gain-GUI"
-msgstr "easyMP3Gain"
-
-#: TFRMMP3GAINGUIINFO.TBSAUTHORS.CAPTION
-msgid "Authors"
-msgstr "Autoren"
-
-#: TFRMMP3GAINGUIINFO.TBSLICENSE.CAPTION
-msgid "License"
-msgstr "Lizenz"
-
-#: TFRMMP3GAINGUIINFO.TBSTHANKSTO.CAPTION
-msgid "Thanks to"
-msgstr "Danke an"
-
-#: TFRMMP3GAINGUIINFO.TBSTRANSLATION.CAPTION
-msgid "Translation"
-msgstr "Übersetzung"
+#: unitgainconstant.gain_noun
+msgctxt "unitgainconstant.gain_noun"
+msgid "Gain"
+msgstr "Verstärkung"
 
 #: unitmain.application_description
 msgid "graphical user interface for mp3gain, aacgain and vorbisgain"
@@ -422,7 +494,12 @@ msgstr "Veränderung"
 msgid "Volume"
 msgstr "Laustärke"
 
+#: unitmain.target_volume_hint
+msgid "Only valid for MP3 and AAC files. Ogg-Vorbis files' target volume is fixed to 89 dB."
+msgstr "Nur gültig für MP3- und AAC-Dateien.Ogg-Vorbis-Dateien haben eine feste Referenz bei 89 dB."
+
 #: unitmediagain.strabout
+msgctxt "unitmediagain.strabout"
 msgid "About"
 msgstr "Über"
 

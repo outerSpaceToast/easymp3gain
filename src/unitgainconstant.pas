@@ -45,7 +45,10 @@ type
     { private declarations }
   public
     { public declarations }
-  end; 
+  end;
+
+resourcestring
+  GAIN_NOUN = 'Gain';
 
 var
   frmMP3GainConstant: TfrmMP3GainConstant;
@@ -71,7 +74,7 @@ end;
 
 procedure TfrmMP3GainConstant.tbGainChange(Sender: TObject);
 begin
-  lblGain.Caption := 'Gain: ' + FormatFloat('0.0',RoundGainValue(Double(tbGain.Position)/10)) + ' dB';
+  lblGain.Caption := GAIN_NOUN +': ' + FormatFloat('0.0',RoundGainValue(Double(tbGain.Position)/10)) + ' dB';
 end;
 
 initialization
