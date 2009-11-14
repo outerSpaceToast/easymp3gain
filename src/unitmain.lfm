@@ -6,7 +6,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   ActiveControl = pnlVolume
   AllowDropFiles = True
   Caption = 'easyMP3Gain'
-  ClientHeight = 358
+  ClientHeight = 359
   ClientWidth = 800
   Color = clForm
   Menu = MainMenu1
@@ -177,7 +177,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       end
       object edtVolume: TEdit
         Left = 162
-        Height = 22
+        Height = 25
         Top = 7
         Width = 44
         OnChange = edtVolumeChange
@@ -188,7 +188,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Height = 18
+    Height = 19
     Top = 340
     Width = 800
     Panels = <    

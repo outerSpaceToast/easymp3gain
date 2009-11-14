@@ -27,12 +27,15 @@ uses
   cthreads,
   {$ENDIF}{_$ENDIF}*)
   Interfaces, // this includes the LCL widgetset
-  Forms
+  Forms, LResources
   { add your units here }, Unitmain, unitinfo, UnitMP3Gain, unitgainconstant,
   unitoptions, unitconsoleoutput, unittranslate, UnitMediaGain, UnitVorbisGain,
   VorbisComment;//, TurboPowerIPro;
 
+{$IFDEF WINDOWS}{$R easymp3gain.rc}{$ENDIF}
+
 begin
+  {$I easymp3gain.lrs}
   Application.Initialize;
   Application.CreateForm(TfrmMp3GainMain, frmMp3GainMain);
   Application.CreateForm(TfrmMP3GainGUIInfo, frmMP3GainGUIInfo);

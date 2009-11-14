@@ -181,7 +181,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.3 SVN-0115';
+   APPLICATION_VERSION = '0.4.3 SVN-0116';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
    
@@ -271,7 +271,12 @@ begin
   i:=1;
   Result := '';
   if Copy(a,1,7)='file://' then                   // removes "files://" (Qt)
-    a := Copy(a,8,Length(a)-1);
+    a := Copy(a,8,Length(a)-1)
+  else
+  begin
+    Result := a;
+    exit;
+  end;
   while i<=Length(a) do
   begin
     if not (a[i]='%') then

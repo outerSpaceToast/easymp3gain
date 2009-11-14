@@ -33,7 +33,8 @@ type
 
   TSyncEventType = (setProgress, setStatusText, setStatusCode, setTrackGain,
     setAlbumGain, setMaxAmplitude_Track, setMaxAmplitude_Album,
-    setSongItemHasFinished, setSongItemHasStarted, setWholeAlbumGain);
+    setSongItemHasFinished, setSongItemHasStarted, setWholeAlbumGain,
+    setBeginUpdate, setEndUpdate);
 
   TMediaGainAction = (mgaTrackAnalyze, mgaAlbumAnalyze, mgaCheckTagInfo,
     mgaDeleteTagInfo, mgaAlbumGain, mgaTrackGain, mgaConstantGain,
@@ -378,10 +379,21 @@ var
   strBackend: String;
 begin
   case value of
-    setProgress:
+    setBeginUpdate:
     begin
-      frmMP3GainMain.ProgressBar.Position := FProgress;
+      frmMP3GainMain.lvFiles.BeginUpdate;
+      exit;
     end;
+    setEndUpdate:
+    begin
+      frmMP3GainMain.lvFiles.EndUpdate;
+      Application.ProcessMessages;
+      exit;
+    end;
+    setProgress:
+      begin
+        frmMP3GainMain.ProgressBar.Position := FProgress;
+      end;
     setStatusText:
       frmMP3GainMain.StatusBar.Panels[SB_STATUS].Text := FStatusText;
     setStatusCode:
@@ -476,7 +488,6 @@ begin
     end;
     frmMP3GainMain.UpdateView(SongItem);
   end;
-  Application.ProcessMessages;
 end;
 
 procedure TMediaGain.CreateProcess;
@@ -526,6 +537,7 @@ begin
     SongItem := SongItems[0]; // Set Pointer to first Item
     FCurrentSongItem := 0;
     FErrorHasOccured := false;
+    MediaGainSync(setBeginUpdate);
     MediaGainSync(setProgress);
     CreateProcess;
     FHeaderList.Clear;
@@ -562,6 +574,7 @@ begin
 
   finally
     FReady := true;
+    MediaGainSync(setEndUpdate);
   end;
 end;
 
