@@ -6,36 +6,36 @@ LazarusResources.Add('TfrmMP3GainGUIInfo','FORMDATA',[
   +'Caption'#6#17'About MP3Gain-GUI'#12'ClientHeight'#3','#1#11'ClientWidth'#3
   +#215#1#5'Color'#7#6'clForm'#8'Position'#7#14'poScreenCenter'#10'LCLVersion'#6
   +#8'0.9.28.2'#0#6'TLabel'#14'lblProgramName'#4'Left'#2';'#6'Height'#2#19#3'To'
-  +'p'#2#20#5'Width'#2'f'#7'Caption'#6#11'MP3Gain-GUI'#11'Font.Height'#2#242#10
+  +'p'#2#20#5'Width'#2'g'#7'Caption'#6#11'MP3Gain-GUI'#11'Font.Height'#2#242#10
   +'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TImage'
   +#6'Image1'#4'Left'#2#13#6'Height'#2' '#3'Top'#2#15#5'Width'#2' '#0#0#12'TPag'
   +'eControl'#11'PageControl'#4'Left'#2#8#6'Height'#3#200#0#3'Top'#2'8'#5'Width'
   +#3#196#1#10'ActivePage'#7#8'tbsAbout'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akR'
   +'ight'#8'akBottom'#0#8'TabIndex'#2#0#8'TabOrder'#2#0#0#9'TTabSheet'#8'tbsAbo'
-  +'ut'#7'Caption'#6#5'About'#12'ClientHeight'#3#171#0#11'ClientWidth'#3#192#1#0
-  +#6'TLabel'#14'lblDescription'#4'Left'#2'U'#6'Height'#2'|'#3'Top'#2#16#5'Widt'
-  +'h'#3'a'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#8'AutoS'
+  +'ut'#7'Caption'#6#5'About'#12'ClientHeight'#3#167#0#11'ClientWidth'#3#190#1#0
+  +#6'TLabel'#14'lblDescription'#4'Left'#2'U'#6'Height'#2'x'#3'Top'#2#16#5'Widt'
+  +'h'#3'_'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#8'AutoS'
   +'ize'#8#11'ParentColor'#8#8'WordWrap'#9#0#0#6'TLabel'#6'lblURL'#4'Left'#2'U'
   +#6'Height'#2#22#3'Top'#3#137#0#5'Width'#3'H'#1#8'AutoSize'#8#11'ParentColor'
   +#8#0#0#0#9'TTabSheet'#10'tbsAuthors'#7'Caption'#6#7'Authors'#12'ClientHeight'
-  +#3#171#0#11'ClientWidth'#3#192#1#0#5'TMemo'#5'Memo1'#4'Left'#2#5#6'Height'#3
-  +#161#0#3'Top'#2#5#5'Width'#3#182#1#5'Align'#7#8'alClient'#20'BorderSpacing.A'
+  +#3#167#0#11'ClientWidth'#3#190#1#0#5'TMemo'#5'Memo1'#4'Left'#2#5#6'Height'#3
+  +#157#0#3'Top'#2#5#5'Width'#3#180#1#5'Align'#7#8'alClient'#20'BorderSpacing.A'
   +'round'#2#5#13'Lines.Strings'#1#6#25'Please report any bugs to'#6#15'giantic'
   +'s@gmx.de'#6#0#6#18'Thomas Dieffenbach'#6'    Developer and Project founder'
   +#0#8'ReadOnly'#9#8'TabOrder'#2#0#0#0#0#9'TTabSheet'#11'tbsThanksTo'#7'Captio'
-  +'n'#6#9'Thanks to'#12'ClientHeight'#3#171#0#11'ClientWidth'#3#192#1#0#5'TMem'
-  +'o'#5'Memo4'#4'Left'#2#5#6'Height'#3#161#0#3'Top'#2#5#5'Width'#3#182#1#5'Ali'
+  +'n'#6#9'Thanks to'#12'ClientHeight'#3#167#0#11'ClientWidth'#3#190#1#0#5'TMem'
+  +'o'#5'Memo4'#4'Left'#2#5#6'Height'#3#157#0#3'Top'#2#5#5'Width'#3#180#1#5'Ali'
   +'gn'#7#8'alClient'#20'BorderSpacing.Around'#2#5#13'Lines.Strings'#1#6#17'Tho'
   +'rsten Reinbold'#6#31'    IconSet "Tango" and Testing'#6#0#6#13'Patrick Koha'
   +'n'#6#19'    IconSet "Tango"'#6#0#6' The FreePascal- and Lazarus-Team'#6#16
   +'The MP3Gain-Team'#0#8'ReadOnly'#9#8'TabOrder'#2#0#0#0#0#9'TTabSheet'#14'tbs'
-  +'Translation'#7'Caption'#6#11'Translation'#12'ClientHeight'#3#171#0#11'Clien'
-  +'tWidth'#3#192#1#0#5'TMemo'#15'MemoTranslation'#4'Left'#2#5#6'Height'#3#161#0
-  +#3'Top'#2#5#5'Width'#3#182#1#5'Align'#7#8'alClient'#20'BorderSpacing.Around'
+  +'Translation'#7'Caption'#6#11'Translation'#12'ClientHeight'#3#167#0#11'Clien'
+  +'tWidth'#3#190#1#0#5'TMemo'#15'MemoTranslation'#4'Left'#2#5#6'Height'#3#157#0
+  +#3'Top'#2#5#5'Width'#3#180#1#5'Align'#7#8'alClient'#20'BorderSpacing.Around'
   +#2#5#13'Lines.Strings'#1#6#18'Thomas Dieffenbach'#6#19'    giantics@gmx.de'#0
   +#8'ReadOnly'#9#8'TabOrder'#2#0#0#0#0#9'TTabSheet'#10'tbsLicense'#7'Caption'#6
-  +#7'License'#12'ClientHeight'#3#171#0#11'ClientWidth'#3#192#1#0#5'TMemo'#5'Me'
-  +'mo2'#4'Left'#2#5#6'Height'#3#161#0#3'Top'#2#5#5'Width'#3#182#1#5'Align'#7#8
+  +#7'License'#12'ClientHeight'#3#167#0#11'ClientWidth'#3#190#1#0#5'TMemo'#5'Me'
+  +'mo2'#4'Left'#2#5#6'Height'#3#157#0#3'Top'#2#5#5'Width'#3#180#1#5'Align'#7#8
   +'alClient'#20'BorderSpacing.Around'#2#5#13'Lines.Strings'#1#6'!(c) 2007-2009'
   +', Thomas Dieffenbach'#6#0#6':This program is distributed under the terms of'
   +' the GPL v2.'#6#0#6' '#9#9'    GNU GENERAL PUBLIC LICENSE'#6#29#9#9'       '

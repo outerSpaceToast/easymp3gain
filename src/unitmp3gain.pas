@@ -27,7 +27,7 @@ unit UnitMP3Gain;
 interface
 
 uses
-  Classes, SysUtils, UnitMediaGain;
+  Classes, SysUtils, UnitMediaGain, UnitMain;
   
 procedure CreateCommand(MediaGain: TMediaGain; var cmd: String);
 procedure ProcessResult(MediaGain: TMediaGain; strData: String; FHeaderList, FDataList: TStringList;
@@ -136,9 +136,10 @@ begin
     SL := TStringList.Create;
     try
       SL.Text := strData;
-    {$IFDEF DEBUG_VERSION}
-      SL.SaveToFile(strHomeDir+'out'+InttoStr(QWord(now)) +'.txt');
-    {$ENDIF}
+
+      if Print_Debug_Info then
+        SL.SaveToFile(strHomeDir+'out'+InttoStr(QWord(now)) +'.txt');
+
       for i:= SL.Count-1 downto 0 do
       begin
         if (SL[i]='') then SL.Delete(i);
@@ -157,9 +158,10 @@ begin
         p := FHeaderList.IndexOf(strResult_File);
         if (p>-1) then
         begin
-            {$IFDEF DEBUG_VERSION}
-              FDataList.SaveToFile(strHomeDir+'out_data.txt');
-            {$ENDIF}
+
+          if Print_Debug_Info then
+            FDataList.SaveToFile(strHomeDir+'out_data.txt');
+
           if (FDataList[p] = strResult_Album_Unquoted) then
           begin
             Album_Result_Event := true;
@@ -167,7 +169,8 @@ begin
           begin
             Album_Result_Event := false;
             SongItem := GetSongItem(FDataList[p]);
-            //Writeln('SongItem: ', LongInt(SongItem));
+            if Print_Debug_Info then
+              Writeln('SongItem: ', LongInt(SongItem));
             if SongItem=nil then continue;
           end;
         end;

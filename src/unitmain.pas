@@ -42,6 +42,7 @@ type
     HTMLHelpDatabase: THTMLHelpDatabase;
     ImageList1: TImageList;
     ImageList2: TImageList;
+    ImageList_Oxygen: TImageList;
     lblTargetVolume: TLabel;
     lblTargetVolumeUnit: TLabel;
     lvFiles: TListView;
@@ -181,7 +182,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.3 SVN-0116';
+   APPLICATION_VERSION = '0.4.3 SVN-0117';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
    
@@ -361,6 +362,9 @@ begin
   if MediaGainOptions.strVorbisGainBackend ='' then
     MediaGainOptions.strVorbisGainBackend := 'vorbisgain';   // Pre-setting
   frmMP3GainOptions.SettingsToControls;
+  {$IFDEF LCLqt}
+  ToolBar1.Images := frmMP3GainMain.ImageList_Oxygen;
+  {$ENDIF}
     
   TaskList := TMediaGainTaskList.Create;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
@@ -821,7 +825,8 @@ begin
     end;
   end;
   Result := SongItem;
-  //Writeln('added: ' + SongItem.FileName);
+  if Print_Debug_Info then
+    Writeln('added: ' + SongItem.FileName);
 end;
 
 procedure TfrmMp3GainMain.DelSongItem(AItemIndex: Integer);
