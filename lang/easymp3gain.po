@@ -194,95 +194,95 @@ msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION"
-msgid "Analysis"
+msgid "&Analysis"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUANALYSISALBUM.CAPTION
-msgid "Album analysis"
+msgid "&Album analysis"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUANALYSISCLEAR.CAPTION
-msgid "Clear"
+msgid "&Clear"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUANALYSISTRACK.CAPTION
-msgid "Track anlysis"
+msgid "&Track anlysis"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILE.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUFILE.CAPTION"
-msgid "File"
+msgid "&File"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFILES.CAPTION
-msgid "Add files..."
+msgid "Add &files..."
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFOLDER.CAPTION
-msgid "Add folder..."
+msgid "Add f&older..."
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFOLDERRECURSIVE.CAPTION
-msgid "Add folder recursively..."
+msgid "Add folder &recursively..."
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILECLEARALLFILES.CAPTION
-msgid "Clear all files"
+msgid "Clear &all files"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILECLEARSELECTED.CAPTION
-msgid "Clear selected file(s)"
+msgid "&Clear selected file(s)"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILEEXIT.CAPTION
-msgid "Exit"
+msgid "&Exit"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILESELECTALL.CAPTION
-msgid "Select all files"
+msgid "&Select all files"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUFILESELECTNONE.CAPTION
-msgid "Deselect all files"
+msgid "&Deselect all files"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUHELP.CAPTION
-msgid "Help"
+msgid "&Help"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUHELPHELP.CAPTION
-msgid "Help..."
+msgid "&Help..."
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUHELPINFO.CAPTION
-msgid "About easyMP3Gain..."
+msgid "&About easyMP3Gain..."
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAIN.CAPTION
-msgid "Modify Gain"
+msgid "Modify &Gain"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION"
-msgid "Apply album gain"
+msgid "Apply &album gain"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYCONSTANT.CAPTION
-msgid "Apply constant gain..."
+msgid "Apply &constant gain..."
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION"
-msgid "Apply track gain"
+msgid "Apply &track gain"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINUNDO.CAPTION
-msgid "Undo"
+msgid "&Undo"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION"
-msgid "Options"
+msgid "&Options"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSADVANCED.CAPTION
@@ -290,24 +290,24 @@ msgid "&Advanced"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSDELETETAGINFOS.CAPTION
-msgid "Delete Tags"
+msgid "&Delete Tags"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION
 msgctxt "TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION"
-msgid "Only Selected Items"
+msgid "&Selected files only"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSREADTAGINFO.CAPTION
-msgid "Read Tags"
+msgid "&Read Tags"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSSHOWCONSOLEOUTPUT.CAPTION
-msgid "Show console output..."
+msgid "Show &console output..."
 msgstr ""
 
 #: TFRMMP3GAINMAIN.MNUSELECTIONINVERT.CAPTION
-msgid "Invert selection"
+msgid "&Invert selection"
 msgstr ""
 
 #: TFRMMP3GAINMAIN.PMNANALYSISALBUM.CAPTION
@@ -415,20 +415,33 @@ msgstr ""
 msgid "MP3Gain"
 msgstr ""
 
-#: TFRMMP3GAINOPTIONS.LABEL1.CAPTION
-msgid "Number of sublevels when adding files:"
-msgstr ""
-
 #: TFRMMP3GAINOPTIONS.LBLAACGAINBACKEND.CAPTION
 msgid "AACGain backend:"
+msgstr ""
+
+#: TFRMMP3GAINOPTIONS.LBLFILENAMEDISPLAY.CAPTION
+msgid "Filename display:"
 msgstr ""
 
 #: TFRMMP3GAINOPTIONS.LBLMP3GAINBACKEND.CAPTION
 msgid "MP3Gain backend:"
 msgstr ""
 
+#: TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION"
+msgid "Number of sublevels when adding files:"
+msgstr ""
+
 #: TFRMMP3GAINOPTIONS.LBLVORBISGAINBACKEND.CAPTION
 msgid "VorbisGain backend:"
+msgstr ""
+
+#: TFRMMP3GAINOPTIONS.RBFILEANDPATH.CAPTION
+msgid "Show path and file in speparate columns"
+msgstr ""
+
+#: TFRMMP3GAINOPTIONS.RBFILEWITHPATH.CAPTION
+msgid "Show path with file"
 msgstr ""
 
 #: unitgainconstant.gain_noun
@@ -465,6 +478,14 @@ msgstr ""
 #: unitmain.column_file
 msgctxt "unitmain.column_file"
 msgid "File"
+msgstr ""
+
+#: unitmain.column_path
+msgid "Path"
+msgstr ""
+
+#: unitmain.column_pathandfile
+msgid "Path/File"
 msgstr ""
 
 #: unitmain.column_trackgain

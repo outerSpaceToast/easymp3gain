@@ -45,10 +45,13 @@ type
     grbBackends: TGroupBox;
     grbMP3Gain: TGroupBox;
     grbMiscellaneous: TGroupBox;
-    Label1: TLabel;
+    lblFilenameDisplay: TLabel;
+    lblSublevels: TLabel;
     lblVorbisGainBackend: TLabel;
     lblAACGainBackend: TLabel;
     lblMP3GainBackend: TLabel;
+    rbFileAndPath: TRadioButton;
+    rbFileWithPath: TRadioButton;
     procedure FormShow(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
@@ -61,6 +64,7 @@ type
     function LoadSettings: Boolean;
     procedure SettingsToControls;
     procedure SettingsFromControls;
+    procedure SettingsToMainForm;
     { public declarations }
   end; 
 
@@ -81,6 +85,7 @@ end;
 procedure TfrmMp3GainOptions.btnOKClick(Sender: TObject);
 begin
   SettingsFromControls;
+  SettingsToMainForm;
   Close;
 end;
 
@@ -111,6 +116,7 @@ begin
   MediaGainOptions.AnalysisTypeAlbum := frmMp3GainMain.pmnAnalysisAlbum.Checked;
   MediaGainOptions.GainTypeAlbum := frmMp3GainMain.pmnGainAlbum.Checked;
   MediaGainOptions.SubLevelCount := StrToInt(edtSublevelCount.Text);
+  MediaGainOptions.FileNameDisplay_FileAndPath := rbFileAndPath.Checked;
 end;
 
 procedure TfrmMp3GainOptions.SettingsToControls;
@@ -123,6 +129,30 @@ begin
   edtAACGainBackend.Text := MediaGainOptions.strAACGainBackend;
   edtVorbisGainBackend.Text := MediaGainOptions.strVorbisGainBackend;
   edtSubLevelCount.Text := IntToStr(MediaGainOptions.SubLevelCount);
+  if MediaGainOptions.FileNameDisplay_FileAndPath then
+  begin
+    rbFileAndPath.Checked := True
+  end
+  else
+  begin
+    rbFileWithPath.Checked := True;
+  end;
+end;
+
+procedure TfrmMp3GainOptions.SettingsToMainForm;
+begin
+  if MediaGainOptions.FileNameDisplay_FileAndPath then
+  begin
+    frmMp3GainMain.lvFiles.Columns[0].Visible := False;
+    frmMp3GainMain.lvFiles.Columns[SI_FILE+1].Visible := True;
+    frmMp3GainMain.lvFiles.Columns[SI_PATH+1].Visible := True;
+  end
+  else
+  begin
+    frmMp3GainMain.lvFiles.Columns[0].Visible := True;
+    frmMp3GainMain.lvFiles.Columns[SI_FILE+1].Visible := False;
+    frmMp3GainMain.lvFiles.Columns[SI_PATH+1].Visible := False;
+  end;
 end;
 
 procedure TfrmMp3GainOptions.SaveSettings;
@@ -147,6 +177,7 @@ begin
     StringList.Values['TargetVolume'] := FloatToStr(MediaGainOptions.TargetVolume^);
     StringList.Values['WindowHeight'] := IntToStr(frmMp3GainMain.Height);
     StringList.Values['WindowWidth'] := IntToStr(frmMp3GainMain.Width);
+    StringList.Values['FilenameDisplay_FileAndPath'] := BoolToStr(MediaGainOptions.FileNameDisplay_FileAndPath);
     StringList.SaveToFile(strHomeDir+strConfigFileName);
   finally
     StringList.Free;
@@ -175,6 +206,7 @@ begin
       MediaGainOptions.AnalysisTypeAlbum := StrToBool(StringList.Values['AnalysisTypeAlbum']);
       MediaGainOptions.GainTypeAlbum := StrToBool(StringList.Values['GainTypeAlbum']);
       MediaGainOptions.SubLevelCount := StrToInt(StringList.Values['SubLevelCount']);
+      MediaGainOptions.FileNameDisplay_FileAndPath := StrToBool(StringList.Values['FilenameDisplay_FileAndPath']);
       iHeight := StrToInt(StringList.Values['WindowHeight']);
       iWidth := StrToInt(StringList.Values['WindowWidth']);
       if (iHeight>20) then

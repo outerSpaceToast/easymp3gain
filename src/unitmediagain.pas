@@ -169,7 +169,7 @@ end;
     AnalysisTypeAlbum: Boolean;
     GainTypeAlbum: Boolean;
     SubLevelCount: Byte;
-    
+    FileNameDisplay_FileAndPath: Boolean;
     
   end;
 
@@ -381,18 +381,18 @@ begin
   case value of
     setBeginUpdate:
     begin
-      frmMP3GainMain.lvFiles.BeginUpdate;
+      //frmMP3GainMain.lvFiles.BeginUpdate;
       exit;
     end;
     setEndUpdate:
     begin
-      frmMP3GainMain.lvFiles.EndUpdate;
-      Application.ProcessMessages;
+      //frmMP3GainMain.lvFiles.EndUpdate;
       exit;
     end;
     setProgress:
       begin
         frmMP3GainMain.ProgressBar.Position := FProgress;
+        Application.ProcessMessages;
       end;
     setStatusText:
       frmMP3GainMain.StatusBar.Panels[SB_STATUS].Text := FStatusText;

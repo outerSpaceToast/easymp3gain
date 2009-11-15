@@ -160,7 +160,7 @@ type
     procedure ProcessQueue(Sender: TObject);
     function AddSongItem(AName: String): TSongItem;
     procedure DelSongItem(AItemIndex: Integer);
-    procedure LockControls(lock: Boolean);
+    procedure LockControls(lock: Boolean; freeze_ListView: Boolean);
     //procedure LoadLanguageFile(AFile: String);
     procedure AddFiles(SL: TStrings);
     procedure AddFolder(S: String; sublevels: Integer);
@@ -182,23 +182,30 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.3 SVN-0117';
+   APPLICATION_VERSION = '0.4.3 SVN-0118';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
-   
-  SI_VOLUME = 0;
-  SI_CLIPPING = 1;
-  SI_TRACKGAIN = 2;
-  SI_CLIPTRACK = 3;
-  SI_ALBUMVOLUME = 4;
-  SI_ALBUMGAIN = 5;
-  SI_CLIPALBUM = 6;
 
-  SI_COUNT = 7;
+  SI_PATH = 1;
+  SI_FILE = 0;
+  SI_VOLUME = 0+2;
+  SI_CLIPPING = 1+2;
+  SI_TRACKGAIN = 2+2;
+  SI_CLIPTRACK = 3+2;
+  SI_ALBUMVOLUME = 4+2;
+  SI_ALBUMGAIN = 5+2;
+  SI_CLIPALBUM = 6+2;
+
+  SI_COUNT = 9;
+
+  LVFILES_SUBITEMS_MIN = 2;
+  LVFILES_SUBITEMS_MAX = 8;
 
   resourcestring
    APPLICATION_DESCRIPTION = 'graphical user interface for mp3gain, aacgain and vorbisgain';
+   COLUMN_PATHANDFILE = 'Path/File';
    COLUMN_FILE = 'File';
+   COLUMN_PATH = 'Path';
    COLUMN_VOLUME = 'Volume';
    COLUMN_CLIPPING = 'clipping';
    COLUMN_TRACKGAIN = 'Track Gain';
@@ -347,9 +354,10 @@ begin
     MediaGainOptions.UseTempFiles:=True;               // Pre-setting
     MediaGainOptions.AutoReadAtFileAdd:=True;          // Pre-setting
     MediaGainOptions.ToolBarImageListIndex:=1;         // Pre-setting
-    MediaGainOptions.AnalysisTypeAlbum := False;
-    MediaGainOptions.GainTypeAlbum := False;
-    MediaGainOptions.SubLevelCount := 8;
+    MediaGainOptions.AnalysisTypeAlbum := False;       // Pre-setting
+    MediaGainOptions.GainTypeAlbum := False;           // Pre-setting
+    MediaGainOptions.SubLevelCount := 8;               // Pre-setting
+    MediaGainOptions.FileNameDisplay_FileAndPath:=True;// Pre-setting
     MediaGainOptions.strMP3GainBackend := 'mp3gain';   // Pre-setting
     MediaGainOptions.strAACGainBackend := 'aacgain';   // Pre-setting
     MediaGainOptions.strVorbisGainBackend := 'vorbisgain';   // Pre-setting
@@ -362,6 +370,7 @@ begin
   if MediaGainOptions.strVorbisGainBackend ='' then
     MediaGainOptions.strVorbisGainBackend := 'vorbisgain';   // Pre-setting
   frmMP3GainOptions.SettingsToControls;
+  frmMP3GainOptions.SettingsToMainForm;
   {$IFDEF LCLqt}
   ToolBar1.Images := frmMP3GainMain.ImageList_Oxygen;
   {$ENDIF}
@@ -379,7 +388,9 @@ begin
   frmMP3GainGUIInfo.lblURL.Caption := APPLICATION_URL;
   frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
 
-  lvFiles.Column[0].Caption                := COLUMN_FILE;
+  lvFiles.Column[0].Caption                := COLUMN_PATHANDFILE;
+  lvFiles.Column[SI_FILE+1].Caption        := COLUMN_FILE;
+  lvFiles.Column[SI_PATH+1].Caption        := COLUMN_PATH;
   lvFiles.Column[SI_VOLUME+1].Caption      := COLUMN_VOLUME;
   lvFiles.Column[SI_CLIPPING+1].Caption    := COLUMN_CLIPPING;
   lvFiles.Column[SI_TRACKGAIN+1].Caption   := COLUMN_TRACKGAIN;
@@ -408,11 +419,20 @@ begin
   end;
 end;
 
-procedure TfrmMp3GainMain.LockControls(lock: Boolean);
+procedure TfrmMp3GainMain.LockControls(lock: Boolean; freeze_ListView: Boolean);
 var
   i: Integer;
 begin
   edtVolume.Enabled := not lock;
+  {$IFDEF LCLgtk2}                    // GTK2's TListView is some kind of slow!
+  if freeze_ListView then
+  begin
+    if lock then
+      lvFiles.BeginUpdate
+    else
+      lvFiles.EndUpdate;
+  end;
+  {$ENDIF}
   for i:=0 to ToolBar1.ButtonCount-1 do
   begin
     ToolBar1.Buttons[i].Enabled := not lock;
@@ -530,8 +550,11 @@ procedure TfrmMp3GainMain.ProcessQueue(Sender: TObject);
 var
   i: Integer;
   n,k: Integer;
+  freeze_ListView: Boolean=false;
 begin
-  LockControls(True);
+  if TaskList.Count>0 then
+    freeze_ListView := TaskList[0].MediaGainAction=mgaCheckTagInfo;  // freezing ListView means speed improvements
+  LockControls(True, freeze_ListView);
   MediaGain.Cancel := False;
   while ((TaskList.Count >0) {and (not MediaGain.Cancel)}) do
   begin
@@ -541,7 +564,7 @@ begin
     begin
       with TaskList[n].SongItems[k].ListViewItem do
       begin
-        for i:=0 to SubItems.Count-1 do
+        for i:=LVFILES_SUBITEMS_MIN to LVFILES_SUBITEMS_MAX do //0 to SubItems.Count-1 do
           SubItems[i] := '';
       end;
     end;
@@ -564,7 +587,7 @@ begin
   FilesProcessedCount := 0;
   ProgressBarGeneral.Position := ProgressBarGeneral.Max;
   ProgressBar.Position := 0;
-  LockControls(False);
+  LockControls(False, freeze_ListView);
 end;
 
 procedure TfrmMp3GainMain.AddFiles(SL: TStrings);
@@ -748,6 +771,7 @@ begin
   r := frmMP3GainConstant.ShowModal;
   if r=-1 then exit;
   QueueFiles(mgaConstantGain, Double(r)/10, true);
+  edtVolumeChange(frmMP3GainConstant);                    // set volume back
 end;
 
 procedure TfrmMp3GainMain.mnuModifyGainApplyTrackClick(Sender: TObject);
@@ -823,6 +847,8 @@ begin
     begin
       SongItem.ListViewItem.SubItems.Add('');
     end;
+    SubItems[SI_FILE] := SongItem.ExtractedFileName;
+    SubItems[SI_PATH] := SongItem.FilePath;
   end;
   Result := SongItem;
   if Print_Debug_Info then
@@ -1008,7 +1034,7 @@ begin
   begin
     with lvFiles.Items[i] do
     begin
-      for k:=0 to SubItems.Count-1 do
+      for k:=LVFILES_SUBITEMS_MIN to LVFILES_SUBITEMS_MAX do
         SubItems[k] := '';
     end;
   end;

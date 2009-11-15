@@ -8,6 +8,8 @@ LoadFromFile(UTF8toSys(InputFile.Text)) (SOnderzeichen)
 Icon 48x48
 
 done:
+Constant Gain test
+Option: show file/path or file with path
 Target-Volume -> MP3-Target-Volume (Hint for vorbis)
 save window size
 Read translation-author from .po-file

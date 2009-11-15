@@ -227,8 +227,16 @@ object frmMp3GainMain: TfrmMp3GainMain
     BorderSpacing.Bottom = 5
     Columns = <    
       item
-        Caption = 'File'
+        Caption = 'Path/File'
         Width = 340
+      end    
+      item
+        Caption = 'File'
+        Width = 150
+      end    
+      item
+        Caption = 'Path'
+        Width = 150
       end    
       item
         Caption = 'Volume'
@@ -284,101 +292,101 @@ object frmMp3GainMain: TfrmMp3GainMain
     left = 208
     top = 128
     object mnuFile: TMenuItem
-      Caption = 'File'
+      Caption = '&File'
       object mnuFileAddFolder: TMenuItem
-        Caption = 'Add folder...'
+        Caption = 'Add f&older...'
         OnClick = mnuFileAddFolderClick
       end
       object mnuFileAddFolderRecursive: TMenuItem
-        Caption = 'Add folder recursively...'
+        Caption = 'Add folder &recursively...'
         OnClick = mnuFileAddFolderClick
       end
       object mnuFileAddFiles: TMenuItem
-        Caption = 'Add files...'
+        Caption = 'Add &files...'
         OnClick = mnuFileAddFilesClick
       end
       object MenuItem2: TMenuItem
         Caption = '-'
       end
       object mnuFileSelectAll: TMenuItem
-        Caption = 'Select all files'
+        Caption = '&Select all files'
         OnClick = mnuFileSelectAllClick
       end
       object mnuFileSelectNone: TMenuItem
-        Caption = 'Deselect all files'
+        Caption = '&Deselect all files'
         OnClick = mnuFileSelectNoneClick
       end
       object mnuSelectionInvert: TMenuItem
-        Caption = 'Invert selection'
+        Caption = '&Invert selection'
         OnClick = mnuSelectionInvertClick
       end
       object MenuItem10: TMenuItem
         Caption = '-'
       end
       object mnuFileClearSelected: TMenuItem
-        Caption = 'Clear selected file(s)'
+        Caption = '&Clear selected file(s)'
         OnClick = mnuFileClearSelectedClick
       end
       object mnuFileClearAllFiles: TMenuItem
-        Caption = 'Clear all files'
+        Caption = 'Clear &all files'
         OnClick = mnuFileClearAllFilesClick
       end
       object MenuItem1: TMenuItem
         Caption = '-'
       end
       object mnuFileExit: TMenuItem
-        Caption = 'Exit'
+        Caption = '&Exit'
         OnClick = mnuFileExitClick
       end
     end
     object mnuAnalysis: TMenuItem
-      Caption = 'Analysis'
+      Caption = '&Analysis'
       object mnuAnalysisTrack: TMenuItem
-        Caption = 'Track anlysis'
+        Caption = '&Track anlysis'
         OnClick = mnuAnalysisTrackClick
       end
       object mnuAnalysisAlbum: TMenuItem
-        Caption = 'Album analysis'
+        Caption = '&Album analysis'
         OnClick = mnuAnalysisAlbumClick
       end
       object MenuItem5: TMenuItem
         Caption = '-'
       end
       object mnuAnalysisClear: TMenuItem
-        Caption = 'Clear'
+        Caption = '&Clear'
         OnClick = mnuAnalysisClearClick
       end
     end
     object mnuModifyGain: TMenuItem
-      Caption = 'Modify Gain'
+      Caption = 'Modify &Gain'
       object mnuModifyGainApplyTrack: TMenuItem
-        Caption = 'Apply track gain'
+        Caption = 'Apply &track gain'
         OnClick = mnuModifyGainApplyTrackClick
       end
       object mnuModifyGainApplyAlbum: TMenuItem
-        Caption = 'Apply album gain'
+        Caption = 'Apply &album gain'
         OnClick = mnuModifyGainApplyAlbumClick
       end
       object mnuModifyGainApplyConstant: TMenuItem
-        Caption = 'Apply constant gain...'
+        Caption = 'Apply &constant gain...'
         OnClick = mnuModifyGainApplyConstantClick
       end
       object MenuItem4: TMenuItem
         Caption = '-'
       end
       object mnuModifyGainUndo: TMenuItem
-        Caption = 'Undo'
+        Caption = '&Undo'
         OnClick = mnuModifyGainUndoClick
       end
     end
     object mnuOptions: TMenuItem
-      Caption = 'Options'
+      Caption = '&Options'
       object mnuOptionsReadTagInfo: TMenuItem
-        Caption = 'Read Tags'
+        Caption = '&Read Tags'
         OnClick = mnuOptionsReadTagInfoClick
       end
       object mnuOptionsDeleteTagInfos: TMenuItem
-        Caption = 'Delete Tags'
+        Caption = '&Delete Tags'
         OnClick = mnuOptionsDeleteTagInfosClick
       end
       object MenuItem3: TMenuItem
@@ -386,7 +394,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       end
       object mnuOptionsOnlySelectedItems: TMenuItem
         AutoCheck = True
-        Caption = 'Only Selected Items'
+        Caption = '&Selected files only'
         GroupIndex = 1
         OnClick = mnuOptionsOnlySelectedItemsClick
       end
@@ -401,21 +409,21 @@ object frmMp3GainMain: TfrmMp3GainMain
         Caption = '-'
       end
       object mnuOptionsShowConsoleOutput: TMenuItem
-        Caption = 'Show console output...'
+        Caption = 'Show &console output...'
         OnClick = mnuOptionsShowConsoleOutputClick
       end
     end
     object mnuHelp: TMenuItem
-      Caption = 'Help'
+      Caption = '&Help'
       object mnuHelpHelp: TMenuItem
-        Caption = 'Help...'
+        Caption = '&Help...'
         OnClick = mnuHelpHelpClick
       end
       object MenuItem8: TMenuItem
         Caption = '-'
       end
       object mnuHelpInfo: TMenuItem
-        Caption = 'About easyMP3Gain...'
+        Caption = '&About easyMP3Gain...'
         OnClick = mnuHelpInfoClick
       end
     end

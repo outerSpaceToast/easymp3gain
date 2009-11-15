@@ -18,7 +18,7 @@ msgstr "&Chiudi"
 
 #: TFRMMP3GAINCONSOLEOUTPUT.CAPTION
 msgid "Console Output"
-msgstr ""
+msgstr "Console output"
 
 #: TFRMMP3GAINCONSTANT.BTNCANCEL.CAPTION
 msgctxt "TFRMMP3GAINCONSTANT.BTNCANCEL.CAPTION"
@@ -32,7 +32,7 @@ msgstr "&OK"
 
 #: TFRMMP3GAINCONSTANT.CAPTION
 msgid "Constant Gain"
-msgstr ""
+msgstr "Guadagno Costante"
 
 #: TFRMMP3GAINGUIINFO.BTNCLOSE.CAPTION
 #, fuzzy
@@ -130,6 +130,8 @@ msgid "Gain"
 msgstr "Normalizza"
 
 #: TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.CAPTION
+#, fuzzy
+#| msgid "Selected files only"
 msgctxt "TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.CAPTION"
 msgid "Only Selected Items"
 msgstr "Solo Oggetti Selezionati"
@@ -155,6 +157,8 @@ msgid "dB"
 msgstr "dB"
 
 #: TFRMMP3GAINMAIN.LVFILES.COLUMNS.CAPTION
+#, fuzzy
+#| msgid "Path"
 msgctxt "TFRMMP3GAINMAIN.LVFILES.COLUMNS.CAPTION"
 msgid "clip (Album)"
 msgstr "Clip (Album)"
@@ -205,96 +209,140 @@ msgid "-"
 msgstr "-"
 
 #: TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION
+#, fuzzy
+#| msgid "Analysis"
 msgctxt "TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION"
-msgid "Analysis"
+msgid "&Analysis"
 msgstr "Analisi"
 
 #: TFRMMP3GAINMAIN.MNUANALYSISALBUM.CAPTION
-msgid "Album analysis"
+#, fuzzy
+#| msgid "Album analysis"
+msgid "&Album analysis"
 msgstr "Analisi &Album"
 
 #: TFRMMP3GAINMAIN.MNUANALYSISCLEAR.CAPTION
-msgid "Clear"
+#, fuzzy
+#| msgid "Clear"
+msgid "&Clear"
 msgstr "&Pulisci"
 
 #: TFRMMP3GAINMAIN.MNUANALYSISTRACK.CAPTION
-msgid "Track anlysis"
+#, fuzzy
+#| msgid "Track anlysis"
+msgid "&Track anlysis"
 msgstr "Analisi &Brano"
 
 #: TFRMMP3GAINMAIN.MNUFILE.CAPTION
+#, fuzzy
+#| msgid "File"
 msgctxt "TFRMMP3GAINMAIN.MNUFILE.CAPTION"
-msgid "File"
+msgid "&File"
 msgstr "File"
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFILES.CAPTION
-msgid "Add files..."
+#, fuzzy
+#| msgid "Add files..."
+msgid "Add &files..."
 msgstr "&Aggiungi Files..."
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFOLDER.CAPTION
-msgid "Add folder..."
+#, fuzzy
+#| msgid "Add folder..."
+msgid "Add f&older..."
 msgstr "Aggiungi &Cartella..."
 
 #: TFRMMP3GAINMAIN.MNUFILEADDFOLDERRECURSIVE.CAPTION
-msgid "Add folder recursively..."
+#, fuzzy
+#| msgid "Add folder recursively..."
+msgid "Add folder &recursively..."
 msgstr "Aggiungi Cartella &Ricorsivamente..."
 
 #: TFRMMP3GAINMAIN.MNUFILECLEARALLFILES.CAPTION
-msgid "Clear all files"
+#, fuzzy
+#| msgid "Clear all files"
+msgid "Clear &all files"
 msgstr "Pulisci &Tutti i Files"
 
 #: TFRMMP3GAINMAIN.MNUFILECLEARSELECTED.CAPTION
-msgid "Clear selected file(s)"
+#, fuzzy
+#| msgid "Clear selected file(s)"
+msgid "&Clear selected file(s)"
 msgstr "&Pulisci File(s) selezionati"
 
 #: TFRMMP3GAINMAIN.MNUFILEEXIT.CAPTION
-msgid "Exit"
+#, fuzzy
+#| msgid "Exit"
+msgid "&Exit"
 msgstr "&Esci"
 
 #: TFRMMP3GAINMAIN.MNUFILESELECTALL.CAPTION
-msgid "Select all files"
+#, fuzzy
+#| msgid "Select all files"
+msgid "&Select all files"
 msgstr "&Seleziona tutti i Files"
 
 #: TFRMMP3GAINMAIN.MNUFILESELECTNONE.CAPTION
-msgid "Deselect all files"
+#, fuzzy
+#| msgid "Deselect all files"
+msgid "&Deselect all files"
 msgstr "&Deseleziona tutti i Files"
 
 #: TFRMMP3GAINMAIN.MNUHELP.CAPTION
-msgid "Help"
+#, fuzzy
+#| msgid "Help"
+msgid "&Help"
 msgstr "&Aiuto"
 
 #: TFRMMP3GAINMAIN.MNUHELPHELP.CAPTION
-msgid "Help..."
+#, fuzzy
+#| msgid "Help..."
+msgid "&Help..."
 msgstr "&Aiuto..."
 
 #: TFRMMP3GAINMAIN.MNUHELPINFO.CAPTION
-msgid "About easyMP3Gain..."
+#, fuzzy
+#| msgid "About easyMP3Gain..."
+msgid "&About easyMP3Gain..."
 msgstr "In&fo su easyMP3Gain..."
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAIN.CAPTION
-msgid "Modify Gain"
+#, fuzzy
+#| msgid "Modify Gain"
+msgid "Modify &Gain"
 msgstr "&Normalizzazione"
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION
+#, fuzzy
+#| msgid "Apply album gain"
 msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION"
-msgid "Apply album gain"
+msgid "Apply &album gain"
 msgstr "Normalizza &Album"
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYCONSTANT.CAPTION
-msgid "Apply constant gain..."
+#, fuzzy
+#| msgid "Apply constant gain..."
+msgid "Apply &constant gain..."
 msgstr "Applica Normalizzazione &Costante..."
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION
+#, fuzzy
+#| msgid "Apply track gain"
 msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION"
-msgid "Apply track gain"
+msgid "Apply &track gain"
 msgstr "Normalizza &Brano"
 
 #: TFRMMP3GAINMAIN.MNUMODIFYGAINUNDO.CAPTION
-msgid "Undo"
+#, fuzzy
+#| msgid "Undo"
+msgid "&Undo"
 msgstr "Annul&la"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION
+#, fuzzy
+#| msgid "Options"
 msgctxt "TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION"
-msgid "Options"
+msgid "&Options"
 msgstr "&Opzioni"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSADVANCED.CAPTION
@@ -302,24 +350,34 @@ msgid "&Advanced"
 msgstr "&Avanzate"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSDELETETAGINFOS.CAPTION
-msgid "Delete Tags"
+#, fuzzy
+#| msgid "Delete Tags"
+msgid "&Delete Tags"
 msgstr "&Cancella Tags"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION
+#, fuzzy
+#| msgid "Selected files only"
 msgctxt "TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION"
-msgid "Only Selected Items"
+msgid "&Selected files only"
 msgstr "&Solo Elementi Selezionati"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSREADTAGINFO.CAPTION
-msgid "Read Tags"
+#, fuzzy
+#| msgid "Read Tags"
+msgid "&Read Tags"
 msgstr "&Leggi Tags"
 
 #: TFRMMP3GAINMAIN.MNUOPTIONSSHOWCONSOLEOUTPUT.CAPTION
-msgid "Show console output..."
+#, fuzzy
+#| msgid "Show console output..."
+msgid "Show &console output..."
 msgstr "&Mostra dati in Uscita su unsa console"
 
 #: TFRMMP3GAINMAIN.MNUSELECTIONINVERT.CAPTION
-msgid "Invert selection"
+#, fuzzy
+#| msgid "Invert selection"
+msgid "&Invert selection"
 msgstr "&Inverti la Selezione"
 
 #: TFRMMP3GAINMAIN.PMNANALYSISALBUM.CAPTION
@@ -425,27 +483,40 @@ msgstr ""
 
 #: TFRMMP3GAINOPTIONS.GRBMISCELLANEOUS.CAPTION
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Mistro"
 
 #: TFRMMP3GAINOPTIONS.GRBMP3GAIN.CAPTION
 msgid "MP3Gain"
 msgstr "MP3Gain"
 
-#: TFRMMP3GAINOPTIONS.LABEL1.CAPTION
-msgid "Number of sublevels when adding files:"
-msgstr "Numbero di sottocartelle da leggere quando si aggiungono files"
-
 #: TFRMMP3GAINOPTIONS.LBLAACGAINBACKEND.CAPTION
 msgid "AACGain backend:"
 msgstr "Normalizza AACGain con:"
+
+#: TFRMMP3GAINOPTIONS.LBLFILENAMEDISPLAY.CAPTION
+msgid "Filename display:"
+msgstr "Visualizzazione dei nomi dei file"
 
 #: TFRMMP3GAINOPTIONS.LBLMP3GAINBACKEND.CAPTION
 msgid "MP3Gain backend:"
 msgstr "Normalizza MP3Gain con:"
 
+#: TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION"
+msgid "Number of sublevels when adding files:"
+msgstr "Numbero di sottocartelle da leggere quando si aggiungono files"
+
 #: TFRMMP3GAINOPTIONS.LBLVORBISGAINBACKEND.CAPTION
 msgid "VorbisGain backend:"
 msgstr "Normaliza VorbisGain con:"
+
+#: TFRMMP3GAINOPTIONS.RBFILEANDPATH.CAPTION
+msgid "Show path and file in speparate columns"
+msgstr "Mostra percorso e nome del file in colonne &separate"
+
+#: TFRMMP3GAINOPTIONS.RBFILEWITHPATH.CAPTION
+msgid "Show path with file"
+msgstr "Mostra p&ercorso e nome del file"
 
 #: unitgainconstant.gain_noun
 msgctxt "unitgainconstant.gain_noun"
@@ -483,6 +554,14 @@ msgctxt "unitmain.column_file"
 msgid "File"
 msgstr "File"
 
+#: unitmain.column_path
+msgid "Path"
+msgstr "Percorso"
+
+#: unitmain.column_pathandfile
+msgid "Path/File"
+msgstr "Percoso/File"
+
 #: unitmain.column_trackgain
 msgctxt "unitmain.column_trackgain"
 msgid "Track Gain"
@@ -494,7 +573,7 @@ msgstr "Volume"
 
 #: unitmain.target_volume_hint
 msgid "Only valid for MP3 and AAC files. Ogg-Vorbis files' target volume is fixed to 89 dB."
-msgstr ""
+msgstr "Valido solo per file MP3 e AAC. Il volume dei files Ogg-Vorbis è fisso a 89 dB"
 
 #: unitmediagain.strabout
 msgctxt "unitmediagain.strabout"
