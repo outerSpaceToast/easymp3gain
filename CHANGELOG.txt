@@ -1,5 +1,5 @@
-2009-??-?? | easyMP3Gain 0.4.4
-First release of Qt4-version 
+2009-12-30 | easyMP3Gain 0.5.0
+First release of Qt4 Version 
 Added Italian translation (thanks to Giulio Rodoni!)
 Main window remebers its size after restart
 Speed improvements when checking tags

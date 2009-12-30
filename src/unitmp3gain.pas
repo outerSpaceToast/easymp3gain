@@ -1,7 +1,7 @@
 unit UnitMP3Gain;
 
 {
-     Copyright (C) 2007-2009 by Thomas Dieffenbach
+     Copyright (C) 2007-2010 by Thomas Dieffenbach
      giantics@gmx.de
 
      This program is free software; you can redistribute it and/or modify
@@ -170,7 +170,7 @@ begin
             Album_Result_Event := false;
             SongItem := GetSongItem(FDataList[p]);
             if Print_Debug_Info then
-              Writeln('SongItem: ', LongInt(SongItem));
+              Writeln('SongItem: ', PtrUInt(SongItem));
             if SongItem=nil then continue;
           end;
         end;

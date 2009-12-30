@@ -5,9 +5,10 @@ QT-Version
 Max-noclip gain
 FLAC
 LoadFromFile(UTF8toSys(InputFile.Text)) (SOnderzeichen)
-Icon 48x48
 
 done:
+Icon 48x48
+Bei anderer Sprache und keine Hilfe vorhanden, dann englisch!
 Constant Gain test
 Option: show file/path or file with path
 Target-Volume -> MP3-Target-Volume (Hint for vorbis)

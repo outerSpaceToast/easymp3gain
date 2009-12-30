@@ -13,40 +13,40 @@ LazarusResources.Add('TfrmMp3GainOptions','FORMDATA',[
   +'r'#2#1#0#0#9'TGroupBox'#11'grbBackends'#4'Left'#2#8#6'Height'#3#136#0#3'Top'
   +#3#168#0#5'Width'#3#144#1#7'Caption'#6#8'Backends'#12'ClientHeight'#2'w'#11
   +'ClientWidth'#3#140#1#8'TabOrder'#2#2#0#6'TLabel'#17'lblAACGainBackend'#4'Le'
-  +'ft'#3#188#0#6'Height'#2#16#3'Top'#2#18#5'Width'#2'p'#7'Caption'#6#16'AACGai'
+  +'ft'#3#188#0#6'Height'#2#16#3'Top'#2#18#5'Width'#2's'#7'Caption'#6#16'AACGai'
   +'n backend:'#11'ParentColor'#8#0#0#6'TLabel'#17'lblMP3GainBackend'#4'Left'#2
-  +#11#6'Height'#2#16#3'Top'#2#14#5'Width'#2'q'#7'Caption'#6#16'MP3Gain backend'
+  +#11#6'Height'#2#16#3'Top'#2#14#5'Width'#2'u'#7'Caption'#6#16'MP3Gain backend'
   +':'#11'ParentColor'#8#0#0#6'TLabel'#20'lblVorbisGainBackend'#4'Left'#2#11#6
-  +'Height'#2#16#3'Top'#2'F'#5'Width'#2'|'#7'Caption'#6#19'VorbisGain backend:'
-  +#11'ParentColor'#8#0#0#5'TEdit'#20'edtVorbisGainBackend'#4'Left'#2#11#6'Heig'
-  +'ht'#2#25#3'Top'#2'X'#5'Width'#3#152#0#8'TabOrder'#2#0#4'Text'#6#10'vorbisga'
-  +'in'#0#0#5'TEdit'#17'edtMP3GainBackend'#4'Left'#2#11#6'Height'#2#25#3'Top'#2
-  +'#'#5'Width'#3#152#0#8'TabOrder'#2#1#4'Text'#6#7'mp3gain'#0#0#5'TEdit'#17'ed'
-  +'tAACGainBackend'#4'Left'#3#187#0#6'Height'#2#25#3'Top'#2'#'#5'Width'#3#152#0
-  +#8'TabOrder'#2#2#4'Text'#6#7'aacgain'#0#0#0#9'TGroupBox'#10'grbMP3Gain'#4'Le'
-  +'ft'#2#8#6'Height'#3#156#0#3'Top'#2#8#5'Width'#3#144#1#7'Caption'#6#7'MP3Gai'
-  +'n'#12'ClientHeight'#3#139#0#11'ClientWidth'#3#140#1#8'TabOrder'#2#3#0#9'TCh'
-  +'eckBox'#28'chkPreserveOriginalTimestamp'#4'Left'#2#16#6'Height'#2#22#3'Top'
-  +#2'h'#5'Width'#3#214#0#7'Caption'#6' Preserve original file timestamp'#8'Tab'
-  +'Order'#2#0#0#0#9'TCheckBox'#15'chkUseTempFiles'#4'Left'#2#16#6'Height'#2#22
-  +#3'Top'#2'K'#5'Width'#3#141#0#7'Caption'#6#19'Use temporary files'#8'TabOrde'
-  +'r'#2#1#0#0#9'TCheckBox'#20'chkAutoReadAtFileAdd'#4'Left'#2#16#6'Height'#2#22
-  +#3'Top'#2'.'#5'Width'#3'3'#1#7'Caption'#6'/Auto-read tags when adding files '
-  +'or directories'#8'OnChange'#7#26'chkAutoReadAtFileAddChange'#8'TabOrder'#2#2
-  +#0#0#9'TCheckBox'#13'chkIgnoreTags'#4'Left'#2#16#6'Height'#2#22#3'Top'#2#16#5
-  +'Width'#3#8#1#7'Caption'#6'''Ignore Tags (Do not read or write them)'#8'OnCh'
-  +'ange'#7#19'chkIgnoreTagsChange'#8'TabOrder'#2#3#0#0#0#9'TGroupBox'#16'grbMi'
-  +'scellaneous'#4'Left'#2#8#6'Height'#3#144#0#3'Top'#3'8'#1#5'Width'#3#144#1#7
-  +'Caption'#6#13'Miscellaneous'#12'ClientHeight'#2#127#11'ClientWidth'#3#140#1
-  +#8'TabOrder'#2#4#0#6'TLabel'#12'lblSublevels'#4'Left'#2#16#6'Height'#2#16#3
-  +'Top'#2#14#5'Width'#3#239#0#7'Caption'#6'&Number of sublevels when adding fi'
-  +'les:'#11'ParentColor'#8#0#0#6'TLabel'#18'lblFilenameDisplay'#4'Left'#2#16#6
-  +'Height'#2#16#3'Top'#2'A'#5'Width'#2'g'#7'Caption'#6#17'Filename display:'#11
-  +'ParentColor'#8#0#0#5'TEdit'#16'edtSublevelCount'#4'Left'#2#16#6'Height'#2#25
-  +#3'Top'#2'!'#5'Width'#2'('#8'TabOrder'#2#0#4'Text'#6#1'6'#0#0#12'TRadioButto'
-  +'n'#13'rbFileAndPath'#4'Left'#2#22#6'Height'#2#22#3'Top'#2'Q'#5'Width'#3#16#1
-  +#7'Caption'#6'''Show path and file in speparate columns'#7'Checked'#9#5'Stat'
-  +'e'#7#9'cbChecked'#8'TabOrder'#2#1#0#0#12'TRadioButton'#14'rbFileWithPath'#4
-  +'Left'#2#22#6'Height'#2#22#3'Top'#2'e'#5'Width'#3#141#0#7'Caption'#6#19'Show'
-  +' path with file'#8'TabOrder'#2#2#7'TabStop'#8#0#0#0#0
+  +'Height'#2#16#3'Top'#2'F'#5'Width'#3#129#0#7'Caption'#6#19'VorbisGain backen'
+  +'d:'#11'ParentColor'#8#0#0#5'TEdit'#20'edtVorbisGainBackend'#4'Left'#2#11#6
+  +'Height'#2#25#3'Top'#2'X'#5'Width'#3#152#0#8'TabOrder'#2#0#4'Text'#6#10'vorb'
+  +'isgain'#0#0#5'TEdit'#17'edtMP3GainBackend'#4'Left'#2#11#6'Height'#2#25#3'To'
+  +'p'#2'#'#5'Width'#3#152#0#8'TabOrder'#2#1#4'Text'#6#7'mp3gain'#0#0#5'TEdit'
+  +#17'edtAACGainBackend'#4'Left'#3#187#0#6'Height'#2#25#3'Top'#2'#'#5'Width'#3
+  +#152#0#8'TabOrder'#2#2#4'Text'#6#7'aacgain'#0#0#0#9'TGroupBox'#10'grbMP3Gain'
+  +#4'Left'#2#8#6'Height'#3#156#0#3'Top'#2#8#5'Width'#3#144#1#7'Caption'#6#7'MP'
+  +'3Gain'#12'ClientHeight'#3#139#0#11'ClientWidth'#3#140#1#8'TabOrder'#2#3#0#9
+  +'TCheckBox'#28'chkPreserveOriginalTimestamp'#4'Left'#2#16#6'Height'#2#22#3'T'
+  +'op'#2'h'#5'Width'#3#221#0#7'Caption'#6' Preserve original file timestamp'#8
+  +'TabOrder'#2#0#0#0#9'TCheckBox'#15'chkUseTempFiles'#4'Left'#2#16#6'Height'#2
+  +#22#3'Top'#2'K'#5'Width'#3#145#0#7'Caption'#6#19'Use temporary files'#8'TabO'
+  +'rder'#2#1#0#0#9'TCheckBox'#20'chkAutoReadAtFileAdd'#4'Left'#2#16#6'Height'#2
+  +#22#3'Top'#2'.'#5'Width'#3'?'#1#7'Caption'#6'/Auto-read tags when adding fil'
+  +'es or directories'#8'OnChange'#7#26'chkAutoReadAtFileAddChange'#8'TabOrder'
+  +#2#2#0#0#9'TCheckBox'#13'chkIgnoreTags'#4'Left'#2#16#6'Height'#2#22#3'Top'#2
+  +#16#5'Width'#3#16#1#7'Caption'#6'''Ignore Tags (Do not read or write them)'#8
+  +'OnChange'#7#19'chkIgnoreTagsChange'#8'TabOrder'#2#3#0#0#0#9'TGroupBox'#16'g'
+  +'rbMiscellaneous'#4'Left'#2#8#6'Height'#3#144#0#3'Top'#3'8'#1#5'Width'#3#144
+  +#1#7'Caption'#6#13'Miscellaneous'#12'ClientHeight'#2#127#11'ClientWidth'#3
+  +#140#1#8'TabOrder'#2#4#0#6'TLabel'#12'lblSublevels'#4'Left'#2#16#6'Height'#2
+  +#16#3'Top'#2#14#5'Width'#3#245#0#7'Caption'#6'&Number of sublevels when addi'
+  +'ng files:'#11'ParentColor'#8#0#0#6'TLabel'#18'lblFilenameDisplay'#4'Left'#2
+  +#16#6'Height'#2#16#3'Top'#2'A'#5'Width'#2'j'#7'Caption'#6#17'Filename displa'
+  +'y:'#11'ParentColor'#8#0#0#5'TEdit'#16'edtSublevelCount'#4'Left'#2#16#6'Heig'
+  +'ht'#2#25#3'Top'#2'!'#5'Width'#2'('#8'TabOrder'#2#0#4'Text'#6#1'6'#0#0#12'TR'
+  +'adioButton'#13'rbFileAndPath'#4'Left'#2#22#6'Height'#2#22#3'Top'#2'Q'#5'Wid'
+  +'th'#3#24#1#7'Caption'#6'''Show path and file in speparate columns'#7'Checke'
+  +'d'#9#5'State'#7#9'cbChecked'#8'TabOrder'#2#1#0#0#12'TRadioButton'#14'rbFile'
+  +'WithPath'#4'Left'#2#22#6'Height'#2#22#3'Top'#2'e'#5'Width'#3#141#0#7'Captio'
+  +'n'#6#19'Show path with file'#8'TabOrder'#2#2#7'TabStop'#8#0#0#0#0
 ]);

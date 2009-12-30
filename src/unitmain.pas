@@ -1,7 +1,7 @@
 unit UnitMain;
 
 {
-     Copyright (C) 2007-2009 by Thomas Dieffenbach
+     Copyright (C) 2007-2010 by Thomas Dieffenbach
      giantics@gmx.de
 
      This program is free software; you can redistribute it and/or modify
@@ -154,6 +154,8 @@ type
     procedure mnuFileSelectNoneClick(Sender: TObject);
     procedure mnuOptionsShowConsoleOutputClick(Sender: TObject);
     procedure mnuSelectionInvertClick(Sender: TObject);
+    procedure StatusBarMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
   private
     MediaGain: TMediaGain;
     procedure QueueFiles(AAction: TMediaGainAction; AVolume: Double; CheckTagInfoAfterwards: Boolean);
@@ -182,7 +184,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.4.3 SVN-0118';
+   APPLICATION_VERSION = '0.5.1 SVN-0119';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
 
@@ -327,14 +329,18 @@ var
   SL:TStringList;
   i: SmallInt;
   aSubLevelCount: Byte;
+  strArch :String;
 begin
   Self.Caption := APPLICATION_NAME + ' ' + APPLICATION_VERSION;
   strWidgetset := 'not specified';
+  strArch := 'unknown';
   {$IFDEF LCLwin32}strWidgetset := 'Win32';{$ENDIF}
   {$IFDEF LCLgtk}strWidgetset := 'GTK';{$ENDIF}
   {$IFDEF LCLgtk2}strWidgetset := 'GTK2';{$ENDIF}
   {$IFDEF LCLqt}strWidgetset := 'Qt4';{$ENDIF}
   {$IFDEF LCLcarbon}strWidgetset := 'Carbon';{$ENDIF}
+  {$IFDEF CPU32} strArch := '32bit'; {$ENDIF}
+  {$IFDEF CPU64} strArch := '64bit'; {$ENDIF}
 
   MediaGain := TMediaGain.Create;
   MediaGain.TargetVolume := REF_VOLUME;
@@ -345,6 +351,8 @@ begin
   bvlTargetVolume.Hint := TARGET_VOLUME_HINT;
   lblTargetVolume.Hint := TARGET_VOLUME_HINT;
   edtVolume.Hint := TARGET_VOLUME_HINT;
+
+  strBinDir := IncludeTrailingPathDelimiter(Application.Location);
 
   TranslateAll;
 
@@ -377,12 +385,11 @@ begin
     
   TaskList := TMediaGainTaskList.Create;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
-  
-  strBinDir := IncludeTrailingPathDelimiter(Application.Location);
 
   
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
      APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
+      #10 + 'CPU: ' + strArch +
       #10#10 + '(c) 2007-2009, Thomas Dieffenbach';
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMP3GainGUIInfo.lblURL.Caption := APPLICATION_URL;
@@ -554,6 +561,7 @@ var
 begin
   if TaskList.Count>0 then
     freeze_ListView := TaskList[0].MediaGainAction=mgaCheckTagInfo;  // freezing ListView means speed improvements
+  StatusBar.Panels[SB_ERROR].Text:='';
   LockControls(True, freeze_ListView);
   MediaGain.Cancel := False;
   while ((TaskList.Count >0) {and (not MediaGain.Cancel)}) do
@@ -752,6 +760,12 @@ begin
   begin
     lvFiles.Items[i].Selected:= not lvFiles.Items[i].Selected;
   end;
+end;
+
+procedure TfrmMp3GainMain.StatusBarMouseMove(Sender: TObject;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  StatusBar.Hint:=StatusBar.Panels[StatusBar.GetPanelIndexAt(X,Y)].Text;
 end;
 
 procedure TfrmMp3GainMain.mnuHelpInfoClick(Sender: TObject);

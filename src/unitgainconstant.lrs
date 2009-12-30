@@ -6,8 +6,8 @@ LazarusResources.Add('TfrmMP3GainConstant','FORMDATA',[
   +'Icons'#11#12'biSystemMenu'#0#11'BorderStyle'#7#8'bsDialog'#7'Caption'#6#13
   +'Constant Gain'#12'ClientHeight'#2'r'#11'ClientWidth'#3#17#1#5'Color'#7#6'cl'
   +'Form'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLVersio'
-  +'n'#6#8'0.9.28.2'#0#6'TLabel'#7'lblGain'#4'Left'#2#16#6'Height'#2#18#3'Top'#2
-  +'8'#5'Width'#2'-'#11'ParentColor'#8#0#0#7'TButton'#5'btnOK'#4'Left'#3#144#0#6
+  +'n'#6#8'0.9.28.2'#0#6'TLabel'#7'lblGain'#4'Left'#2#16#6'Height'#2#19#3'Top'#2
+  +'8'#5'Width'#2'.'#11'ParentColor'#8#0#0#7'TButton'#5'btnOK'#4'Left'#3#144#0#6
   +'Height'#2#25#3'Top'#2'P'#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7
   +'Caption'#6#3'&OK'#7'OnClick'#7#10'btnOKClick'#8'TabOrder'#2#0#0#0#7'TButton'
   +#9'btnCancel'#4'Left'#2' '#6'Height'#2#25#3'Top'#2'P'#5'Width'#2'd'#25'Borde'

@@ -138,7 +138,7 @@ msgstr "Solo Oggetti Selezionati"
 
 #: TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.HINT
 msgid "Process only selected items"
-msgstr "Elabora solo gio Oggetti Selezionati"
+msgstr "Elabora solo gli Oggetti Selezionati"
 
 #: TFRMMP3GAINMAIN.CAPTION
 msgid "easyMP3Gain"
@@ -447,11 +447,11 @@ msgstr "&Opzioni"
 
 #: TFRMMP3GAINOPTIONS.CHKAUTOREADATFILEADD.CAPTION
 msgid "Auto-read tags when adding files or directories"
-msgstr "Leggi in automatici i Tags quando aggiungi files o cartelle"
+msgstr "Leggi in automatico i Tags quando aggiungi files o cartelle"
 
 #: TFRMMP3GAINOPTIONS.CHKIGNORETAGS.CAPTION
 msgid "Ignore Tags (Do not read or write them)"
-msgstr "Ignora i Tags (Non leggerli o Scriverci)"
+msgstr "Ignora i Tags (Non leggerci o Scriverci)"
 
 #: TFRMMP3GAINOPTIONS.CHKPRESERVEORIGINALTIMESTAMP.CAPTION
 msgid "Preserve original file timestamp"
@@ -483,7 +483,7 @@ msgstr ""
 
 #: TFRMMP3GAINOPTIONS.GRBMISCELLANEOUS.CAPTION
 msgid "Miscellaneous"
-msgstr "Mistro"
+msgstr "Varie"
 
 #: TFRMMP3GAINOPTIONS.GRBMP3GAIN.CAPTION
 msgid "MP3Gain"
@@ -491,24 +491,24 @@ msgstr "MP3Gain"
 
 #: TFRMMP3GAINOPTIONS.LBLAACGAINBACKEND.CAPTION
 msgid "AACGain backend:"
-msgstr "Normalizza AACGain con:"
+msgstr "Normalizza files AAC con:"
 
 #: TFRMMP3GAINOPTIONS.LBLFILENAMEDISPLAY.CAPTION
 msgid "Filename display:"
-msgstr "Visualizzazione dei nomi dei file"
+msgstr "Visualizzazione nomi dei file:"
 
 #: TFRMMP3GAINOPTIONS.LBLMP3GAINBACKEND.CAPTION
 msgid "MP3Gain backend:"
-msgstr "Normalizza MP3Gain con:"
+msgstr "Normalizza files MP3 con:"
 
 #: TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION
 msgctxt "TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION"
 msgid "Number of sublevels when adding files:"
-msgstr "Numbero di sottocartelle da leggere quando si aggiungono files"
+msgstr "Sottocartelle da leggere quando si aggiungono files"
 
 #: TFRMMP3GAINOPTIONS.LBLVORBISGAINBACKEND.CAPTION
 msgid "VorbisGain backend:"
-msgstr "Normaliza VorbisGain con:"
+msgstr "Normalizza files Vorbis con:"
 
 #: TFRMMP3GAINOPTIONS.RBFILEANDPATH.CAPTION
 msgid "Show path and file in speparate columns"

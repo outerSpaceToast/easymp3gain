@@ -1,10 +1,10 @@
-0.4.4 beta:
+0.5.0:
 easyMP3Gain is a graphical user interface for mp3gain, aacgain and vorbisgain. The Interface looks similar to the one available for Windows.
 It's a native GTK/GTK2 application, so it runs on Linux and FreeBSD/OpenBSD (not tested yet).
-A QT4-Version will be available soon.
 This version contains new features like:
- - 
+ - Qt4 Version
+ - Italian translation
+ - Customizable columns (filename/path)
 
 known bugs:
- - Drag & Drop does not work in the QT4-Version!
- - MultiSelect does not work in the QT4-Version!
+ - On some systems the application crahes when executing the OpenDialog. The problem depends on the theme "QtCurve". If this problem affects you, choose another theme such as Raleigh or Clearlooks.
