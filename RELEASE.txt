@@ -7,4 +7,5 @@ This version contains new features like:
  - Customizable columns (filename/path)
 
 known bugs:
- - On some systems the application crahes when executing the OpenDialog. The problem depends on the theme "QtCurve". If this problem affects you, choose another theme such as Raleigh or Clearlooks.
+ - On some systems the application crahes when executing the OpenDialog. The problem depends on the theme "QtCurve". 
+   If this problem affects you, choose another theme such as Raleigh or Clearlooks.
