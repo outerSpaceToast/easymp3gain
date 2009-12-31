@@ -184,9 +184,10 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.5.1 SVN-0119';
+   APPLICATION_VERSION = '0.5.1 SVN-0120';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
+   EASYMP3GAIN_DIR = '/usr/share/easymp3gain/';
 
   SI_PATH = 1;
   SI_FILE = 0;
@@ -352,8 +353,12 @@ begin
   lblTargetVolume.Hint := TARGET_VOLUME_HINT;
   edtVolume.Hint := TARGET_VOLUME_HINT;
 
-  strBinDir := IncludeTrailingPathDelimiter(Application.Location);
-
+  // directory where langauge files, help files, etc be found.
+  if DirectoryExists(EASYMP3GAIN_DIR) then
+    strBinDir := EASYMP3GAIN_DIR
+  else
+    strBinDir := IncludeTrailingPathDelimiter(Application.Location);
+  //ShowMessage(strBinDir);
   TranslateAll;
 
   MediaGainOptions.TargetVolume := @(MediaGain.TargetVolume);

@@ -66,7 +66,8 @@ var
   k,p,cFound: Integer;
   S: String;
 begin
-  PODirectory := strBinDir + './lang/';    // change that for release
+  PODirectory := strBinDir + 'lang/';    // change that for release
+  //Application.MessageBox(PChar(PODirectory),PChar('a'),0);
   GetLanguageIDs(Lang, FallbackLang); // in unit gettext
   TranslateUnitResourceStrings('UnitMain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
   TranslateUnitResourceStrings('UnitMediaGain', PODirectory + 'easymp3gain.%s.po', Lang, FallbackLang);
