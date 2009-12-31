@@ -27,7 +27,7 @@ RUNNING (.tar.gz):
 2.) Start easyMP3Gain by running "./easymp3gain"
 
 COMPILING:
-If you want to compile easyMP3Gain on your own you first need the FreePascal-compiler (>=2.2.2) and the Lazarus-packages (>=0.9.26) installed.
+If you want to compile easyMP3Gain on your own you first need the FreePascal-compiler (>=2.4.0) and the Lazarus-packages (>=0.9.28) installed.
 1.) download the ".tar.gz" package of easyMP3Gain
 2.) Extract the contents of the source-gz package
 3.) Change to the directory
@@ -61,7 +61,6 @@ There is no information about the album volume in ogg-vorbis files. Only the alb
 
 NOTES:
 ------
-The easymp3gain-deb-packages have been created on a Debian Lenny and tested under Debian Lenny and Ubuntu 8.04
 
 easyMP3Gain can be downloaded at http://easymp3gain.sourceforge.net/
 mp3gain can be downloaded at http://mp3gain.sourceforge.net/download.php

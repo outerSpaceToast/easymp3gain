@@ -1,0 +1,45 @@
+object frmMP3GainConsoleOutput: TfrmMP3GainConsoleOutput
+  Left = 302
+  Height = 382
+  Top = 175
+  Width = 800
+  ActiveControl = memoData
+  Caption = 'Console Output'
+  ClientHeight = 382
+  ClientWidth = 800
+  Color = clForm
+  OnResize = FormResize
+  LCLVersion = '0.9.28.2'
+  object memoData: TMemo
+    Left = 2
+    Height = 344
+    Top = 2
+    Width = 796
+    Align = alClient
+    BorderSpacing.Around = 2
+    Font.Height = -12
+    Font.Name = 'Monospace'
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 34
+    Top = 348
+    Width = 800
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 34
+    ClientWidth = 800
+    TabOrder = 1
+    object btnClose: TButton
+      Left = 362
+      Height = 25
+      Top = 3
+      Width = 75
+      Caption = '&Close'
+      OnClick = btnCloseClick
+      TabOrder = 0
+    end
+  end
+end
