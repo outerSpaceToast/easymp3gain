@@ -184,7 +184,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.5.1 SVN-0120';
+   APPLICATION_VERSION = '0.5.1 SVN-0121';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
    EASYMP3GAIN_DIR = '/usr/share/easymp3gain/';
