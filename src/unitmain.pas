@@ -395,7 +395,7 @@ begin
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
      APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
       #10 + 'CPU: ' + strArch +
-      #10#10 + '(c) 2007-2009, Thomas Dieffenbach';
+      #10#10 + '(c) 2007-2010, Thomas Dieffenbach';
   frmMP3GainGUIInfo.lblProgramName.Caption := APPLICATION_NAME+' '+APPLICATION_VERSION;
   frmMP3GainGUIInfo.lblURL.Caption := APPLICATION_URL;
   frmMP3GainGUIInfo.Caption := strAbout + ' ' + APPLICATION_NAME;
@@ -732,6 +732,7 @@ var
   strKeyWord: String;
   strTempDir: String;
 begin
+  // function OpenURL( AURL: String):Boolean;  // since 0.9.29
   strKeyWord := 'index.'+ strLang + '.html';
   if not FileExists(strBinDir+HELP_DIR+PathDelim+strKeyWord) then
     strKeyWord := 'index.html';

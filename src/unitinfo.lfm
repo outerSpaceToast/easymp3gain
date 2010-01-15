@@ -12,9 +12,9 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
   LCLVersion = '0.9.28.2'
   object lblProgramName: TLabel
     Left = 59
-    Height = 19
+    Height = 18
     Top = 20
-    Width = 102
+    Width = 93
     Caption = 'MP3Gain-GUI'
     Font.Height = -14
     Font.Style = [fsBold]
@@ -38,13 +38,13 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     TabOrder = 0
     object tbsAbout: TTabSheet
       Caption = 'About'
-      ClientHeight = 171
-      ClientWidth = 448
+      ClientHeight = 170
+      ClientWidth = 444
       object lblDescription: TLabel
         Left = 85
-        Height = 124
+        Height = 123
         Top = 16
-        Width = 353
+        Width = 349
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoSize = False
         ParentColor = False
@@ -83,13 +83,13 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
     end
     object tbsThanksTo: TTabSheet
       Caption = 'Thanks to'
-      ClientHeight = 171
-      ClientWidth = 448
+      ClientHeight = 170
+      ClientWidth = 444
       object Memo4: TMemo
         Left = 5
-        Height = 161
+        Height = 160
         Top = 5
-        Width = 438
+        Width = 434
         Align = alClient
         BorderSpacing.Around = 5
         Lines.Strings = (
@@ -98,6 +98,9 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
           ''
           'Patrick Kohan'
           '    IconSet "Tango"'
+          ''
+          'Matthias Klumpp <matthias@nlinux.org>'
+          '    Packaging, Debian Maintainer'
           ''
           'The FreePascal- and Lazarus-Team'
           'The MP3Gain-Team'

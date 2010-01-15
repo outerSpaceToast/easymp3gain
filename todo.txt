@@ -1,12 +1,14 @@
 Meldung wenn Gain aber noch kein Analyse
 Bei rekursiver Ordnerdurchsuche: Nur richtige Dateitypen
 Option: "Tag neu schreiben" Ja/Nein
-QT-Version
 Max-noclip gain
 FLAC
 LoadFromFile(UTF8toSys(InputFile.Text)) (SOnderzeichen)
+Öffnen-Verzeichnis auf letzt benutzes voreinstellen
+Lokalisieren der Dialoge
 
 done:
+QT-Version
 Icon 48x48
 Bei anderer Sprache und keine Hilfe vorhanden, dann englisch!
 Constant Gain test
