@@ -1,9 +1,7 @@
-{ Das ist eine automatisch erzeugte Lazarus-Ressourcendatei }
-
 LazarusResources.Add('TfrmMp3GainMain','FORMDATA',[
   'TPF0'#15'TfrmMp3GainMain'#14'frmMp3GainMain'#4'Left'#3'.'#1#6'Height'#3'~'#1
   +#3'Top'#3#175#0#5'Width'#3' '#3#13'ActiveControl'#7#9'pnlVolume'#14'AllowDro'
-  +'pFiles'#9#7'Caption'#6#11'easyMP3Gain'#12'ClientHeight'#3'i'#1#11'ClientWid'
+  +'pFiles'#9#7'Caption'#6#11'easyMP3Gain'#12'ClientHeight'#3'h'#1#11'ClientWid'
   +'th'#3' '#3#5'Color'#7#6'clForm'#4'Menu'#7#9'MainMenu1'#7'OnClose'#7#9'FormC'
   +'lose'#8'OnCreate'#7#10'FormCreate'#11'OnDropFiles'#7#13'FormDropFiles'#8'Po'
   +'sition'#7#14'poScreenCenter'#8'ShowHint'#9#10'LCLVersion'#6#8'0.9.28.2'#0#8
@@ -49,15 +47,15 @@ LazarusResources.Add('TfrmMp3GainMain','FORMDATA',[
   +'ze'#8#7'Caption'#6#20'mp3 - Target Volume:'#11'ParentColor'#8#0#0#6'TLabel'
   +#19'lblTargetVolumeUnit'#4'Left'#3#210#0#6'Height'#2#14#3'Top'#2#11#5'Width'
   +#2#17#8'AutoSize'#8#7'Caption'#6#2'dB'#11'ParentColor'#8#0#0#5'TEdit'#9'edtV'
-  +'olume'#4'Left'#3#162#0#6'Height'#2#25#3'Top'#2#7#5'Width'#2','#8'OnChange'#7
+  +'olume'#4'Left'#3#162#0#6'Height'#2#20#3'Top'#2#7#5'Width'#2','#8'OnChange'#7
   +#15'edtVolumeChange'#8'TabOrder'#2#0#4'Text'#6#2'89'#0#0#0#0#10'TStatusBar'#9
-  +'StatusBar'#4'Left'#2#0#6'Height'#2#20#3'Top'#3'U'#1#5'Width'#3' '#3#6'Panel'
+  +'StatusBar'#4'Left'#2#0#6'Height'#2#16#3'Top'#3'X'#1#5'Width'#3' '#3#6'Panel'
   +'s'#14#1#5'Width'#3#150#0#0#1#5'Width'#3#250#0#0#1#5'Width'#3#144#1#0#0#11'S'
   +'implePanel'#8#11'OnMouseMove'#7#18'StatusBarMouseMove'#0#0#12'TProgressBar'
-  +#11'ProgressBar'#4'Left'#2#5#6'Height'#2#15#3'Top'#3'3'#1#5'Width'#3#22#3#5
+  +#11'ProgressBar'#4'Left'#2#5#6'Height'#2#15#3'Top'#3'6'#1#5'Width'#3#22#3#5
   +'Align'#7#8'alBottom'#18'BorderSpacing.Left'#2#5#19'BorderSpacing.Right'#2#5
   +#20'BorderSpacing.Bottom'#2#2#6'Smooth'#9#4'Step'#2#1#8'TabOrder'#2#2#0#0#9
-  +'TListView'#7'lvFiles'#4'Left'#2#5#6'Height'#3#0#1#3'Top'#2'.'#5'Width'#3#22
+  +'TListView'#7'lvFiles'#4'Left'#2#5#6'Height'#3#3#1#3'Top'#2'.'#5'Width'#3#22
   +#3#5'Align'#7#8'alClient'#18'BorderSpacing.Left'#2#5#19'BorderSpacing.Right'
   +#2#5#20'BorderSpacing.Bottom'#2#5#7'Columns'#14#1#7'Caption'#6#9'Path/File'#5
   +'Width'#3'T'#1#0#1#7'Caption'#6#4'File'#5'Width'#3#150#0#0#1#7'Caption'#6#4
@@ -69,7 +67,7 @@ LazarusResources.Add('TfrmMp3GainMain','FORMDATA',[
   +'t'#9#8'TabOrder'#2#1#9'ViewStyle'#7#8'vsReport'#13'OnColumnClick'#7#18'lvFi'
   +'lesColumnClick'#9'OnKeyDown'#7#14'lvFilesKeyDown'#11'OnMouseMove'#7#16'lvFi'
   +'lesMouseMove'#0#0#12'TProgressBar'#18'ProgressBarGeneral'#4'Left'#2#5#6'Hei'
-  +'ght'#2#15#3'Top'#3'D'#1#5'Width'#3#22#3#5'Align'#7#8'alBottom'#7'Anchors'#11
+  +'ght'#2#15#3'Top'#3'G'#1#5'Width'#3#22#3#5'Align'#7#8'alBottom'#7'Anchors'#11
   +#6'akLeft'#8'akBottom'#0#18'BorderSpacing.Left'#2#5#19'BorderSpacing.Right'#2
   +#5#20'BorderSpacing.Bottom'#2#2#6'Smooth'#9#8'TabOrder'#2#3#0#0#9'TMainMenu'
   +#9'MainMenu1'#4'left'#3#208#0#3'top'#3#128#0#0#9'TMenuItem'#7'mnuFile'#7'Cap'

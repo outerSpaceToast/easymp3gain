@@ -184,7 +184,7 @@ type
    READ_BYTES = 2048;
    
    APPLICATION_NAME = 'easyMP3Gain';
-   APPLICATION_VERSION = '0.5.1 SVN-0123';
+   APPLICATION_VERSION = '0.5.1 SVN-0124';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
    HELP_DIR = 'help';
    EASYMP3GAIN_DIR = '/usr/share/easymp3gain/';
@@ -261,7 +261,7 @@ begin
   repeat
     for i:=Low(Extension) to High(Extension) do            // Files
     begin
-      if (ExtractFileExt(SR.Name)='.'+Extension[i]) and
+      if (LowerCase(ExtractFileExt(SR.Name))='.'+Extension[i]) and
         not ((faDirectory and SR.Attr)=faDirectory) then
         ListBox.Add(FilePath + SR.Name);
     end;

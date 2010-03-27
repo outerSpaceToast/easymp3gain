@@ -6,7 +6,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   ActiveControl = pnlVolume
   AllowDropFiles = True
   Caption = 'easyMP3Gain'
-  ClientHeight = 361
+  ClientHeight = 360
   ClientWidth = 800
   Color = clForm
   Menu = MainMenu1
@@ -177,7 +177,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       end
       object edtVolume: TEdit
         Left = 162
-        Height = 25
+        Height = 20
         Top = 7
         Width = 44
         OnChange = edtVolumeChange
@@ -188,8 +188,8 @@ object frmMp3GainMain: TfrmMp3GainMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Height = 20
-    Top = 341
+    Height = 16
+    Top = 344
     Width = 800
     Panels = <    
       item
@@ -207,7 +207,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   object ProgressBar: TProgressBar
     Left = 5
     Height = 15
-    Top = 307
+    Top = 310
     Width = 790
     Align = alBottom
     BorderSpacing.Left = 5
@@ -219,7 +219,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   end
   object lvFiles: TListView
     Left = 5
-    Height = 256
+    Height = 259
     Top = 46
     Width = 790
     Align = alClient
@@ -279,7 +279,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   object ProgressBarGeneral: TProgressBar
     Left = 5
     Height = 15
-    Top = 324
+    Top = 327
     Width = 790
     Align = alBottom
     Anchors = [akLeft, akBottom]

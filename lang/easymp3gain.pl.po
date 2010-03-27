@@ -10,8 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>"
-"=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: TFRMMP3GAINCONSOLEOUTPUT.BTNCLOSE.CAPTION
 msgctxt "TFRMMP3GAINCONSOLEOUTPUT.BTNCLOSE.CAPTION"
@@ -511,9 +510,7 @@ msgstr "Głośność"
 
 #: unitmain.target_volume_hint
 msgid "Only valid for MP3 and AAC files. Ogg-Vorbis files' target volume is fixed to 89 dB."
-msgstr ""
-"Dostępne jedynie dla plików MP3 i AAC. Dla plików Ogg-Vorbis głośność docelowa ustawiona "
-"jest na 89 dB."
+msgstr "Dostępne jedynie dla plików MP3 i AAC. Dla plików Ogg-Vorbis głośność docelowa ustawiona jest na 89 dB."
 
 #: unitmediagain.strabout
 msgctxt "unitmediagain.strabout"
@@ -571,5 +568,4 @@ msgstr "Nieznany Typ Pliku:"
 #: unitmediagain.stryes
 msgid "yes"
 msgstr "tak"
-
 
