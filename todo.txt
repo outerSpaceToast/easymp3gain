@@ -6,6 +6,10 @@ FLAC
 LoadFromFile(UTF8toSys(InputFile.Text)) (SOnderzeichen)
 Öffnen-Verzeichnis auf letzt benutzes voreinstellen
 Lokalisieren der Dialoge
+Ipro-Unit entfernen (tar.gz)
+-f - Force mp3gain (Option)
+Could you include option to support the switch in latest mp3gain to store replaygain info in ID3v2 tags rather than in APE tags?
+Case sensitive extension (file add)
 
 done:
 QT-Version

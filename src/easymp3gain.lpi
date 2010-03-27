@@ -10,7 +10,7 @@
       <TargetFileExt Value=""/>
       <Title Value="easymp3gain"/>
       <Icon Value="0"/>
-      <ActiveEditorIndexAtStart Value="1"/>
+      <ActiveEditorIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N Value="True"/>
@@ -68,8 +68,8 @@
         <ComponentName Value="frmMp3GainMain"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitMain"/>
-        <CursorPos X="28" Y="733"/>
-        <TopLine Value="172"/>
+        <CursorPos X="41" Y="187"/>
+        <TopLine Value="162"/>
         <EditorIndex Value="0"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="2">
@@ -104,10 +104,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitInfo"/>
         <CursorPos X="29" Y="4"/>
-        <TopLine Value="4"/>
-        <EditorIndex Value="1"/>
+        <TopLine Value="1"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="unitmp3gain.pas"/>
@@ -255,9 +253,7 @@
         <UnitName Value="unitTranslate"/>
         <CursorPos X="5" Y="70"/>
         <TopLine Value="54"/>
-        <EditorIndex Value="2"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="../../../../../../../../usr/lib/lazarus/lcl/include/wincontrol.inc"/>
@@ -372,7 +368,7 @@
         <UsageCount Value="10"/>
       </Unit42>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="unitmain.pas"/>
         <Caret Line="425" Column="1" TopLine="406"/>
@@ -486,13 +482,9 @@
         <Caret Line="360" Column="5" TopLine="339"/>
       </Position28>
       <Position29>
-        <Filename Value="unittranslate.pas"/>
-        <Caret Line="70" Column="31" TopLine="55"/>
-      </Position29>
-      <Position30>
         <Filename Value="unitmain.pas"/>
         <Caret Line="361" Column="5" TopLine="343"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
