@@ -176,13 +176,13 @@ type
     procedure Init;
     procedure UpdateView(AItem: TSongItem);
     { public declarations }
-  end; 
-  
+  end;
+
   TStringArray = array of String;
-  
+
   const
    READ_BYTES = 2048;
-   
+
    APPLICATION_NAME = 'easyMP3Gain';
    APPLICATION_VERSION = '0.5.1 SVN-0124';
    APPLICATION_URL = 'http://easymp3gain.sourceforge.net';
@@ -244,7 +244,7 @@ uses unitInfo, unitConsoleOutput, unitTranslate, unitOptions
 
 Procedure ListFiles(const FilePath: String; Extension: array of String;
                     ListBox:TStringList; SubLevelMax: Byte);
-                    
+
   function IsRealDirectory(const strPath, strFile: string):Boolean;
   var
     info: stat;
@@ -261,8 +261,12 @@ begin
   repeat
     for i:=Low(Extension) to High(Extension) do            // Files
     begin
-      if (LowerCase(ExtractFileExt(SR.Name))='.'+Extension[i]) and
-        not ((faDirectory and SR.Attr)=faDirectory) then
+      if (ExtractFileExt(SR.Name) = '.' + Extension[i]) and
+        not ((faDirectory and SR.Attr) = faDirectory) then
+        {$IFDEF Unix}
+        //Check if file is writeable and not hidden
+        if (SR.Name[1] <> '.') and (fpaccess(FilePath + SR.Name ,W_OK) = 0) then
+        {$ENDIF}
         ListBox.Add(FilePath + SR.Name);
     end;
     if (SubLevelMax>0) and (((faDirectory or faSymLink) and SR.Attr)=faDirectory) then  //Directories
@@ -387,11 +391,11 @@ begin
   {$IFDEF LCLqt}
   ToolBar1.Images := frmMP3GainMain.ImageList_Oxygen;
   {$ENDIF}
-    
+
   TaskList := TMediaGainTaskList.Create;
   frmMp3GainMain.ImageList1.GetBitmap(8,frmMP3GainGUIInfo.Image1.Picture.Bitmap);
 
-  
+
   frmMP3GainGUIInfo.lblDescription.Caption := APPLICATION_NAME + ', ' +
      APPLICATION_DESCRIPTION +#10 +'Toolkit: '+strWidgetset +
       #10 + 'CPU: ' + strArch +
@@ -410,13 +414,13 @@ begin
   lvFiles.Column[SI_ALBUMVOLUME+1].Caption := COLUMN_ALBUMVOLUME;
   lvFiles.Column[SI_ALBUMGAIN+1].Caption   := COLUMN_ALBUMGAIN;
   lvFiles.Column[SI_CLIPALBUM+1].Caption   := COLUMN_CLIPALBUM;
-  
+
   lblTargetVolume.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolume.Caption);
   lblTargetVolumeUnit.Width := lblTargetVolume.Canvas.TextWidth(lblTargetVolumeUnit.Caption);
   edtVolume.Left := lblTargetVolume.Width + 10;
   lblTargetVolumeUnit.Left := edtVolume.Left + 50;
   pnlVolume.Width := lblTargetVolumeUnit.Left + lblTargetVolumeUnit.Width + 20;
-  
+
   if ParamStr(1)='-r' then
     aSubLevelCount := MediaGainOptions.SubLevelCount
   else
@@ -487,7 +491,7 @@ begin
       end;
     end;
   end;
-  
+
   if (bListIdxFound) then
   begin
     TaskList[iListIdx].SongItems.Add(ASongItem);
@@ -591,7 +595,7 @@ begin
     TaskList.DeleteTask(n);
   end;
   TaskList.Clear;
-  
+
   if MediaGain.Cancel then
     StatusBar.Panels[SB_STATUS].Text := strStatus_Aborted
   else
@@ -670,6 +674,7 @@ var
   sublevels: Byte;
 begin
   if not SelectDirectoryDialog.Execute then exit;
+  if not DirectoryExists(SelectDirectoryDialog.FileName) then exit;
   Application.ProcessMessages;
   if Sender=mnuFileAddFolderRecursive then
     sublevels := MediaGainOptions.SubLevelCount
@@ -733,7 +738,7 @@ var
   strTempDir: String;
 begin
   // function OpenURL( AURL: String):Boolean;  // since 0.9.29
-  strKeyWord := 'index.'+ strLang + '.html';
+  strKeyWord := 'index.' + strLang + '.html';
   if not FileExists(strBinDir+HELP_DIR+PathDelim+strKeyWord) then
     strKeyWord := 'index.html';
   strTempDir := GetCurrentDir;
@@ -1064,4 +1069,3 @@ initialization
   {$I unitmain.lrs}
 
 end.
-
