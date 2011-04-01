@@ -38,7 +38,7 @@ Adding files to the list:
 There are 3 possibilities to add files to the list.
 1.) Select "Add files" or "Add files recursively" in the menu "File".
 2.) Drag & Drop: Drag files from a file manager and drop them into the easyMP3Gain window.
-3.) start easyMP3Gain with parameters. Some examples: 
+3.) start easyMP3Gain with parameters. Some examples:
      >easymp3gain '/home/song1.mp3' '/home/mymusic/'   --> adds song1.mp3 and all songs in /home/mymusic
      >easymp3gain -r '/home/mymusic'                   --> adds all songs in /home/mymusic recursively
 
