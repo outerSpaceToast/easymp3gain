@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=easyMP3Gain
+GenericName=MP3Gain Frontend
+Exec=@emp3gain_current_exec@ %U
+Comment=A GUI for mp3gain, vorbisgain and aacgain
+Comment[de]=Eine GUI für mp3gain, vorbisgain und aacgain
+Comment[it]=Una GUI per mp3gain, vorbisgain e aacgain
+Comment[fr]=Une GUI pour mp3gain, vorbisgain et aacgain
+Icon=easymp3gain
+Categories=Audio;AudioVideo;@show_desktop@;
+NotShowIn=@notshow_desktop@;
+X-Publisher=easyMp3Gain Project
+X-AppVersion=@EMP3GAIN_VERSION@

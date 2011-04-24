@@ -49,11 +49,19 @@ add_custom_command (OUTPUT "${CMAKE_BINARY_DIR}/${easymp3gain_project}-gtk"
 
 add_custom_target (easyMp3Gain_GTK2 ALL DEPENDS ${CMAKE_BINARY_DIR}/${easymp3gain_project}-gtk)
 
+# Install the GTK+ version
+install (FILES ${CMAKE_BINARY_DIR}/gtk2/${easymp3gain_project} DESTINATION ${EMP3GAIN_INSTALL_DIR}/gtk2/ COMPONENT binary)
+install (FILES ${CMAKE_BINARY_DIR}/${easymp3gain_project}-gtk DESTINATION bin COMPONENT binary)
+
 endif (GTK2)
 
 ##########> Build Qt UI <##########
 if (QT4)
 
 # TODO
+
+# Install the Qt version
+install (FILES ${CMAKE_BINARY_DIR}/qt4/${easymp3gain_project} DESTINATION ${EMP3GAIN_INSTALL_DIR}/qt4/ COMPONENT binary)
+install (FILES ${CMAKE_BINARY_DIR}/${easymp3gain_project}-qt DESTINATION bin COMPONENT binary)
 
 endif (QT4)
