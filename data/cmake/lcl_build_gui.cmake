@@ -19,6 +19,7 @@ macro (lcl_set_build_project project_bin widget)
   endif()
 
   set(${project_bin}_${widget}_OUT "${CMAKE_BINARY_DIR}/${widget_f}/${project_bin}")
+  file (MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/${widget_f}/")
   add_custom_command(OUTPUT ${${project_bin}_${widget}_OUT}
 	  COMMAND ${LAZBUILD_EXE}
 	  ARGS ${lcgui_build_args_gtk} "${project_bin}.lpr"

@@ -1,26 +1,31 @@
 <?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="7"/>
+    <Version Value="9"/>
     <General>
       <Flags>
         <LRSInOutputDirectory Value="False"/>
       </Flags>
+      <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <TargetFileExt Value=""/>
-      <Title Value="easymp3gain"/>
+      <Title Value="easyMp3Gain"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
       <Icon Value="0"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
-      <OutDir Value="./lang"/>
+      <OutDir Value="lang"/>
     </i18n>
     <VersionInfo>
+      <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="5"/>
       <BuildNr Value="125"/>
-      <StringTable Comments="" CompanyName="" FileDescription="" FileVersion="0.5.0.125" InternalName="" LegalCopyright="(c) by Giantics" LegalTrademarks="" OriginalFilename="" ProductName="" ProductVersion="0.5.0"/>
+      <StringTable LegalCopyright="(c) by Giantics" ProductVersion="0.5.0"/>
     </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="default" Default="True"/>
+    </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
       <IgnoreBinaries Value="False"/>
@@ -51,7 +56,6 @@
         <Filename Value="easymp3gain.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="easymp3gain"/>
-        <UsageCount Value="20"/>
       </Unit0>
       <Unit1>
         <Filename Value="unitmain.pas"/>
@@ -59,13 +63,6 @@
         <ComponentName Value="frmMp3GainMain"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitMain"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="236"/>
-        <CursorPos X="17" Y="241"/>
-        <UsageCount Value="20"/>
-        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="unitinfo.pas"/>
@@ -73,13 +70,11 @@
         <ComponentName Value="frmMP3GainGUIInfo"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitInfo"/>
-        <UsageCount Value="20"/>
       </Unit2>
       <Unit3>
         <Filename Value="unitmp3gain.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMP3Gain"/>
-        <UsageCount Value="20"/>
       </Unit3>
       <Unit4>
         <Filename Value="unitgainconstant.pas"/>
@@ -87,7 +82,6 @@
         <ComponentName Value="frmMP3GainConstant"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitGainConstant"/>
-        <UsageCount Value="20"/>
       </Unit4>
       <Unit5>
         <Filename Value="unitoptions.pas"/>
@@ -95,7 +89,6 @@
         <ComponentName Value="frmMp3GainOptions"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UnitOptions"/>
-        <UsageCount Value="20"/>
       </Unit5>
       <Unit6>
         <Filename Value="unitconsoleoutput.pas"/>
@@ -103,66 +96,44 @@
         <ComponentName Value="frmMP3GainConsoleOutput"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="unitConsoleOutput"/>
-        <UsageCount Value="20"/>
       </Unit6>
       <Unit7>
         <Filename Value="unittranslate.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitTranslate"/>
-        <UsageCount Value="20"/>
       </Unit7>
       <Unit8>
         <Filename Value="unitmediagain.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMediaGain"/>
-        <UsageCount Value="20"/>
       </Unit8>
       <Unit9>
         <Filename Value="unitvorbisgain.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitVorbisGain"/>
-        <UsageCount Value="20"/>
       </Unit9>
       <Unit10>
         <Filename Value="unitvorbiscomment.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="VorbisComment"/>
-        <UsageCount Value="20"/>
       </Unit10>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
-      <Position1>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position1>
-      <Position2>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="679" Column="9" TopLine="655"/>
-      </Position2>
-      <Position3>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="168" Column="24" TopLine="146"/>
-      </Position3>
-      <Position4>
-        <Filename Value="unitmain.pas"/>
-        <Caret Line="651" Column="14" TopLine="632"/>
-      </Position4>
-    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="8"/>
+    <Version Value="9"/>
     <SearchPaths>
-      <UnitOutputDirectory Value="bin"/>
+      <UnitOutputDirectory Value="../build"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
         <CStyleOperator Value="False"/>
+        <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
       <TargetCPU Value="x86_64"/>
-      <TargetOS Value="Linux"/>
+      <TargetOS Value="linux"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
@@ -171,6 +142,9 @@
       <LinkSmart Value="True"/>
     </Linking>
     <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
