@@ -6,7 +6,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   ActiveControl = pnlVolume
   AllowDropFiles = True
   Caption = 'easyMP3Gain'
-  ClientHeight = 360
+  ClientHeight = 362
   ClientWidth = 800
   Color = clForm
   Menu = MainMenu1
@@ -15,7 +15,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   OnDropFiles = FormDropFiles
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.30'
   object ToolBar1: TToolBar
     Left = 0
     Height = 46
@@ -45,40 +45,40 @@ object frmMp3GainMain: TfrmMp3GainMain
     object ToolButton3: TToolButton
       Left = 101
       Top = 0
-      Width = 10
+      Width = 4
       Caption = 'ToolButton3'
       Style = tbsDivider
     end
     object btnAnalysis: TToolButton
-      Left = 111
+      Left = 105
       Hint = 'Analyze'
       Top = 0
       HelpType = htKeyword
       Caption = 'Analysis'
       DropdownMenu = pmnAnalysis
       ImageIndex = 2
-      Style = tbsDropDown
       OnClick = btnAnalysisClick
+      Style = tbsDropDown
     end
     object btnGain: TToolButton
-      Left = 161
+      Left = 167
       Hint = 'Gain'
       Top = 0
       Caption = 'Gain'
       DropdownMenu = pmnGain
       ImageIndex = 3
-      Style = tbsDropDown
       OnClick = btnGainClick
+      Style = tbsDropDown
     end
     object ToolButton2: TToolButton
-      Left = 211
+      Left = 229
       Top = 0
-      Width = 10
+      Width = 4
       Caption = 'ToolButton2'
       Style = tbsDivider
     end
     object btnClearFiles: TToolButton
-      Left = 221
+      Left = 233
       Hint = 'Remove selected files'
       Top = 0
       Caption = 'Clear File(s)'
@@ -86,7 +86,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       OnClick = btnClearFilesClick
     end
     object btnClearAll: TToolButton
-      Left = 271
+      Left = 283
       Hint = 'Remove all files'
       Top = 0
       Caption = 'Clear All'
@@ -94,31 +94,31 @@ object frmMp3GainMain: TfrmMp3GainMain
       OnClick = btnClearAllClick
     end
     object ToolButton1: TToolButton
-      Left = 321
+      Left = 333
       Top = 0
-      Width = 10
+      Width = 4
       Caption = 'ToolButton1'
       Style = tbsDivider
     end
     object btnOnlySelectedItems: TToolButton
-      Left = 331
+      Left = 337
       Hint = 'Process only selected items'
       Top = 0
       AllowAllUp = True
       Caption = 'Only Selected Items'
       ImageIndex = 6
-      Style = tbsCheck
       OnClick = btnOnlySelectedItemsClick
+      Style = tbsCheck
     end
     object ToolButton4: TToolButton
-      Left = 381
+      Left = 387
       Top = 0
-      Width = 10
+      Width = 4
       Caption = 'ToolButton4'
       Style = tbsDivider
     end
     object btnCancel: TToolButton
-      Left = 657
+      Left = 651
       Hint = 'Stop current operations'
       Top = 0
       Caption = 'Stop'
@@ -127,15 +127,15 @@ object frmMp3GainMain: TfrmMp3GainMain
       OnClick = btnCancelClick
     end
     object ToolButton5: TToolButton
-      Left = 746
-      Top = 2
+      Left = 701
+      Top = 0
       Caption = 'ToolButton5'
       Visible = False
     end
     object ToolButton6: TToolButton
       Left = 647
       Top = 0
-      Width = 10
+      Width = 4
       Caption = 'ToolButton6'
       Style = tbsDivider
     end
@@ -177,7 +177,7 @@ object frmMp3GainMain: TfrmMp3GainMain
       end
       object edtVolume: TEdit
         Left = 162
-        Height = 20
+        Height = 22
         Top = 7
         Width = 44
         OnChange = edtVolumeChange
@@ -188,7 +188,7 @@ object frmMp3GainMain: TfrmMp3GainMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Height = 16
+    Height = 18
     Top = 344
     Width = 800
     Panels = <    

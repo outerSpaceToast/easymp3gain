@@ -29,6 +29,6 @@ macro (lcl_set_build_project project_bin widget)
 	  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 
 	  MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/${project_bin}.lpr"
-	  DEPENDS ${${project_bin}_base_sources}
+	  DEPENDS ${${project_bin}_SRC}
   )
 endmacro (lcl_set_build_project)

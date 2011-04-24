@@ -31,6 +31,7 @@ uses
 {$R easymp3gain.res}
 
 begin
+  Application.Title:='easyMp3Gain';
   Application.Initialize;
   Application.CreateForm(TfrmMp3GainMain, frmMp3GainMain);
   Application.CreateForm(TfrmMP3GainGUIInfo, frmMP3GainGUIInfo);
