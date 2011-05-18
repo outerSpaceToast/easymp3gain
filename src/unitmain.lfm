@@ -1,7 +1,7 @@
 object frmMp3GainMain: TfrmMp3GainMain
-  Left = 302
+  Left = 250
   Height = 382
-  Top = 175
+  Top = 341
   Width = 800
   ActiveControl = pnlVolume
   AllowDropFiles = True
