@@ -1,0 +1,577 @@
+# Zdeněk Pech <dom.toretto@seznam.cz>, 2011.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Zdeněk Pech <dom.toretto@seznam.cz>\n"
+"PO-Revision-Date: 2011-12-26 17:54+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: TFRMMP3GAINCONSOLEOUTPUT.BTNCLOSE.CAPTION
+msgctxt "TFRMMP3GAINCONSOLEOUTPUT.BTNCLOSE.CAPTION"
+msgid "&Close"
+msgstr "&Zavřít"
+
+#: TFRMMP3GAINCONSOLEOUTPUT.CAPTION
+msgid "Console Output"
+msgstr "Výstup konzole"
+
+#: TFRMMP3GAINCONSTANT.BTNCANCEL.CAPTION
+msgctxt "TFRMMP3GAINCONSTANT.BTNCANCEL.CAPTION"
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: TFRMMP3GAINCONSTANT.BTNOK.CAPTION
+msgctxt "TFRMMP3GAINCONSTANT.BTNOK.CAPTION"
+msgid "&OK"
+msgstr "&OK"
+
+#: TFRMMP3GAINCONSTANT.CAPTION
+msgid "Constant Gain"
+msgstr "Konstantní zesílení"
+
+#: TFRMMP3GAINGUIINFO.BTNCLOSE.CAPTION
+msgctxt "TFRMMP3GAINGUIINFO.BTNCLOSE.CAPTION"
+msgid "&Close"
+msgstr "&Zavřít"
+
+#: TFRMMP3GAINGUIINFO.CAPTION
+msgid "About MP3Gain-GUI"
+msgstr "O aplikaci MP3Gain-GUI"
+
+#: TFRMMP3GAINGUIINFO.LBLPROGRAMNAME.CAPTION
+msgid "MP3Gain-GUI"
+msgstr "MP3Gain-GUI"
+
+#: TFRMMP3GAINGUIINFO.TBSABOUT.CAPTION
+msgctxt "TFRMMP3GAINGUIINFO.TBSABOUT.CAPTION"
+msgid "About"
+msgstr "O aplikaci"
+
+#: TFRMMP3GAINGUIINFO.TBSAUTHORS.CAPTION
+msgid "Authors"
+msgstr "Autoři"
+
+#: TFRMMP3GAINGUIINFO.TBSLICENSE.CAPTION
+msgid "License"
+msgstr "Licence"
+
+#: TFRMMP3GAINGUIINFO.TBSTHANKSTO.CAPTION
+msgid "Thanks to"
+msgstr "Díky patří"
+
+#: TFRMMP3GAINGUIINFO.TBSTRANSLATION.CAPTION
+msgid "Translation"
+msgstr "Překlad"
+
+#: TFRMMP3GAINMAIN.BTNADDFILES.CAPTION
+msgid "Add File(s)"
+msgstr "Přidat soubor(y)"
+
+#: TFRMMP3GAINMAIN.BTNADDFILES.HINT
+msgid "Add File(s)..."
+msgstr "Přidat soubor(y)..."
+
+#: TFRMMP3GAINMAIN.BTNADDFOLDER.CAPTION
+msgid "Add Folder"
+msgstr "Přidat složku"
+
+#: TFRMMP3GAINMAIN.BTNADDFOLDER.HINT
+msgid "Add Folder..."
+msgstr "Přidat složku..."
+
+#: TFRMMP3GAINMAIN.BTNANALYSIS.CAPTION
+msgctxt "TFRMMP3GAINMAIN.BTNANALYSIS.CAPTION"
+msgid "Analysis"
+msgstr "Analýza"
+
+#: TFRMMP3GAINMAIN.BTNANALYSIS.HINT
+msgid "Analyze"
+msgstr "Analyzovat"
+
+#: TFRMMP3GAINMAIN.BTNCANCEL.CAPTION
+msgid "Stop"
+msgstr "Zastavit"
+
+#: TFRMMP3GAINMAIN.BTNCANCEL.HINT
+msgid "Stop current operations"
+msgstr "Zastavit současnou úlohu"
+
+#: TFRMMP3GAINMAIN.BTNCLEARALL.CAPTION
+msgid "Clear All"
+msgstr "Vyčistit vše"
+
+#: TFRMMP3GAINMAIN.BTNCLEARALL.HINT
+msgid "Remove all files"
+msgstr "Odstranit všechny soubory"
+
+#: TFRMMP3GAINMAIN.BTNCLEARFILES.CAPTION
+msgid "Clear File(s)"
+msgstr "Vyčistit soubor(y)"
+
+#: TFRMMP3GAINMAIN.BTNCLEARFILES.HINT
+msgid "Remove selected files"
+msgstr "Odstranit vybrané soubory"
+
+#: TFRMMP3GAINMAIN.BTNGAIN.CAPTION
+msgctxt "TFRMMP3GAINMAIN.BTNGAIN.CAPTION"
+msgid "Gain"
+msgstr "Upravit zesílení"
+
+#: TFRMMP3GAINMAIN.BTNGAIN.HINT
+msgctxt "TFRMMP3GAINMAIN.BTNGAIN.HINT"
+msgid "Gain"
+msgstr "Upravit zesílení"
+
+#: TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.CAPTION
+msgctxt "TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.CAPTION"
+msgid "Only Selected Items"
+msgstr "Pouze vybrané položky"
+
+#: TFRMMP3GAINMAIN.BTNONLYSELECTEDITEMS.HINT
+msgid "Process only selected items"
+msgstr "Zpracovat pouze vybrané položky"
+
+#: TFRMMP3GAINMAIN.CAPTION
+msgid "easyMP3Gain"
+msgstr "EasyMP3Gain"
+
+#: TFRMMP3GAINMAIN.EDTVOLUME.TEXT
+msgid "89"
+msgstr "89"
+
+#: TFRMMP3GAINMAIN.LBLTARGETVOLUME.CAPTION
+msgid "mp3 - Target Volume:"
+msgstr "mp3 - hlasitost cíle:"
+
+#: TFRMMP3GAINMAIN.LBLTARGETVOLUMEUNIT.CAPTION
+msgid "dB"
+msgstr "dB"
+
+#: TFRMMP3GAINMAIN.LVFILES.COLUMNS.CAPTION
+msgctxt "TFRMMP3GAINMAIN.LVFILES.COLUMNS.CAPTION"
+msgid "clip (Album)"
+msgstr "potlačeno (Album)"
+
+#: TFRMMP3GAINMAIN.MENUITEM1.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM1.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM10.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM10.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM2.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM2.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM3.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM3.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM4.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM4.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM5.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM5.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM6.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM6.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM7.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM7.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MENUITEM8.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MENUITEM8.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUANALYSIS.CAPTION"
+msgid "&Analysis"
+msgstr "&Analýza"
+
+#: TFRMMP3GAINMAIN.MNUANALYSISALBUM.CAPTION
+msgid "&Album analysis"
+msgstr "&Analýza alba"
+
+#: TFRMMP3GAINMAIN.MNUANALYSISCLEAR.CAPTION
+msgid "&Clear"
+msgstr "&Vyčistit"
+
+#: TFRMMP3GAINMAIN.MNUANALYSISTRACK.CAPTION
+msgid "&Track anlysis"
+msgstr "Analyzovat &stopu"
+
+#: TFRMMP3GAINMAIN.MNUFILE.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUFILE.CAPTION"
+msgid "&File"
+msgstr "&Soubor"
+
+#: TFRMMP3GAINMAIN.MNUFILEADDFILES.CAPTION
+msgid "Add &files..."
+msgstr "Přidat &soubory..."
+
+#: TFRMMP3GAINMAIN.MNUFILEADDFOLDER.CAPTION
+msgid "Add f&older..."
+msgstr "Přidat s&ložku..."
+
+#: TFRMMP3GAINMAIN.MNUFILEADDFOLDERRECURSIVE.CAPTION
+msgid "Add folder &recursively..."
+msgstr "&Přidat složku včetně podsložek..."
+
+#: TFRMMP3GAINMAIN.MNUFILECLEARALLFILES.CAPTION
+msgid "Clear &all files"
+msgstr "Vyčistit &všechny soubory"
+
+#: TFRMMP3GAINMAIN.MNUFILECLEARSELECTED.CAPTION
+msgid "&Clear selected file(s)"
+msgstr "Vyčistit v&ybrané soubory"
+
+#: TFRMMP3GAINMAIN.MNUFILEEXIT.CAPTION
+msgid "&Exit"
+msgstr "&Ukončit"
+
+#: TFRMMP3GAINMAIN.MNUFILESELECTALL.CAPTION
+msgid "&Select all files"
+msgstr "&Vybrat všechny soubory"
+
+#: TFRMMP3GAINMAIN.MNUFILESELECTNONE.CAPTION
+msgid "&Deselect all files"
+msgstr "&Zrušit výběr všech souborů"
+
+#: TFRMMP3GAINMAIN.MNUHELP.CAPTION
+msgid "&Help"
+msgstr "Nápo&věda"
+
+#: TFRMMP3GAINMAIN.MNUHELPHELP.CAPTION
+msgid "&Help..."
+msgstr "Nápo&věda..."
+
+#: TFRMMP3GAINMAIN.MNUHELPINFO.CAPTION
+msgid "&About easyMP3Gain..."
+msgstr "&O aplikaci easyMP3Gain..."
+
+#: TFRMMP3GAINMAIN.MNUMODIFYGAIN.CAPTION
+msgid "Modify &Gain"
+msgstr "Upravit &zesílení"
+
+#: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYALBUM.CAPTION"
+msgid "Apply &album gain"
+msgstr "Použít zesílení na &album"
+
+#: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYCONSTANT.CAPTION
+msgid "Apply &constant gain..."
+msgstr "Použít &konstantní zesílení..."
+
+#: TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUMODIFYGAINAPPLYTRACK.CAPTION"
+msgid "Apply &track gain"
+msgstr "Použít zesílení pro s&topu"
+
+#: TFRMMP3GAINMAIN.MNUMODIFYGAINUNDO.CAPTION
+msgid "&Undo"
+msgstr "&Zpět"
+
+#: TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUOPTIONS.CAPTION"
+msgid "&Options"
+msgstr "&Možnosti"
+
+#: TFRMMP3GAINMAIN.MNUOPTIONSADVANCED.CAPTION
+msgid "&Advanced"
+msgstr "&Pokročilé"
+
+#: TFRMMP3GAINMAIN.MNUOPTIONSDELETETAGINFOS.CAPTION
+msgid "&Delete Tags"
+msgstr "&Odstranit značky"
+
+#: TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION
+msgctxt "TFRMMP3GAINMAIN.MNUOPTIONSONLYSELECTEDITEMS.CAPTION"
+msgid "&Selected files only"
+msgstr "Pouze vybrané &soubory"
+
+#: TFRMMP3GAINMAIN.MNUOPTIONSREADTAGINFO.CAPTION
+msgid "&Read Tags"
+msgstr "&Načíst značky"
+
+#: TFRMMP3GAINMAIN.MNUOPTIONSSHOWCONSOLEOUTPUT.CAPTION
+msgid "Show &console output..."
+msgstr "Zobrazit výstup &konzole..."
+
+#: TFRMMP3GAINMAIN.MNUSELECTIONINVERT.CAPTION
+msgid "&Invert selection"
+msgstr "&Obrátit výběr"
+
+#: TFRMMP3GAINMAIN.PMNANALYSISALBUM.CAPTION
+msgid "Album Analysis"
+msgstr "Analýza alba"
+
+#: TFRMMP3GAINMAIN.PMNANALYSISTRACK.CAPTION
+msgid "Track Analysis"
+msgstr "Analýza stopy"
+
+#: TFRMMP3GAINMAIN.PMNGAINALBUM.CAPTION
+msgctxt "TFRMMP3GAINMAIN.PMNGAINALBUM.CAPTION"
+msgid "Apply album gain"
+msgstr "Použít zesílení na album"
+
+#: TFRMMP3GAINMAIN.PMNGAINTRACK.CAPTION
+msgctxt "TFRMMP3GAINMAIN.PMNGAINTRACK.CAPTION"
+msgid "Apply track gain"
+msgstr "Použít zesílení na stopu"
+
+#: TFRMMP3GAINMAIN.TOOLBAR1.CAPTION
+msgid "ToolBar1"
+msgstr ""
+
+#: TFRMMP3GAINMAIN.TOOLBUTTON1.CAPTION
+msgid "ToolButton1"
+msgstr ""
+
+#: TFRMMP3GAINMAIN.TOOLBUTTON2.CAPTION
+msgid "ToolButton2"
+msgstr ""
+
+#: TFRMMP3GAINMAIN.TOOLBUTTON3.CAPTION
+msgid "ToolButton3"
+msgstr ""
+
+#: TFRMMP3GAINMAIN.TOOLBUTTON4.CAPTION
+msgid "ToolButton4"
+msgstr ""
+
+#: TFRMMP3GAINMAIN.TOOLBUTTON5.CAPTION
+msgid "ToolButton5"
+msgstr ""
+
+#: TFRMMP3GAINMAIN.TOOLBUTTON6.CAPTION
+msgid "ToolButton6"
+msgstr ""
+
+#: TFRMMP3GAINOPTIONS.BTNCANCEL.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.BTNCANCEL.CAPTION"
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: TFRMMP3GAINOPTIONS.BTNOK.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.BTNOK.CAPTION"
+msgid "&OK"
+msgstr "&OK"
+
+#: TFRMMP3GAINOPTIONS.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.CAPTION"
+msgid "Options"
+msgstr "Možnosti"
+
+#: TFRMMP3GAINOPTIONS.CHKAUTOREADATFILEADD.CAPTION
+msgid "Auto-read tags when adding files or directories"
+msgstr "Po přidání souborů, nebo složek načíst značky"
+
+#: TFRMMP3GAINOPTIONS.CHKIGNORETAGS.CAPTION
+msgid "Ignore Tags (Do not read or write them)"
+msgstr "Ignorovat značky (nenačítat ani nezapisovat)"
+
+#: TFRMMP3GAINOPTIONS.CHKPRESERVEORIGINALTIMESTAMP.CAPTION
+msgid "Preserve original file timestamp"
+msgstr "Zachovat původní časovou značku souboru"
+
+#: TFRMMP3GAINOPTIONS.CHKUSETEMPFILES.CAPTION
+msgid "Use temporary files"
+msgstr "Použít dočasné soubory"
+
+#: TFRMMP3GAINOPTIONS.EDTAACGAINBACKEND.TEXT
+msgid "aacgain"
+msgstr "aacgain"
+
+#: TFRMMP3GAINOPTIONS.EDTMP3GAINBACKEND.TEXT
+msgid "mp3gain"
+msgstr "mp3gain"
+
+#: TFRMMP3GAINOPTIONS.EDTSUBLEVELCOUNT.TEXT
+msgid "6"
+msgstr "6"
+
+#: TFRMMP3GAINOPTIONS.EDTVORBISGAINBACKEND.TEXT
+msgid "vorbisgain"
+msgstr "vorbisgain"
+
+#: TFRMMP3GAINOPTIONS.GRBBACKENDS.CAPTION
+msgid "Backends"
+msgstr "Výkonné aplikace"
+
+#: TFRMMP3GAINOPTIONS.GRBMISCELLANEOUS.CAPTION
+msgid "Miscellaneous"
+msgstr "Různé"
+
+#: TFRMMP3GAINOPTIONS.GRBMP3GAIN.CAPTION
+msgid "MP3Gain"
+msgstr "MP3Gain"
+
+#: TFRMMP3GAINOPTIONS.LBLAACGAINBACKEND.CAPTION
+msgid "AACGain backend:"
+msgstr "Aplikace AACGain:"
+
+#: TFRMMP3GAINOPTIONS.LBLFILENAMEDISPLAY.CAPTION
+msgid "Filename display:"
+msgstr "Zobrazení názvu souboru:"
+
+#: TFRMMP3GAINOPTIONS.LBLMP3GAINBACKEND.CAPTION
+msgid "MP3Gain backend:"
+msgstr "Aplikace MP3Gain:"
+
+#: TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION
+msgctxt "TFRMMP3GAINOPTIONS.LBLSUBLEVELS.CAPTION"
+msgid "Number of sublevels when adding files:"
+msgstr "Počet podúrovní při přidávání souborů:"
+
+#: TFRMMP3GAINOPTIONS.LBLVORBISGAINBACKEND.CAPTION
+msgid "VorbisGain backend:"
+msgstr "Aplikace VorbisGain:"
+
+#: TFRMMP3GAINOPTIONS.RBFILEANDPATH.CAPTION
+msgid "Show path and file in speparate columns"
+msgstr "Zobrazit cestu a soubor v oddělených sloupcích"
+
+#: TFRMMP3GAINOPTIONS.RBFILEWITHPATH.CAPTION
+msgid "Show path with file"
+msgstr "Zobrazit cestu souboru"
+
+#: unitgainconstant.gain_noun
+msgctxt "unitgainconstant.gain_noun"
+msgid "Gain"
+msgstr "Zesílení"
+
+#: unitmain.application_description
+msgid "graphical user interface for mp3gain, aacgain and vorbisgain"
+msgstr "grafické uživatelské rozhraní pro mp3gain, aacgain a vorbisgain"
+
+#: unitmain.column_albumgain
+msgctxt "unitmain.column_albumgain"
+msgid "Album Gain"
+msgstr "Zesílení alba"
+
+#: unitmain.column_albumvolume
+msgid "Album Vol."
+msgstr "Hlasitost alba"
+
+#: unitmain.column_clipalbum
+msgctxt "unitmain.column_clipalbum"
+msgid "clip (Album)"
+msgstr "potlačeno (Album)"
+
+#: unitmain.column_clipping
+msgid "clipping"
+msgstr "potlačení"
+
+#: unitmain.column_cliptrack
+msgid "clip"
+msgstr "potlačeno"
+
+#: unitmain.column_file
+msgctxt "unitmain.column_file"
+msgid "File"
+msgstr "Soubor"
+
+#: unitmain.column_path
+msgid "Path"
+msgstr "Cesta"
+
+#: unitmain.column_pathandfile
+msgid "Path/File"
+msgstr "Cesta / soubor"
+
+#: unitmain.column_trackgain
+msgctxt "unitmain.column_trackgain"
+msgid "Track Gain"
+msgstr "Zesílení stopy"
+
+#: unitmain.column_volume
+msgid "Volume"
+msgstr "Hlasitost"
+
+#: unitmain.target_volume_hint
+msgid ""
+"Only valid for MP3 and AAC files. Ogg-Vorbis files' target volume is fixed to "
+"89 dB."
+msgstr ""
+"Platí pouze pro soubory MP3 a AAC. Hlasitost cílových souborů Ogg-Vorbis je "
+"pevně "
+"nastavena na 89 dB."
+
+#: unitmediagain.strabout
+msgctxt "unitmediagain.strabout"
+msgid "About"
+msgstr "O aplikaci"
+
+#: unitmediagain.strfiles
+msgid "File(s)"
+msgstr "Soubor(y)"
+
+#: unitmediagain.strno
+msgid "no"
+msgstr "ne"
+
+#: unitmediagain.strstatus_aborted
+msgid "Aborted."
+msgstr "Přerušeno."
+
+#: unitmediagain.strstatus_analyzing
+msgid "Analyzing..."
+msgstr "Probíhá analýza..."
+
+#: unitmediagain.strstatus_checkingtaginfo
+msgid "Checking Tag Info..."
+msgstr "Prohledávání značek..."
+
+#: unitmediagain.strstatus_deletingtaginfo
+msgid "Deleting Tag Info..."
+msgstr "Odstraňování informací ze značek..."
+
+#: unitmediagain.strstatus_erroroccured
+msgid "An error occured:"
+msgstr "Došlo k chybě:"
+
+#: unitmediagain.strstatus_exitcode127
+msgid "Error: Cannot start %s. Installed?"
+msgstr "Chyba: Nelze spustit %s. Je nainstalován?"
+
+#: unitmediagain.strstatus_finished
+msgid "Finished."
+msgstr "Dokončeno."
+
+#: unitmediagain.strstatus_gaining
+msgid "Gaining..."
+msgstr "Probíhá úprava zesílení..."
+
+#: unitmediagain.strstatus_undoingchanges
+msgid "Undoing Changes..."
+msgstr "Probíhá vracení změn..."
+
+#: unitmediagain.strstatus_unknownmediatype
+msgid "Unknown Media Type:"
+msgstr "Neznámý typ média:"
+
+#: unitmediagain.stryes
+msgid "yes"
+msgstr "ano"
+
+
