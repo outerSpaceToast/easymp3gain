@@ -25,8 +25,8 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, LResources,
   Unitmain, unitinfo, UnitMP3Gain, unitgainconstant,
-  unitoptions, unitconsoleoutput, unittranslate, UnitMediaGain, UnitVorbisGain,
-  VorbisComment;
+  UnitOptions, unitconsoleoutput, unittranslate, UnitMediaGain, UnitVorbisGain,
+  UnitVorbisComment;
 
 {$R easymp3gain.res}
 
@@ -41,4 +41,3 @@ begin
   frmMP3GainMain.Init;
   Application.Run;
 end.
-

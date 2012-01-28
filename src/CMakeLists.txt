@@ -28,7 +28,7 @@ set (easymp3gain_SRC ${easymp3gain_project}.lpr
 		unitoptions.pas
 		unittranslate.pas
 		unitvorbisgain.pas
-		vorbiscomment.pas
+		unitvorbiscomment.pas
 )
 
 configure_file(appversion.inc.in ${CMAKE_BINARY_DIR}/appversion.inc)

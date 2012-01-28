@@ -25,8 +25,8 @@ unit UnitVorbisGain;
 interface
 
 uses
-  Classes, SysUtils, UnitMediaGain, UnitMain, VorbisComment;
-  
+  Classes, SysUtils, UnitMediaGain, UnitMain, UnitVorbisComment;
+
 
 procedure CreateCommand(MediaGain: TMediaGain; var cmd: String);
 procedure ProcessProgress(MediaGain: TMediaGain; strData: String; var FCurrentSongItem: Integer;

@@ -267,7 +267,13 @@ begin
         begin
           SongItems[i].Volume_Difference:=RoundGainValue(TargetVolume-SongItems[i].Volume_Album);
         end;
-        cmd := cmd + '-a -d ' + Format('%3.1f',[TargetVolume-REF_VOLUME]) + ' -c ';
+        cmd := cmd + '-a -d ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
+        if MediaGainOptions.NoClipping Then Begin
+           cmd := cmd + ' -k '; // automatically lower Track gain to not clip audio
+        end
+        else begin
+             cmd := cmd + ' -c ';   // -c = ignore clipping
+        end;
         StatusText := strStatus_Gaining;
       end;
       mgaTrackGain:
@@ -276,12 +282,26 @@ begin
         begin
           SongItems[i].Volume_Difference:=RoundGainValue(TargetVolume-SongItems[i].Volume_Track);
         end;
-        cmd := cmd + '-r -d ' + Format('%3.1f',[TargetVolume-REF_VOLUME]) + ' -c ';     // -c = ignore clipping
+        cmd := cmd + '-r -d ' + Format('%3.1f',[TargetVolume-REF_VOLUME]);
+        if MediaGainOptions.NoClipping Then Begin
+           //ShowMessage('No clipping!');
+           cmd := cmd + ' -k '; // automatically lower Track gain to not clip audio
+        end
+        else begin
+             //ShowMessage('Ignore clipping!');
+             cmd := cmd + ' -c ';   // -c = ignore clipping
+        end;
         StatusText := strStatus_Gaining
       end;
       mgaConstantGain:
       begin
-        cmd := cmd + '-g ' + Format('%3.1f',[VolumeGain/1.5]) + ' -c ';   // -c = ignore clipping
+        cmd := cmd + '-g ' + Format('%3.1f',[VolumeGain/1.5]);
+        if MediaGainOptions.NoClipping Then Begin
+           cmd := cmd + ' -k '; // automatically lower Track gain to not clip audio
+        end
+        else begin
+             cmd := cmd + ' -c ';   // -c = ignore clipping
+        end;
         StatusText := strStatus_Gaining
       end;
       mgaUndoChanges:

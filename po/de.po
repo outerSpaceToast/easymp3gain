@@ -607,3 +607,6 @@ msgstr "vorbisgain"
 #: unitmediagain.stryes
 msgid "yes"
 msgstr "ja"
+
+#~ msgid "No clipping (automatically lower Track gain to not clip audio)"
+#~ msgstr "Track/Album-Gain automatisch verringern, um Clipping zu verhindern"

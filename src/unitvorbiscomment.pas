@@ -1,4 +1,4 @@
-unit VorbisComment;
+unit UnitVorbisComment;
 
 interface
 

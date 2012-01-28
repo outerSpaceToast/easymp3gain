@@ -27,11 +27,13 @@ RUNNING (.tar.gz):
 2.) Start easyMP3Gain by running "./easymp3gain"
 
 COMPILING:
-If you want to compile easyMP3Gain on your own you first need the FreePascal-compiler (>=2.4.0) and the Lazarus-packages (>=0.9.28) installed.
+If you want to compile easyMP3Gain on your own you first need
+the FreePascal-compiler (>=2.4.0), cmake (>= 2.8) and the
+Lazarus-packages (>=0.9.30) installed.
 1.) download the ".tar.gz" package of easyMP3Gain
 2.) Extract the contents of the source-gz package
-3.) Change to the directory
-4.) ./make
+3.) Create a build directory: mkdir build
+4.) Change to the directory and run "cmake .."
 
 Adding files to the list:
 -------------------------

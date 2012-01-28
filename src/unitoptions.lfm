@@ -1,13 +1,13 @@
 object frmMp3GainOptions: TfrmMp3GainOptions
   Left = 312
-  Height = 502
+  Height = 581
   Top = 171
-  Width = 411
+  Width = 517
   ActiveControl = chkIgnoreTags
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Options'
-  ClientHeight = 502
-  ClientWidth = 411
+  ClientHeight = 581
+  ClientWidth = 517
   Color = clForm
   OnShow = FormShow
   Position = poScreenCenter
@@ -15,7 +15,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   object btnOK: TButton
     Left = 248
     Height = 25
-    Top = 464
+    Top = 536
     Width = 100
     Caption = '&OK'
     OnClick = btnOKClick
@@ -24,7 +24,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   object btnCancel: TButton
     Left = 56
     Height = 25
-    Top = 464
+    Top = 536
     Width = 100
     Caption = '&Cancel'
     OnClick = btnCancelClick
@@ -33,17 +33,17 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   object grbBackends: TGroupBox
     Left = 8
     Height = 136
-    Top = 168
-    Width = 400
+    Top = 240
+    Width = 504
     Caption = 'Backends'
     ClientHeight = 119
-    ClientWidth = 396
+    ClientWidth = 500
     TabOrder = 2
     object lblAACGainBackend: TLabel
       Left = 188
       Height = 16
       Top = 18
-      Width = 115
+      Width = 112
       Caption = 'AACGain backend:'
       ParentColor = False
     end
@@ -51,7 +51,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
       Left = 11
       Height = 16
       Top = 14
-      Width = 117
+      Width = 113
       Caption = 'MP3Gain backend:'
       ParentColor = False
     end
@@ -59,7 +59,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
       Left = 11
       Height = 16
       Top = 70
-      Width = 129
+      Width = 124
       Caption = 'VorbisGain backend:'
       ParentColor = False
     end
@@ -90,62 +90,70 @@ object frmMp3GainOptions: TfrmMp3GainOptions
   end
   object grbMP3Gain: TGroupBox
     Left = 8
-    Height = 156
+    Height = 224
     Top = 8
-    Width = 400
+    Width = 504
     Caption = 'MP3Gain'
-    ClientHeight = 139
-    ClientWidth = 396
+    ClientHeight = 207
+    ClientWidth = 500
     TabOrder = 3
     object chkPreserveOriginalTimestamp: TCheckBox
       Left = 16
-      Height = 22
+      Height = 24
       Top = 104
-      Width = 221
+      Width = 216
       Caption = 'Preserve original file timestamp'
       TabOrder = 0
     end
     object chkUseTempFiles: TCheckBox
       Left = 16
-      Height = 22
+      Height = 24
       Top = 75
-      Width = 145
+      Width = 143
       Caption = 'Use temporary files'
       TabOrder = 1
     end
     object chkAutoReadAtFileAdd: TCheckBox
       Left = 16
-      Height = 22
+      Height = 24
       Top = 46
-      Width = 319
+      Width = 309
       Caption = 'Auto-read tags when adding files or directories'
       OnChange = chkAutoReadAtFileAddChange
       TabOrder = 2
     end
     object chkIgnoreTags: TCheckBox
       Left = 16
-      Height = 22
+      Height = 24
       Top = 16
-      Width = 272
+      Width = 266
       Caption = 'Ignore Tags (Do not read or write them)'
       OnChange = chkIgnoreTagsChange
       TabOrder = 3
+    end
+    object chkNoClipping: TCheckBox
+      Left = 16
+      Height = 24
+      Top = 137
+      Width = 392
+      Caption = 'No clipping (automatically lower Track gain to not clip audio)'
+      TabOrder = 4
     end
   end
   object grbMiscellaneous: TGroupBox
     Left = 8
     Height = 144
-    Top = 312
-    Width = 400
+    Top = 384
+    Width = 504
     Caption = 'Miscellaneous'
     ClientHeight = 127
-    ClientWidth = 396
+    ClientWidth = 500
     TabOrder = 4
     object lblSublevels: TLabel
       Left = 16
       Height = 16
       Top = 14
-      Width = 245
+      Width = 239
       Caption = 'Number of sublevels when adding files:'
       ParentColor = False
     end
@@ -153,7 +161,7 @@ object frmMp3GainOptions: TfrmMp3GainOptions
       Left = 16
       Height = 16
       Top = 65
-      Width = 106
+      Width = 103
       Caption = 'Filename display:'
       ParentColor = False
     end
@@ -167,9 +175,9 @@ object frmMp3GainOptions: TfrmMp3GainOptions
     end
     object rbFileAndPath: TRadioButton
       Left = 22
-      Height = 22
+      Height = 24
       Top = 81
-      Width = 280
+      Width = 274
       Caption = 'Show path and file in speparate columns'
       Checked = True
       State = cbChecked
@@ -177,9 +185,9 @@ object frmMp3GainOptions: TfrmMp3GainOptions
     end
     object rbFileWithPath: TRadioButton
       Left = 22
-      Height = 22
+      Height = 24
       Top = 101
-      Width = 141
+      Width = 143
       Caption = 'Show path with file'
       TabOrder = 2
       TabStop = False

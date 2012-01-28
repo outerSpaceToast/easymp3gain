@@ -37,6 +37,7 @@ type
     chkUseTempFiles: TCheckBox;
     chkPreserveOriginalTimestamp: TCheckBox;
     chkIgnoreTags: TCheckBox;
+    chkNoClipping: TCheckBox;
     chkAutoReadAtFileAdd: TCheckBox;
     edtVorbisGainBackend: TEdit;
     edtSublevelCount: TEdit;
@@ -107,6 +108,7 @@ end;
 procedure TfrmMp3GainOptions.SettingsFromControls;
 begin
   MediaGainOptions.IgnoreTags := chkIgnoreTags.Checked;
+  MediaGainOptions.NoClipping := chkNoClipping.Checked;
   MediaGainOptions.AutoReadAtFileAdd := chkAutoReadAtFileAdd.Checked;
   MediaGainOptions.UseTempFiles := chkUseTempFiles.Checked;
   MediaGainOptions.PreserveOriginalTimestamp := chkPreserveOriginalTimestamp.Checked;
@@ -122,6 +124,7 @@ end;
 procedure TfrmMp3GainOptions.SettingsToControls;
 begin
   chkIgnoreTags.Checked := MediaGainOptions.IgnoreTags;
+  chkNoClipping.Checked := MediaGainOptions.NoClipping;
   chkAutoReadAtFileAdd.Checked := MediaGainOptions.AutoReadAtFileAdd;
   chkPreserveOriginalTimestamp.Checked := MediaGainOptions.PreserveOriginalTimestamp;
   chkUseTempFiles.Checked := MediaGainOptions.UseTempFiles;
@@ -164,6 +167,7 @@ begin
   try
     StringList.Values['Version'] := APPLICATION_VERSION;
     StringList.Values['IgnoreTags']:=BoolToStr(MediaGainOptions.IgnoreTags);
+    StringList.Values['NoClipping']:=BoolToStr(MediaGainOptions.NoClipping);
     StringList.Values['AutoReadAtFileAdd']:=BoolToStr(MediaGainOptions.AutoReadAtFileAdd);
     StringList.Values['UseTempFiles']:=BoolToStr(MediaGainOptions.UseTempFiles);
     StringList.Values['PreserveOriginalTimestamp']:=BoolToStr(MediaGainOptions.PreserveOriginalTimestamp);
@@ -195,6 +199,7 @@ begin
     try
       StringList.LoadFromFile(strHomeDir+strConfigFileName);
       MediaGainOptions.IgnoreTags := StrToBool(StringList.Values['IgnoreTags']);
+      MediaGainOptions.NoClipping := StrToBool(StringList.Values['NoClipping']);
       MediaGainOptions.AutoReadAtFileAdd := StrToBool(StringList.Values['AutoReadAtFileAdd']);
       MediaGainOptions.PreserveOriginalTimestamp := StrToBool(StringList.Values['PreserveOriginalTimestamp']);
       MediaGainOptions.UseTempFiles := StrToBool(StringList.Values['UseTempFiles']);

@@ -161,6 +161,7 @@ end;
 
   TMediaGainOptions = record
     IgnoreTags, AutoReadAtFileAdd, UseTempFiles, PreserveOriginalTimestamp:Boolean;
+    NoClipping:Boolean;
     ToolBarImageListIndex: Integer;
     strMP3GainBackend: String;
     strAACGainBackend: String;
