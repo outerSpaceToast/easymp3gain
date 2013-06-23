@@ -4,7 +4,7 @@
 #  Qt4PAS_FOUND - System has Qt4Pas
 #  QT4PAS_INCLUDE_DIR - Set if system has extra qt4.pas file
 #
-# Copyright (c) 2010, Matthias Klumpp, <matthias@nlinux.org>
+# Copyright (c) 2010, Matthias Klumpp, <matthias@tenstral.net>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.

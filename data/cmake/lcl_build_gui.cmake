@@ -1,6 +1,6 @@
 # - Macro to build Pascal LCL GUI projects
 #
-# Copyright (c) 2010, Matthias Klumpp, <matthias@nlinux.org>
+# Copyright (c) 2010, Matthias Klumpp, <matthias@tenstral.net>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.

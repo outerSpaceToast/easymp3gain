@@ -8,7 +8,7 @@
 #  PASCAL_TARGET_ARCH    - Get FPC's current target architecture
 #  PASCAL_TARGET_OS      - Get FPC's current target os
 #
-# Copyright (c) 2010, Matthias Klumpp <matthias@nlinux.org>
+# Copyright (c) 2010, Matthias Klumpp <matthias@tenstral.net>
 # and others.
 #
 # Redistribution and use is allowed according to the terms of the BSD license.

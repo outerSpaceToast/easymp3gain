@@ -2,8 +2,8 @@
 
 find_package (Lazbuild REQUIRED)
 
-if (LCL_VERSION LESS "930")
-	message(FATAL_ERROR "LCL should be at least version 0.9.30!")
+if (LCL_VERSION LESS "10008")
+	message(FATAL_ERROR "A minimum LCL version of 1.0.8 is required!")
 endif()
 
 set (easymp3gain_project easymp3gain)

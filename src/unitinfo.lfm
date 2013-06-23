@@ -99,7 +99,7 @@ object frmMP3GainGUIInfo: TfrmMP3GainGUIInfo
           'Patrick Kohan'
           '    IconSet "Tango"'
           ''
-          'Matthias Klumpp <matthias@nlinux.org>'
+          'Matthias Klumpp <matthias@tenstral.net>'
           '    Packaging, Debian Maintainer'
           ''
           'The FreePascal- and Lazarus-Team'
