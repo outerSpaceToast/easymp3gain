@@ -17,7 +17,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="5"/>
-      <BuildNr Value="125"/>
+      <BuildNr Value="126"/>
       <StringTable LegalCopyright="(c) by Giantics" ProductVersion="0.5.0"/>
     </VersionInfo>
     <BuildModes Count="1">

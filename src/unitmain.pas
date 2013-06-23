@@ -169,7 +169,7 @@ type
     procedure AddFileAndDirectoryList(SL: TStringList; sublevels: Integer);
     procedure UpdateFileCount;
     procedure SortListView(Lv:TListView; Index:integer; Reverse: Boolean);
-    function AddTask(ASongItem: TSongItem; AMediaGainAction: TMediaGainAction; AVolume: Double): Integer;
+    function AddTask(ASongItem: TSongItem; AMediaGainAction: TMediaGainAction; AVolume: Double): Integer; overload;
     function FitsTaskType(ATask: TMediaGainTask; AMediaGainAction: TMediaGainAction; ASongItem: TSongItem): Boolean;
     { private declarations }
   public
